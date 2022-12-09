@@ -16,6 +16,6 @@
     "incremental": true,
     "noUncheckedIndexedAccess": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs", "src/pages/api/checkout_sessions/index.js", "src/pages/api/cart/index.js", "src/utils/utils.js", "src/pages/api/checkout_sessions/[id].js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs", "src/pages/api/checkout_sessions/index.js", "src/pages/api/cart/index.js", "src/utils/utils.js", "src/pages/api/checkout_sessions/[id].js", "src/utils/get-stripe.js"],
   "exclude": ["node_modules"]
 }
