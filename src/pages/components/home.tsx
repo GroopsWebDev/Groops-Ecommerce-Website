@@ -1,3 +1,4 @@
+import React, { useState, useRef } from "react";
 import Link from "next/link";
 //components
 import Header from "./header";
@@ -15,12 +16,16 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
+
+import { useSession } from "next-auth/react";
+
+
+
 const Home = () => {
   return (
     <>
       <Header />
       {/** BODY */}
-
       {/** Section 1 */}
       <Carousel>
         <Carousel.Item>

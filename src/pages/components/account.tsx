@@ -1,18 +1,16 @@
 import React from "react";
 import Header from "./header";
-import { useSession } from "next-auth/react";
 
-const Cart = () => {
-  const { data: sessionData } = useSession();
-
+const Account = () => {
   return (
     <>
       <Header />
+
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-6xl">
-        Cart Page
+        Account Page
       </div>
     </>
   );
 };
 
-export default Cart;
+export default Account;

@@ -3,6 +3,23 @@ import Head from "next/head";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { trpc } from "../utils/trpc";
+import { GetServerSideProps } from "next";
+
+
+//Testing Log Out Redirect - NOT WORKING!!!
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { data: sessionData } = useSession();
+
+  if (sessionData?.user?.email === undefined) {
+    return {
+      redirect: {
+        destination: "/components/home",
+        permanent: false,
+      },
+    };
+  }
+  return { props: {} };
+};
 
 const Home: NextPage = () => {
   const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
