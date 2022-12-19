@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import Link from "next/link";
 //components
 import Header from "./header";
@@ -17,11 +17,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 
-import { useSession } from "next-auth/react";
-
-
-
-const Home = () => {
+const GuestHome = () => {
   return (
     <>
       <Header />
@@ -113,4 +109,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default GuestHome;

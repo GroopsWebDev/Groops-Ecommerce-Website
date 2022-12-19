@@ -19,7 +19,6 @@ const config = {
       issuer: /\.[jt]sx?$/,
       use: ['@svgr/webpack'],
     });
-
     return config;
   },
 };

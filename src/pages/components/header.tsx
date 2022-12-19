@@ -17,11 +17,13 @@ import Avatar from "../../../public/assets/avatar.svg";
 //nextAuth
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+
 //`react-confirm-alert`
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 
 interface Props {
+  //define props here
   // triggerAlert: ()=>void;
 }
 
@@ -31,19 +33,43 @@ const Header: React.FC<Props> = ({}) => {
   const target = useRef(null); //ref for overlay
 
   const logout = () => {
+    // confirmAlert({
+    //   title: "Are you sure to log out?",
+    //   message: "You will be logged out from your account.",
+    //   buttons: [
+    //     {
+    //       label: "LOG OUT",
+    //       onClick: () => signOut(),
+    //     },
+    //     {
+    //       label: "No",
+    //       onClick: () => console.log("Click No"),
+    //     },
+    //   ],
+    // });
     confirmAlert({
-      title: "Are you sure to log out?",
-      message: "You will be logged out from your account.",
-      buttons: [
-        {
-          label: "LOG OUT",
-          onClick: () => signOut(),
-        },
-        {
-          label: "No",
-          onClick: () => console.log("Click No"),
-        },
-      ],
+      customUI: ({ onClose }) => {
+        return (
+          <div className="bg-white border-black border-2 rounded-md">
+            <div className="m-4">
+            <h1>Are you sure to log out?</h1>
+            <p>You will be logged out from your account.</p>
+            <Button className="w-[90px]"  variant="success" onClick={onClose}>No</Button>
+            <Button 
+              className="ml-10"
+              variant="outline-danger"
+              onClick={() => {
+                signOut(),
+                onClose();
+              }}
+            >
+             Log Out
+            </Button>
+            </div>
+           
+          </div>
+        );
+      }
     });
   };
 
@@ -51,7 +77,7 @@ const Header: React.FC<Props> = ({}) => {
     <>
       <Navbar collapseOnSelect expand="lg" bg="light">
         <Container className="justify-content-start">
-          <Navbar.Brand href="/components/home">
+          <Navbar.Brand href="/components/guestHome">
             <GroopLogo className="w-full" />
           </Navbar.Brand>
 
@@ -64,21 +90,25 @@ const Header: React.FC<Props> = ({}) => {
             <Nav>
               {/* <Nav.Link href="#" className='text-black'>About Us</Nav.Link> */}
               <Nav.Link href="/components/product">
-                <div className="mr-[10px] text-xl text-black">SHOP</div>
+                <div className="mr-[10px] mt-[10px] text-xl text-black hover:font-bold">
+                  SHOP
+                </div>
               </Nav.Link>
               <Nav.Link href="/components/group-order">
-                <div className="mr-[10px] text-xl text-black">GROUP ORDER</div>
+                <div className="mr-[10px] mt-[10px] text-xl text-black hover:font-bold">
+                  GROUP ORDER
+                </div>
               </Nav.Link>
-             
 
               {/* Account Icon Info */}
               {sessionData && (
-                <div>
-                   <Nav.Link href="/components/cart">
-                <BsCart2 className="text-black text-3xl"  />
-              </Nav.Link>
+                <Nav.Link href="/components/cart">
+                  <BsCart2 className="mb-[10px] text-4xl text-black" />
+                </Nav.Link>
+              )}
 
-
+              {sessionData && (
+                <Nav.Link href="#">
                   <div ref={target}>
                     <OverlayTrigger
                       placement="bottom"
@@ -95,7 +125,7 @@ const Header: React.FC<Props> = ({}) => {
                           setShowOverlay(!showOverlay);
                         }}
                       >
-                        <BsPersonCircle className="mt-[3px] text-4xl" />
+                        <BsPersonCircle className="mt-[3px] ml-[10px] text-4xl text-black" />
                       </div>
                     </OverlayTrigger>
                   </div>
@@ -114,11 +144,11 @@ const Header: React.FC<Props> = ({}) => {
                         </div>
                         <Card.Body>
                           <Card.Title>{sessionData.user?.name}</Card.Title>
-                          <Card.Title>{sessionData.user?.email}</Card.Title>
+                          <Card.Text>{sessionData.user?.email}</Card.Text>
                         </Card.Body>
                         <ListGroup className="list-group-flush">
                           <ListGroup.Item className="hover:bg-slate-200">
-                            <BsPersonCircle className="mr-[10px] mb-[5px] inline text-2xl" />
+                            <BsPersonCircle className="inline mr-[10px] mb-[5px] text-2xl" />
                             <Link
                               href="/components/account"
                               className="text-xl text-black no-underline"
@@ -138,8 +168,7 @@ const Header: React.FC<Props> = ({}) => {
                       </Card>
                     </div>
                   </Overlay>
-
-                </div>
+                </Nav.Link>
               )}
 
               <Nav.Link href="#">
@@ -147,8 +176,14 @@ const Header: React.FC<Props> = ({}) => {
                   ""
                 ) : (
                   <button
-                    className="text-xl text-black ml-[3px]"
-                    onClick={sessionData ? () => "" : () => {signIn()}}
+                    className="ml-[2px] mt-[10px] text-xl text-black"
+                    onClick={
+                      sessionData
+                        ? () => ""
+                        : () => {
+                            signIn();
+                          }
+                    }
                   >
                     LOGIN
                   </button>

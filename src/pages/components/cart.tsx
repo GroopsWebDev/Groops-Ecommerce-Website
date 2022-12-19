@@ -1,6 +1,25 @@
 import React from "react";
 import Header from "./header";
-import { useSession } from "next-auth/react";
+//nextAuth
+import { useSession, getSession } from "next-auth/react";
+import { GetServerSideProps } from "next";
+
+//When I click logout, it will redirect to the guestHome page
+export const getServerSideProps: GetServerSideProps = async (req) => {
+  const session = await getSession(req);
+  console.log("session", session);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/components/guestHome",
+        permanent: false,
+      },
+    };
+  }
+
+  return { props: { session } };
+};
+
 
 const Cart = () => {
   const { data: sessionData } = useSession();
