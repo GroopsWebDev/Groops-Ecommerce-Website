@@ -1,17 +1,16 @@
-import React from "react";
-import Header from "./header";
+import React from 'react'
+import Header from '../header'
+import { GetServerSideProps } from "next";
 //nextAuth
 import { useSession, getSession } from "next-auth/react";
-import { GetServerSideProps } from "next";
 
 //When I click logout, it will redirect to the guestHome page
 export const getServerSideProps: GetServerSideProps = async (req) => {
   const session = await getSession(req);
-  console.log("session", session);
   if (!session) {
     return {
       redirect: {
-        destination: "/components/guestHome",
+        destination: "/components/guest/group-order",
         permanent: false,
       },
     };
@@ -20,18 +19,17 @@ export const getServerSideProps: GetServerSideProps = async (req) => {
   return { props: { session } };
 };
 
-
-const Cart = () => {
-  const { data: sessionData } = useSession();
-
+const groupOrder = () => {
   return (
     <>
-      <Header />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-6xl">
-        Cart Page
+      <Header/>
+      
+      <div className='absolute text-6xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
+      Member Group Order Page
       </div>
     </>
-  );
-};
 
-export default Cart;
+  )
+}
+
+export default groupOrder

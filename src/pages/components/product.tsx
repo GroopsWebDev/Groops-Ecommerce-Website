@@ -8,7 +8,7 @@ const Product = () => {
      <div className='relative'></div>
      
      <div className='absolute text-6xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
-        product page
+        product page (member & guest)
      </div>
     </>
    

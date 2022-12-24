@@ -1,5 +1,8 @@
 import React from "react";
 import Link from "next/link";
+import { GetServerSideProps } from "next";
+//nextAuth
+import { useSession, getSession } from "next-auth/react";
 //components
 import Header from "./header";
 //import SVG
@@ -9,15 +12,30 @@ import WelcomeImage3 from "../../../public/assets/welcome-img-3.svg";
 import PopularProduct from "../../../public/assets/popular-product.svg";
 import OurFeaturedProducts from "../../../public/assets/our-featured-products.svg";
 import Footer from "../../../public/assets/footer.svg";
-
 //React Bootstrap
 import Carousel from "react-bootstrap/Carousel";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
+//When I click logout, it will redirect to the guestHome page
+// export const getServerSideProps: GetServerSideProps = async (req) => {
+//   const session = await getSession(req);
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: "/components/guest/home",
+//         permanent: false,
+//       },
+//     };
+//   }
+
+//   return { props: { session } };
+// };
 
 const GuestHome = () => {
+  const { data: sessionData } = useSession();
+
   return (
     <>
       <Header />
