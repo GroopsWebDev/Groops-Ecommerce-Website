@@ -22,12 +22,8 @@ import Link from "next/link";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 
-interface Props {
-  //define props here
-  // triggerAlert: ()=>void;
-}
 
-const Header: React.FC<Props> = ({}) => {
+const Header = () => {
   const { data: sessionData } = useSession();
   const [showOverlay, setShowOverlay] = useState(false); //ref for overlay
   const target = useRef(null); //ref for overlay
