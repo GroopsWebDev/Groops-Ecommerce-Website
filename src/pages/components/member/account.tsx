@@ -11,7 +11,7 @@ export const getServerSideProps: GetServerSideProps = async (req) => {
     if (!session) {
       return {
         redirect: {
-          destination: "/components/guest/home",
+          destination: "/components/home",
           permanent: false,
         },
       };
