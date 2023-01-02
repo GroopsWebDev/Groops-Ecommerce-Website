@@ -33,6 +33,7 @@ import { AiFillInstagram, AiFillWechat, AiFillYoutube } from "react-icons/ai";
 import { FaTiktok } from "react-icons/fa";
 import JoinNowButton from "./utilities/join-now-btn";
 import SignInButton from "./utilities/sign-in-btn";
+import ShopNowButton from "./utilities/shop-now-btn";
 
 //When I click logout, it will redirect to the guestHome page
 // export const getServerSideProps: GetServerSideProps = async (req) => {
@@ -59,30 +60,27 @@ const GuestHome = () => {
       {/** Section 1 */}
       <Carousel>
         <Carousel.Item>
+        <div className="relative font-sans text-white">
           <WelcomeImage1 className="w-full" />
-        </Carousel.Item>
-        <Carousel.Item>
-          <div className="relative font-sans text-white">
-            <WelcomeImage2 className="w-full" />
-            <div className="absolute top-72 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl backdrop-blur">
-              Groops is a Revolution
-            </div>
-            <div className="absolute top-[400px] left-1/2  -translate-x-80 -translate-y-1/2 text-xl backdrop-blur">
-              We optimize the allocation of social resources by reproduction of
-              simply daily shopping.
-            </div>
+          <div className="absolute top-3/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <ShopNowButton />
+          </div>
           </div>
         </Carousel.Item>
         <Carousel.Item>
           <div className="relative font-sans text-white">
+            <WelcomeImage2 className="w-full" />
+            <div className="absolute top-3/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2">
+          <ShopNowButton />
+          </div>
+          </div>
+        </Carousel.Item>
+        <Carousel.Item>
+          <div className="relative font-sans text-white h-fit">
             <WelcomeImage3 className="w-full" />
-            <div className="absolute top-72 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl backdrop-blur">
-              Groops is a Revolution
-            </div>
-            <div className="absolute top-[400px] left-1/2  -translate-x-80 -translate-y-1/2 text-xl backdrop-blur">
-              We optimize the allocation of social resources by reproduction of
-              simply daily shopping.
-            </div>
+            <div className="absolute top-3/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2">
+          <ShopNowButton />
+          </div>
           </div>
         </Carousel.Item>
       </Carousel>
