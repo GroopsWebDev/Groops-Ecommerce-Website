@@ -60,32 +60,32 @@ const GuestHome = () => {
       {/** Section 1 */}
       <Carousel>
         <Carousel.Item>
-        <div className="relative font-sans text-white">
-          <WelcomeImage1 className="w-full" />
-          <div className="absolute top-3/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <ShopNowButton />
-          </div>
+          <div className="relative font-sans text-white">
+            <WelcomeImage1 className="w-full" />
+            <div className="absolute top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 transform">
+              <ShopNowButton />
+            </div>
           </div>
         </Carousel.Item>
         <Carousel.Item>
           <div className="relative font-sans text-white">
             <WelcomeImage2 className="w-full" />
-            <div className="absolute top-3/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2">
-          <ShopNowButton />
-          </div>
+            <div className="absolute top-3/4 left-1/4 -translate-x-1/2 -translate-y-1/2 transform">
+              <ShopNowButton />
+            </div>
           </div>
         </Carousel.Item>
         <Carousel.Item>
-          <div className="relative font-sans text-white h-fit">
+          <div className="relative h-fit font-sans text-white">
             <WelcomeImage3 className="w-full" />
-            <div className="absolute top-3/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2">
-          <ShopNowButton />
-          </div>
+            <div className="absolute top-3/4 left-1/4 -translate-x-1/2 -translate-y-1/2 transform">
+              <ShopNowButton />
+            </div>
           </div>
         </Carousel.Item>
       </Carousel>
       {/** Section 2 */}
-      <OurFeaturedProducts className="ml-auto mr-auto mt-20 mb-20 w-1/3" />
+      <OurFeaturedProducts className="ml-auto mr-auto mt-32 mb-20 w-[466px]" />
       <Container className="flex-auto justify-center ">
         <Row>
           <Col>
@@ -129,23 +129,27 @@ const GuestHome = () => {
       </Container>
 
       {/** Section 3 Card Carousel*/}
-      <TopGroupsTile className="ml-auto mr-auto mt-20 mb-20 w-60" />
+      <TopGroupsTile className="ml-auto mr-auto mt-10 mb-20 w-60" />
       <TopGroups className="ml-auto mr-auto w-9/12" />
 
-      {/** Section 4 Become a Groops*/}
-      <GroopsMembership className="ml-auto mr-auto mt-20 mb-20 w-1/3" />
-      <div className="relative">
-        <BecomeMember className="w-full" />
-        <div className="absolute top-[380px] ml-[7rem]">
-          <JoinNowButton />
+      {/** Section 4 Become a Groops | Hide this if signed in !!!*/}
+      {sessionData ? null : (
+        <div>
+          <GroopsMembership className="ml-auto mr-auto mt-32 mb-20 w-[430px]" />
+          <div className="relative">
+            <BecomeMember className="w-full" />
+            <div className="absolute top-[380px] ml-[7rem]">
+              <JoinNowButton />
+            </div>
+            <div className="absolute top-[380px] ml-96">
+              <SignInButton />
+            </div>
+          </div>
         </div>
-        <div className="absolute top-[380px] ml-96">
-          <SignInButton />
-        </div>
-      </div>
+      )}
 
       {/** Section 5 Help Center */}
-      <HelpCenterText className="ml-auto mr-auto mt-20 mb-20 w-60" />
+      <HelpCenterText className="ml-auto mr-auto mt-32 mb-20 w-60" />
       <Container className="flex-auto justify-center ">
         <Row>
           <Col>

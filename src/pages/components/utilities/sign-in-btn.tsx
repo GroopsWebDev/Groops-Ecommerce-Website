@@ -7,7 +7,7 @@ const SignInButton = () => {
         href="#_"
         className="no-underline text-3xl group relative inline-flex items-center justify-center overflow-hidden rounded-full border-2 border-white px-6 py-3 pt-2 pb-2 pl-14 pr-14 shadow-md transition duration-300 ease-out"
       >
-        <span className="ease absolute inset-0 flex h-full w-full -translate-x-full items-center justify-center bg-purple-500 text-white duration-300 group-hover:translate-x-0">
+        <span className="ease absolute inset-0 flex h-full w-full -translate-x-full items-center justify-center bg-gradient-to-br from-blue-600 via-purple-600 to-pink-700 text-white duration-300 group-hover:translate-x-0">
           <svg
             className="h-6 w-6"
             fill="none"
