@@ -9,15 +9,10 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,svg,png}", 
     "./public/**/*.{svg,png}",
   ],
-  theme: {
-    extend: {
-      backgroundImage: {
-        'welcome-image-svg': "url('/public/assets/welcome-image.svg')",
-      },
-      spacing:{
-
-      }
-    },
-  },
   plugins: [],
+  variants:{
+    textColor: ['responsive', 'hover', 'focus', 'group-hover'],
+    borderColor: ['responsive', 'hover', 'focus', 'group-hover'],
+    backgroundColor: ['responsive', 'hover', 'focus', 'group-hover'],
+  }
 };
