@@ -70,7 +70,6 @@ const Header = () => {
 
   return (
     <>
-      {/* IF YOU ARE NOT LOGGED IN, YOU WILL SEE THE GUEST HEADER */}
       <Navbar collapseOnSelect expand="lg" bg="light">
         <Container className="justify-content-start">
           <Link href="/" passHref>
