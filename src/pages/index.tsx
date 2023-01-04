@@ -7,6 +7,7 @@ import WelcomeImage1 from "../../public/assets/welcome-img-1.svg";
 import WelcomeImage2 from "../../public/assets/welcome-img-2.svg";
 import WelcomeImage3 from "../../public/assets/welcome-img-3.svg";
 import PopularProduct from "../../public/assets/popular-product.svg";
+import Drinks from "../../public/assets/drinks.svg";
 import OurFeaturedProducts from "../../public/assets/our-featured-products.svg";
 import OnSale from "../../public/assets/on-sale.svg";
 import BecomeMember from "../../public/assets/become-member-img.svg";
@@ -70,40 +71,31 @@ const Home = () => {
         <Row>
           <Col>
             <Link href="/components/product">
-              <PopularProduct className="ml-11 w-full" />
+              <PopularProduct className="w-11/12" />
             </Link>
           </Col>
           <Col>
-            <OnSale className="ml-11 w-full" />
+            <OnSale className="w-11/12" />
           </Col>
           <Col>
             <Link href="/components/product">
-              <PopularProduct className="ml-11 w-full" />
+              <Drinks className="w-11/12" />
             </Link>
           </Col>
         </Row>
         <Row>
           <Col>
-            <PopularProduct className="ml-12 w-full" />
-          </Col>
-          <Col>
-            <PopularProduct className="ml-11 w-full" />
-          </Col>
-          <Col>
-            <PopularProduct className="ml-11 w-full" />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
             <Link href="/components/product">
-              <PopularProduct className="ml-10 w-full" />
+              <PopularProduct className="w-11/12" />
             </Link>
           </Col>
           <Col>
-            <PopularProduct className="ml-10 w-full" />
+            <OnSale className="w-11/12" />
           </Col>
           <Col>
-            <PopularProduct className="ml-10 w-full" />
+            <Link href="/components/product">
+              <Drinks className="w-11/12" />
+            </Link>
           </Col>
         </Row>
       </Container>

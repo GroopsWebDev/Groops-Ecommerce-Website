@@ -14,5 +14,10 @@ module.exports = {
     textColor: ['responsive', 'hover', 'focus', 'group-hover'],
     borderColor: ['responsive', 'hover', 'focus', 'group-hover'],
     backgroundColor: ['responsive', 'hover', 'focus', 'group-hover'],
+  },
+  theme: {
+    fontFamily:{
+      'sans': ['Helvetica', 'Arial', 'sans-serif'],
+    }
   }
 };

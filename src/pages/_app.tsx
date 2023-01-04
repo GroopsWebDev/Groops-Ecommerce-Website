@@ -6,7 +6,7 @@ import Head from "next/head";
 import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from "../components/footer";
-import Header from "../components/header";
+import Header from "../components/navbar";
 import SSRProvider from "react-bootstrap/SSRProvider";
 
 const MyApp: AppType<{ session: Session | null }> = ({

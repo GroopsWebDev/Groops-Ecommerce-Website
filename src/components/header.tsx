@@ -70,7 +70,6 @@ const Header = () => {
 
   return (
     <>
-      {/* IF YOU ARE NOT LOGGED IN, YOU WILL SEE THE GUEST HEADER */}
       <Navbar collapseOnSelect expand="lg" bg="light">
         <Container className="justify-content-start">
           <Link href="/" passHref>
@@ -87,20 +86,16 @@ const Header = () => {
                 className="justify-content-end"
               >
                 <Nav>
-                  <Link href="/product" passHref>
                   <Nav.Link >
                     <div className="mr-[10px] mt-[10px] text-xl text-black hover:font-bold">
                       SHOP
                     </div>
                   </Nav.Link>
-                  </Link>
-                  <Link href="/member/group-order" passHref>
                   <Nav.Link >
                     <div className="mr-[10px] mt-[10px] text-xl text-black hover:font-bold">
                       GROUP ORDER
                     </div>
                   </Nav.Link>
-                  </Link>
                   <Nav.Link href="/member/cart">
                     <BsCart2 className="mb-[10px] text-4xl text-black" />
                   </Nav.Link>
@@ -176,13 +171,11 @@ const Header = () => {
                 className="justify-content-end"
               >
                 <Nav>
-                  <Link href="/product" passHref>
-                  <Nav.Link >
+                  <Nav.Link href="/product" >
                     <div className="mr-[10px] mt-[10px] text-xl text-black hover:font-bold">
                       SHOP
                     </div>
                   </Nav.Link>
-                  </Link>
 
                   <Nav.Link href="/guest/group-order">
                     <div className="mr-[10px] mt-[10px] text-xl text-black hover:font-bold">
