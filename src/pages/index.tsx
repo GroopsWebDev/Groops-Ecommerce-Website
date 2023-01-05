@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 //nextAuth
 import { useSession, getSession } from "next-auth/react";
 //import SVG
@@ -10,6 +11,12 @@ import PopularProduct from "../../public/assets/popular-product.svg";
 import Drinks from "../../public/assets/drinks.svg";
 import OurFeaturedProducts from "../../public/assets/our-featured-products.svg";
 import OnSale from "../../public/assets/on-sale.svg";
+import Snacks from "../../public/assets/snacks.svg";
+import InstantFood from "../../public/assets/instant-food.svg";
+import FrozenFood from "../../public/assets/frozen-food.svg";
+import Kitchen from "../../public/assets/kitchen.svg";
+import PersonalCare from "../../public/assets/personal-care.svg";
+import Groceries from "../../public/assets/groceries.svg";
 import BecomeMember from "../../public/assets/become-member-img.svg";
 import TopGroupsTile from "../../public/assets/top-groups-text.svg";
 import TopGroups from "../../public/assets/top-groups.svg";
@@ -19,6 +26,7 @@ import QuestionsAboutYourOrder from "../../public/assets/questions-about-your-or
 import DeliveryOrPickup from "../../public/assets/delivery-or-pickup.svg";
 import EarningsWithGroups from "../../public/assets/earnings-with-groups.svg";
 import AccountAndPurchase from "../../public/assets/account-and-purchase.svg";
+import MembershipsAdnGifts from "../../public/assets/memberships-and-gifts.svg";
 import RequestProducts from "../../public/assets/request-products.svg";
 //React Bootstrap
 import Carousel from "react-bootstrap/Carousel";
@@ -34,7 +42,46 @@ import ShopNowButton from "../components/elements/shop-now-btn";
 
 const Home = () => {
   const { data: sessionData } = useSession();
-
+  const featuredProductsStyle = "scale-100 ml-10 mr-10 mb-20 transform transition duration-300 hover:scale-110";
+  const featuredProducts = [
+    {
+      item:  <PopularProduct className={featuredProductsStyle}/>,
+      link: "/product"
+    },
+    {
+      item:  <OnSale className={featuredProductsStyle}/>,
+      link: "/"
+    },
+    {
+      item:  <Drinks className={featuredProductsStyle} />,
+      link: "/"
+    },
+    {
+      item:  <Snacks className={featuredProductsStyle}/>,
+      link: "/"
+    },
+    {
+      item:  <InstantFood className={featuredProductsStyle}/>,
+      link: "/"
+    },
+    {
+      item:  <FrozenFood className={featuredProductsStyle}/>,
+      link: "/"
+    },
+    {
+      item:  <Kitchen className={featuredProductsStyle}/>,
+      link: "/"
+    },
+    {
+      item:  <PersonalCare className={featuredProductsStyle}/>,
+      link: "/"
+    },
+    {
+      item:  <Groceries className={featuredProductsStyle}/>,
+      link: "/"
+    },
+  ]
+ 
   return (
     <>
       {/** BODY */}
@@ -68,9 +115,9 @@ const Home = () => {
       {/** Section 2 */}
       <OurFeaturedProducts className="ml-auto mr-auto mt-32 mb-20 w-[466px]" />
       <Container className="flex-auto justify-center ">
-        <Row>
+        {/* <Row>
           <Col>
-            <Link href="/components/product">
+            <Link href="/product">
               <PopularProduct className="w-11/12" />
             </Link>
           </Col>
@@ -78,26 +125,31 @@ const Home = () => {
             <OnSale className="w-11/12" />
           </Col>
           <Col>
-            <Link href="/components/product">
+            <Link href="/product">
               <Drinks className="w-11/12" />
             </Link>
           </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Link href="/components/product">
-              <PopularProduct className="w-11/12" />
-            </Link>
-          </Col>
-          <Col>
-            <OnSale className="w-11/12" />
-          </Col>
-          <Col>
-            <Link href="/components/product">
-              <Drinks className="w-11/12" />
-            </Link>
-          </Col>
-        </Row>
+        </Row> */}
+        {featuredProducts.map((product,index) => {
+          if(index % 3 === 0){
+            return (
+              <Row key={index} >
+                <Col>
+                  <Link  href={featuredProducts[index]!.link}>{featuredProducts[index]?.item}</Link>
+                </Col>
+                <Col>
+                <Link  href={featuredProducts[index+1]!.link}>{featuredProducts[index+1]?.item}</Link>
+                </Col>
+                <Col>
+                <Link  href={featuredProducts[index+2]!.link}>{featuredProducts[index+2]?.item}</Link>
+                </Col>
+              </Row>
+            );
+          }
+      
+        })
+        }
+ 
       </Container>
 
       {/** Section 3 Card Carousel*/}
@@ -110,10 +162,10 @@ const Home = () => {
           <GroopsMembership className="ml-auto mr-auto mt-32 mb-20 w-[430px]" />
           <div className="relative">
             <BecomeMember className="w-full" />
-            <div className="absolute top-[380px] ml-[7rem]">
+            <div className="absolute top-[380px]  left-[115px] ">
               <JoinNowButton />
             </div>
-            <div className="absolute top-[380px] ml-96">
+            <div className="absolute top-[380px] left-[400px]">
               <SignInButton />
             </div>
           </div>
@@ -123,6 +175,11 @@ const Home = () => {
       {/** Section 5 Help Center */}
       <HelpCenterText className="ml-auto mr-auto mt-32 mb-20 w-60" />
       <Container className="flex-auto justify-center ">
+      <Row>
+          <Col>
+          <Image src="/assets/person.png" width={100} height={100} alt=""/>
+          </Col>
+      </Row>
         <Row>
           <Col>
             <QuestionsAboutYourOrder />
@@ -132,6 +189,17 @@ const Home = () => {
           </Col>
           <Col>
             <EarningsWithGroups />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <AccountAndPurchase />
+          </Col>
+          <Col>
+            <MembershipsAdnGifts />
+          </Col>
+          <Col>
+            <RequestProducts />
           </Col>
         </Row>
       </Container>

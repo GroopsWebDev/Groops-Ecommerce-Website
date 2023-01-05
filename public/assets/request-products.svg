@@ -1,8 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 208.6 136.175">
-    <g id="Request_Products_group" data-name="Request Products group" transform="translate(-1376.649 -2430.262)">
-      <text id="_" data-name="􀈎" transform="translate(1484.039 2489.563)" fill="#242424" stroke="#242424" stroke-width="0.3" font-size="62" font-family="SegoeUI-Regular, SF Compact"><tspan x="-35.094" y="0">􀈎</tspan></text>
-      <text id="Request_Products" data-name="Request Products" transform="translate(1480.949 2560.138)" fill="#242424" stroke="#242424" stroke-width="0.3" font-size="26" font-family="Helvetica"><tspan x="-103.333" y="0">Request Products</tspan></text>
-    </g>
-  </svg>
-
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 266.6 134.35">
+  <g id="Group_319" data-name="Group 319" transform="translate(-1386.351 -3995.079)">
+    <text id="_" data-name="􀈎" transform="translate(1486.741 4054.379)" fill="#242424" stroke="#242424" stroke-width="0.3" font-size="62" font-family="SegoeUI-Regular, SF Compact"><tspan x="-35.094" y="0">􀈎</tspan></text>
+    <text id="Request_Products" data-name="Request Products" transform="translate(1486.651 4122.129)" fill="#242424" stroke="#242424" stroke-width="0.3" font-size="26" font-family="SegoeUI-Regular, Segoe UI"><tspan x="-99.69" y="0">Request Products</tspan></text>
+  </g>
+</svg>
