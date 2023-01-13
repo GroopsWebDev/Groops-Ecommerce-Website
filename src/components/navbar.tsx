@@ -30,7 +30,7 @@ const Header = () => {
   const [target, setTarget] = useState(null); //target for overlay
   const ref = useRef(null); //ref for overlay
   const { push, asPath } = useRouter();
-  const firstName = sessionData?.user?.name.split(" ")[0];
+  const firstName = sessionData?.user?.name?.split(" ")[0];
 
   const logout = () => {
     confirmAlert({
@@ -74,7 +74,7 @@ const Header = () => {
     push(`/auth/signin?callbackUrl=${asPath}`);
   };
 
-  const handleClick = (event) => {
+  const handleClick = (event:any) => {
     setShowOverlay(!showOverlay);
     setTarget(event.target);
   };

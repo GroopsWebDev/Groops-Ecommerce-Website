@@ -16,8 +16,10 @@ module.exports = {
     backgroundColor: ['responsive', 'hover', 'focus', 'group-hover'],
   },
   theme: {
-    fontFamily:{
-      'sans': ['Helvetica', 'Arial', 'sans-serif'],
+    extend:{
+      fontFamily:{
+        'league-spartan': ['League Spartan', 'sans-serif'],
+      }
     }
   }
 };
