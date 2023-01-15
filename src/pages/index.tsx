@@ -1,6 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+
+//TRPC
+import { trpc } from "../utils/trpc";
 //nextAuth
 import { useSession, getSession } from "next-auth/react";
 //import SVG
@@ -115,21 +118,6 @@ const Home = () => {
       {/** Section 2 */}
       <OurFeaturedProducts className="ml-auto mr-auto mt-32 mb-20 w-[466px]" />
       <Container className="flex-auto justify-center ">
-        {/* <Row>
-          <Col>
-            <Link href="/product">
-              <PopularProduct className="w-11/12" />
-            </Link>
-          </Col>
-          <Col>
-            <OnSale className="w-11/12" />
-          </Col>
-          <Col>
-            <Link href="/product">
-              <Drinks className="w-11/12" />
-            </Link>
-          </Col>
-        </Row> */}
         {featuredProducts.map((product,index) => {
           if(index % 3 === 0){
             return (
@@ -179,6 +167,8 @@ const Home = () => {
           <Col>
           <Image src="/assets/person.png" width={100} height={100} alt=""/>
           </Col>
+          <div className="league-spartan text-4xl">Questions About Your Order</div>
+          <div className="font-sans text-4xl">Questions About Your Order</div>
       </Row>
         <Row>
           <Col>
