@@ -44,7 +44,6 @@ import SignInButton from "../components/elements/sign-in-btn";
 import ShopNowButton from "../components/elements/shop-now-btn";
 
 const Home = () => {
-
   const { data: sessionData } = useSession();
   const featuredProductsStyle = "scale-100 ml-10 mr-10 mb-20 transform transition duration-300 hover:scale-110";
   const featuredProducts = [
