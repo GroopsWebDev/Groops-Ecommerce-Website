@@ -37,8 +37,6 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 //react icons
-import { AiFillInstagram, AiFillWechat, AiFillYoutube } from "react-icons/ai";
-import { FaTiktok } from "react-icons/fa";
 import JoinNowButton from "../components/elements/join-now-btn";
 import SignInButton from "../components/elements/sign-in-btn";
 import ShopNowButton from "../components/elements/shop-now-btn";
