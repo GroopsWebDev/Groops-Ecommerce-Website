@@ -180,7 +180,7 @@ const Header = () => {
                   SHOP
                 </Link>
                 <Link
-                  href="/member/group-order"
+                  href="/guest/group-order"
                   className="text-xl font-medium text-black no-underline"
                 >
                   GROUP ORDER
