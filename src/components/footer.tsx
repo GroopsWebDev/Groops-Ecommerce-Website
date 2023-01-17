@@ -1,6 +1,6 @@
 import React from 'react'
 //import SVG
-import FooterSVG from "../../public/assets/footer.svg";
+import FooterSVG from "../../public/assets/footer/footer.svg";
 //React Bootstrap
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
