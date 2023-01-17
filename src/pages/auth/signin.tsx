@@ -46,7 +46,7 @@ const Signin = () => {
 			push('/')
 		}, 5000)
 
-		return <div>you are already signed in</div>
+		push('/');//redirect back to Home page
 	}
 
 	const handleOAuthSignIn = (provider:any) => () => signIn(provider)

@@ -1,6 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+
+//TRPC
+import { trpc } from "../utils/trpc";
 //nextAuth
 import { useSession, getSession } from "next-auth/react";
 //import SVG
@@ -164,6 +167,8 @@ const Home = () => {
           <Col>
           <Image src="/assets/person.png" width={100} height={100} alt=""/>
           </Col>
+          <div className="league-spartan text-4xl">Questions About Your Order</div>
+          <div className="font-sans text-4xl">Questions About Your Order</div>
       </Row>
         <Row>
           <Col>

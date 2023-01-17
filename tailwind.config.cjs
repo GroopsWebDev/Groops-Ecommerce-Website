@@ -10,14 +10,12 @@ module.exports = {
     "./public/**/*.{svg,png}",
   ],
   plugins: [],
-  variants:{
-    textColor: ['responsive', 'hover', 'focus', 'group-hover'],
-    borderColor: ['responsive', 'hover', 'focus', 'group-hover'],
-    backgroundColor: ['responsive', 'hover', 'focus', 'group-hover'],
-  },
   theme: {
-    fontFamily:{
-      'sans': ['Helvetica', 'Arial', 'sans-serif'],
+    extend:{
+      fontFamily:{
+        'league-spartan': ['League Spartan', 'sans-serif'],
+      }
     }
   }
 };
+

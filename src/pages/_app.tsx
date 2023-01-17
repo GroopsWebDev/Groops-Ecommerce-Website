@@ -7,7 +7,7 @@ import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from "../components/footer";
 import Header from "../components/navbar";
-import SSRProvider from "react-bootstrap/SSRProvider";
+
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -15,7 +15,6 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <SSRProvider>
         <Head>
           <title>Groops</title>
           <meta name="description" content="Groops" />
@@ -24,7 +23,6 @@ const MyApp: AppType<{ session: Session | null }> = ({
         <Header />
         <Component {...pageProps} />
         <Footer />
-      </SSRProvider>
     </SessionProvider>
   );
 };
