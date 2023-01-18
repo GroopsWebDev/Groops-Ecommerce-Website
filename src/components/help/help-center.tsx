@@ -1,12 +1,12 @@
 import React from "react"
 
 import HelpCenterText from "../../../public/assets/help/help-center-text.svg";
-import QuestionsAboutYourOrder from "../../../public/assets/help/questions-about-your-order.svg";
-import DeliveryOrPickup from "../../../public/assets/help/delivery-or-pickup.svg";
-import EarningsWithGroups from "../../../public/assets/help/earnings-with-groups.svg";
-import AccountAndPurchase from "../../../public/assets/help/account-and-purchase.svg";
-import MembershipsAdnGifts from "../../../public/assets/help/memberships-and-gifts.svg";
-import RequestProducts from "../../../public/assets/help/request-products.svg";
+import QuestionsAboutYourOrder from "../../../public/assets/help/Question.svg";
+import DeliveryOrPickup from "../../../public/assets/help/Delivery.svg";
+import EarningsWithGroups from "../../../public/assets/help/Earning.svg";
+import AccountAndPurchase from "../../../public/assets/help/Account.svg";
+import MembershipsAdnGifts from "../../../public/assets/help/Membership.svg";
+import RequestProducts from "../../../public/assets/help/Request.svg";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
