@@ -5,13 +5,16 @@ import Link from "next/link"
 import Detail from "./detail"
 
 import SeeAll from "../../../public/assets/shop/items/see-all.svg"
-import OnSale from "../../../public/assets/category/on-sale.svg"
 
 
-const Row = ()=> {
+type props = {category: any}
+
+
+const Row = ({category}: props)=> {
 
   return <>
-  <OnSale className = "ml-10 mb-0"/>
+  {category}
+  
     <div className = "flex flex-wrap space-x-5 mb-10 justify-center">
       <Detail name = "product1" price = {1} heart = {false} />
       <Detail name = "product1" price = {1} heart = {false}/>

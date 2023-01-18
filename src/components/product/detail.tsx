@@ -14,14 +14,15 @@ const Detail = ({ name, price, heart }: props) => {
   return <>
     <div className="relative text-2xl mb-10" >
       <Item className="w-100 h-100" />
-      {heart ? <HeartRed className="absolute bottom-10 right-5" /> : <Heart className="absolute bottom-10 right-5" />}
+      {heart ? <HeartRed className="absolute bottom-10 right-5" /> : 
+      <Heart className="absolute bottom-10 right-5" />}
       <div className="flex gap-20 text-xs">
         <div className="flex flex-col space-y-0">
           <p className="ml-3  text-blue-400">{name}</p>
           <p className="ml-3 ">${price}</p>
         </div>
-        <Add />
         <Minus />
+        <Add />
       </div>
     </div>
   </>

@@ -15,7 +15,7 @@ import Snack from "../../../public/assets/category/snack.svg"
 const Catergory = () => {
 
   return <>
-    <div className="flex flex-wrap gap-10">
+    <div className="flex flex-wrap gap-10 mt-10 mb-10">
       <Link href="/"> <OnSale /> </Link>
       <Link href="/"> <PopularProduct /> </Link>
       <Link href="/"> <Drinks /> </Link>
