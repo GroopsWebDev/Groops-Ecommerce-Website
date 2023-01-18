@@ -1,5 +1,7 @@
 import React from "react";
 
+import Link from "next/link";
+
 import OnSale from "../../../public/assets/category/on-sale.svg"
 import PopularProduct from "../../../public/assets/category/popular-product.svg"
 import Drinks from "../../../public/assets/category/drinks.svg"
@@ -14,15 +16,15 @@ const Catergory = () => {
 
   return <>
     <div className="flex flex-wrap gap-10">
-      <OnSale />
-      <PopularProduct />
-      <Drinks />
-      <FrozenFood />
-      <Groceries />
-      <InstantFood />
-      <Kitchen />
-      <NewArrivals />
-      <Snack />
+      <Link href="/"> <OnSale /> </Link>
+      <Link href="/"> <PopularProduct /> </Link>
+      <Link href="/"> <Drinks /> </Link>
+      <Link href="/"> <FrozenFood /> </Link>
+      <Link href="/"> <Groceries /> </Link>
+      <Link href="/"> <InstantFood /> </Link>
+      <Link href="/"> <Kitchen /> </Link>
+      <Link href="/"> <NewArrivals /> </Link>
+      <Link href="/"> <Snack /> </Link>
     </div>
   </>
 
