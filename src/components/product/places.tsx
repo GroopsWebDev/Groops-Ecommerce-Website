@@ -7,7 +7,7 @@ import Korea from "../../../public/assets/shop/place/korea.svg"
 const Place = () => {
 
   return <>
-    <div className="flex flex-wrap space-x-10 ml-20">
+    <div className="flex flex-wrap space-x-10 justify-center">
       <China />
       <Japan />
       <Korea />
