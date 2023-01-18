@@ -9,7 +9,7 @@ import SeeAll from "../../../public/assets/shop/items/see-all.svg"
 const Row = ()=> {
 
   return <>
-    <div className = "flex flex-wrap space-x-5 mb-10 ml-10 mt-10">
+    <div className = "flex flex-wrap space-x-5 mb-10 mt-10 justify-center">
       <Detail name = "product1" price = {1} heart = {false} />
       <Detail name = "product1" price = {1} heart = {false}/>
       <Detail name = "product1" price = {1} heart = {true} />
