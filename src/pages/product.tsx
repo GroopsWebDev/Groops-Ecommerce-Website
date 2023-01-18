@@ -16,7 +16,7 @@ import Kitchen from "../../public/assets/category/kitchen.svg"
 import NewArrivals from "../../public/assets/category/new-arrivals.svg"
 import Snack from "../../public/assets/category/snack.svg"
 
-import Advertisement from "../../public/assets/shop/advertisement.svg"
+import Advertisement from "../../public/assets/shop/advertisement/advertisement.svg"
 
 
 // import  from "../../public/assets/";
@@ -31,14 +31,9 @@ const Product = () => {
     <Welcome />
 
     <Row category={<OnSale className = {style} />} />
-    <Row category={<PopularProduct className = {style} />} />
-    <Row category={<NewArrivals className = {style} />} />
+
 
     <Place />
-
-    <Row category={<Drinks className = {style} />} />
-    <Row category={<PopularProduct className = {style} />} />
-    <Row category={<NewArrivals className = {style} />} />
 
     <Advertisement className = "w-full" />
   </>
