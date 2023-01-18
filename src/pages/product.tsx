@@ -1,16 +1,17 @@
 import React from "react";
 
+import Category from "../components/product/category";
 
 // import  from "../../public/assets/";
 
 const Product = () => {
-  return (
-    <>
-      <div className="m-auto text-6xl">
-        product page (member & guest)
-      </div>
-    </>
-  );
+
+  return <>
+
+    <Category />
+  </>
+
+
 };
 
 export default Product;

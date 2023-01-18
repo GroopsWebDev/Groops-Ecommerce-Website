@@ -20,10 +20,6 @@ const HelpCenter = () => {
     <HelpCenterText className="ml-auto mr-auto mt-32 mb-20 w-60" />
     <Container className="flex-auto justify-center ">
       <Row>
-        <Col>
-          <Image src="/assets/person.png" width={100} height={100} alt="" />
-        </Col>
-        <div className="league-spartan text-4xl">Questions About Your Order</div>
       </Row>
       <Row>
         <Col>
