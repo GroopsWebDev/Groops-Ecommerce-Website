@@ -7,20 +7,23 @@ import Detail from "./detail"
 import SeeAll from "../../../public/assets/shop/items/see-all.svg"
 
 
-type props = {category: any}
+type props = { category: any }
 
 
-const Row = ({category}: props)=> {
+const Row = ({ category }: props) => {
 
   return <>
-  {category}
-  
-    <div className = "flex flex-wrap space-x-5 mb-10 justify-center">
-      <Detail name = "product1" price = {1} heart = {false} />
-      <Detail name = "product1" price = {1} heart = {false}/>
-      <Detail name = "product1" price = {1} heart = {true} />
-      <Detail name = "product1" price = {1} heart = {false}/>
-      <SeeAll className = "w-20"/>
+    <div className="mt-10">
+      <div className="flex justify-center">
+        {category}
+      </div>
+      <div className="flex flex-wrap space-x-5 mb-10 justify-center">
+        <Detail name="product1" price={1} heart={false} />
+        <Detail name="product1" price={1} heart={false} />
+        <Detail name="product1" price={1} heart={true} />
+        <Detail name="product1" price={1} heart={false} />
+        <SeeAll className="w-20" />
+      </div>
     </div>
   </>
 }

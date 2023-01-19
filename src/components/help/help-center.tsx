@@ -17,33 +17,35 @@ import Image from "next/image";
 const HelpCenter = () => {
 
   return <>
-    <HelpCenterText className="ml-auto mr-auto mt-32 mb-20 w-60" />
-    <Container className="flex-auto justify-center ">
-      <Row>
-      </Row>
-      <Row>
-        <Col>
-          <QuestionsAboutYourOrder />
-        </Col>
-        <Col>
-          <DeliveryOrPickup />
-        </Col>
-        <Col>
-          <EarningsWithGroups />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <AccountAndPurchase />
-        </Col>
-        <Col>
-          <MembershipsAdnGifts />
-        </Col>
-        <Col>
-          <RequestProducts />
-        </Col>
-      </Row>
-    </Container>
+    <div className="mb-20">
+      <HelpCenterText className="ml-auto mr-auto mt-32 mb-20 w-60" />
+      <Container className="flex-auto justify-center ">
+        <Row>
+        </Row>
+        <Row>
+          <Col>
+            <QuestionsAboutYourOrder />
+          </Col>
+          <Col>
+            <DeliveryOrPickup />
+          </Col>
+          <Col>
+            <EarningsWithGroups />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <AccountAndPurchase />
+          </Col>
+          <Col>
+            <MembershipsAdnGifts />
+          </Col>
+          <Col>
+            <RequestProducts />
+          </Col>
+        </Row>
+      </Container>
+    </div>
   </>
 }
 
