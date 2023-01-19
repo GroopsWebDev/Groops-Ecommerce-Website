@@ -18,10 +18,10 @@ const Row = ({ category }: props) => {
         {category}
       </div>
       <div className="flex flex-wrap space-x-5 mb-10 justify-center">
-        <Detail name="product1" price={1}  />
         <Detail name="product1" price={1} />
         <Detail name="product1" price={1} />
-        <Detail name="product1" price={1}/>
+        <Detail name="product1" price={1} />
+        <Detail name="product1" price={1} />
         <SeeAll className="w-20" />
       </div>
     </div>

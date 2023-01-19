@@ -9,17 +9,16 @@ import HeartRed from "../../../public/assets/shop/items/heart-red.svg"
 import Add from "../../../public/assets/shop/items/add.svg"
 import Minus from "../../../public/assets/shop/items/minus.svg"
 
-type props = { name: string, price: number}
+type props = { name: string, price: number }
 
 const Detail = ({ name, price }: props) => {
-  const [heart,setHeart] = useState(false)
+  const [heart, setHeart] = useState(false)
 
   return <>
     <div className="relative text-2xl mb-10" >
       <Item className="w-100 h-100" />
-      <button onClick={()=>{setHeart(!heart)}}>
-      {heart ? <HeartRed className="absolute bottom-10 right-5" /> :
-        <Heart className="absolute bottom-10 right-5"/>}
+      <button className="absolute bottom-10 right-5" onClick={() => { setHeart(!heart) }}>
+        {heart ? <HeartRed /> : <Heart />}
       </button>
 
       <div className="flex gap-20 text-xs">
