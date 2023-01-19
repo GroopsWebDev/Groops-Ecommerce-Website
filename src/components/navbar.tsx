@@ -3,13 +3,13 @@ import React, { useState, useRef } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 //SVG
-import GroopLogo from "../../public/assets/groop-logo.svg";
-import 文 from "../../public/assets/文.svg";
-import NavPerson from "../../public/assets/nav-person.svg";
-import NavCart from "../../public/assets/nav-cart.svg";
-import NavSearch from "../../public/assets/nav-search.svg";
-import NavHeart from "../../public/assets/nav-heart.svg";
-import Avatar from "../../public/assets/avatar.svg";
+import GroopLogo from "../../public/assets/navbar/groop-logo.svg";
+import 文 from "../../public/assets/navbar/文.svg";
+import NavPerson from "../../public/assets/navbar/nav-person.svg";
+import NavCart from "../../public/assets/navbar/nav-cart.svg";
+import NavSearch from "../../public/assets/navbar/nav-search.svg";
+import NavHeart from "../../public/assets/navbar/nav-heart.svg";
+import Avatar from "../../public/assets/navbar/avatar.svg";
 //nextAuth
 import { signIn, signOut, useSession } from "next-auth/react";
 //`react-confirm-alert`
@@ -19,9 +19,6 @@ import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Overlay from "react-bootstrap/Overlay";
 import Popover from "react-bootstrap/Popover";
-import Tooltip from "react-bootstrap/Tooltip";
-import Card from "react-bootstrap/Card";
-import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
 
 const Header = () => {
@@ -180,7 +177,7 @@ const Header = () => {
                   SHOP
                 </Link>
                 <Link
-                  href="/member/group-order"
+                  href="/guest/group-order"
                   className="text-xl font-medium text-black no-underline"
                 >
                   GROUP ORDER
