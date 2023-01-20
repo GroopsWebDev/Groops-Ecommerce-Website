@@ -69,7 +69,7 @@ const Header = () => {
   };
 
   const handleSignIn = () => {
-    push(`/auth/signin?callbackUrl=${asPath}`);
+    push(`/signin/signin?callbackUrl=${asPath}`);
   };
 
   const handleClick = (event: any) => {
