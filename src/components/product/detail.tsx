@@ -1,8 +1,6 @@
 import React from "react"
 import { useState } from "react";
 
-import Container from "react-bootstrap/Container";
-
 import Item from "../../../public/assets/shop/items/item.svg"
 import Heart from "../../../public/assets/shop/items/heart.svg"
 import HeartRed from "../../../public/assets/shop/items/heart-red.svg"

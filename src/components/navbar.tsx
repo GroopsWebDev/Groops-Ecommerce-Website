@@ -12,8 +12,9 @@ import NavHeart from "../../public/assets/navbar/nav-heart.svg";
 //nextAuth
 import { signIn, signOut, useSession } from "next-auth/react";
 //`react-confirm-alert`
-import { confirmAlert } from "react-confirm-alert"; // Import
-import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
+import { confirmAlert } from "react-confirm-alert";
+
+import "react-confirm-alert/src/react-confirm-alert.css";
 //react-bootstrap
 import Overlay from "react-bootstrap/Overlay";
 import Popover from "react-bootstrap/Popover";
