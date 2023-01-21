@@ -13,18 +13,21 @@ import RequestProducts from "../../../public/assets/help/request.svg";
 
 const HelpCenter = () => {
 
+  const row_style = "flex flex-row justify-center gap-10 mt-10"
+  const item_style = "hover:scale-110"
+
   return <>
     <div className="mb-20">
-      <HelpCenterText className="ml-auto mr-auto mt-32 mb-20 w-60" />
-      <div className="flex flex-row justify-center">
-        <Link href="/"><QuestionsAboutYourOrder className="hover:scale-110" /> </Link>
-        <Link href="/"><DeliveryOrPickup className="hover:scale-110" /></Link>
-        <Link href="/"><EarningsWithGroups className="hover:scale-110" /></Link>
+      <HelpCenterText className="ml-auto mr-auto mt-32 mb-10 w-60" />
+      <div className={row_style}>
+        <Link href="/"><QuestionsAboutYourOrder className={item_style} /> </Link>
+        <Link href="/"><DeliveryOrPickup className={item_style} /></Link>
+        <Link href="/"><EarningsWithGroups className={item_style} /></Link>
       </div>
-      <div className="flex flex-row justify-center">
-        <Link href="/"><AccountAndPurchase className="hover:scale-110" /></Link>
-        <Link href="/"><MembershipsAdnGifts className="hover:scale-110" /></Link>
-        <Link href="/"><RequestProducts className="hover:scale-110" /></Link>
+      <div className={row_style}>
+        <Link href="/"><AccountAndPurchase className={item_style} /></Link>
+        <Link href="/"><MembershipsAdnGifts className={item_style} /></Link>
+        <Link href="/"><RequestProducts className={item_style} /></Link>
       </div>
     </div>
   </>

@@ -11,7 +11,7 @@ import NavSearch from "../../public/assets/navbar/nav-search.svg";
 import NavHeart from "../../public/assets/navbar/nav-heart.svg";
 //nextAuth
 import { signIn, signOut, useSession } from "next-auth/react";
-//`react-confirm-alert`
+//react-confirm-alert
 import { confirmAlert } from "react-confirm-alert";
 
 import "react-confirm-alert/src/react-confirm-alert.css";
@@ -83,7 +83,7 @@ const Header = () => {
       {sessionData ? (
         <>
           {/* IF YOU ARE LOGGED IN, YOU WILL SEE THE MEMBER NAVBAR */}
-          <header className="sticky top-0 z-10 bg-white shadow">
+          <header className="sticky top-0 z-10 bg-white">
             <div className="container mx-auto flex justify-between p-6 xl:max-w-screen-xl">
               <Link href="/">
                 <GroopLogo className="w-full" />
@@ -114,7 +114,7 @@ const Header = () => {
                 {/* Login Person Icon */}
                 <div ref={ref}>
                   <div onClick={handleClick}>
-                    <img src={user_img? user_img:"null"} className="rounded-full w-10"/>
+                    <img src={user_img ? user_img : "null"} className="rounded-full w-10" />
                   </div>
                   <Overlay
                     show={showOverlay}
@@ -164,7 +164,7 @@ const Header = () => {
       ) : (
         <>
           {/* IF YOU ARE NOT LOGGED IN, YOU WILL SEE THE GUEST NAVBAR */}
-          <header className="sticky top-0 z-10 bg-white shadow">
+          <header className="sticky top-0 z-10 bg-white">
             <div className="container mx-auto flex justify-between p-6 xl:max-w-screen-xl">
               <Link href="/">
                 <GroopLogo className="w-full" />
