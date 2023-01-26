@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import {
@@ -39,14 +38,14 @@ const Signin = () => {
 	const [email, setEmail] = useState('')
 
 	console.log(session)
-	if (status === 'loading') return <div>Checking Authentication...</div>
+	if (status === 'loading') return <Heading>Checking Authentication...</Heading>
 
 	if (session) {
 		setTimeout(() => {
 			push('/')
 		}, 5000)
 
-		push('/');//redirect back to Home page
+		return <Heading>you are already signed in</Heading>
 	}
 
 	const handleOAuthSignIn = (provider:any) => () => signIn(provider)
