@@ -71,12 +71,8 @@ const Header = () => {
   };
 
   const handleSignIn = () => {
-<<<<<<< HEAD
     // callbackUrl is used to redirect the user to the previous page 
     push(`/auth/signin?callbackUrl=${asPath}`);
-=======
-    push(`/signin/signin?callbackUrl=${asPath}`);
->>>>>>> 1bb54adaa57f7234fc99a01caf27f10fd15a11d4
   };
 
   const handleClick = (event: any) => {
