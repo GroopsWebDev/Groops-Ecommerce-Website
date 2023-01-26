@@ -50,37 +50,39 @@ const Signin = () => {
     signIn("email", { email, redirect: false });
   };
 
-  return (
-    <Box>
+  return <h1>SignIn page</h1>
 
-      <chakra.form onSubmit={handleSubmit}>
-        <FormLabel>Email Address</FormLabel>
-        <Input
-          value={email}
-          type="email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
+//   return (
+//     <Box>
 
-        <Button type="submit" w="100%" my={5}>
-          Login
-        </Button>
-      </chakra.form>
+//       <chakra.form onSubmit={handleSubmit}>
+//         <FormLabel>Email Address</FormLabel>
+//         <Input
+//           value={email}
+//           type="email"
+//           onChange={(e) => setEmail(e.target.value)}
+//         />
+
+//         <Button type="submit" w="100%" my={5}>
+//           Login
+//         </Button>
+//       </chakra.form>
 
 
-          {providers.map(({ name, Icon }) => (
-            <Button
-              key={name}
-              leftIcon={<Icon />}
-              onClick={handleOAuthSignIn(name)}
-              textTransform="uppercase"
-              w="100%"
-            >
-              Sign in with {name}
-            </Button>
-          ))}
+//           {providers.map(({ name, Icon }) => (
+//             <Button
+//               key={name}
+//               leftIcon={<Icon />}
+//               onClick={handleOAuthSignIn(name)}
+//               textTransform="uppercase"
+//               w="100%"
+//             >
+//               Sign in with {name}
+//             </Button>
+//           ))}
 
-    </Box>
-  );
-};
+//     </Box>
+//   );
+ };
 
 export default Signin;

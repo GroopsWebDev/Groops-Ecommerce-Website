@@ -7,7 +7,6 @@ import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from "../components/footer";
 import Header from "../components/navbar";
-import { ChakraProvider } from "@chakra-ui/react";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -15,7 +14,6 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <ChakraProvider>
         <Head>
           <title>Groops</title>
           <meta name="description" content="Groops" />
@@ -24,7 +22,6 @@ const MyApp: AppType<{ session: Session | null }> = ({
         <Header />
         <Component {...pageProps} />
         <Footer />
-      </ChakraProvider>
     </SessionProvider>
   );
 };
