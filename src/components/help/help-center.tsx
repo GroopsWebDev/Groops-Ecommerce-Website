@@ -1,5 +1,7 @@
 import React from "react"
 
+import Link from "next/link";
+
 import HelpCenterText from "../../../public/assets/help/help-center-text.svg";
 import QuestionsAboutYourOrder from "../../../public/assets/help/question.svg";
 import DeliveryOrPickup from "../../../public/assets/help/delivery.svg";
@@ -8,43 +10,25 @@ import AccountAndPurchase from "../../../public/assets/help/account.svg";
 import MembershipsAdnGifts from "../../../public/assets/help/membership.svg";
 import RequestProducts from "../../../public/assets/help/request.svg";
 
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-
-import Image from "next/image";
 
 const HelpCenter = () => {
 
+  const row_style = "flex flex-row justify-center gap-10 mt-10"
+  const item_style = "hover:scale-110"
+
   return <>
     <div className="mb-20">
-      <HelpCenterText className="ml-auto mr-auto mt-32 mb-20 w-60" />
-      <Container className="flex-auto justify-center ">
-        <Row>
-        </Row>
-        <Row>
-          <Col>
-            <QuestionsAboutYourOrder />
-          </Col>
-          <Col>
-            <DeliveryOrPickup />
-          </Col>
-          <Col>
-            <EarningsWithGroups />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <AccountAndPurchase />
-          </Col>
-          <Col>
-            <MembershipsAdnGifts />
-          </Col>
-          <Col>
-            <RequestProducts />
-          </Col>
-        </Row>
-      </Container>
+      <HelpCenterText className="ml-auto mr-auto mt-32 mb-10 w-60" />
+      <div className={row_style}>
+        <Link href="/"><QuestionsAboutYourOrder className={item_style} /> </Link>
+        <Link href="/"><DeliveryOrPickup className={item_style} /></Link>
+        <Link href="/"><EarningsWithGroups className={item_style} /></Link>
+      </div>
+      <div className={row_style}>
+        <Link href="/"><AccountAndPurchase className={item_style} /></Link>
+        <Link href="/"><MembershipsAdnGifts className={item_style} /></Link>
+        <Link href="/"><RequestProducts className={item_style} /></Link>
+      </div>
     </div>
   </>
 }

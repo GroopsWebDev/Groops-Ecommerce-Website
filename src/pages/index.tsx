@@ -42,43 +42,43 @@ const Home = () => {
   const featuredProductsStyle = "scale-100 ml-10 mr-10 mb-20 transform transition duration-300 hover:scale-110";
   const featuredProducts = [
     {
-      item:  <PopularProduct className={featuredProductsStyle}/>,
+      item: <PopularProduct className={featuredProductsStyle} />,
       link: "/product"
     },
     {
-      item:  <OnSale className={featuredProductsStyle}/>,
+      item: <OnSale className={featuredProductsStyle} />,
       link: "/"
     },
     {
-      item:  <Drinks className={featuredProductsStyle} />,
+      item: <Drinks className={featuredProductsStyle} />,
       link: "/"
     },
     {
-      item:  <Snacks className={featuredProductsStyle}/>,
+      item: <Snacks className={featuredProductsStyle} />,
       link: "/"
     },
     {
-      item:  <InstantFood className={featuredProductsStyle}/>,
+      item: <InstantFood className={featuredProductsStyle} />,
       link: "/"
     },
     {
-      item:  <FrozenFood className={featuredProductsStyle}/>,
+      item: <FrozenFood className={featuredProductsStyle} />,
       link: "/"
     },
     {
-      item:  <Kitchen className={featuredProductsStyle}/>,
+      item: <Kitchen className={featuredProductsStyle} />,
       link: "/"
     },
     {
-      item:  <PersonalCare className={featuredProductsStyle}/>,
+      item: <PersonalCare className={featuredProductsStyle} />,
       link: "/"
     },
     {
-      item:  <Groceries className={featuredProductsStyle}/>,
+      item: <Groceries className={featuredProductsStyle} />,
       link: "/"
     },
   ]
- 
+
   return (
     <>
       {/** BODY */}
@@ -88,23 +88,23 @@ const Home = () => {
       {/** Section 2 */}
       <OurFeaturedProducts className="ml-auto mr-auto mt-32 mb-20 w-[466px]" />
       <Container className="flex-auto justify-center ">
-        {featuredProducts.map((product,index) => {
-          if(index % 3 === 0){
+        {featuredProducts.map((product, index) => {
+          if (index % 3 === 0) {
             return (
               <Row key={index} >
                 <Col>
-                  <Link  href={featuredProducts[index]!.link}>{featuredProducts[index]?.item}</Link>
+                  <Link href={featuredProducts[index]!.link}>{featuredProducts[index]?.item}</Link>
                 </Col>
                 <Col>
-                <Link  href={featuredProducts[index+1]!.link}>{featuredProducts[index+1]?.item}</Link>
+                  <Link href={featuredProducts[index + 1]!.link}>{featuredProducts[index + 1]?.item}</Link>
                 </Col>
                 <Col>
-                <Link  href={featuredProducts[index+2]!.link}>{featuredProducts[index+2]?.item}</Link>
+                  <Link href={featuredProducts[index + 2]!.link}>{featuredProducts[index + 2]?.item}</Link>
                 </Col>
               </Row>
             );
           }
-      
+
         })
         }
       </Container>
