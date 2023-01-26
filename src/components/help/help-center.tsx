@@ -14,7 +14,7 @@ import RequestProducts from "../../../public/assets/help/request.svg";
 const HelpCenter = () => {
 
   const row_style = "flex flex-row justify-center gap-10 mt-10"
-  const item_style = "hover:scale-110"
+  const item_style = "transform transition duration-300 hover:scale-110"
 
   return <>
     <div className="mb-20">
