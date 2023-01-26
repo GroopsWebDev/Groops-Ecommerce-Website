@@ -30,6 +30,8 @@ const Header = () => {
 
   console.log(sessionData?.user?.image);
 
+  console.log(`sessionData?.user: ${sessionData?.user}`);
+
   const user_img = sessionData?.user?.image;
 
   const logout = () => {
@@ -70,7 +72,8 @@ const Header = () => {
   };
 
   const handleSignIn = () => {
-    push(`/signin/signin?callbackUrl=${asPath}`);
+    // callbackUrl is used to redirect the user to the previous page 
+    push(`/auth/signin?callbackUrl=${asPath}`);
   };
 
   const handleClick = (event: any) => {

@@ -1,13 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-
 //TRPC
 import { trpc } from "../utils/trpc";
 //nextAuth
 import { useSession, getSession } from "next-auth/react";
 //import SVG
-
 import PopularProduct from "../../public/assets/product/popular-product.svg";
 import Drinks from "../../public/assets/product/drinks.svg";
 import OurFeaturedProducts from "../../public/assets/product/our-featured-products.svg";
