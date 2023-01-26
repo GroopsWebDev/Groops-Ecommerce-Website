@@ -1,94 +1,86 @@
-
-import React, { useState } from 'react'
-import { useRouter } from 'next/router'
+import React, { useState } from "react";
+import { useRouter } from "next/router";
 import {
-	Box,
-	Button,
-	Grid,
-	Heading,
-	VStack,
-	FormControl,
-	FormLabel,
-	FormErrorMessage,
-	FormHelperText,
-	Input,
-	chakra,
-} from '@chakra-ui/react'
-import { useSession, signIn, signOut } from 'next-auth/react'
+  Box,
+  Button,
+  Grid,
+  Heading,
+  VStack,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+  Input,
+  chakra,
+} from "@chakra-ui/react";
+import { useSession, signIn, signOut } from "next-auth/react";
 
-import { BsGithub, BsTwitter, BsGoogle } from 'react-icons/bs'
+import { BsGithub, BsTwitter, BsGoogle } from "react-icons/bs";
 
 const providers = [
-	{
-		name: 'github',
-		Icon: BsGithub,
-	},
-	{
-		name: 'twitter',
-		Icon: BsTwitter,
-	},
-	{
-		name: 'google',
-		Icon: BsGoogle,
-	},
-]
+  {
+    name: "google",
+    Icon: BsGoogle,
+  },
+];
 
 const Signin = () => {
-	const { data: session, status } = useSession()
-	const { push } = useRouter()
-	const [email, setEmail] = useState('')
+  const { data: session, status } = useSession();
+  const { push } = useRouter();
+  const [email, setEmail] = useState("");
 
-	console.log(session)
-	if (status === 'loading') return <div>Checking Authentication...</div>
+  console.log(session);
+  if (status === "loading") return <div>Checking Authentication...</div>;
 
-	if (session) {
-		setTimeout(() => {
-			push('/')
-		}, 5000)
+  if (session) {
+    setTimeout(() => {
+      push("/");
+    }, 5000);
 
-		push('/');//redirect back to Home page
-	}
+    push("/"); //redirect back to Home page
+  }
 
-	const handleOAuthSignIn = (provider:any) => () => signIn(provider)
+  const handleOAuthSignIn = (provider: any) => async () => signIn(provider);
 
-	const handleSubmit = (e:any) => {
-		e.preventDefault()
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
 
-		if (!email) return false
+    if (!email) return false;
 
-		signIn('email', { email, redirect: false })
-	}
+    signIn("email", { email, redirect: false });
+  };
 
-	return (
-		<Box>
-			<chakra.form onSubmit={handleSubmit}>
-				<FormLabel>Email Address</FormLabel>
-				<Input
-					value={email}
-					type='email'
-					onChange={(e) => setEmail(e.target.value)}
-				/>
+  return (
+    <Box>
 
-				<Button type='submit' w='100%' my={5}>
-					Login
-				</Button>
-			</chakra.form>
+      <chakra.form onSubmit={handleSubmit}>
+        <FormLabel>Email Address</FormLabel>
+        <Input
+          value={email}
+          type="email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-			<VStack>
-				{providers.map(({ name, Icon }) => (
-					<Button
-						key={name}
-						leftIcon={<Icon />}
-						onClick={handleOAuthSignIn(name)}
-						textTransform='uppercase'
-						w='100%'
-					>
-						Sign in with {name}
-					</Button>
-				))}
-			</VStack>
-		</Box>
-	)
-}
+        <Button type="submit" w="100%" my={5}>
+          Login
+        </Button>
+      </chakra.form>
 
-export default Signin
+
+          {providers.map(({ name, Icon }) => (
+            <Button
+              key={name}
+              leftIcon={<Icon />}
+              onClick={handleOAuthSignIn(name)}
+              textTransform="uppercase"
+              w="100%"
+            >
+              Sign in with {name}
+            </Button>
+          ))}
+
+    </Box>
+  );
+};
+
+export default Signin;
