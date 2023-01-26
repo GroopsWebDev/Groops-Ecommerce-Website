@@ -8,7 +8,7 @@ import SeeAll from "../../../public/assets/shop/items/see-all.svg"
 
 
 type props = { category: any }
-type props2 = { type: any }
+
 
 
 const Row = ({ category }: props) => {
@@ -18,12 +18,12 @@ const Row = ({ category }: props) => {
       <div className="flex justify-center">
         {category}
       </div>
-      <div className="flex flex-row flex-wrap space-x-5 mb-10 mt-10 justify-center">
+      <div className="flex flex-row flex-wrap space-x-10 mb-10 mt-10 justify-center">
         <Detail name="product1" price={1} />
         <Detail name="product1" price={1} />
         <Detail name="product1" price={1} />
         <Detail name="product1" price={1} />
-        <Link className="w-20 mt-20" href=""><SeeAll /></Link>
+        <Link className="w-20 mt-14" href=""><SeeAll /></Link>
       </div>
     </div>
   </>
