@@ -199,6 +199,12 @@ const Header = () => {
                 <Link href="#">
                   <NavPerson className="w-7" onClick={handleSignIn} />
                 </Link>
+                <button
+        className="rounded-full px-10 py-3 font-semibold no-underline transition border-black border-4"
+        onClick={sessionData ? () => void signOut() : () => void signIn()}
+      >
+         {sessionData ? "Sign out" : "Sign in"}
+      </button>
               </div>
             </div>
           </header>
