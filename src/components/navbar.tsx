@@ -28,9 +28,8 @@ const Header = () => {
   const { push, asPath } = useRouter();
   const firstName = sessionData?.user?.name?.split(" ")[0];
 
-  console.log(sessionData?.user?.image);
 
-  console.log(`sessionData?.user: ${sessionData?.user}`);
+  console.log(`navbar.tsx sessionData?.user: ${sessionData?.user}`);
 
   const user_img = sessionData?.user?.image;
 
@@ -73,7 +72,7 @@ const Header = () => {
 
   const handleSignIn = () => {
     // callbackUrl is used to redirect the user to the previous page 
-    push(`/auth/signin?callbackUrl=${asPath}`);
+    push(`/signin/signin?callbackUrl=${asPath}`);
   };
 
   const handleClick = (event: any) => {
@@ -135,7 +134,7 @@ const Header = () => {
                       <Popover.Body className="bg-gradient-to-br from-purple-500 to-pink-400 p-1">
                         <div className="h-full w-full bg-white ">
                           <Link
-                            href="/member/account"
+                            href="/member/profile"
                             className="ml-2 text-lg text-black no-underline hover:text-orange-500 hover:underline"
                           >
                             Account Setting
