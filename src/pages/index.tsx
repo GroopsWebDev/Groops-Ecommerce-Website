@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 //TRPC
-import { trpc } from "../utils/trpc";
+import { api } from "../utils/api";
 //nextAuth
 import { useSession, getSession } from "next-auth/react";
 //import SVG
@@ -23,7 +23,6 @@ import GroopsMembership from "../../public/assets/membership/groops-membership-t
 import TopGroupsTile from "../../public/assets/group/top-groups-text.svg";
 import TopGroups from "../../public/assets/group/top-groups.svg";
 
-
 //React Bootstrap
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -33,51 +32,51 @@ import JoinNowButton from "../components/elements/join-now-btn";
 import SignInButton from "../components/elements/sign-in-btn";
 import ShopNowButton from "../components/elements/shop-now-btn";
 
-import Welcome from "../components/welcome"
-import HelpCenter from "../components/help/help-center"
-
+import Welcome from "../components/welcome";
+import HelpCenter from "../components/help/help-center";
 
 const Home = () => {
   const { data: sessionData } = useSession();
-  const featuredProductsStyle = "scale-100 ml-10 mr-10 mb-20 transform transition duration-300 hover:scale-110";
+  const featuredProductsStyle =
+    "scale-100 ml-10 mr-10 mb-20 transform transition duration-300 hover:scale-110";
   const featuredProducts = [
     {
       item: <PopularProduct className={featuredProductsStyle} />,
-      link: "/product"
+      link: "/product",
     },
     {
       item: <OnSale className={featuredProductsStyle} />,
-      link: "/"
+      link: "/",
     },
     {
       item: <Drinks className={featuredProductsStyle} />,
-      link: "/"
+      link: "/",
     },
     {
       item: <Snacks className={featuredProductsStyle} />,
-      link: "/"
+      link: "/",
     },
     {
       item: <InstantFood className={featuredProductsStyle} />,
-      link: "/"
+      link: "/",
     },
     {
       item: <FrozenFood className={featuredProductsStyle} />,
-      link: "/"
+      link: "/",
     },
     {
       item: <Kitchen className={featuredProductsStyle} />,
-      link: "/"
+      link: "/",
     },
     {
       item: <PersonalCare className={featuredProductsStyle} />,
-      link: "/"
+      link: "/",
     },
     {
       item: <Groceries className={featuredProductsStyle} />,
-      link: "/"
+      link: "/",
     },
-  ]
+  ];
 
   return (
     <>
@@ -91,28 +90,31 @@ const Home = () => {
         {featuredProducts.map((product, index) => {
           if (index % 3 === 0) {
             return (
-              <Row key={index} >
+              <Row key={index}>
                 <Col>
-                  <Link href={featuredProducts[index]!.link}>{featuredProducts[index]?.item}</Link>
+                  <Link href={featuredProducts[index]!.link}>
+                    {featuredProducts[index]?.item}
+                  </Link>
                 </Col>
                 <Col>
-                  <Link href={featuredProducts[index + 1]!.link}>{featuredProducts[index + 1]?.item}</Link>
+                  <Link href={featuredProducts[index + 1]!.link}>
+                    {featuredProducts[index + 1]?.item}
+                  </Link>
                 </Col>
                 <Col>
-                  <Link href={featuredProducts[index + 2]!.link}>{featuredProducts[index + 2]?.item}</Link>
+                  <Link href={featuredProducts[index + 2]!.link}>
+                    {featuredProducts[index + 2]?.item}
+                  </Link>
                 </Col>
               </Row>
             );
           }
-
-        })
-        }
+        })}
       </Container>
 
       {/** Section 3 Card Carousel*/}
       <TopGroupsTile className="ml-auto mr-auto mt-10 mb-20 w-60" />
       <TopGroups className="ml-auto mr-auto w-9/12" />
-
 
       {/** Section 4 Become a Groops | Hide this if signed in !!!*/}
       {sessionData ? null : (
