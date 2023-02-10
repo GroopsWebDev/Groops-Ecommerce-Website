@@ -1,0 +1,141 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
+  // Further reading:
+  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
+  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
+  url      = env("DATABASE_URL")
+}
+
+// Necessary for Next auth
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? // @db.Text
+  access_token      String? // @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? // @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime @updatedAt
+
+  @@unique([identifier, token]) // @@unique the block level-- same as identifier string  @unique
+}
+
+model User {
+  id            String       @id @default(cuid())
+  name          String?
+  email         String?      @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  password      String
+  role          Role?
+  address       String
+  phone         Int?
+  birthday      DateTime?
+  cart          Cart?
+  order         Order?
+  Group         Group?
+  GroupMember   GroupMember?
+}
+
+model Product {
+  skuid               String         @id
+  englishProductName  String
+  chineseProductNName String?
+  frenchProductNName  String?
+  placeOfOrigin       String?
+  productWeight       String
+  description         String?
+  alcohol             Boolean        @default(false)
+  price               Int            @default(0)
+  image               String
+  category            String
+  retailPrice         Int            @default(0)
+  costPrice           Int            @default(0)
+  stock               Int            @default(0)
+  CartItem            CartItem?
+  purchasedItem       PurchasedItem?
+}
+
+model Order {
+  orderId       String          @id @default(cuid())
+  orderDate     DateTime        @default(now())
+  user          User            @relation(fields: [userId], references: [id])
+  userId        String          @unique
+  purchasedItem PurchasedItem[]
+}
+
+model PurchasedItem {
+  product   Product @relation(fields: [productId], references: [skuid])
+  productId String  @unique
+  order     Order   @relation(fields: [orderId], references: [orderId])
+  orderId   String  @unique
+}
+
+model Cart {
+  user     User       @relation(fields: [userId], references: [id])
+  userId   String     @unique
+  cartItem CartItem[]
+}
+
+model CartItem {
+  cartItem    Product @relation(fields: [cartItemId], references: [skuid])
+  cartItemId  String  @unique
+  cartOwner   Cart    @relation(fields: [cartOwnerId], references: [userId])
+  cartOwnerId String
+
+  @@id([cartItemId, cartOwnerId])
+}
+
+model Group {
+  groupId       String        @id @default(cuid())
+  groupMaster   User          @relation(fields: [groupMasterId], references: [id])
+  groupMasterId String        @unique
+  groupName     String
+  startDate     DateTime      @default(now())
+  endDate       DateTime
+  GroupMember   GroupMember[]
+}
+
+model GroupMember {
+  groupMemberId String @id @default(cuid())
+  user          User   @relation(fields: [userId], references: [id])
+  userId        String @unique
+  Group         Group  @relation(fields: [groupId], references: [groupId])
+  groupId       String
+}
+
+enum Role {
+  GROUPMASTER
+  GROUPMEMBER
+}
