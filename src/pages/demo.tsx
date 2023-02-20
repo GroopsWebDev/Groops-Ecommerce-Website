@@ -25,10 +25,10 @@ const Demo = () => {
   const handleFileUpload = () => {
     if (selectedFile) {
       const formData = new FormData();
-      formData.append("file", selectedFile);
+      formData.append("thumbnail", selectedFile);
       console.log(formData);
       fetch(
-        "https://passiton.microlent.com/product/get/image/" + selectedFile.name,
+        "https://passiton.microlent.com/product/store",
         {
           method: "POST",
           body: formData,
