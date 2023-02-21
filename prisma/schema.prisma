@@ -57,9 +57,9 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  password      String
+  password      String?
   role          Role?
-  address       String
+  address       String?
   phone         Int?
   birthday      DateTime?
   cart          Cart?
