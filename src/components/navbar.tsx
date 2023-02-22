@@ -28,7 +28,6 @@ const Header = () => {
   const { push, asPath } = useRouter();
   const firstName = sessionData?.user?.name?.split(" ")[0];
   console.log(sessionData?.user)
-
   // console.log(`navbar.tsx sessionData?.user: ${sessionData}`);
 
   const user_img = "assets/image/pexels-pixabay-220453.jpg";
