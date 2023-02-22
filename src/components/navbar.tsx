@@ -31,7 +31,7 @@ const Header = () => {
 
   // console.log(`navbar.tsx sessionData?.user: ${sessionData}`);
 
-  const user_img = sessionData?.user?.image;
+  const user_img = "assets/image/pexels-pixabay-220453.jpg";
 
   const logout = () => {
     confirmAlert({
@@ -155,7 +155,7 @@ const Header = () => {
                 <div>
                   Hello,{" "}
                   <span className="bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-lg text-transparent">
-                    {firstName}
+                    Groops
                   </span>{" "}
                   !
                 </div>
