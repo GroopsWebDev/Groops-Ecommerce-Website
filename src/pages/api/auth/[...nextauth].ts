@@ -13,62 +13,13 @@ const prisma = new PrismaClient()
 
 export const authOptions: NextAuthOptions = {
 
-// callbacks: {
-//   // async signIn(params:any) 
-//   // {
-//   //   const {user,account,profile} = params;
-//   //   if (account.provider === 'google') {
-//   //     const { email, name, image } = profile
-//   //     await prisma.user.upsert({
-//   //       where: { email },
-//   //       update: { name, image },
-//   //       create: { email, name, image,password:"test",address:"test" },
-//   //     })
-//   //   }
-//   //   return true
-//   // },
-  
-//     async signIn(params:any) {
-//       const { provider, id, email } = params.account;
-//       const user = params.user;
 
-//       if (provider === 'google' && email) {
-//         const existingUser = await prisma.user.findUnique({
-//           where: { email },
-//         })
-
-//         if (!existingUser) {
-//           // Create a new user account and link it to the Google provider
-//           const newUser = await prisma.user.create({
-//             data: {
-//               email,
-//               name: user.name,
-//               image: user.image,
-//               google: { connect: { id } },
-//             },
-//           })
-//           return true
-//         } else if (!existingUser.google) {
-//           // Link the existing user account to the Google provider
-//           await prisma.user.update({
-//             where: { id: existingUser.id },
-//             data: { google: { connect: { id } } },
-//           })
-//           return true
-//         }
-//       }
-
-//       // Return false to stop the sign in flow if the provider is not Google or no email is provided
-//       return false
-//     },
-  
-// },
-  
 callbacks: {
   async signIn(params:any) {
     console.log(params,"-------------------------")
         const { account,user } = params; 
     if (account?.provider === 'google') {
+      
       const { email } = user;
       const existingUser = await prisma.user.findUnique({
         where: {
@@ -79,8 +30,8 @@ callbacks: {
         },
       });
 
-    
       if (existingUser) {
+        console.log(account);
         const googleAccount = existingUser.accounts?.find(
           (a) => a?.provider === 'google'
         );
@@ -97,6 +48,7 @@ callbacks: {
           });
         }
       } else {
+        console.log(account);
         await prisma.user.create({
           data: {
             email,
@@ -107,7 +59,6 @@ callbacks: {
                 provider: account.provider,
                 type:account.type,
                 providerAccountId: account.providerAccountId,
-              
               },
             },
           },
