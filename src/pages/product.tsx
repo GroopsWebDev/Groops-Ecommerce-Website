@@ -35,7 +35,7 @@ const Product = () => {
     <Place />
 
     <Row category={<Drinks className={style} />} />
-    <Row category={<Snack className={style} />} />
+    {/* <Row category={<Snack className={style} />} /> */}
     <Row category={<InstantFood className={style} />} />
 
     <Advertisement className="w-full" />

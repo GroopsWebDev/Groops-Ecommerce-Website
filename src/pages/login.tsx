@@ -13,7 +13,7 @@ import { useForm } from 'react-hook-form'
       password: data.password,
       callbackUrl:"/"
     })
-    console.log("----------------------",result)
+    console.log(result)
 
     if (result?.url) {
       window.location.href = result.url
@@ -120,6 +120,59 @@ import { useForm } from 'react-hook-form'
             </div>
 
             <div className="grid grid-cols-3 gap-3 mt-6">
+              {/* <div>
+                <button
+                  className="w-full py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover
+                  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  <span className="sr-only">Sign in with Facebook</span>
+                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                    <path
+                      fillRule="evenodd"
+                      d="M18 2H2a2 2 0 00-2 2v14a2 2 0 002 2h8.3v-6.5H8.6v-2.5h1.7V8.8c0-1.7 1-2.6 2.5-2.6.7 0 1.3.1 1.5.2v1.7l-1 .1c-.8 0-.9.4-.9 1v1.3h1.8l-.2 2.5h-1.6V18H18a2 2 0 002-2V4a2 2 0 00-2-2z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div> */}
+{/* 
+              <div>
+                <button
+                  className="w-full py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover
+                  :focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  <span className="sr-only">Sign in with Twitter</span>
+                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                    <path
+                      fillRule="evenodd"
+                      d="M20 4.35a8.15 8.15 0 01-2.35.65 4.1 4.1 0 001.8-2.25 8.24 8.24 0 01-2.6 1 4.1 4.1 0 00-7 3.75 11.7 11.7 0 01-8.5-4.3 4.1 4.1 0 001.25 5.5A4.06 4.06 0 01.8 6.9v.05a4.1 4.1 0 003.3 4 4.07 4.07 0 01-1.1.15 3.99 3.99 0 01-.8-.05 4.1 4.1 0 003.8 2.85A8.23 8.23 0 010 15.45 11.6 11.6 0 006.3 17.5c7.5 0 11.6-6.4 11.6-11.95v-.55A8.66 8.66 0 0020 4.35z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div> */}
+
+              {/* <div>
+                <button onClick={() => signIn("google")}
+                  className="w-full py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover
+                  :focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+               
+                >
+                  <span className="sr-only">Sign in with Google</span>
+                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                    <path
+                      fillRule="evenodd"
+                      d="M10 9c-.34 0-.68.03-1.02.08-.93-.79-2.21-1.98-2.21-3.82 0-2.75 2.23-4.98 4.98-4.98a4.97 4.97 0 014.94 4.38c-.32-.06-.66-.08-1-.08-.57 0-1.13.09-1.65.25-.12.03-.23-.05-.34-.1-.71-.27-1.5-.42-2.3-.42-3.31 0-6.01 2.7-6.01 6.01s2.7 6.01 6.01 6.01c3.32 0 5.73-2.68 5.73-5.91 0-.39-.04-.77-.11-1.14-.02-.11-.1-.22-.15-.32-.45-.79-1.18-1.33-2.02-1.33z"
+                      clipRule="evenodd"
+                    />
+                    <path
+                      fillRule="evenodd"
+                      d="M19.41 8.18h-8.14v3.28h4.78c-.24 1.38-1.5 2.01-2.58 2.01a2.38 2.38 0 01-2.5-2.5c0-.41.1-.73.23-1.07h-2.22v-.77h3.77c.04-.19.07-.39.07-.59 0-.6-.1-1.44-.64-2.01-.55-.56-1.41-.82-2.22-.82-1.69 0-3.16 1.4-3.16 3.16 0 .26.03.53.08.78H.59v.77h4.78a3.4 3.4 0 01-.08.77 3.16 3.16 0 003.16 3.16c.82 0 1.61-.31 2.22-.82.54-.56.64-1.4.64-2.01 0-.2-.03-.4-.07-.59h3.05z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div> */}
 
               <div>
                 <GoogleButton 
@@ -127,6 +180,7 @@ import { useForm } from 'react-hook-form'
                  await signIn('google',{
                   callbackUrl:"/", 
                   redirect:false,
+                
                  })
                 }}
                 style={{marginLeft:"90px"}}

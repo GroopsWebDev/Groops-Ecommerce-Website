@@ -1,25 +1,37 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+//generator client {
+  //provider = "prisma-client-js"
+//}
+
+//datasource db {
+ // provider = "mysql"
+  // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
+  // Further reading:
+  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
+  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
+  //url      = env("DATABASE_URL")
+//}
+
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "mysql"
-  // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-  // Further reading:
-  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-  url      = env("DATABASE_URL")
+  
+  url = env("DATABASE_URL")
+  //url = "mysql://groops:efiaAwpJntprBKFS@gr-oops.com:3306/groops" 
+
 }
+
+ 
 
 // Necessary for Next auth
 model Account {
   id                String  @id @default(cuid())
   userId            String
-  name          String?
-  email         String?      @unique
   type              String
   provider          String
   providerAccountId String
@@ -64,7 +76,7 @@ model User {
   address       String?
   phone         Int?
   birthday      DateTime?
-  cart          Cart?
+  cart          Cart[]
   order         Order?
   Group         Group?
   GroupMember   GroupMember?
@@ -85,7 +97,7 @@ model Product {
   retailPrice         Int            @default(0)
   costPrice           Int            @default(0)
   stock               Int            @default(0)
-  CartItem            CartItem?
+  Cart           Cart[]
   purchasedItem       PurchasedItem?
 }
 
@@ -105,19 +117,16 @@ model PurchasedItem {
 }
 
 model Cart {
-  user     User       @relation(fields: [userId], references: [id])
-  userId   String     @unique
-  cartItem CartItem[]
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   String  
+  productId String @unique
+  product Product @relation(fields: [productId], references: [skuid])
+  qty String 
 }
 
-model CartItem {
-  cartItem    Product @relation(fields: [cartItemId], references: [skuid])
-  cartItemId  String  @unique
-  cartOwner   Cart    @relation(fields: [cartOwnerId], references: [userId])
-  cartOwnerId String
 
-  @@id([cartItemId, cartOwnerId])
-}
+
+
 
 model Group {
   groupId       String        @id @default(cuid())

@@ -27,10 +27,11 @@ const Header = () => {
   const ref = useRef(null); //ref for overlay
   const { push, asPath } = useRouter();
   const firstName = sessionData?.user?.name?.split(" ")[0];
-  console.log(sessionData?.user)
-  // console.log(`navbar.tsx sessionData?.user: ${sessionData}`);
 
-  const user_img = "assets/image/pexels-pixabay-220453.jpg";
+
+  console.log(`navbar.tsx sessionData?.user: ${sessionData}`);
+
+  const user_img = sessionData?.user?.image;
 
   const logout = () => {
     confirmAlert({
@@ -127,7 +128,7 @@ const Header = () => {
                     <Popover id="popover-contained" className="text-center ">
                       <Popover.Header className="bg-gradient-to-br from-purple-600 to-pink-600 text-white">
                         {sessionData.user?.name}
-                        <div className="text-sm">{sessionData.user?.name}</div>
+                        <div className="text-sm">{sessionData.user?.email}</div>
                       </Popover.Header>
 
                       <Popover.Body className="bg-gradient-to-br from-purple-500 to-pink-400 p-1">
@@ -154,7 +155,7 @@ const Header = () => {
                 <div>
                   Hello,{" "}
                   <span className="bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-lg text-transparent">
-                    Groops
+                    {firstName}
                   </span>{" "}
                   !
                 </div>
