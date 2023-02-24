@@ -20,6 +20,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
+      {/* {router.pathname === "/demo" && <Demo />} */}
       <Component {...pageProps} />
       <Footer />
     </SessionProvider>

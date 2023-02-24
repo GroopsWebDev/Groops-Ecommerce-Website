@@ -87,7 +87,6 @@ const Shop = () => {
     <div className="flex justify-center mt-20">
       <button className="bg-black w-40 hover:scale-110 text-white font-bold py-2 px-4 square">More</button>
     </div>
-
     <HelpCenter />
   </>
 }

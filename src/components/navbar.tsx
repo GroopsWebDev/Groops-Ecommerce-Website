@@ -29,7 +29,7 @@ const Header = () => {
   const firstName = sessionData?.user?.name?.split(" ")[0];
 
 
-  console.log(`navbar.tsx sessionData?.user: ${sessionData?.user}`);
+  console.log(`navbar.tsx sessionData?.user: ${sessionData}`);
 
   const user_img = sessionData?.user?.image;
 
