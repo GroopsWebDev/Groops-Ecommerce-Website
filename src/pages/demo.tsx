@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState } from "react";
 import { useRouter } from "next/router";
 import { Card, Button } from "react-bootstrap";
 
+
 const Demo = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
@@ -43,6 +44,7 @@ const Demo = () => {
     }
   };
 
+
   const renderPreviewCard = () => {
     if (previewImage) {
       return (
@@ -52,11 +54,15 @@ const Demo = () => {
               <Card>
                 <Card.Img
                   variant="top"
-                  src={
-                    "https://passiton.microlent.com/product/get/image/c-d-x-PDX_a_82obo-unsplash.jpg"
-                  }
+                  // src={
+                  //   // "https://passiton.microlent.com/product/get/image/c-d-x-PDX_a_82obo-unsplash.jpg"
+                  //   // "https://api.gr-oops.com/img/2.webp"
+
+                  // }
+                  src=
+                  {'https://api.gr-oops.com/img/' + selectedFile.name}
                 />
-                {/* {'https://passiton.microlent.com/product/get/image/' + selectedFile.name } */}
+
                 <Card.Body>
                   <Card.Title>{selectedFile!.name}</Card.Title>
                   <Card.Text>{selectedFile!.type}</Card.Text>
@@ -89,3 +95,5 @@ const Demo = () => {
 };
 
 export default Demo;
+
+
