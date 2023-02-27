@@ -65,7 +65,8 @@ model VerificationToken {
 
 model User {
   id            String       @id @default(cuid())
-  name          String?
+  lastname          String?
+  firstname          String?
   email         String?      @unique
   emailVerified DateTime?
   image         String?

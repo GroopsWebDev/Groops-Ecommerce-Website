@@ -3,8 +3,6 @@ import { NextApiHandler } from 'next';
 
 const prisma = new PrismaClient()
 
-
-
 async function CartDetails(req, res) {
     try {
         
