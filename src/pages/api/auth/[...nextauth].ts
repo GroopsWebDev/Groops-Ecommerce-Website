@@ -8,7 +8,7 @@ import { env } from "../../../env/server.mjs";
 // import { prisma } from "../../../server/db/client";
 import { PrismaClient } from '@prisma/client'
 import Providers from 'next-auth/providers'
-
+import bcrypt from 'bcryptjs';
 const prisma = new PrismaClient()
 
 export const authOptions: NextAuthOptions = {
@@ -128,13 +128,13 @@ adapter: PrismaAdapter(prisma),
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials:any, req) {
-        const user = await prisma.user.findUnique({
+        const user:any = await prisma.user.findUnique({
           where: { email: credentials.email },
         });
 
-        console.log(user)
+        console.log(bcrypt.compareSync(credentials.password,user?.password))
 
-        if (user && user.password === credentials.password) {
+        if (user) {
           return user;
         } else {
           throw new Error("Invalid email or password"); 

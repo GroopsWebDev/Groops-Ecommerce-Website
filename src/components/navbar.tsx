@@ -28,7 +28,6 @@ const Header = () => {
   const { push, asPath } = useRouter();
   const firstName = sessionData?.user?.name?.split(" ")[0];
 
-
   console.log(`navbar.tsx sessionData?.user: ${sessionData}`);
 
   const user_img = sessionData?.user?.image;
@@ -134,7 +133,7 @@ const Header = () => {
                       <Popover.Body className="bg-gradient-to-br from-purple-500 to-pink-400 p-1">
                         <div className="h-full w-full bg-white ">
                           <Link
-                            href="/member/profile"
+                            href="/userSetting"
                             className="ml-2 text-lg text-black no-underline hover:text-orange-500 hover:underline"
                           >
                             Account Setting
