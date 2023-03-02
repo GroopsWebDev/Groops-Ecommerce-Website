@@ -1,13 +1,28 @@
 import { signIn } from "next-auth/react";
 import GoogleButton from "react-google-button";
-import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import React from "react";
+
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .max(255)
+    .required("Must be a valid email"),
+  password: yup
+  .string()
+  .max(255)
+  .required("Password is required"),
+});
 
 const Login = () => {
-  const { register, handleSubmit } = useForm();
+  const [loading, setLoading] = React.useState(false);
   const [error, setError] = useState(false);
   const router = useRouter();
+
   const buttonStyle = {
     padding: "10px",
     // backgroundImage: 'linear-gradient(to right, #9B5DE5, #F15BB5)',
@@ -19,7 +34,20 @@ const Login = () => {
     marginTop: "50px",
   };
 
+<<<<<<< HEAD
+  
+=======
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  })
+
+>>>>>>> 1265b7f6fe8bb977b8cfc788c4f409ebb7bb4f1b
   const onSubmit = async (data: any) => {
+    setLoading(true);
     const result: any = await signIn("credentials", {
       redirect: false,
       email: data.email,
@@ -28,8 +56,10 @@ const Login = () => {
     });
     if (result.ok) {
       router.push(result.url);
+      setLoading(false);
     }
     setError(true);
+    setLoading(false);
   };
 
   return (
@@ -44,6 +74,7 @@ const Login = () => {
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <div>
+
               <label
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
@@ -51,15 +82,24 @@ const Login = () => {
                 Email address
               </label>
               <div className="mt-1">
-                <input
-                  id="email"
-                  type="email"
-                  {...register("email", { required: true })}
-                  autoComplete="email"
-                  required
-                  className="focus block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500
-                    focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                />
+
+        <Controller
+            control={control}
+            name="email"
+            defaultValue=""
+            render={({ field }) => <input {...field} 
+            required 
+            type="email" 
+            id="email" 
+            name="email" 
+            autoComplete="email" 
+            className="focus block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500
+                    focus:outline-none focus:ring-indigo-500 sm:text-sm"/>}
+            />
+             {errors.email && (
+                <span style={{ color: 'red' }}>{errors.email['message']}</span>
+                )}
+            
               </div>
             </div>
 
@@ -71,14 +111,23 @@ const Login = () => {
                 Password
               </label>
               <div className="mt-1">
-                <input
-                  id="password"
-                  type="password"
-                  {...register("password", { required: true })}
-                  autoComplete="current-password"
+
+                <Controller
+                  control={control}
+                  name="password"
+                  defaultValue=""
+                  render={({ field }) => <input {...field} 
                   required
-                  className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                />
+                  type="password" 
+                  id="password" 
+                  autoComplete="current-password"
+                  className="focus block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500
+                    focus:outline-none focus:ring-indigo-500 sm:text-sm"/>}
+                  />
+             {errors.password && (
+                <span style={{ color: 'red' }}>{errors.password['message']}</span>
+                )}
+
               </div>
             </div>
 

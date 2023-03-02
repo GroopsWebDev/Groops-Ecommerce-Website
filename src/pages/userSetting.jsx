@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Head from 'next/head';
+import { minioClient } from '../../helper';
 
 const userSetting = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -21,8 +22,26 @@ const userSetting = () => {
     setUser((prevState) => ({ ...prevState, [name]: value }));
   };
 
+  const bucketName = "img";
+
+
   const handleProfilePictureChange = (e) => {
+    const file = e.target.files[0].name;
+    minioClient.putObject(
+      bucketName,
+      file. file,
+      file.buffer,
+      function (err, url) {
+        if (err) {
+          return console.log(err);
+        }
+        console.log("============", err);
+        console.log("============", url);
+      }
+    );
     setUser({ ...user, profilePicture: URL.createObjectURL(e.target.files[0]) });
+    console.log(e.target.files[0])
+
   };
 
   const handlePasswordChange = () => {

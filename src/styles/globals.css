@@ -2,3 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@500;800&display=swap');
+
+.loader {
+    animation: spin 1s ease-in-out infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  

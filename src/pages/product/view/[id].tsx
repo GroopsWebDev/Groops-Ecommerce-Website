@@ -5,29 +5,34 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRef } from "react";
 import { useRouter } from "next/router";
+import Loader from "../../../components/loader/loader"; 
+import { Spinner } from "react-bootstrap";
+
 
 const ProductDetails = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const myRef: any = useRef(null);
   const router = useRouter();
-
-  const { data: sessionData } = useSession();
-  const featuredProductsStyle =
-    "scale-100 ml-10 mr-10 mb-20 transform transition duration-300 hover:scale-110";
   const [data, setData] = useState<any>([]);
   const imagePath = "https://api.gr-oops.com/";
-  const url = "http://localhost:3000/api/product/checkout";
+  const url = "http://localhost:3000/product/cart-details";
 
   useEffect(() => {
     const url = window.location.pathname;
     const itemId = url.split("/").pop();
+    setIsLoading(true)
     async function fetchData() {
       const response = await fetch(
         "http://localhost:3000/api/product/getById?id=" + itemId
       );
       const json = await response.json();
       setData(json);
+      setIsLoading(false)
     }
+
     fetchData();
+
   }, []);
 
   const id = data.skuid;
@@ -53,7 +58,14 @@ const ProductDetails = () => {
 
   return (
     <>
-      <div className="flex flex-wrap">
+      <br/>
+      <br/>
+      {isLoading ? (
+        <Spinner  style={{marginLeft: "700px" }}/>
+         
+      ) : (
+      
+          <div className="flex flex-wrap">
         <div className="w-full px-4 lg:w-6/12">
           <img
             alt="product image"
@@ -94,6 +106,9 @@ const ProductDetails = () => {
           </a>
         </div>
       </div>
+        )}
+         <br/>
+      <br/>
     </>
   );
 };

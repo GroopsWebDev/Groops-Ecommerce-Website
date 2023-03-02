@@ -18,57 +18,20 @@ import TopGroups from "../../public/assets/group/top-groups.svg";
 
 //React Bootstrap
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 //react icons
 import JoinNowButton from "../components/elements/join-now-btn";
 import SignInButton from "../components/elements/sign-in-btn";
 
 import Welcome from "../components/welcome";
 import HelpCenter from "../components/help/help-center";
+import { Spinner } from "react-bootstrap";
+
+
 
 const Home = () => {
   const { data: sessionData } = useSession();
-  const featuredProductsStyle =
-    "scale-100 ml-10 mr-10 mb-20 transform transition duration-300 hover:scale-110";
-  // const featuredProducts = [
-  //   {
-  //     item: <PopularProduct className={featuredProductsStyle} />,
-  //     link: "/product",
-  //   },
-  //   {
-  //     item: <OnSale className={featuredProductsStyle} />,
-  //     link: "/",
-  //   },
-  //   {
-  //     item: <Drinks className={featuredProductsStyle} />,
-  //     link: "/",
-  //   },
-  //   {
-  //     item: <Snacks className={featuredProductsStyle} />,
-  //     link: "/",
-  //   },
-  //   {
-  //     item: <InstantFood className={featuredProductsStyle} />,
-  //     link: "/",
-  //   },
-  //   {
-  //     item: <FrozenFood className={featuredProductsStyle} />,
-  //     link: "/",
-  //   },
-  //   {
-  //     item: <Kitchen className={featuredProductsStyle} />,
-  //     link: "/",
-  //   },
-  //   {
-  //     item: <PersonalCare className={featuredProductsStyle} />,
-  //     link: "/",
-  //   },
-  //   {
-  //     item: <Groceries className={featuredProductsStyle} />,
-  //     link: "/",
-  //   },
-  // ];
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const [data, setData] = useState<any>([]);
   const imagePath = "https://api.gr-oops.com/";
@@ -76,16 +39,19 @@ const Home = () => {
 
   useEffect(() => {
     async function fetchData() {
+      setIsLoading(true)
+
       const response = await fetch('http://localhost:3000/api/get-data');
       const json = await response.json();
-      console.log(json);
       setData(json);
+      setIsLoading(false)
+
     }
 
     fetchData();
   }, []);
 
-  console.log(data);
+    
 
 
   return (
@@ -97,37 +63,18 @@ const Home = () => {
       {/** Section 2 */}
       <OurFeaturedProducts className="ml-auto mr-auto mt-32 mb-20 w-[466px]" />
       <Container className="flex-auto justify-center ">
-        {/* {data.map((product, index) => {
-          if (index % 3 === 0) {
-             
-            return (
-              <Row key={index}>
-                <Col>
-                  <Link href={featuredProducts[index]!.link}>
-                    {featuredProducts[index]?.item}
-                  </Link>
-                </Col>
-                <Col>
-                  <Link href={featuredProducts[index + 1]!.link}>
-                    {featuredProducts[index + 1]?.item}
-                  </Link>
-                </Col>
-                <Col>
-                  <Link href={featuredProducts[index + 2]!.link}>
-                    {featuredProducts[index + 2]?.item}
-                  </Link>
-                </Col>
-              </Row>
-            );
-          }
-        })} */}
+      <br/>
+              <br/>
+              {isLoading ? (
+                <Spinner  style={{marginLeft: "700px" }}/>
+                 
+              ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {data.map((item: any, index: any) => {
-
-
-
+            
+            
             return (
-
+             
 
               <div
                 key={item.id}
@@ -143,13 +90,11 @@ const Home = () => {
                   </a>
                 </div>
               </div>
-
-
-            )
-
-
-          })}
+            )}
+          )}
         </div>
+              
+              )}
       </Container>
 
       {/** Section 3 Card Carousel*/}

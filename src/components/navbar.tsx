@@ -9,6 +9,7 @@ import NavPerson from "../../public/assets/navbar/nav-person.svg";
 import NavCart from "../../public/assets/navbar/nav-cart.svg";
 import NavSearch from "../../public/assets/navbar/nav-search.svg";
 import NavHeart from "../../public/assets/navbar/nav-heart.svg";
+
 //nextAuth
 import { signIn, signOut, useSession } from "next-auth/react";
 //react-confirm-alert
@@ -26,8 +27,8 @@ const Header = () => {
   const [target, setTarget] = useState(null); //target for overlay
   const ref = useRef(null); //ref for overlay
   const { push, asPath } = useRouter();
-  console.log(sessionData);
   const firstName = sessionData?.user?.name?.split(" ")[0];
+  const url = "http://localhost:3000/product/cart-details";
 
   const user_img = sessionData?.user?.image;
 
@@ -109,10 +110,25 @@ const Header = () => {
                 </Link>
                 <文 className="w-7" />
                 <NavSearch className="w-7" />
-                <NavHeart className="w-7" />
-                <Link href="/member/cart">
-                  <NavCart className="w-7" />
-                </Link>
+                
+                {sessionData
+                  ?
+                  ''
+                  :
+                  <NavHeart className="w-7" />
+                }
+
+                {sessionData
+                  ?
+                  ''
+                  :
+                  <Link href="#">
+                    <NavPerson className="w-7" onClick={handleSignIn} />
+                  </Link>
+                }
+
+
+
                 {/* Login Person Icon */}
                 <div ref={ref}>
                   <div onClick={handleClick}>
@@ -142,7 +158,10 @@ const Header = () => {
                           >
                             Account Setting
                           </Link>
-                          <div
+                         { sessionData ? 
+                            ''
+                            :
+                            <div
                             className="ml-2 text-lg text-black no-underline hover:text-red-500 hover:underline"
                             onClick={() => {
                               logout();
@@ -150,6 +169,7 @@ const Header = () => {
                           >
                             Sign Out
                           </div>
+                         }
                         </div>
                       </Popover.Body>
                     </Popover>
@@ -194,14 +214,31 @@ const Header = () => {
                   GROUP ORDER
                 </Link>
                 <文 className="w-7" />
+
+                {sessionData
+                  ?
+                  ''
+                  :
+                  <NavHeart className="w-7" />
+                }
+
+                {sessionData
+                  ?
+                  ''
+                  :
+                  
+                  <Link href="#">
+                    <NavPerson className="w-7" onClick={handleSignIn} />
+                  </Link>
+                }
+
+
                 <NavSearch className="w-7" />
-                <NavHeart className="w-7" />
-                <Link href="/member/cart">
+
+                <Link href={url}>
                   <NavCart className="w-7" />
                 </Link>
-                <Link href="#">
-                  <NavPerson className="w-7" onClick={handleSignIn} />
-                </Link>
+
                 <button
                   className="rounded-full border-4 border-black px-10 py-3 font-semibold no-underline transition"
                   onClick={

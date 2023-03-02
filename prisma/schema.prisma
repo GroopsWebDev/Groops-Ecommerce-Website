@@ -106,16 +106,18 @@ model Order {
   orderId       String          @id @default(cuid())
   orderDate     DateTime        @default(now())
   user          User            @relation(fields: [userId], references: [id])
-  userId        String          @unique
-  purchasedItem PurchasedItem[]
+  userId        String          @unique   
+  name          String,
+  email         String,
+  mobile_number  String,
+  address        String,
+  state          String,
+  city           String,
+  zipcode        String,
+  status         String         
 }
 
-model PurchasedItem {
-  product   Product @relation(fields: [productId], references: [skuid])
-  productId String  @unique
-  order     Order   @relation(fields: [orderId], references: [orderId])
-  orderId   String  @unique
-}
+ 
 
 model Cart {
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
