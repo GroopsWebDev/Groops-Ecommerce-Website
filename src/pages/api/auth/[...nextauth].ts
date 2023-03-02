@@ -37,12 +37,18 @@ export const authOptions: NextAuthOptions = {
         const user: any = await prisma.user.findUnique({
           where: { email: credentials.email },
         });
-
         if (user) {
-          return user;
-        } else {
-          return false;
+          const isPassword = bcrypt.compareSync(
+            credentials.password,
+            user.password
+          );
+          if (isPassword) {
+            return user;
+          } else {
+            return false;
+          }
         }
+        return false;
       },
     }),
     DiscordProvider({
