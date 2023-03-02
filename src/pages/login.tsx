@@ -1,11 +1,13 @@
 import { signIn } from "next-auth/react";
-import { redirect } from "next/dist/server/api-utils";
 import GoogleButton from "react-google-button";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
-
+  const [error, setError] = useState(false);
+  const router = useRouter();
   const buttonStyle = {
     padding: "10px",
     // backgroundImage: 'linear-gradient(to right, #9B5DE5, #F15BB5)',
@@ -18,17 +20,16 @@ const Login = () => {
   };
 
   const onSubmit = async (data: any) => {
-    const result = await signIn("credentials", {
+    const result: any = await signIn("credentials", {
       redirect: false,
       email: data.email,
       password: data.password,
       callbackUrl: "/",
     });
-    console.log(result);
-
-    if (result?.url) {
-      window.location.href = result.url;
+    if (result.ok) {
+      router.push(result.url);
     }
+    setError(true);
   };
 
   return (
@@ -133,7 +134,7 @@ const Login = () => {
             <div className="relative flex justify-center py-4 text-sm">
               <GoogleButton
                 onClick={() => {
-                  signIn("google");
+                  signIn("google", { callbackUrl: "/" });
                 }}
               />
             </div>
@@ -162,7 +163,6 @@ const Login = () => {
               </p>
             </div>
           </div>
-
         </div>
       </div>
     </div>
