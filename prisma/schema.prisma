@@ -75,12 +75,15 @@ model User {
   password      String?
   role          Role?
   address       String?
-  phone         Int?
+  phone         Int
   birthday      DateTime?
   cart          Cart[]
   order         Order?
   Group         Group?
   GroupMember   GroupMember?
+  username      String
+  postCode      Int
+  
 }
 
 model Product {
@@ -99,7 +102,7 @@ model Product {
   costPrice           Int            @default(0)
   stock               Int            @default(0)
   Cart           Cart[]
-  purchasedItem       PurchasedItem?
+ 
 }
 
 model Order {
@@ -107,14 +110,15 @@ model Order {
   orderDate     DateTime        @default(now())
   user          User            @relation(fields: [userId], references: [id])
   userId        String          @unique   
-  name          String,
-  email         String,
-  mobile_number  String,
-  address        String,
-  state          String,
-  city           String,
-  zipcode        String,
-  status         String         
+  name          String
+  email         String
+  mobile_number  String
+  address        String
+  state          String
+  city           String
+  zipcode        String
+  status         String     
+  paymentType    String?    
 }
 
  

@@ -7,15 +7,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import React from "react";
 
+type FormValues = {
+  email: string;
+  password: string;
+};
+
 const schema = yup.object().shape({
-  email: yup
-    .string()
-    .max(255)
-    .required("Must be a valid email"),
-  password: yup
-  .string()
-  .max(255)
-  .required("Password is required"),
+  email: yup.string().max(255).required("Must be a valid email"),
+  password: yup.string().max(255).required("Password is required"),
 });
 
 const Login = () => {
@@ -34,18 +33,14 @@ const Login = () => {
     marginTop: "50px",
   };
 
-<<<<<<< HEAD
-  
-=======
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<FormValues>({
     resolver: yupResolver(schema),
-  })
+  });
 
->>>>>>> 1265b7f6fe8bb977b8cfc788c4f409ebb7bb4f1b
   const onSubmit = async (data: any) => {
     setLoading(true);
     const result: any = await signIn("credentials", {
@@ -74,7 +69,6 @@ const Login = () => {
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <div>
-
               <label
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
@@ -82,24 +76,28 @@ const Login = () => {
                 Email address
               </label>
               <div className="mt-1">
-
-        <Controller
-            control={control}
-            name="email"
-            defaultValue=""
-            render={({ field }) => <input {...field} 
-            required 
-            type="email" 
-            id="email" 
-            name="email" 
-            autoComplete="email" 
-            className="focus block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500
-                    focus:outline-none focus:ring-indigo-500 sm:text-sm"/>}
-            />
-             {errors.email && (
-                <span style={{ color: 'red' }}>{errors.email['message']}</span>
+                <Controller
+                  control={control}
+                  name="email"
+                  defaultValue=""
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      required
+                      type="email"
+                      id="email"
+                      name="email"
+                      autoComplete="email"
+                      className="focus block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500
+                    focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    />
+                  )}
+                />
+                {errors.email && (
+                  <span style={{ color: "red" }}>
+                    {errors.email["message"]}
+                  </span>
                 )}
-            
               </div>
             </div>
 
@@ -111,7 +109,6 @@ const Login = () => {
                 Password
               </label>
               <div className="mt-1">
-
                 <Controller
                   control={control}
                   name="password"
@@ -119,15 +116,15 @@ const Login = () => {
                   render={({ field }) => <input {...field} 
                   required
                   type="password" 
-                  id="password" 
+                    id="password" 
                   autoComplete="current-password"
                   className="focus block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500
                     focus:outline-none focus:ring-indigo-500 sm:text-sm"/>}
                   />
-             {errors.password && (
-                <span style={{ color: 'red' }}>{errors.password['message']}</span>
-                )}
 
+             {errors.password && (
+                <span style={{ color: 'red' }}>{ errors.password['message']} </span>
+                )}
               </div>
             </div>
 

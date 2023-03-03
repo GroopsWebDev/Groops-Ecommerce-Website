@@ -125,7 +125,7 @@ const Register = () => {
     return (
         <div>
         <h1 style={{textAlign:"center"}}>Join to unlock the best of Groops!</h1>
-        <form style={formStyle} onSubmit={handleSubmit(onSubmit)}>
+        <form style={formStyle}  onSubmit={handleSubmit(onSubmit)}>
           <div style={{display: 'flex'}}>
             <div style={{flex: '1'}}>
               <label htmlFor="firstname" style={labelStyle}>First Name</label>
