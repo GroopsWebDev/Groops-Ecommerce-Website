@@ -112,6 +112,7 @@ const Header = () => {
                 <文 className="w-7" />
                 <NavSearch className="w-7" />
                 <NavHeart className="w-7" />
+                 
                 <Link href="/member/cart"><NavCart className="w-7" /></Link>
                 {/* Login Person Icon */}
                 <div ref={ref}>
@@ -192,8 +193,10 @@ const Header = () => {
                 </Link>
                 <文 className="w-7" />
                 <NavSearch className="w-7" />
-                <NavHeart className="w-7" />
-                <Link href="/member/cart">
+                <Link href="/shoppingCart/shoppingCart">
+                  <NavCart className="w-7" />
+                </Link>
+                <Link href="/orderConcern/orderConcern">
                   <NavCart className="w-7" />
                 </Link>
                 <Link href="#">
