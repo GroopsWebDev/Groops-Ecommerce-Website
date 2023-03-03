@@ -4,7 +4,9 @@ import React from "react";
 import HelpCenter from "../../components/help/help-center";
 import Divider from "../../components/shoppingCart/divider";
 
-class orderConcern extends React.Component<any, any> {
+//团购-订单确认
+
+class orderConfirm extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -15,7 +17,7 @@ class orderConcern extends React.Component<any, any> {
   render() {
     return (
       <>
-        <div className="orderConcern">
+        <div className="orderConfirm">
 
           <div style={{ backgroundColor: 'white', width: '100%', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
             <div style={{ marginTop: '20px', width: '69%', backgroundColor: '#F9f8f6' }}  >
@@ -262,4 +264,4 @@ let checkOut = (that: any) => {
 
 
 
-export default orderConcern;
+export default orderConfirm;
