@@ -18,10 +18,17 @@ export const authOptions: NextAuthOptions = {
       return false;
     },
     async session({ session, token }: { session: any; token: any }) {
+      session.user.id = token?.user?.id;
+      session.user.firname = token?.user?.firname;
+      session.user.lastname = token?.user?.lastname;
       return session;
     },
-    async jwt({ token, account, profile }) {
+    async jwt({ token, account, user }) {
       // Persist the OAuth access_token and or the user id to the token right after signin
+      if (account) {
+        token.accessToken = account.access_token;
+        token.user = user;
+      }
       return token;
     },
   },

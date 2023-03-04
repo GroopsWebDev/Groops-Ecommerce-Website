@@ -1,11 +1,40 @@
 import { useState } from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
-// import minioClient  from "../../server/miiniClient" ;
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useRouter } from "next/router";
+import * as yup from "yup";
+import axios from "axios";
+import { useSession } from "next-auth/react";
+
+const schema = yup.object().shape({
+  firstname: yup
+    .string()
+    .required("username field is required")
+    .matches(/^[A-Za-z]+[A-Za-z ]*$/, "Username must be alphabet characters.")
+    .min(2, "Needs at least 2 Character")
+    .max(100, "Please enter a username less than 100 character"),
+  lastname: yup
+    .string()
+    .required("username field is required")
+    .matches(/^[A-Za-z]+[A-Za-z ]*$/, "Username must be alphabet characters.")
+    .min(2, "Needs at least 2 Character")
+    .max(100, "Please enter a username less than 100 character"),
+
+  phoneNumber: yup.string().required("phone number field is required"),
+  postCode: yup.number().required("post code field is required"),
+});
 
 const userSetting = () => {
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const router = useRouter();
+  const { data: sessionData } = useSession();
+  const [data, setData] = useState<any>([]);
+  const [loading, setLoading] = useState(false);
+
   const [user, setUser] = useState({
-    username: "",
+    firstname: "",
+    lastname: "",
     phoneNumber: "",
     address: "",
     postCode: "",
@@ -17,6 +46,23 @@ const userSetting = () => {
     profilePicture: "",
   });
 
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const inputStyle = {
+    padding: "5px 10px",
+    marginBottom: "10px",
+    borderRadius: "5px",
+    border: "1px solid #ccc",
+    width: "100%",
+  };
+
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setUser((prevState) => ({ ...prevState, [name]: value }));
@@ -25,43 +71,30 @@ const userSetting = () => {
   const bucketName = "img";
 
   const handleProfilePictureChange = (e: any) => {
-    const file = e.target.files[0].name;
-    // minioClient.putObject(
-    //   bucketName,
-    //   file.file,
-    //   file.buffer,
-    //   function (err: any, url: any) {
-    //     if (err) {
-    //       return console.log(err);
-    //     }
-    //   }
-    // );
+    const file = e.target.files[0];
+
     setUser({
       ...user,
-      profilePicture: URL.createObjectURL(e.target.files[0]),
+      profilePicture: URL.createObjectURL(file),
     });
-    console.log(e.target.files[0]);
   };
 
-  const submitButton = () => {
-    alert("User update successfully");
-    setIsSubmitted(true);
-  };
+  async function onSubmit(data: any) {
+    setLoading(true);
+    data.userId = sessionData?.user?.id;
+    const result = await axios.post("/api/user/userSetting", data);
+    if (result.status == 200) {
+      setLoading(false);
+      alert("profile update successfully");
+    } else {
+      setLoading(false);
+      alert("something went wrong.");
+    }
+  }
 
-  const handlePasswordChange = () => {};
-
-  const updatedUser = {
-    username: "new username",
-    phoneNumber: "new phone number",
-    address: "new address",
-    postCode: "new post code",
-    paymentMethod: "new payment method",
-    password: "new password",
-    oldPassword: "",
-    newPassword: "",
-    confirmPassword: "",
-    profilePicture: "",
-  };
+  useEffect(() => {
+    setData(sessionData?.user);
+  }, []);
 
   return (
     <>
@@ -94,22 +127,58 @@ const userSetting = () => {
           </div>
           <div className="w-1/2">
             <h1 className="mb-6 text-2xl font-bold">User Settings</h1>
-            <form onSubmit={handlePasswordChange}>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-4">
                 <label
                   className="mb-2 block font-bold text-gray-700"
-                  htmlFor="username"
+                  htmlFor="firstname"
                 >
-                  Username
+                  first name
                 </label>
-                <input
-                  className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 focus:outline-none"
-                  id="username"
-                  name="username"
-                  type="text"
-                  value={isSubmitted ? updatedUser.username : user.username}
-                  onChange={handleInputChange}
+
+                <Controller
+                  control={control}
+                  name="firstname"
+                  defaultValue=""
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      type="text"
+                      id="firstname"
+                      name="firstname"
+                      style={inputStyle}
+                    />
+                  )}
                 />
+                {errors.firstname && (
+                  <span style={{ color: "red" }}>first name is required</span>
+                )}
+              </div>
+              <div className="mb-4">
+                <label
+                  className="mb-2 block font-bold text-gray-700"
+                  htmlFor="lastname"
+                >
+                  last name
+                </label>
+
+                <Controller
+                  control={control}
+                  name="lastname"
+                  defaultValue=""
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      type="text"
+                      id="lastname"
+                      name="lastname"
+                      style={inputStyle}
+                    />
+                  )}
+                />
+                {errors.lastname && (
+                  <span style={{ color: "red" }}>last name is required</span>
+                )}
               </div>
               <div className="mb-4">
                 <label
@@ -118,14 +187,24 @@ const userSetting = () => {
                 >
                   Phone Number
                 </label>
-                <input
-                  className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 focus:outline-none"
-                  id="phoneNumber"
+                <Controller
+                  control={control}
                   name="phoneNumber"
-                  type="tel"
-                  value={user.phoneNumber}
-                  onChange={handleInputChange}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      type="text"
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      style={inputStyle}
+                    />
+                  )}
                 />
+
+                {errors.phoneNumber && (
+                  <span style={{ color: "red" }}>phone number is required</span>
+                )}
               </div>
               <div className="mb-4">
                 <label
@@ -134,13 +213,24 @@ const userSetting = () => {
                 >
                   Address
                 </label>
-                <textarea
-                  className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 focus:outline-none"
-                  id="address"
+                <Controller
+                  control={control}
                   name="address"
-                  value={user.address}
-                  onChange={handleInputChange}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      type="text"
+                      id="address"
+                      name="address"
+                      style={inputStyle}
+                    />
+                  )}
                 />
+
+                {errors.address && (
+                  <span style={{ color: "red" }}>address is required</span>
+                )}
               </div>
               <div className="mb-4">
                 <label
@@ -149,48 +239,49 @@ const userSetting = () => {
                 >
                   Post Code
                 </label>
-                <input
-                  className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 focus:outline-none"
-                  id="postCode"
+                <Controller
+                  control={control}
                   name="postCode"
-                  type="text"
-                  value={user.postCode}
-                  onChange={handleInputChange}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      type="text"
+                      id="postCode"
+                      name="postCode"
+                      style={inputStyle}
+                    />
+                  )}
                 />
+
+                {errors.postCode && (
+                  <span style={{ color: "red" }}>post code is required</span>
+                )}
               </div>
               <div className="mb-4">
                 <label
                   className="mb-2 block font-bold text-gray-700"
-                  htmlFor="paymentMethod"
+                  htmlFor="paymentType"
                 >
                   Payment Method
                 </label>
                 <select
                   className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 focus:outline-none"
-                  id="paymentMethod"
-                  name="paymentMethod"
-                  value={user.paymentMethod}
-                  onChange={handleInputChange}
+                  id="paymentType"
+                  name="paymentType"
+                  //  value={user.paymentType}
                 >
-                  <option value="">-- Select Payment Method --</option>
+                  {/* <option value="">-- Select Payment Method --</option> */}
                   <option value="paypal">Paypal</option>
                   <option value="debit-card">Visa</option>
                 </select>
               </div>
 
               <button
-                className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
-                onClick={handlePasswordChange}
-              >
-                Change Password
-              </button>
-
-              <button
                 type="submit"
-                onClick={submitButton}
                 className="focus:shadow-outline mx-4 rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
               >
-                Submit
+                Save
               </button>
             </form>
           </div>

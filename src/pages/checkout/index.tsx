@@ -17,7 +17,7 @@ const apiUrl = "http://localhost:3000/api/";
 import { useRouter } from "next/router";
 import CheckoutForm from "./checkoutform";
 const baseUrl = "http://localhost:3000/";
-
+import { useSession } from "next-auth/react";
 const CheckoutPage = () => {
   const router = useRouter();
   const [selectPaymentType, setSelectPaymentType] = useState("");
@@ -28,19 +28,20 @@ const CheckoutPage = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  const { data: sessionData } = useSession();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: any) => {
     setSelectPaymentType(e.target.value);
   };
 
   async function onSubmit(data: any) {
     data.paymentType = selectPaymentType;
+    data.userId = sessionData?.user?.id;
     const response = await fetch(apiUrl + "checkout", {
       method: "POST",
       body: JSON.stringify(data),
@@ -57,15 +58,12 @@ const CheckoutPage = () => {
 
   const [clientSecret, setClientSecret] = useState("");
 
-  
-
   const stripePromise = loadStripe(
     "pk_test_51MCWFKI3CTiTs4JqLIbwXO682cGFbfqKkbAQJjfFfkSvGcwjA0GDZvgZkGlFPFTG7ve6CvBRh0IhQtU1Hp9q8Y5I00pmlT9A2M"
   );
 
-  
   useEffect(() => {
-    let json 
+    let json: any;
     async function fetchData() {
       const response = await fetch(apiUrl + "product/get/cartdata");
       json = await response.json();
@@ -76,32 +74,29 @@ const CheckoutPage = () => {
       setTotalOrderAmount(totalAmount);
     }
     fetchData();
-    createPayData()
+    createPayData();
     async function createPayData() {
-        const response = await fetch(apiUrl + "create", {
-          method: "POST",
-          body: JSON.stringify({ items: json }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-          const data = await response.json();
-          if(data)
-          {
-            setClientSecret(data.clientSecret);
-          }
+      const response = await fetch(apiUrl + "create", {
+        method: "POST",
+        body: JSON.stringify({ items: json }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      if (data) {
+        setClientSecret(data.clientSecret);
+      }
     }
-    
   }, []);
 
   const appearance = {
-    theme: 'stripe',
+    theme: "stripe",
   };
   const options = {
     clientSecret,
     appearance,
   };
-
 
   return (
     <div className="row">
@@ -260,7 +255,6 @@ const CheckoutPage = () => {
                   htmlFor="zipCode"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  
                   Zip Code
                 </label>
                 <div className="mt-1">
@@ -318,7 +312,7 @@ const CheckoutPage = () => {
                 value="stripe"
                 onChange={handleInputChange}
               />
-              <img src="assets/image/stripe.png" style={{height:"50px"}}/>
+              <img src="assets/image/stripe.png" style={{ height: "50px" }} />
             </div>
           </div>
           {/* <div className="card mt-3">
@@ -346,11 +340,11 @@ const CheckoutPage = () => {
           </div>
           <div className="card mt-3">
             <div className="card-body">
-            {clientSecret && (
-        <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm />
-        </Elements>
-      )}
+              {clientSecret && (
+                <Elements options={options} stripe={stripePromise}>
+                  <CheckoutForm />
+                </Elements>
+              )}
             </div>
           </div>
         </Modal.Body>

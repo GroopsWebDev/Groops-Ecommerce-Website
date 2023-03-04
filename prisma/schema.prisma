@@ -82,7 +82,7 @@ model User {
   Group         Group?
   GroupMember   GroupMember?
   username      String
-  postCode      Int
+  postCode      String
   
 }
 
@@ -118,7 +118,7 @@ model Order {
   city           String
   zipcode        String
   status         String     
-  paymentType    String?    
+  paymentType    String 
 }
 
  

@@ -98,7 +98,7 @@ const Header = () => {
                   HOME
                 </Link>
                 <Link
-                  href="/product"
+                  href="/"
                   className="text-xl font-medium text-black no-underline"
                 >
                   SHOP
@@ -205,7 +205,7 @@ const Header = () => {
                   HOME
                 </Link>
                 <Link
-                  href="/product"
+                  href="/"
                   className="text-xl font-medium text-black no-underline"
                 >
                   SHOP
