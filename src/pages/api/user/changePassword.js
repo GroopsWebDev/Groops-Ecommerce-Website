@@ -1,41 +1,32 @@
-import { PrismaClient } from '@prisma/client'
-import { NextApiHandler } from 'next';
-import bcrypt from 'bcryptjs';
-
-const prisma = new PrismaClient()
+import { NextApiHandler } from "next";
+import bcrypt from "bcryptjs";
+import { prisma } from "../../../server/db/client";
 
 async function ChangePassword(req, res) {
-    try {
-        
-        const { oldPassword,newPassword} = req.body;
-        
-        const newUser = await prisma.user.findFirst({
-            where: {
-                email :  'an@gmail.com', 
-            },
-        });
+  try {
+    const { currentPassword, newPassword, id } = req.body;
+    const user = await prisma.user.findFirst({
+      where: {
+        email: id,
+      },
+    });
 
-       const check = bcrypt.compareSync(oldPassword,newUser?.password)
-     if (check){
-        const newUser = await prisma.user.update({
-            where: {
-                email :  'an@gmail.com', 
-            },
-            data : {  password :  await bcrypt.hash(newPassword, 10) }
-        });
-        res.json(200,  'passsword udapte ');
-
-     }else{
-        res.json(400,  'old password is not exit');
-        
-     }
-
-
-    } catch (error) {
-        // Send a JSON response with the error message
-        res.status(400).json({ message: error.message });
+    const check = bcrypt.compareSync(currentPassword, user?.password);
+    if (check) {
+      const newUser = await prisma.user.update({
+        where: {
+          email: id,
+        },
+        data: { password: await bcrypt.hash(newPassword, 10) },
+      });
+      res.json({ status: 200, message: "password change successfully." });
+    } else {
+      res.json({ status: 400, message: "old password is invalid" });
     }
+  } catch (error) {
+    // Send a JSON response with the error message
+    res.status(200).json({ message: error.message });
+  }
 }
 
 export default ChangePassword;
-

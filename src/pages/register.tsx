@@ -4,10 +4,66 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import bcrypt from 'bcryptjs';
+import { CircularProgress } from "@mui/material";
+
+  
+const schema = Yup.object().shape({
+  firstname: Yup
+  .string()
+  .matches(/^[A-Za-z]+[A-Za-z ]*$/, "First name must be alphabet characters.")
+  .min(2, "Needs at least 2 Character")
+  .max(100,"Please enter a First name less than 100 character")
+  .required('First name is required'),
+  lastname: Yup
+  .string()
+  .matches(/^[A-Za-z]+[A-Za-z ]*$/, "Last name must be alphabet characters.")
+  .min(2, "Needs at least 2 Character")
+  .max(100,"Please enter a Last name less than 100 character")
+  .required('Last name is required'),
+  email: Yup
+  .string()
+    .trim()
+    .email("Must be a valid email")
+    .max(255)
+   .required("Please enter the required field")
+   .matches(
+    /^([a-zA-Z0-9_+0-9\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/,
+    "Please enter valid email address."
+  ),
+  password: Yup
+  .string()
+    .matches(/^\S*$/, 'Whitespace is not allowed')
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})/,
+      "Must contain 8 characters, one uppercase, one lowercase, one number and one special case character"
+    )
+    .required("Password is Mendatory")
+    .min(8, "Password must be at 8 char long")
+    .max(32),
+  confirmPassword: Yup
+  .string()
+    .required("Password is Mendatory")
+    .oneOf([Yup.ref('password')], "Password does not match"),
+  terms: Yup.boolean().oneOf([true], 'You must accept the terms and conditions'),
+});
+
+
 
 const Register = () => {
+  const [loading, setLoading] = React.useState(false);
     const router = useRouter();
   
+    const {
+      control,
+      handleSubmit,
+      formState: { errors },
+    } = useForm({
+      resolver: yupResolver(schema),
+    })
+
+
+    console.log(errors)
+
     const formStyle = {
       display: 'flex',
       flexDirection: 'column' as const,
@@ -40,24 +96,10 @@ const Register = () => {
     const checkboxStyle = {
       marginRight: '5px'
     };
-  
-    const schema = Yup.object().shape({
-      firstname: Yup.string().required('First name is required'),
-      lastname: Yup.string().required('Last name is required'),
-      email: Yup.string().required('Email is required').email('Invalid email'),
-      password: Yup.string().required('Password is required'),
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref('password')], 'Passwords do not match')
-        .required('Confirm password is required'),
-      terms: Yup.boolean().oneOf([true], 'You must accept the terms and conditions'),
-    });
-  
-    const { control, handleSubmit, formState: { errors } } = useForm({
-      resolver: yupResolver(schema),
-      mode: 'onBlur',
-    });
+
   
     async function  onSubmit (data :any) {
+      setLoading(true);
       const hashedPassword = await bcrypt.hash(data.password, 10);
       data.password = hashedPassword;
 
@@ -68,29 +110,33 @@ const Register = () => {
             "Content-Type": "application/json",
           },
         });
+
+        console.log(errors)
       
         if (result) {
           router.push("/login")
+          setLoading(false);
         } else {
           // Error occurred while creating user
+          setLoading(false);
         }
     };
 
     return (
         <div>
         <h1 style={{textAlign:"center"}}>Join to unlock the best of Groops!</h1>
-        <form style={formStyle} onSubmit={handleSubmit(onSubmit)}>
+        <form style={formStyle}  onSubmit={handleSubmit(onSubmit)}>
           <div style={{display: 'flex'}}>
-
             <div style={{flex: '1'}}>
               <label htmlFor="firstname" style={labelStyle}>First Name</label>
               <Controller
                 control={control}
                 name="firstname"
+                defaultValue=""
                 render={({ field }) => <input {...field} type="text" id="firstname" name="firstname" style={inputStyle} />}
               />
-              {errors.firstname && typeof errors.firstname === 'string' && (
-                <span style={{ color: 'red' }}>{errors.firstname}</span>
+              {errors.firstname &&   (
+                <span style={{ color: 'red' }}>{errors.firstname['message']}</span>
                 )}
             </div>
 
@@ -99,10 +145,11 @@ const Register = () => {
               <Controller
                 control={control}
                 name="lastname"
+                defaultValue=""
                 render={({ field }) => <input {...field} type="text" id="lastname" name="lastname" style={inputStyle} />}
               />
-               {errors.lastname && typeof errors.lastname === 'string' && (
-                <span style={{ color: 'red' }}>{errors.lastname}</span>
+               {errors.lastname && (
+                <span style={{ color: 'red' }}>{errors.lastname['message']}</span>
                 )}
               </div>
 
@@ -112,42 +159,53 @@ const Register = () => {
             <Controller
             control={control}
             name="email"
+            defaultValue=""
             render={({ field }) => <input {...field} type="email" id="email" name="email" style={inputStyle} />}
             />
-             {errors.email && typeof errors.email === 'string' && (
-                <span style={{ color: 'red' }}>{errors.email}</span>
+             {errors.email && (
+                <span style={{ color: 'red' }}>{errors.email['message']}</span>
                 )}
 
             <label htmlFor="password" style={labelStyle}>Password</label>
-            <Controller
-            control={control}
-            name="password"
-            render={({ field }) => <input {...field} type="password" id="password" name="password" style={inputStyle} />}
+                  <Controller
+                  control={control}
+                  name="password"
+                  defaultValue=""
+                  render={({ field }) => <input {...field} 
+                  type="password" id="password" name="password" style={inputStyle} />}
             />
-             {errors.password && typeof errors.password === 'string' && (
-                <span style={{ color: 'red' }}>{errors.password}</span>
+             {errors.password && (
+                <span style={{ color: 'red' }}>{errors.password['message']}</span>
                 )}
 
             <label htmlFor="confirmPassword" style={labelStyle}>Confirm Password</label>
             <Controller
             control={control}
             name="confirmPassword"
+            defaultValue=""
             render={({ field }) => <input {...field} type="password" id="confirmPassword" name="confirmPassword" style={inputStyle} />}
             />
-            {errors.confirmPassword && typeof errors.confirmPassword === 'string' && (
-                <span style={{ color: 'red' }}>{errors.confirmPassword}</span>
+            {errors.confirmPassword && (
+                <span style={{ color: 'red' }}>{errors.confirmPassword['message']}</span>
                 )}
 
             <label style={labelStyle}>
             <Controller
                 control={control}
                 name="terms"
+                defaultValue=""
                 render={({ field }) => <input {...field} type="checkbox" name="terms" style={checkboxStyle} />}
             />
             yes, I want to receive deals & products information. I can opt out at any time.
             </label>
 
-            <button type="submit" style={buttonStyle}>Join</button>
+            <button type="submit" style={buttonStyle}>
+            {loading ? (
+                  <CircularProgress style={{color:"white"}}/>
+              ) : (
+              "Join"
+              )}
+              </button>
         </form>
         </div>
         );

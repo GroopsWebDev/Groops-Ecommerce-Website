@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export default async function Checkout(req, res) {
+export default async function Qty(req, res) {
       
    try {
       

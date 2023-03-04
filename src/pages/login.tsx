@@ -1,10 +1,26 @@
 import { signIn } from "next-auth/react";
-import { redirect } from "next/dist/server/api-utils";
 import GoogleButton from "react-google-button";
-import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import React from "react";
+
+type FormValues = {
+  email: string;
+  password: string;
+};
+
+const schema = yup.object().shape({
+  email: yup.string().max(255).required("Must be a valid email"),
+  password: yup.string().max(255).required("Password is required"),
+});
 
 const Login = () => {
-  const { register, handleSubmit } = useForm();
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = useState(false);
+  const router = useRouter();
 
   const buttonStyle = {
     padding: "10px",
@@ -17,18 +33,28 @@ const Login = () => {
     marginTop: "50px",
   };
 
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: yupResolver(schema),
+  });
+
   const onSubmit = async (data: any) => {
-    const result = await signIn("credentials", {
+    setLoading(true);
+    const result: any = await signIn("credentials", {
       redirect: false,
       email: data.email,
       password: data.password,
       callbackUrl: "/",
     });
-    console.log(result);
-
-    if (result?.url) {
-      window.location.href = result.url;
+    if (result.ok) {
+      router.push(result.url);
+      setLoading(false);
     }
+    setError(true);
+    setLoading(false);
   };
 
   return (
@@ -50,15 +76,28 @@ const Login = () => {
                 Email address
               </label>
               <div className="mt-1">
-                <input
-                  id="email"
-                  type="email"
-                  {...register("email", { required: true })}
-                  autoComplete="email"
-                  required
-                  className="focus block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500
+                <Controller
+                  control={control}
+                  name="email"
+                  defaultValue=""
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      required
+                      type="email"
+                      id="email"
+                      name="email"
+                      autoComplete="email"
+                      className="focus block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500
                     focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    />
+                  )}
                 />
+                {errors.email && (
+                  <span style={{ color: "red" }}>
+                    {errors.email["message"]}
+                  </span>
+                )}
               </div>
             </div>
 
@@ -70,14 +109,22 @@ const Login = () => {
                 Password
               </label>
               <div className="mt-1">
-                <input
-                  id="password"
-                  type="password"
-                  {...register("password", { required: true })}
-                  autoComplete="current-password"
+                <Controller
+                  control={control}
+                  name="password"
+                  defaultValue=""
+                  render={({ field }) => <input {...field} 
                   required
-                  className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                />
+                  type="password" 
+                    id="password" 
+                  autoComplete="current-password"
+                  className="focus block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500
+                    focus:outline-none focus:ring-indigo-500 sm:text-sm"/>}
+                  />
+
+             {errors.password && (
+                <span style={{ color: 'red' }}>{ errors.password['message']} </span>
+                )}
               </div>
             </div>
 
@@ -133,7 +180,7 @@ const Login = () => {
             <div className="relative flex justify-center py-4 text-sm">
               <GoogleButton
                 onClick={() => {
-                  signIn("google");
+                  signIn("google", { callbackUrl: "/" });
                 }}
               />
             </div>
@@ -162,7 +209,6 @@ const Login = () => {
               </p>
             </div>
           </div>
-
         </div>
       </div>
     </div>
