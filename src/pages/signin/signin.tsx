@@ -13,10 +13,10 @@ const Signin = () => {
 
   if (session) {
     setTimeout(() => {
-      push("/");
+      push("/index");
     }, 1000);
 
-    push("/"); //redirect back to Home page
+    push("/index"); //redirect back to Home page
   }
 
   const handleSubmit = (e: any) => {

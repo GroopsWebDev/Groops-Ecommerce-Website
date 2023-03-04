@@ -80,6 +80,10 @@ const Header = () => {
     setTarget(event.target);
   };
 
+  const gotocart = () => {
+    push("/product/cart-details");
+  };
+
   return (
     <>
       {sessionData ? (
@@ -113,6 +117,7 @@ const Header = () => {
                 <NavSearch className="w-7" />
 
                 {sessionData && <NavHeart className="w-7" />}
+                {sessionData && <NavCart className="w-7" onClick={gotocart} />}
 
                 {/* {sessionData && (
                   <Link href="#">

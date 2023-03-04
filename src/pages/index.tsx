@@ -77,7 +77,7 @@ const Home = () => {
              
 
               <div
-                key={item.id}
+                key={index}
                 className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg"
               >
                 <img src={imagePath + item.image} alt={item.englishProductName} className="w-full" />

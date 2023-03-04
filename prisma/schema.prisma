@@ -75,14 +75,14 @@ model User {
   password      String?
   role          Role?
   address       String?
-  phone         Int
+  phone         Int?
   birthday      DateTime?
   cart          Cart[]
   order         Order?
   Group         Group?
   GroupMember   GroupMember?
-  username      String
-  postCode      String
+  username      String?
+  postCode      String?
   
 }
 
@@ -124,6 +124,7 @@ model Order {
  
 
 model Cart {
+  id        Int @id @default(autoincrement())
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId   String  
   productId String @unique
