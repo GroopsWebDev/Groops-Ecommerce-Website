@@ -28,7 +28,6 @@ const Header = () => {
   const { push, asPath } = useRouter();
   const firstName = sessionData?.user?.name?.split(" ")[0];
 
-
   console.log(`navbar.tsx sessionData?.user: ${sessionData?.user}`);
 
   const user_img = sessionData?.user?.image;
@@ -71,7 +70,7 @@ const Header = () => {
   };
 
   const handleSignIn = () => {
-    // callbackUrl is used to redirect the user to the previous page 
+    // callbackUrl is used to redirect the user to the previous page
     push(`/signin/signin?callbackUrl=${asPath}`);
   };
 
@@ -112,11 +111,17 @@ const Header = () => {
                 <文 className="w-7" />
                 <NavSearch className="w-7" />
                 <NavHeart className="w-7" />
-                <Link href="/member/cart"><NavCart className="w-7" /></Link>
+
+                <Link href="/member/shoppingCart">
+                  <NavCart className="w-7" />
+                </Link>
                 {/* Login Person Icon */}
                 <div ref={ref}>
                   <div onClick={handleClick}>
-                    <img src={user_img ? user_img : "null"} className="rounded-full w-10" />
+                    <img
+                      src={user_img ? user_img : "null"}
+                      className="w-10 rounded-full"
+                    />
                   </div>
                   <Overlay
                     show={showOverlay}
@@ -192,19 +197,20 @@ const Header = () => {
                 </Link>
                 <文 className="w-7" />
                 <NavSearch className="w-7" />
-                <NavHeart className="w-7" />
-                <Link href="/member/cart">
+                <Link href="/guest/shoppingCart">
                   <NavCart className="w-7" />
                 </Link>
                 <Link href="#">
                   <NavPerson className="w-7" onClick={handleSignIn} />
                 </Link>
                 <button
-        className="rounded-full px-10 py-3 font-semibold no-underline transition border-black border-4"
-        onClick={sessionData ? () => void signOut() : () => void signIn()}
-      >
-         {sessionData ? "Sign out" : "Sign in"}
-      </button>
+                  className="rounded-full border-4 border-black px-10 py-3 font-semibold no-underline transition"
+                  onClick={
+                    sessionData ? () => void signOut() : () => void signIn()
+                  }
+                >
+                  {sessionData ? "Sign out" : "Sign in"}
+                </button>
               </div>
             </div>
           </header>
