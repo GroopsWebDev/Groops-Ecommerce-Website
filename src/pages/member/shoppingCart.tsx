@@ -356,6 +356,8 @@ class ShoppingCart extends React.Component<any, any> {
                 <Divider></Divider>
               </div>
 
+
+{/* 总结 */}
               <div
                 style={{
                   width: "100%",
@@ -427,6 +429,9 @@ class ShoppingCart extends React.Component<any, any> {
                 </div>
               </div>
 
+
+
+{/* check 按钮 */}
               <div>
                 
                 <div

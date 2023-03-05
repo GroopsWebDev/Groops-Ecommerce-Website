@@ -44,7 +44,7 @@ class orderConfirm extends React.Component<any, any> {
               <div className='clear-right  divide-gray-200 divide-x-8' style={{ display: 'flex', marginBottom: '20px' }}>
 
 
-                <div style={{ width: '100%', backgroundColor: '', display: 'flex', justifyContent: 'space-between' }}>
+                <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
 
 
                   <div style={{ width: '50%', display: 'flex', }}>
@@ -105,8 +105,8 @@ class orderConfirm extends React.Component<any, any> {
 
 
 
-                <div className="input-group mb-3" style={{ width: '30%', display: 'flex', lineHeight: '3rem' }}>
-                  Tips for your Deliverer  <input style={{ marginLeft: '1rem' }} type="text" className="form-control" placeholder="$" id="usr" name="username" />
+                <div className="input-group mb-3" style={{ width: '400px', display: 'flex', lineHeight: '3rem' }}>
+                  Tips for your Deliverer  <input style={{ marginLeft: '1rem' }} type="text" className="form-control border border-dark" placeholder="$" id="usr" name="username" />
 
                 </div>
 
@@ -130,7 +130,7 @@ class orderConfirm extends React.Component<any, any> {
                   <div style={{ fontSize: '1.4rem', marginTop: '3rem', }}>Mrs.xxxxx </div>
                   <div style={{ width: '100%', display: 'flex', justifyContent: 'end' }}>
 
-                    <div style={{ marginTop: '3rem', marginRight: '1.6rem' }}>Select</div>
+                    <div style={{ marginTop: '3rem', marginRight: '1rem' }}>Select</div>
                   </div>
                   <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
 
@@ -142,7 +142,7 @@ class orderConfirm extends React.Component<any, any> {
                     </div>
 
 
-                    <div style={{ marginTop: '1 rem', width: '10%' }}>
+                    <div style={{ marginTop: '1 rem', width: '100px' }}>
 
                       <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '1rem' }} onClick={() => { checkOut(this) }}>
 
@@ -154,10 +154,10 @@ class orderConfirm extends React.Component<any, any> {
                       </div>
 
 
-                      <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', marginTop: '2rem' }}>
+                      <div style={{ display: 'flex', width: '100%', marginTop: '2rem' }}>
 
                         <div style={{ color: 'rgb(23,119,177)', textDecoration: 'underline', }}>Edit  </div>
-                        <div style={{ marginRight: '-2rem', color: 'rgb(245,36,36)', textDecoration: 'underline', }}>Delete</div>
+                        <div style={{ marginLeft: '1rem', color: 'rgb(245,36,36)', textDecoration: 'underline', }}>Delete</div>
                       </div>
 
                     </div>
@@ -186,61 +186,367 @@ class orderConfirm extends React.Component<any, any> {
 
 
 
-{/* 新地址 */}
-<div style={{ backgroundColor: 'white', width: '100%', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
+          {/* Shipping新地址 */}
+          <div style={{ marginTop: '16rem', backgroundColor: 'white', width: '100%', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
 
-<div style={{width:'60%'}}>
+            <div style={{ width: '60%', fontSize: '1.3rem' }}>
 
-<div style={{display:'flex' ,justifyContent:'space-around',width:'50%'}}>
-<div > 
-Shipping Address
+              <div style={{ display: 'flex', width: '100%' }}>
+                <div >
+                  Shipping Address
 
-</div>
-
-
-
-<div>
-<div className="form-check">
-  <input className="form-check-input" type="checkbox" id="check1" name="option1" value="something" checked/>
-  <label className="form-check-label">Save as your primary address</label>
-</div>
-</div>
-</div>
+                </div>
 
 
-<div style={{display:'flex' ,justifyContent:'center',width:'100%'}}>
 
-                          <div style={{margin:'3rem',display:'flex' ,justifyContent:'space-around',width:'70%'}}>
-
-
-                          <div className="form-check">
-  <input type="radio" className="form-check-input" id="radio1" name="optradio" value="option1" checked/>Option 1
-  <label className="form-check-label" ></label>
-</div>
-<div className="form-check">
-  <input type="radio" className="form-check-input" id="radio2" name="optradio" value="option2"/>Option 2
-  <label className="form-check-label" ></label>
-</div>
-<div className="form-check">
-  <input type="radio" className="form-check-input" />Option 3
-  <label className="form-check-label"></label>
-</div>
-<div className="form-check" style={{display:'flex'}}>
-  <input type="radio" className="form-check-input" />Customize
-
-                   <input style={{ marginLeft: '1rem',marginTop:'-10px' }} type="text" className="form-control" placeholder="$" id="usr" name="username" />
-
-          
-
-</div>
-
-                          </div>
-</div>
+                <div>
+                  <div className="form-check">
+                    <input className="border border-dark" style={{ marginRight: '10px' }} type="checkbox" id="check1" name="option1" value="something" checked />
+                    <label >Save as your primary address</label>
+                  </div>
+                </div>
+              </div>
 
 
-</div>
+              {/* 按钮 */}
+              <div style={{ display: 'flex', justifyContent: 'center', width: '100%', }}>
 
-</div>
+                <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+
+
+                  <div style={{ margin: '30px' }} className="form-check">
+                    <input style={{ marginRight: '10px' }} type="radio" id="radio4" name="optradio" value="option2" checked />
+                    <label className="form-check-label" >Ms</label>
+                  </div>
+                  <div style={{ margin: '30px' }} className="form-check">
+                    <input style={{ marginRight: '10px' }} type="radio" id="radio3" name="optradio" value="option2" />
+                    <label className="form-check-label" >Mrs</label>
+                  </div>
+                  <div style={{ margin: '30px' }} className="form-check">
+                    <input style={{ marginRight: '10px' }} type="radio" value="option1" />
+                    <label className="form-check-label">Mr</label>
+                  </div>
+                  <div style={{ margin: '30px' }} className="form-check">
+                    <input style={{ marginRight: '10px' }} type="radio" value="option1" />Customize
+
+                    <input className="border-b border-indigo-600 border-black " style={{ width: '80px', marginLeft: '', marginTop: '-10px' }} type="text" id="usr" name="username" />
+
+
+
+                  </div>
+
+                </div>
+              </div>
+
+
+              {/*  输入 */}
+              <div>
+                <div style={{ display: 'flex', width: '100%', marginBottom: '1.2rem' }}>
+
+
+
+                  <div style={{ display: 'flex', width: '50%', }}>
+                    <div style={{ width: '100%', padding: '1.5rem' }}>
+                      <textarea style={{ fontSize: '1.4rem', height: '8rem' }} placeholder=" First  Name*" className="form-control border border-dark" id="comment" name="text"></textarea></div>
+                  </div>
+                  <div style={{ display: 'flex', width: '50%', }}>
+                    <div style={{ width: '100%', padding: '1.5rem' }}>
+                      <textarea style={{ fontSize: '1.4rem', height: '8rem' }} placeholder=" Last  Name*" className="form-control border border-dark" id="comment" name="text"></textarea></div>
+                  </div>
+
+
+                </div>
+                <div style={{ display: 'flex', width: '100%', marginBottom: '1.2rem' }}>
+
+
+
+
+                  <div style={{ width: '100%', padding: '1.5rem' }}>
+                    <textarea style={{ fontSize: '1.4rem', height: '8rem' }} placeholder=" Adress  1*" className="form-control border border-dark" id="comment" name="text"></textarea></div>
+
+                </div>
+                <div style={{ display: 'flex', width: '100%', marginBottom: '1.2rem' }}>
+
+
+
+
+                  <div style={{ width: '100%', padding: '1.5rem' }}>
+                    <textarea style={{ fontSize: '1.4rem', height: '8rem' }} placeholder=" Adress  2" className="form-control border border-dark" id="comment" name="text"></textarea></div>
+
+                </div>
+                <div style={{ display: 'flex', width: '100%', marginBottom: '1.2rem' }}>
+
+
+
+                  <div style={{ display: 'flex', width: '50%', }}>
+                    <div style={{ width: '100%', padding: '1.5rem' }}>
+                      <textarea style={{ fontSize: '1.4rem', height: '8rem', border: '1px soid #blue !important' }} placeholder=" Postal  Code*" className="form-control border border-dark" id="comment" name="text"></textarea></div>
+                  </div>
+                  <div style={{ display: 'flex', width: '50%', }}>
+                    <div style={{ width: '100%', padding: '1.5rem', paddingLeft: '0' }}>
+                      <textarea style={{ fontSize: '1.4rem', height: '8rem' }} placeholder=" City*" className="form-control border border-dark" id="comment" name="text"></textarea></div>
+                  </div>
+
+
+                </div>
+
+                <div>
+                  <div onClick={() => { }} style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '5rem', marginBottom: '2rem' }}>   <div style={{ cursor: 'pointer', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)', width: '15rem', height: '5rem', backgroundColor: 'black', color: 'white', textAlign: 'center', fontSize: '1.5rem', lineHeight: '5rem' }} >
+
+                    SAVE
+                  </div></div>
+
+                </div>
+              </div>
+
+
+
+
+
+
+
+
+            </div>
+
+          </div>
+
+
+
+
+
+          {/*Billing 输入 */}
+
+          <div style={{ marginTop: '16rem', marginBottom: '16rem', backgroundColor: 'white', width: '100%', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
+
+            <div style={{ width: '60%', fontSize: '1.3rem' }}>
+
+              <div style={{ display: 'flex', width: '100%' }}>
+                <div >
+                  Shipping Address
+
+                </div>
+
+
+
+                <div>
+                  <div className="form-check">
+                    <input className="border border-dark" style={{ marginRight: '10px' }} type="checkbox" id="check1" name="option1" value="something" checked />
+                    <label >Save as your primary address</label>
+                  </div>
+                </div>
+              </div>
+
+
+              {/* 按钮 */}
+              <div style={{ display: 'flex', justifyContent: 'center', width: '100%', }}>
+
+                <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+
+
+                  <div style={{ margin: '30px' }} className="form-check">
+                    <input style={{ marginRight: '10px' }} type="radio" id="radio1" name="optradio" value="option1" checked />
+                    <label className="form-check-label" >Ms</label>
+                  </div>
+                  <div style={{ margin: '30px' }} className="form-check">
+                    <input style={{ marginRight: '10px' }} type="radio" id="radio2" name="optradio" value="option1" />
+                    <label className="form-check-label" >Mrs</label>
+                  </div>
+                  <div style={{ margin: '30px' }} className="form-check">
+                    <input style={{ marginRight: '10px' }} type="radio" value="option1" />
+                    <label className="form-check-label">Mr</label>
+                  </div>
+                  <div style={{ margin: '30px' }} className="form-check">
+                    <input style={{ marginRight: '10px' }} type="radio" value="option1" />Customize
+
+                    <input className="border-b border-indigo-600 border-black " style={{ width: '80px', marginLeft: '', marginTop: '-10px' }} type="text" id="usr" name="username" />
+
+
+
+                  </div>
+
+                </div>
+              </div>
+
+
+              {/*  输入 */}
+              <div>
+                <div style={{ display: 'flex', width: '100%', marginBottom: '1.2rem' }}>
+
+
+
+                  <div style={{ display: 'flex', width: '50%', }}>
+                    <div style={{ width: '100%', padding: '1.5rem' }}>
+                      <textarea style={{ fontSize: '1.4rem', height: '8rem' }} placeholder=" First  Name*" className="form-control border border-dark" id="comment" name="text"></textarea></div>
+                  </div>
+                  <div style={{ display: 'flex', width: '50%', }}>
+                    <div style={{ width: '100%', padding: '1.5rem' }}>
+                      <textarea style={{ fontSize: '1.4rem', height: '8rem' }} placeholder=" Last  Name*" className="form-control border border-dark" id="comment" name="text"></textarea></div>
+                  </div>
+
+
+                </div>
+                <div style={{ display: 'flex', width: '100%', marginBottom: '1.2rem' }}>
+
+
+
+
+                  <div style={{ width: '100%', padding: '1.5rem' }}>
+                    <textarea style={{ fontSize: '1.4rem', height: '8rem' }} placeholder=" Adress  1*" className="form-control border border-dark" id="comment" name="text"></textarea></div>
+
+                </div>
+                <div style={{ display: 'flex', width: '100%', marginBottom: '1.2rem' }}>
+
+
+
+
+                  <div style={{ width: '100%', padding: '1.5rem' }}>
+                    <textarea style={{ fontSize: '1.4rem', height: '8rem' }} placeholder=" Adress  2" className="form-control border border-dark" id="comment" name="text"></textarea></div>
+
+                </div>
+                <div style={{ display: 'flex', width: '100%', marginBottom: '1.2rem' }}>
+
+
+
+                  <div style={{ display: 'flex', width: '50%', }}>
+                    <div style={{ width: '100%', padding: '1.5rem' }}>
+                      <textarea style={{ fontSize: '1.4rem', height: '8rem', border: '1px soid #blue !important' }} placeholder=" Postal  Code*" className="form-control border border-dark" id="comment" name="text"></textarea></div>
+                  </div>
+                  <div style={{ display: 'flex', width: '50%', }}>
+                    <div style={{ width: '100%', padding: '1.5rem', paddingLeft: '0' }}>
+                      <textarea style={{ fontSize: '1.4rem', height: '8rem' }} placeholder=" City*" className="form-control border border-dark" id="comment" name="text"></textarea></div>
+                  </div>
+
+
+                </div>
+
+
+              </div>
+
+
+
+
+
+
+
+
+            </div>
+            <div>
+              <div onClick={() => { }} style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '5rem', marginBottom: '2rem' }}>   <div style={{ cursor: 'pointer', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)', width: '15rem', height: '5rem', backgroundColor: 'black', color: 'white', textAlign: 'center', fontSize: '1.5rem', lineHeight: '5rem' }} >
+
+                SAVE
+              </div></div>
+
+            </div>
+          </div>
+
+
+
+
+          {/* 总结 */}
+          <div style={{ backgroundColor: 'white', width: '100%', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
+            <div style={{ marginTop: '20px', width: '69%', backgroundColor: '#F9f8f6' }}  >
+
+
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <div style={{ width: "90%", fontSize: "1.4rem" }}>
+                  <div style={{ fontSize: "1.4rem", marginTop: "3rem" }}>
+                    Summary
+                  </div>
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div style={{ marginTop: "3rem" }}>Subtotal</div>
+                    <div style={{ marginTop: "3rem" }}>$xx.xx</div>
+                  </div>
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div style={{ marginTop: "3rem" }}>Sales Tax</div>
+                    <div style={{ marginTop: "3rem" }}>———</div>
+                  </div>
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div style={{ marginTop: "3rem" }}>Delivery</div>
+                    <div style={{ marginTop: "3rem" }}>———</div>
+                  </div>
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div style={{ marginTop: "3rem" }}>3% Green Fee</div>
+                    <div style={{ marginTop: "3rem" }}>———</div>
+                  </div>  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div style={{ marginTop: "3rem" }}>Tips for Deliverer</div>
+                    <div style={{ marginTop: "3rem" }}>———</div>
+                  </div>
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div style={{ marginTop: "3rem", fontSize: "2rem" }}>
+                      Total
+                      <span style={{ fontSize: "1.4rem", marginLeft: "5px" }}>
+                        (Taxes and Delivery Fee excluded)
+                      </span>
+                    </div>
+                    <div style={{ marginTop: "3rem", fontSize: "2rem" }}>
+                      $111
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+              <div onClick={() => { }} style={{ width: '100%', display: 'flex', flexDirection: 'row-reverse', marginTop: '5rem', marginBottom: '2rem' }}>  
+               <div style={{ margin: '20px', marginRight: '40px', cursor: 'pointer', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)', width: '18rem', height: '5rem',  background: 'linear-gradient(to right , rgb(100,12,161),  rgb(244,157,94))', color: 'white', textAlign: 'center', fontSize: '1.5rem', lineHeight: '5rem' }} >
+
+               Group Order
+              </div>
+                <div style={{ margin: '20px', cursor: 'pointer', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)', width: '18rem', height: '5rem', backgroundColor: 'black', color: 'white', textAlign: 'center', fontSize: '1.5rem', lineHeight: '5rem' }} >
+
+                  Place Order
+                </div>
+
+
+
+              </div>
+
+
+
+            </div></div>
+
 
 
           <HelpCenter ></HelpCenter>
