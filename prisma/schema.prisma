@@ -98,23 +98,26 @@ model Product {
   costPrice           Int     @default(0)
   stock               Int     @default(0)
   Cart                Cart[]
+  ProductdiscountRate Float   @default(1)
 }
 
 model Order {
-  orderId       String   @id @default(cuid())
-  orderDate     DateTime @default(now())
-  user          User     @relation(fields: [userId], references: [id])
-  userId        String   @unique
-  name          String
-  email         String
-  mobile_number String
-  address       String
-  state         String
-  city          String
-  zipcode       String
-  status        String
-  paymentType   String
-  discountRate  Int      @default(0)
+  orderId           String   @id @default(cuid())
+  orderDate         DateTime @default(now())
+  user              User     @relation(fields: [userId], references: [id])
+  userId            String   @unique
+  name              String
+  email             String
+  mobile_number     String
+  address           String
+  state             String
+  city              String
+  zipcode           String
+  status            String
+  paymentType       String
+  GroupDiscountRate Float    @default(1)
+  Group             Group?   @relation(fields: [groupGroupId], references: [groupId])
+  groupGroupId      String?
 }
 
 model Cart {
@@ -127,13 +130,15 @@ model Cart {
 }
 
 model Group {
-  groupId       String        @id @default(cuid())
-  groupMaster   User          @relation(fields: [groupMasterId], references: [id])
-  groupMasterId String        @unique
-  groupName     String
-  startDate     DateTime      @default(now())
-  endDate       DateTime
-  GroupMember   GroupMember[]
+  groupId           String        @id @default(cuid())
+  groupMaster       User          @relation(fields: [groupMasterId], references: [id])
+  groupMasterId     String        @unique
+  groupName         String
+  startDate         DateTime      @default(now())
+  endDate           DateTime
+  groupOrder        Order[]       @relation(fields: [groupId], references: [])
+  GroupDiscountRate DiscountRate  @relation(fields: [groupId], references: [groupId])
+  GroupMember       GroupMember[]
 }
 
 model GroupMember {
@@ -147,4 +152,10 @@ model GroupMember {
 enum Role {
   GROUPMASTER
   GROUPMEMBER
+}
+
+model DiscountRate {
+  groupId      String  @unique
+  group        Group   @relation(fields: [groupId], references: [groupId])
+  discountRate Float[]
 }
