@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -16,6 +20,19 @@
     "incremental": true,
     "noUncheckedIndexedAccess": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs", "src/pages/api/checkout_sessions/index.js", "src/pages/api/cart/index.js", "src/utils/utils.js", "src/pages/api/checkout_sessions/[id].js", "src/utils/get-stripe.js", "src/server/miiniClient.js"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.cjs",
+    "**/*.mjs",
+    "src/pages/api/checkout_sessions/index.js",
+    "src/pages/api/cart/index.js",
+    "src/utils/utils.js",
+    "src/pages/api/checkout_sessions/[id].js",
+    "src/utils/get-stripe.js"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

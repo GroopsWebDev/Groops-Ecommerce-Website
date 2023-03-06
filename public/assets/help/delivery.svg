@@ -2,12 +2,14 @@
   <g id="Group_339" data-name="Group 339" transform="translate(14554 14320)">
     <rect id="Rectangle_845" data-name="Rectangle 845" width="334" height="147" transform="translate(-14554 -14320)" fill="#fff"/>
     <g id="Group_321" data-name="Group 321" transform="translate(-15367.952 -18066.27)">
-      <text id="_" data-name="􀐛" transform="translate(981.952 3816.539)" fill="#242424" stroke="#242424" stroke-width="0.3" font-size="63" font-family="SegoeUI-Regular, SF Compact"><tspan x="-36.377" y="0">􀐛</tspan>
+      <text id="_" data-name="􀐛" transform="translate(981.952 3816.539)" fill="#242424" stroke="#242424" stroke-width="0.3" font-size="63" font-family="SegoeUI-Regular, SF Compact"><tspan x="-36.377" y="0">􀐛</tspan></text>
+      <text id="Delivery_or_Pickup" data-name="Delivery or Pickup" transform="translate(980.952 3876)" fill="#242424" stroke="#242424" stroke-width="0.3" font-size="27" font-family="SegoeUI-Regular, Segoe UI"><tspan x="-107.631" y="0">Delivery or Pickup</tspan></text>
+    </g>
+          <!-- <text id="_" data-name="􀐛" transform="translate(981.952 3816.539)" fill="#242424" stroke="#242424" stroke-width="0.3" font-size="63" font-family="SegoeUI-Regular, SF Compact"><tspan x="-36.377" y="0">􀐛</tspan>
       
       </text>
       
       <text id="Delivery_or_Pickup" data-name="Delivery or Pickup" transform="translate(980.952 3876)" fill="#242424" stroke="#242424" stroke-width="0.3" font-size="27" font-family="SegoeUI-Regular, Segoe UI"><tspan x="-107.631" y="0">
-      Delivery or Pickup</tspan></text>
-    </g>
+      Delivery or Pickup</tspan></text> -->
   </g>
 </svg>

@@ -33,7 +33,7 @@ const Shop = () => {
 
         <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
           <InputLabel id="filter">Filter by</InputLabel>
-          <Select className = "w-40"
+          <Select className="w-40"
             labelId="filter"
             id="filter"
             value={filter}
@@ -49,7 +49,7 @@ const Shop = () => {
 
         <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
           <InputLabel>Place of Product</InputLabel>
-          <Select className = "w-40"
+          <Select className="w-40"
             value={place}
             onChange={handlePlace}
             label="Age"

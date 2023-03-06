@@ -49,7 +49,7 @@ export const authOptions: NextAuthOptions = {
             credentials.password,
             user.password
           );
-   
+
           if (isPassword) {
             return user;
           } else {
