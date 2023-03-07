@@ -1,11 +1,40 @@
-# Create T3 App
-https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/ERWT4wNFbClPrRtoF49y3eUBeVWG58FtnWjCzUfrirjA8Q?e=JQpzj2
-(OKI Dev Resources)
-
-
-
+<h1 align="center">
+  Groops E-commerce Website
+</h1>
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+
+Miscellaneous OKI Dev Resources:
+
+https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/ERWT4wNFbClPrRtoF49y3eUBeVWG58FtnWjCzUfrirjA8Q?e=JQpzj2
+
+## Getting Started
+Clone down this repository. You will need `node.js` and `git` installed globally on your machine.
+
+1. Clone the repository
+```yaml
+git clone https://github.com/HenryCZhang/OKI-T3JS.git
+```
+2. Add `.env` file to the root directory and configure the credentials in that file
+
+4. NPM Install
+```yaml
+npm install
+```
+4. Run `npx prisma db push` from the root directory 
+(This command will sync your Prisma schema with your database and will generate the TypeScript types for the Prisma Client based on your schema.)
+```yaml
+npx prisma db push
+```
+5. View the app locally
+```yaml
+npm run dev
+```
+6. Follow T3 Frist Steps for further configurations
+```yaml
+https://create.t3.gg/en/usage/first-steps
+```
+
 
 ## What's next? How do I make an app with this?
 
