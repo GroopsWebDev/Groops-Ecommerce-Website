@@ -17,16 +17,16 @@ const Catergory = () => {
 
   return <>
     <div className="flex flex-wrap w-full gap-10 mt-10 mb-10">
-      <Link href="/product/OnSale"> <OnSale /> </Link>
-      <Link href="/product/PopularProduct"> <PopularProduct /> </Link>
+      <Link href="/product/On Sale"> <OnSale /> </Link>
+      <Link href="/product/Popular Products"> <PopularProduct /> </Link>
       <Link href="/product/Drinks"> <Drinks /> </Link>
-      <Link href="/product/FrozenFood"> <FrozenFood /> </Link>
+      <Link href="/product/Frozen Food"> <FrozenFood /> </Link>
       <Link href="/product/Groceries"> <Groceries /> </Link>
-      <Link href="/product/InstantFood"> <InstantFood /> </Link>
+      <Link href="/product/Instant Food"> <InstantFood /> </Link>
       <Link href="/product/Kitchen"> <Kitchen /> </Link>
-      <Link href="/product/NewArrivals"> <NewArrivals /> </Link>
-      <Link href="/product/Snack"> <Snack /> </Link>
-      <Link href="/product/Personal"> <Personal /> </Link>
+      <Link href="/product/New Arrivals"> <NewArrivals /> </Link>
+      <Link href="/product/Snacks"> <Snack /> </Link>
+      <Link href="/product/Personal Care"> <Personal /> </Link>
     </div>
   </>
 
