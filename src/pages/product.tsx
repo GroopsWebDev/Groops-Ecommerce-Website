@@ -28,21 +28,21 @@ const Product = () => {
 
     <Welcome />
 
-    <Row category={<OnSale className={style} />} />
-    <Row category={<PopularProduct className={style} />} />
-    <Row category={<NewArrivals className={style} />} />
+    <Row category={<OnSale className={style} />} url="product/On Sale" />
+    <Row category={<PopularProduct className={style} />} url="product/Popular Product" />
+    <Row category={<NewArrivals className={style} />} url="product/New Arrivals" />
 
     <Place />
 
-    <Row category={<Drinks className={style} />} />
-    <Row category={<Snack className={style} />} />
-    <Row category={<InstantFood className={style} />} />
+    <Row category={<Drinks className={style} />} url="product/Drinks" />
+    <Row category={<Snack className={style} />} url="product/Snacks" />
+    <Row category={<InstantFood className={style} />} url="product/Instant Food" />
 
     <Advertisement className="w-full" />
 
-    <Row category={<FrozenFood className={style} />} />
-    <Row category={<Kitchen className={style} />} />
-    <Row category={<Personal className={style} />} />
+    <Row category={<FrozenFood className={style} />} url="product/Frozen Food" />
+    <Row category={<Kitchen className={style} />} url="product/Kitchen" />
+    <Row category={<Personal className={style} />} url="product/Personal Care" />
 
     <HelpCenter />
   </>
