@@ -7,11 +7,11 @@ import Detail from "./detail"
 import SeeAll from "../../../public/assets/shop/items/see-all.svg"
 
 
-type props = { category: any }
+type props = { category: any, url: string }
 
 
 
-const Row = ({ category }: props) => {
+const Row = ({ category, url }: props) => {
 
   return <>
     <div className="mt-10">
@@ -23,7 +23,7 @@ const Row = ({ category }: props) => {
         <Detail name="product1" price={1} />
         <Detail name="product1" price={1} />
         <Detail name="product1" price={1} />
-        <Link className="w-20 mt-14" href=""><SeeAll /></Link>
+        <Link className="w-20 mt-14 hover:scale-110 duration-300" href={url}><SeeAll /></Link>
       </div>
     </div>
   </>
