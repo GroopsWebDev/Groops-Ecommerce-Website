@@ -15,6 +15,12 @@ Clone down this repository. You will need `node.js` and `git` installed globally
 ```yaml
 git clone https://github.com/HenryCZhang/OKI-T3JS.git
 ```
+1.1 🚨 Read the First Steps of the T3 Stack setup:
+
+```yaml
+https://create.t3.gg/en/usage/first-steps
+```
+
 2. Add `.env` file to the root directory and configure the credentials in that file
 
 4. NPM Install
