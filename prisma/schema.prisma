@@ -64,6 +64,7 @@ model User {
   id            String       @id @default(cuid())
   lastname      String?
   firstname     String?
+  name String?
   email         String?      @unique
   emailVerified DateTime?
   image         String?
@@ -82,6 +83,16 @@ model User {
   postCode      String?
 }
 
+model Category {
+  id       Int      @id @default(autoincrement())
+  name     String
+  url     String
+  description String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  products Product[]
+}
+
 model Product {
   skuid               String  @id
   englishProductName  String
@@ -93,12 +104,12 @@ model Product {
   alcohol             Boolean @default(false)
   price               Int     @default(0)
   image               String
-  category            String
+  categoryId  Int?
+  category    Category?  @relation(fields: [categoryId], references: [id])
   retailPrice         Int     @default(0)
   costPrice           Int     @default(0)
   stock               Int     @default(0)
   Cart                Cart[]
-  ProductdiscountRate Float   @default(1)
 }
 
 model Order {
@@ -141,6 +152,7 @@ model Group {
   GroupMember       GroupMember[]
 }
 
+
 model GroupMember {
   groupMemberId String @id @default(cuid())
   user          User   @relation(fields: [userId], references: [id])
@@ -149,13 +161,13 @@ model GroupMember {
   groupId       String
 }
 
-enum Role {
-  GROUPMASTER
-  GROUPMEMBER
-}
-
 model DiscountRate {
   groupId      String  @unique
   group        Group   @relation(fields: [groupId], references: [groupId])
   discountRate Float[]
+}
+
+enum Role {
+  GROUPMASTER
+  GROUPMEMBER
 }

@@ -1,32 +1,51 @@
-import React from "react"
+import React, { useEffect, useState } from "react";
 
-import Link from "next/link"
+import Link from "next/link";
 
-import Detail from "./detail"
+import Detail from "./detail";
 
-import SeeAll from "../../../public/assets/shop/items/see-all.svg"
+import SeeAll from "../../../public/assets/shop/items/see-all.svg";
+import axios from "axios";
 
-
-type props = { category: any }
-
-
+type props = { category: any };
 
 const Row = ({ category }: props) => {
-
-  return <>
-    <div className="mt-10">
-      <div className="flex justify-center">
-        {category}
+  const [product, setProduct] = useState([]);
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const res = await axios.post(`/api/product/pagination`, {
+        categoryName: "",
+      });
+      if (res.status == 200) {
+        setProduct(res.data.data);
+      }
+    };
+    fetchProduct();
+  }, []);
+  return (
+    <>
+      <div className="mt-10">
+        <div className="flex items-center justify-center">{category}</div>
+        <div className="mb-10 mt-10 flex flex-row flex-wrap justify-center space-x-10">
+          {product.map((i: any) => {
+            return (
+              <Detail
+                name={i.englishProductName}
+                price={i.price}
+                id={i.skuid}
+                image={i.image}
+              />
+            );
+          })}
+        </div>
+        <div className="mb-10 mt-10 flex flex-row flex-wrap justify-center space-x-10">
+          <Link className="mt-14 w-20" href="">
+            <SeeAll />
+          </Link>
+        </div>
       </div>
-      <div className="flex flex-row flex-wrap space-x-10 mb-10 mt-10 justify-center">
-        <Detail name="product1" price={1} />
-        <Detail name="product1" price={1} />
-        <Detail name="product1" price={1} />
-        <Detail name="product1" price={1} />
-        <Link className="w-20 mt-14" href=""><SeeAll /></Link>
-      </div>
-    </div>
-  </>
-}
+    </>
+  );
+};
 
-export default Row
+export default Row;

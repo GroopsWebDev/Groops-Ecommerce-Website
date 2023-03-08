@@ -1,34 +1,71 @@
-import React from "react"
+import React, { useEffect } from "react";
 import { useState } from "react";
+import Heart from "../../../public/assets/shop/items/heart.svg";
+import HeartRed from "../../../public/assets/shop/items/heart-red.svg";
+import Add from "../../../public/assets/shop/items/add.svg";
+import Minus from "../../../public/assets/shop/items/minus.svg";
+import {
+  AiFillHeart,
+  AiFillMinusSquare,
+  AiOutlineHeart,
+  AiOutlineMinusSquare,
+  AiOutlinePlusSquare,
+} from "react-icons/ai";
 
-import Item from "../../../public/assets/shop/items/item.svg"
-import Heart from "../../../public/assets/shop/items/heart.svg"
-import HeartRed from "../../../public/assets/shop/items/heart-red.svg"
-import Add from "../../../public/assets/shop/items/add.svg"
-import Minus from "../../../public/assets/shop/items/minus.svg"
+type props = { id: string; name: string; price: number; image: string };
 
-type props = { name: string, price: number }
+const Detail = ({ id, name, price, image }: props) => {
+  const [heart, setHeart] = useState(false);
+  let url = "https://api.gr-oops.com/" + image;
+  const [quantity, setQuantity] = useState(1);
+  const handleDecreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
 
-const Detail = ({ name, price }: props) => {
-  const [heart, setHeart] = useState(false)
+  const handleIncreaseQuantity = () => {
+    setQuantity(quantity + 1);
+  };
+  return (
+    <>
+      <div className="relative mb-10 overflow-hidden rounded-lg bg-white text-2xl shadow-lg">
+        <img src={url} className="h-64 w-full object-cover object-center" />
+        <button
+          className="absolute bottom-16 right-5"
+          onClick={() => {
+            setHeart(!heart);
+          }}
+        >
+          {heart ? (
+            <AiFillHeart style={{ color: "red" }} />
+          ) : (
+            <AiOutlineHeart style={{ color: "gray", border: "black" }} />
+          )}
+        </button>
 
-  return <>
-    <div className="relative text-2xl mb-10" >
-      <Item className="w-1/1" />
-      <button className="absolute bottom-16 right-5" onClick={() => { setHeart(!heart) }}>
-        {heart ? <HeartRed /> : <Heart />}
-      </button>
-
-      <div className="flex flex-row gap-16 text-xs mr-6 mt-1">
-        <div className="flex flex-col space-y-0">
-          <p className="ml-3  text-blue-400">{name}</p>
-          <p className="ml-3 ">${price}</p>
+        <div className="mr-6 mb-2 mt-1 flex flex-row gap-16 text-xs">
+          <div className="flex flex-col space-y-0">
+            <p className="ml-3  text-blue-400">{name}</p>
+            <p className="ml-3 ">${price}</p>
+          </div>
+          <button
+            className="text-4xl text-gray-500"
+            onClick={handleDecreaseQuantity}
+          >
+            <AiOutlineMinusSquare />
+          </button>
+          <span className="ml-3 mt-3  text-blue-400">{quantity}</span>
+          <button
+            className="text-4xl text-gray-500"
+            onClick={handleIncreaseQuantity}
+          >
+            <AiOutlinePlusSquare />
+          </button>
         </div>
-        <Minus />
-        <Add />
       </div>
-    </div>
-  </>
-}
+    </>
+  );
+};
 
-export default Detail
+export default Detail;

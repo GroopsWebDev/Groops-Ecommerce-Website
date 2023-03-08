@@ -16,7 +16,7 @@ const ProductDetails = () => {
   const router = useRouter();
   const [data, setData] = useState<any>([]);
   const imagePath = "https://api.gr-oops.com/";
-  const url = "http://localhost:3000/product/cart-details";
+  const url = "http://localhost:3000/member/shoppingCart";
 
   useEffect(() => {
     const url = window.location.pathname;
@@ -32,18 +32,17 @@ const ProductDetails = () => {
     }
 
     fetchData();
-
   }, []);
 
   const id = data.skuid;
 
-  const AddToCart = async () => {
+ async function AddToCart() {
     const postData = {
       product_id: id,
-      quantity: myRef.current.value ? myRef.current.value : 1,
+      quantity : "1"      
     };
 
-    const res = await fetch("http://localhost:3000/api/product/cart-details", {
+    const res = await fetch("/api/product/create/cart", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,7 +51,7 @@ const ProductDetails = () => {
     });
     const data = await res.json();
     if (data == 200) {
-      router.push("/product/cart-details");
+        router.push("/member/shoppingCart");
     }
   };
 
@@ -84,23 +83,26 @@ const ProductDetails = () => {
             </span>
           </div>
           <div className="mb-4 flex items-center">
-            <label htmlFor="quantity" className="mr-2">
+          <span className="mr-2 text-2xl font-bold text-gray-700">
+              {data.description}
+          </span>
+            {/* <label htmlFor="quantity" className="mr-2">
               Quantity:
-            </label>
+            </label> */}
 
-            <input
+            {/* <input
               type="number"
               id="quantity"
               name="quantity"
-              defaultValue="1"
+              // defaultValue="1"
               ref={myRef}
               className="h-10 w-16 appearance-none rounded border border-gray-400 py-2 px-3 leading-tight text-gray-700 focus:border-blue-500 focus:outline-none"
-            />
+            /> */}
           </div>
           <a
             className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
-            onClick={AddToCart}
-            href={url}
+            onClick={ AddToCart}
+            
           >
             Add to Cart
           </a>

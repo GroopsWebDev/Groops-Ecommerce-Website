@@ -1,62 +1,33 @@
-import React from "react";
 import Link from "next/link";
 // import { Link } from 'react-router-dom';
 import HelpCenter from "../../components/help/help-center";
 import Divider from "../../components/shoppingCart/divider";
+import React, { useEffect } from "react";
+import { useState } from "react";
+const imagePath = "https://api.gr-oops.com/";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 // 团购-购物车
-class ShoppingCart extends React.Component<any, any> {
+ function  ShoppingCart () {
   
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      shoppingCartListData: [
-        {
-          goodsName: " PORDUCT NAME",
-          price: 1.99,
-          number: 2,
-          type: "Drink | Flavour ",
-          isConcern: false,
-          totalPrice: 3.98,
-          isChecked: true,
-        },
-        {
-          goodsName: " PORDUCT NAME",
-          price: 1.99,
-          number: 6,
-          type: "Drink | Flavour ",
-          isConcern: true,
-          totalPrice: 3.98,
-          isChecked: true,
-        },
-        {
-          goodsName: " PORDUCT NAME",
-          price: 1.99,
-          number: 7,
-          type: "Drink | Flavour ",
-          isConcern: false,
-          totalPrice: 3.98,
-          isChecked: false,
-        },
-        {
-          goodsName: " PORDUCT NAME",
-          price: 1.99,
-          number: 2,
-          type: "Drink | Flavour ",
-          isConcern: true,
-          totalPrice: 3.98,
-          isChecked: false,
-        },
-      ],
-      Total: 0,
-    };
-    newTotalPrice(this);
 
-    for (let i = 0; i < this.state.shoppingCartListData.length; i++) {
-      newPrice(this, i);
+  const [json, setData] = useState<any>([]);
+  
+  useEffect(() => {
+    async function fetchData() {
+//      setIsLoading(true);
+      const response = await fetch("/api/product/get/cartdata");
+      const json = await response.json();
+      setData(json);
+  //    setIsLoading(false);
     }
-  }
-  render() {
+    fetchData();
+  }, [
+  // value
+  ]);
+
+   
     return (
       <>
         <div className="shoppingCart">
@@ -98,7 +69,7 @@ class ShoppingCart extends React.Component<any, any> {
                 <Divider></Divider>
               </div>
 
-              {this.state.shoppingCartListData.map((item: any, index: any) => (
+              {json.map((item: any, index: any) => (
                 <div
                   className="clear-right  divide-x-8 divide-gray-200"
                   style={{ display: "flex", marginBottom: "20px" }}
@@ -120,13 +91,13 @@ class ShoppingCart extends React.Component<any, any> {
                         marginRight: "20px",
                       }}
                       className="border border-solid   border-gray-900"
-                      src="https://img2.baidu.com/it/u=1732475100,269919796&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=363"
+                      src={ imagePath + item['product'].image}
                       alt=""
                     />
                     <div style={{ marginTop: "2.5rem" }}>
-                      <div style={{ fontSize: "1.3rem" }}>{item.goodsName}</div>
-                      <div style={{ fontSize: "1.3rem" }}>{item.type} </div>
-                      <div style={{ fontSize: "1.3rem" }}>${item.price}</div>
+                      <div style={{ fontSize: "1.3rem" }}>{item['product'].englishProductName}</div>
+                      {/* <div style={{ fontSize: "1.3rem" }}>{item['product']. } </div> */}
+                      <div style={{ fontSize: "1.3rem" }}>${item['product'].price}</div>
 
                       <div
                         style={{
@@ -137,11 +108,12 @@ class ShoppingCart extends React.Component<any, any> {
                         }}
                       >
                         <svg
-                          onClick={() => {
-                            item.number--,
-                              item.number == 0
-                                ? Delete(this, index)
-                                : newPrice(this, index);
+                          onClick=
+                          {(e) => {
+                            //item.number--,
+                              //</div>item.number == 0
+                             IncreaseQty(e ,item.id)
+                                //: newPrice(item.id);
                           }}
                           style={{ cursor: "pointer", marginRight: "20px" }}
                           viewBox="0 0 1024 1024"
@@ -164,16 +136,16 @@ class ShoppingCart extends React.Component<any, any> {
                             lineHeight: "160%",
                           }}
                         >
-                          {item.number}
+                           
                         </span>
                         <svg
                           style={{ cursor: "pointer" }}
-                          onClick={() => {
-                            item.number++,
-                              (item.totalPrice = item.number * item.price),
-                              newPrice(this, index),
-                              this.setState(item);
-                          }}
+                          // onClick={() => {
+                          //   item.number++,
+                          //     ( item.totalPrice = item.number * item.price),
+                          //     newPrice(this, index),
+                          //     this.setState(item);
+                          // }}
                           viewBox="0 0 1024 1024"
                           version="1.1"
                           xmlns="http://www.w3.org/2000/svg"
@@ -202,10 +174,10 @@ class ShoppingCart extends React.Component<any, any> {
                     {item.isConcern ? (
                       <svg
                         name="trueConcern"
-                        onClick={() => {
-                          (item.isConcern = !item.isConcern),
-                            this.setState(item);
-                        }}
+                        // onClick={() => {
+                        //   (item.isConcern = !item.isConcern),
+                        //     this.setState(item);
+                        // }}
                         style={{ cursor: "pointer" }}
                         viewBox="0 0 1024 1024"
                         version="1.1"
@@ -223,10 +195,10 @@ class ShoppingCart extends React.Component<any, any> {
                     ) : (
                       <svg
                         name="falseConcern"
-                        onClick={() => {
-                          (item.isConcern = !item.isConcern),
-                            this.setState(item);
-                        }}
+                        // onClick={() => {
+                        //   (item.isConcern = !item.isConcern),
+                        //     this.setState(item);
+                        // }}
                         style={{ cursor: "pointer" }}
                         viewBox="0 0 1024 1024"
                         version="1.1"
@@ -246,11 +218,12 @@ class ShoppingCart extends React.Component<any, any> {
                       <div
                         style={{ color: "rgb(0,116,185)", fontSize: "1.2rem" }}
                       >
-                        ${item.totalPrice}
+                        
                       </div>
                       <div
-                        onClick={() => {
-                          Delete(this, index);
+                        onClick={(e) => {
+                          DeleteProduct(item.id)
+
                         }}
                         style={{
                           cursor: "pointer",
@@ -306,7 +279,7 @@ class ShoppingCart extends React.Component<any, any> {
                       <svg
                         onClick={() => {
                           (item.isChecked = !item.isChecked),
-                            newPrice(this, index);
+                            newPrice(item.id);
                         }}
                         style={{ cursor: "pointer" }}
                         viewBox="0 0 1024 1024"
@@ -325,10 +298,10 @@ class ShoppingCart extends React.Component<any, any> {
                     ) : (
                       <svg
                         style={{ cursor: "pointer" }}
-                        onClick={() => {
-                          (item.isChecked = !item.isChecked),
-                            newPrice(this, index);
-                        }}
+                        // onClick={() => {
+                        //   (item.isChecked = !item.isChecked),
+                        //     newPrice(this, index);
+                        // }}
                         viewBox="0 0 1024 1024"
                         version="1.1"
                         xmlns="http://www.w3.org/2000/svg"
@@ -377,7 +350,7 @@ class ShoppingCart extends React.Component<any, any> {
                     }}
                   >
                     <div style={{ marginTop: "3rem" }}>Subtotal</div>
-                    <div style={{ marginTop: "3rem" }}>$xx.xx</div>
+                    <div style={{ marginTop: "3rem" }}>{  }</div>
                   </div>
                   <div
                     style={{
@@ -421,9 +394,10 @@ class ShoppingCart extends React.Component<any, any> {
                       <span style={{ fontSize: "1.4rem", marginLeft: "5px" }}>
                         (Taxes and Delivery Fee excluded)
                       </span>
+                     
                     </div>
                     <div style={{ marginTop: "3rem", fontSize: "2rem" }}>
-                      ${this.state.Total}
+                      $ {    }
                     </div>
                   </div>
                 </div>
@@ -443,6 +417,7 @@ class ShoppingCart extends React.Component<any, any> {
                     marginBottom: "5rem",
                   }}
                 >
+                   
                   {" "}
                   <Link href="/member/orderConfirm" className="no-underline">
                   <div
@@ -471,7 +446,103 @@ class ShoppingCart extends React.Component<any, any> {
         </div>
       </>
     );
-  }
+
+
+
+
+
+    async function DeleteProduct(cartId: any) {
+       
+      console.log(cartId)
+
+      // const value = e.target.value;
+      // console.log(value)       
+        const postData = {
+          cartId: cartId,
+        };
+        const res = await fetch("/api/product/delete", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(postData),
+        });
+        const data = await res.json();
+        if (data.status === 200) {
+           console.log('test');
+           window.location.reload();
+
+         // setValue(true);
+        } else {
+          alert("something went wrong");
+        }
+      
+      // else {
+      //   const sednData = {
+      //     cartId: cartId,
+      //     qty:  value,
+      //   };
+      //   const res = await fetch("/api/product/cart-quantity", {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify(sednData),
+      //   });
+      //   const data = await res.json();
+      //   if (data.status == 200) {
+      //   }
+      // }
+    
+    const redirectToCheckOut = () => {
+      const { data: sessionData } = useSession();
+      const router = useRouter();
+    
+      if (sessionData) {
+        router.push("/checkout");
+      } else {
+        alert("login required");
+      }
+    };
+    }
+    
+
+    async function IncreaseQty(e: any, cartId: any) {
+       
+      const value = e.target.value;
+      // console.log(value)       
+        
+    
+        const sednData = {
+          cartId: cartId,
+          qty:  value,
+        };
+        const res = await fetch("/api/product/cart-quantity", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(sednData),
+        });
+        const data = await res.json();
+        if (data.status == 200) {
+        }
+       
+    
+     const redirectToCheckOut = () => {
+      const { data: sessionData } = useSession();
+      const router = useRouter();
+    
+      if (sessionData) {
+        router.push("/checkout");
+      } else {
+        alert("login required");
+      }
+     };
+    }
+    
+    
+  
 }
 
 const newTotalPrice = (that: any) => {
@@ -485,18 +556,19 @@ const newTotalPrice = (that: any) => {
   that.state.Total = temp;
   that.setState(that.state);
 };
-const newPrice = (that: any, index: any) => {
-  that.state.shoppingCartListData[index].totalPrice =
-    that.state.shoppingCartListData[index].number *
-    that.state.shoppingCartListData[index].price;
-  newTotalPrice(that);
+const newPrice = (  cartId: any) => {
+  // that.state.shoppingCartListData[index].totalPrice =
+  //   that.state.shoppingCartListData[index].number *
+  //   that.state.shoppingCartListData[index].price;
+  // newTotalPrice(that);
 };
-const Delete = (that: any, index: any) => {
-  newPrice(that, index);
+const Delete = (that: any,  index: any) => {
+//  newPrice(that, index);
 
-  that.state.shoppingCartListData.splice(index, 1);
-  that.setState(that.state.shoppingCartListData);
+ // that.state.shoppingCartListData.splice(index, 1);
+ // that.setState(that.state.shoppingCartListData);
 };
+ 
 
 
 export default ShoppingCart;
