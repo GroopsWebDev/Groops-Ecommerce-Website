@@ -44,6 +44,18 @@ npm run dev
 https://create.t3.gg/en/usage/first-steps
 ```
 ## Front End SVG Embedment:
+
+🔑 Adobe XD Account Username: 
+```yaml
+cartiern@okimart.com
+```
+Adobe XD Account Password: 
+```yaml
+Lkh123456
+```
+(Adobe XD account is reuqired to use Adobe XD App. ‼️ Only 2 devices are allowed to use one account simultaneously ‼️)
+
+
 1. Open XD file in Adobe XD app, select the section and right click on it. Click 'copy svg code'.
 <div align="center">
   <img alt= "export svg" src="https://github.com/HenryCZhang/OKI-T3JS/blob/dev/README_Img/export_svg.png" width="70%"/>
