@@ -46,12 +46,12 @@ https://create.t3.gg/en/usage/first-steps
 ## Front End SVG Embedment:
 1. Open XD file in Adobe XD app, select the section and right click on it. Click 'copy svg code'.
 <div align="center">
-  <img alt= "export svg" src="./REAMDME_Img/export_svg.png" />
+  <img alt= "export svg" src="https://github.com/HenryCZhang/OKI-T3JS/blob/dev/README_Img/export_svg.png" width="70%"/>
 </div>
 
 2. In your code editor, create a SVG file in public/assets directory, paste the SVG code there and delete Width and Height properties!
 <div align="center">
-  <img alt="edit svg" src="./REAMDME_Img/edit_svg.png" />
+  <img alt="edit svg" src="https://github.com/HenryCZhang/OKI-T3JS/blob/dev/README_Img/edit_svg.png" width="70%"/>
 </div>
 
 
