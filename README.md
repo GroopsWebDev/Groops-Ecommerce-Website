@@ -45,6 +45,8 @@ https://create.t3.gg/en/usage/first-steps
 ```
 ## Front End SVG Embedment:
 
+(Adobe XD account is reuqired to use Adobe XD App. ‼️ Only 2 devices are allowed to use one account simultaneously ‼️)
+
 🔑 Adobe XD Account Username: 
 ```yaml
 cartiern@okimart.com
@@ -53,8 +55,18 @@ Adobe XD Account Password:
 ```yaml
 Lkh123456
 ```
-(Adobe XD account is reuqired to use Adobe XD App. ‼️ Only 2 devices are allowed to use one account simultaneously ‼️)
 
+Groops XD Design File Online (missing special fonts): 
+
+```yaml
+https://js.design/f/2fN44r?p=QP--WCDTeR
+```
+
+Download Groops Design File PDF with this link: 
+
+```yaml
+https://we.tl/t-S0ROSLMAZI
+```
 
 1. Open XD file in Adobe XD app, select the section and right click on it. Click 'copy svg code'.
 <div align="center">
