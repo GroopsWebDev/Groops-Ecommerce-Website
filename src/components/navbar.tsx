@@ -70,18 +70,13 @@ const Header = () => {
     push(data.url);
   };
 
-  const handleSignIn = () => {
-    // callbackUrl is used to redirect the user to the previous page
-    push(`/signin/signin?callbackUrl=${asPath}`);
-  };
-
   const handleClick = (event: any) => {
     setShowOverlay(!showOverlay);
     setTarget(event.target);
   };
 
   const gotocart = () => {
-    push("/product/cart-details");
+    push("/member/shoppingCart");
   };
 
   return (
@@ -119,18 +114,13 @@ const Header = () => {
                 {sessionData && <NavHeart className="w-7" />}
                 {sessionData && <NavCart className="w-7" onClick={gotocart} />}
 
-                {/* {sessionData && (
-                  <Link href="#">
-                    <NavPerson className="w-7" onClick={handleSignIn} />
-                  </Link>
-                )} */}
-
                 {/* Login Person Icon */}
                 <div ref={ref}>
                   <div onClick={handleClick}>
+                   
                     {user_img ? (
                       <img
-                        src={user_img ? user_img : "null"}
+                        src={user_img ? user_img : "/assets/image/pexels-pixabay-220453.jpg"}
                         className="w-10 rounded-full"
                       />
                     ) : (
@@ -183,13 +173,13 @@ const Header = () => {
                     </Popover>
                   </Overlay>
                 </div>
-                {/* <div>
+                <div>
                   Hello,
                   <span className="bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-lg text-transparent">
                     {firstName}
                   </span>
                   !
-                </div> */}
+                </div>
               </div>
             </div>
           </header>
@@ -223,29 +213,24 @@ const Header = () => {
                 </Link>
                 <文 className="w-7" />
 
-                {sessionData ? "" : <NavHeart className="w-7" />}
-
-                {sessionData ? (
-                  ""
-                ) : (
-                  <Link href="/#">
-                    <NavPerson className="w-7" onClick={handleSignIn} />
-                  </Link>
-                )}
 
                 <NavSearch className="w-7" />
 
-                <Link href={url}>
-                  <NavCart className="w-7" />
-                </Link>
+                {sessionData  ? (
+                    <Link href={url}>
+                    <NavCart className="w-7" />
+                     </Link>
+  
+                     ) : 
+                       ""
+                    }
 
+                 
                 <button
                   className="rounded-full border-4 border-black px-10 py-3 font-semibold no-underline transition"
-                  onClick={
-                    sessionData ? () => void signOut() : () => void signIn()
-                  }
+                  onClick={() => signIn()}
                 >
-                  {sessionData ? "Sign out" : "Sign in"}
+                  Sign in
                 </button>
               </div>
             </div>

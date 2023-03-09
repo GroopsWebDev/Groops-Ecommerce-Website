@@ -16,11 +16,11 @@ import { useRouter } from "next/router";
   
   useEffect(() => {
     async function fetchData() {
-//      setIsLoading(true);
+    //  setIsLoading(true);
       const response = await fetch("/api/product/get/cartdata");
       const json = await response.json();
       setData(json);
-  //    setIsLoading(false);
+    //  setIsLoading(false);
     }
     fetchData();
   }, [

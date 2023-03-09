@@ -87,7 +87,7 @@ const Home = () => {
           <div className="relative">
             <BecomeMember className="w-full" />
             <div className="absolute top-[380px]  left-[115px] ">
-              <JoinNowButton />
+                <JoinNowButton />
             </div>
             <div className="absolute top-[380px] left-[400px]">
               <SignInButton />

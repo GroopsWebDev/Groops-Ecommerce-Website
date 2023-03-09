@@ -8,6 +8,8 @@ async function Register(req, res) {
   try {
     const { firstname, lastname, email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
+    
+//    const await prisma.user.create({
 
     const newUser = await prisma.user.create({
       data: {
@@ -20,7 +22,7 @@ async function Register(req, res) {
         postCode: null,
       },
     });
-
+    
     res.json({ status: 200, message: "success" });
   } catch (error) {
     // Send a JSON response with the error message

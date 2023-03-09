@@ -77,8 +77,8 @@ model User {
   birthday      DateTime?
   cart          Cart[]
   order         Order?
-  Group         Group?
-  GroupMember   GroupMember?
+  Group         Group[]
+  GroupMember   GroupMember[]
   username      String?
   postCode      String?
 }
@@ -143,12 +143,13 @@ model Cart {
 model Group {
   groupId           String        @id @default(cuid())
   groupMaster       User          @relation(fields: [groupMasterId], references: [id])
-  groupMasterId     String        @unique
+  groupMasterId     String        
   groupName         String
   startDate         DateTime      @default(now())
   endDate           DateTime
-  groupOrder        Order[]       @relation(fields: [groupId], references: [])
-  GroupDiscountRate DiscountRate  @relation(fields: [groupId], references: [groupId])
+  groupOrder        Order[]    
+  groupDiscountRateId String?
+  GroupDiscountRate DiscountRate?  @relation(fields: [groupDiscountRateId], references: [groupId])
   GroupMember       GroupMember[]
 }
 
@@ -163,8 +164,8 @@ model GroupMember {
 
 model DiscountRate {
   groupId      String  @unique
-  group        Group   @relation(fields: [groupId], references: [groupId])
-  discountRate Float[]
+  group        Group[]
+  discountRate Float
 }
 
 enum Role {
