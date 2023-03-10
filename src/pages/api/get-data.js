@@ -1,17 +1,6 @@
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { prisma } from "../../../server/db/client";
 
 export default async function GetData(req, res) {
-  
-  const product = await prisma.product.findMany()
-  return  res.json(product)
-
+  const product = await prisma.product.findMany();
+  return res.json({ status: 200, product });
 }
-
-
-// export const getServerSideProps = async (context) => {
-//   const res = await fetch('http://localhost:3000/api/get-data')
-//   const data = await res.json()
-//   return data;
-// }

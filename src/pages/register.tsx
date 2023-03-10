@@ -3,21 +3,15 @@ import { useRouter } from "next/router";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import bcrypt from "bcryptjs";
 import { CircularProgress } from "@mui/material";
 import axios from "axios";
 
 const schema = Yup.object().shape({
-  firstname: Yup.string()
-    .matches(/^[A-Za-z]+[A-Za-z ]*$/, "First name must be alphabet characters.")
+  fullname: Yup.string()
+    .matches(/^[A-Za-z]+[A-Za-z ]*$/, "full name must be alphabet characters.")
     .min(2, "Needs at least 2 Character")
-    .max(100, "Please enter a First name less than 100 character")
+    .max(100, "Please enter a fullname less than 100 character")
     .required("First name is required"),
-  lastname: Yup.string()
-    .matches(/^[A-Za-z]+[A-Za-z ]*$/, "Last name must be alphabet characters.")
-    .min(2, "Needs at least 2 Character")
-    .max(100, "Please enter a Last name less than 100 character")
-    .required("Last name is required"),
   email: Yup.string()
     .trim()
     .email("Must be a valid email")
@@ -53,7 +47,7 @@ const Register = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<any>({
     resolver: yupResolver(schema),
   });
   const formStyle = {
@@ -104,7 +98,6 @@ const Register = () => {
       }
     } catch (e) {
       setLoading(false);
-      console.log(e);
       alert("something went wrong.");
     }
   }
@@ -117,31 +110,29 @@ const Register = () => {
       <form style={formStyle} onSubmit={handleSubmit(onSubmit)}>
         <div style={{ display: "flex" }}>
           <div style={{ flex: "1" }}>
-            <label htmlFor="firstname" style={labelStyle}>
-              First Name
+            <label htmlFor="fullname" style={labelStyle}>
+              Full Name
             </label>
             <Controller
               control={control}
-              name="firstname"
+              name="fullname"
               defaultValue=""
               render={({ field }) => (
                 <input
                   {...field}
                   type="text"
-                  id="firstname"
-                  name="firstname"
+                  id="fullname"
+                  name="fullname"
                   style={inputStyle}
                 />
               )}
             />
-            {errors.firstname && (
-              <span style={{ color: "red" }}>
-                {errors.firstname["message"]}
-              </span>
+            {errors.fullname && (
+              <span style={{ color: "red" }}>{errors.fullname["message"]}</span>
             )}
           </div>
 
-          <div style={{ flex: "1", marginLeft: "10px" }}>
+          {/* <div style={{ flex: "1", marginLeft: "10px" }}>
             <label htmlFor="lastname" style={labelStyle}>
               Last Name
             </label>
@@ -162,7 +153,7 @@ const Register = () => {
             {errors.lastname && (
               <span style={{ color: "red" }}>{errors.lastname["message"]}</span>
             )}
-          </div>
+          </div> */}
         </div>
 
         <label htmlFor="email" style={labelStyle}>
@@ -204,7 +195,7 @@ const Register = () => {
           )}
         />
         {errors.password && (
-          <span style={{ color: "red" }}>{errors.password["message"]}</span>
+          <span style={{ color: "red" }}>{errors?.password["message"]}</span>
         )}
 
         <label htmlFor="confirmPassword" style={labelStyle}>

@@ -31,7 +31,9 @@ const Header = () => {
   const firstName = sessionData?.user?.name?.split(" ")[0];
   const url = "/member/shoppingCart";
 
-  const user_img = sessionData?.user?.image;
+  const user_img = sessionData?.user?.image
+    ? "https://api.gr-oops.com/" + sessionData?.user?.image
+    : null;
 
   const logout = () => {
     confirmAlert({
@@ -97,17 +99,19 @@ const Header = () => {
                   HOME
                 </Link>
                 <Link
-                  href="/"
+                  href="/product"
                   className="text-xl font-medium text-black no-underline"
                 >
                   SHOP
                 </Link>
-                <Link
-                  href="/member/group-order"
-                  className="text-xl font-medium text-black no-underline"
-                >
-                  GROUP ORDER
-                </Link>
+                {sessionData && (
+                  <Link
+                    href="/member/group-order"
+                    className="text-xl font-medium text-black no-underline"
+                  >
+                    GROUP ORDER
+                  </Link>
+                )}
                 <文 className="w-7" />
                 <NavSearch className="w-7" />
 
@@ -117,10 +121,13 @@ const Header = () => {
                 {/* Login Person Icon */}
                 <div ref={ref}>
                   <div onClick={handleClick}>
-                   
                     {user_img ? (
                       <img
-                        src={user_img ? user_img : "/assets/image/pexels-pixabay-220453.jpg"}
+                        src={
+                          user_img
+                            ? user_img
+                            : "/assets/image/pexels-pixabay-220453.jpg"
+                        }
                         className="w-10 rounded-full"
                       />
                     ) : (
@@ -213,19 +220,16 @@ const Header = () => {
                 </Link>
                 <文 className="w-7" />
 
-
                 <NavSearch className="w-7" />
 
-                {sessionData  ? (
-                    <Link href={url}>
+                {sessionData ? (
+                  <Link href={url}>
                     <NavCart className="w-7" />
-                     </Link>
-  
-                     ) : 
-                       ""
-                    }
+                  </Link>
+                ) : (
+                  ""
+                )}
 
-                 
                 <button
                   className="rounded-full border-4 border-black px-10 py-3 font-semibold no-underline transition"
                   onClick={() => signIn()}
