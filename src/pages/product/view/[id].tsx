@@ -34,6 +34,10 @@ const ProductDetails = () => {
   }, [id]);
 
   async function AddToCart() {
+    if (!sessionData) {
+      alert("Login Required");
+      return;
+    }
     const postData = {
       product_id: id,
       quantity: "1",
