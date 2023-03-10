@@ -23,7 +23,7 @@ git clone https://github.com/HenryCZhang/OKI-T3JS.git
 https://create.t3.gg/en/usage/first-steps
 ```
 
-2. Add `.env` file to the root directory and configure the credentials in that file
+2. 🚨 Add `.env` file to the root directory and configure the credentials in that file
 
 4. NPM Install
 ```yaml
