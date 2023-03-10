@@ -5,13 +5,13 @@ import { NextPage } from 'next';
 import { ValueType } from 'tailwindcss/types/config';
 
 const productUploadPage: NextPage = () => {
-    const mutation = trpc.product.upload.mutation(['product.mutation', {
-        onSuccess: () => {
-            console.log('success')
-        }
-    }]);
-    const router = useRouter();
-    const hello = trpc.useQuery(['example.hello', { name: 'from trpc' }]);
+    // const mutation = trpc.product.upload.mutation(['product.mutation', {
+    //     onSuccess: () => {
+    //         console.log('success')
+    //     }
+    // }]);
+    // const router = useRouter();
+    // const hello = trpc.useQuery(['example.hello', { name: 'from trpc' }]);
     
     return (
         <>
