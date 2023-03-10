@@ -2,6 +2,8 @@
   Groops E-commerce Website
 </h1>
 
+# 🚨 Please keep the code confidential! Donnot share any code or business information to the public cloud‼️
+
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
 Miscellaneous OKI Dev Resources:
