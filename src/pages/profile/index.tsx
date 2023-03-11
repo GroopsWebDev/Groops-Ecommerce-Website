@@ -7,37 +7,34 @@ import { useRouter } from "next/router";
 import * as yup from "yup";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import Swal from "sweetalert2";
+import { ImageUploader } from "../../utils/imageUpload";
+import { CircularProgress } from "@mui/material";
 
 const schema = yup.object().shape({
-  firstname: yup
+  name: yup
     .string()
-    .required("username field is required")
-    .matches(/^[A-Za-z]+[A-Za-z ]*$/, "Username must be alphabet characters.")
+    .required("full name field is required")
+    .matches(/^[A-Za-z]+[A-Za-z ]*$/, "full name must be alphabet characters.")
     .min(2, "Needs at least 2 Character")
-    .max(100, "Please enter a username less than 100 character"),
-  lastname: yup
-    .string()
-    .required("username field is required")
-    .matches(/^[A-Za-z]+[A-Za-z ]*$/, "Username must be alphabet characters.")
-    .min(2, "Needs at least 2 Character")
-    .max(100, "Please enter a username less than 100 character"),
+    .max(100, "Please enter a full name less than 100 character"),
 
-  phoneNumber: yup.string().required("phone number field is required"),
+  phone: yup.string().required("phone number field is required"),
   postCode: yup.number().required("post code field is required"),
 });
-
 const userSetting = () => {
+  const [imageURL, setImageURL] = useState();
+  const [fileData, setFileData] = useState<any>();
   const router = useRouter();
   const { data: sessionData } = useSession();
-  const [data, setData] = useState<any>([]);
   const [loading, setLoading] = useState(false);
+  const endPointURl = "https://api.gr-oops.com";
 
   const [user, setUser] = useState({
-    firstname: "",
-    lastname: "",
-    phoneNumber: "",
+    name: "",
+    phone: "",
     address: "",
-    postCode: "",
+    pinCode: "",
     paymentMethod: "",
     password: "",
     oldPassword: "",
@@ -50,10 +47,15 @@ const userSetting = () => {
     control,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
+
+  if (sessionData != undefined) {
+    getSelectedUserData(sessionData);
+  }
 
   const inputStyle = {
     padding: "5px 10px",
@@ -63,16 +65,12 @@ const userSetting = () => {
     width: "100%",
   };
 
-  const handleInputChange = (e: any) => {
-    const { name, value } = e.target;
-    setUser((prevState) => ({ ...prevState, [name]: value }));
-  };
-
   const bucketName = "img";
 
   const handleProfilePictureChange = (e: any) => {
     const file = e.target.files[0];
-
+    setFileData(file);
+    ImageUploader(file);
     setUser({
       ...user,
       profilePicture: URL.createObjectURL(file),
@@ -81,19 +79,57 @@ const userSetting = () => {
 
   async function onSubmit(data: any) {
     setLoading(true);
-    data.userId = sessionData?.user?.id;
-    const result = await axios.post("/api/user/userSetting", data);
-    if (result.status == 200) {
+    const rObj = {
+      address: data.address,
+      // firstname: data.firstname,
+      // lastname: data.lastname,
+      name: data.name,
+      phoneNumber: data.phone,
+      image:
+        fileData?.name != undefined ? bucketName + "/" + fileData?.name : "",
+      postCode: data.postCode.toString(),
+      userId: sessionData?.user?.id,
+    };
+    const result = await axios.post("/api/user/update", rObj);
+    if (result.data.status == 200) {
       setLoading(false);
-      alert("profile update successfully");
+      Swal.fire({
+        title: "Profile",
+        text: "Profile Update Successfully",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
     } else {
       setLoading(false);
-      alert("something went wrong.");
+      Swal.fire({
+        title: "Error",
+        text: "Something went wrong",
+        icon: "error",
+      });
+    }
+  }
+
+  async function getSelectedUserData(dataGet: any) {
+    const userId = dataGet?.user.id;
+    const response = await fetch("/api/user/" + userId);
+    const json = await response.json();
+    if (json.status === 200) {
+      const fields = ["name", "phone", "address", "postCode"];
+      fields.forEach((field) => {
+        if (json.user[field]) {
+          setValue(field, json.user[field]);
+        } else {
+          setValue(field, "");
+        }
+      });
+      setImageURL(json.user.image);
     }
   }
 
   useEffect(() => {
-    setData(sessionData?.user);
+    //setData(sessionData?.user);
+    //setData(sessionData?.user);
+    //getSelectedUserData()
   }, []);
 
   return (
@@ -107,7 +143,11 @@ const userSetting = () => {
             <div style={{ marginLeft: "200px", marginTop: "150px" }}>
               <div className="mr-4 h-32 w-32 overflow-hidden rounded-full shadow-sm">
                 <img
-                  src={user.profilePicture}
+                  src={
+                    user.profilePicture == ""
+                      ? endPointURl + "/" + imageURL
+                      : user.profilePicture
+                  }
                   alt=""
                   className="h-full w-full object-cover"
                 />
@@ -131,78 +171,52 @@ const userSetting = () => {
               <div className="mb-4">
                 <label
                   className="mb-2 block font-bold text-gray-700"
-                  htmlFor="firstname"
+                  htmlFor="name"
                 >
-                  first name
+                  full name
                 </label>
 
                 <Controller
                   control={control}
-                  name="firstname"
+                  name="name"
                   defaultValue=""
                   render={({ field }) => (
                     <input
                       {...field}
                       type="text"
-                      id="firstname"
-                      name="firstname"
+                      id="name"
+                      name="name"
                       style={inputStyle}
                     />
                   )}
                 />
-                {errors.firstname && (
-                  <span style={{ color: "red" }}>first name is required</span>
+                {errors.name && (
+                  <span style={{ color: "red" }}>full name is required</span>
                 )}
               </div>
               <div className="mb-4">
                 <label
                   className="mb-2 block font-bold text-gray-700"
-                  htmlFor="lastname"
-                >
-                  last name
-                </label>
-
-                <Controller
-                  control={control}
-                  name="lastname"
-                  defaultValue=""
-                  render={({ field }) => (
-                    <input
-                      {...field}
-                      type="text"
-                      id="lastname"
-                      name="lastname"
-                      style={inputStyle}
-                    />
-                  )}
-                />
-                {errors.lastname && (
-                  <span style={{ color: "red" }}>last name is required</span>
-                )}
-              </div>
-              <div className="mb-4">
-                <label
-                  className="mb-2 block font-bold text-gray-700"
-                  htmlFor="phoneNumber"
+                  htmlFor="phone"
                 >
                   Phone Number
                 </label>
                 <Controller
                   control={control}
-                  name="phoneNumber"
+                  name="phone"
                   defaultValue=""
                   render={({ field }) => (
                     <input
                       {...field}
                       type="text"
-                      id="phoneNumber"
-                      name="phoneNumber"
+                      id="phone"
+                      name="phone"
                       style={inputStyle}
                     />
                   )}
                 />
 
-                {errors.phoneNumber && (
+                {errors.phone && (
                   <span style={{ color: "red" }}>phone number is required</span>
                 )}
               </div>
@@ -281,7 +295,11 @@ const userSetting = () => {
                 type="submit"
                 className="focus:shadow-outline mx-4 rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
               >
-                Save
+                {loading ? (
+                  <CircularProgress style={{ color: "white" }} />
+                ) : (
+                  "Save"
+                )}
               </button>
             </form>
           </div>

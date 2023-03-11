@@ -1,5 +1,6 @@
 import { prisma } from "../../../server/db/client";
 import handlePrismaError from "../../../utils/prismaExpHanlder";
+import { generateCode } from "../../../utils/utils";
 import { getServerAuthSession } from "../../../server/common/get-server-auth-session";
 export default async function handler(req, res) {
   const session = await getServerAuthSession({ req, res });
@@ -8,7 +9,7 @@ export default async function handler(req, res) {
   }
   try {
     if (req.method === "POST") {
-      const { userId, groupName, endDate } = req.body;
+      const { userId, groupName, endDate, groupImg } = req.body;
       const user = await prisma.user.findUnique({ where: { id: userId } });
       if (!user) {
         return res.json({ message: "User not found", status: 400 });
@@ -24,7 +25,9 @@ export default async function handler(req, res) {
           data: {
             groupMaster: { connect: { id: userId } },
             groupName: groupName,
-            endDate: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+            groupImg: groupImg,
+            endDate: endDate,
+            groupCode: generateCode(),
           },
         });
 

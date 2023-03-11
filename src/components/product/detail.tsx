@@ -11,6 +11,7 @@ import {
   AiOutlineMinusSquare,
   AiOutlinePlusSquare,
 } from "react-icons/ai";
+import Link from "next/link";
 
 type props = { id: string; name: string; price: number; image: string };
 
@@ -30,7 +31,9 @@ const Detail = ({ id, name, price, image }: props) => {
   return (
     <>
       <div className="relative mb-10 overflow-hidden rounded-lg bg-white text-2xl shadow-lg">
-        <img src={url} className="h-64 w-full object-cover object-center" />
+        <Link href={`/product/view/${id}`}>
+          <img src={url} className="h-64 w-full object-cover object-center" />
+        </Link>
         <button
           className="absolute bottom-16 right-5"
           onClick={() => {

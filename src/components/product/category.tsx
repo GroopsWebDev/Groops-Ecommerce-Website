@@ -29,7 +29,7 @@ const Catergory = () => {
   }, []);
   return (
     <>
-      <div className="mt-10 mb-10 flex w-full flex-wrap gap-10">
+      <div className="ml-4 mr-4 mt-5 mb-5 flex w-full flex-wrap gap-10">
         {category.map((i: any, index: any) => {
           return (
             <Link

@@ -44,3 +44,29 @@ export const shootFireworks = () => {
     );
   }, 250);
 };
+
+export function generateCode() {
+  let result = "";
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const charactersLength = characters.length;
+  for (let i = 0; i < 8; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
+import moment from "moment";
+
+export function getRemainingTime(date) {
+  const now = moment();
+  const diff = moment(date).diff(now, "hours");
+  const remainingHours = diff % 24;
+  const remainingDays = Math.floor(diff / 24);
+
+  if (diff <= 24) {
+    return `${diff} hours`;
+  } else {
+    return `${remainingDays} days, ${remainingHours} hours`;
+  }
+}

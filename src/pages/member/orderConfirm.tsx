@@ -100,6 +100,10 @@ function orderConfirm() {
     }
   }
 
+  async function goToGroupOrder() {
+    router.push("/group/list");
+  }
+
   return (
     <>
       <div className="orderConfirm">
@@ -187,7 +191,7 @@ function orderConfirm() {
               >
                 {data.map((item: any, index: any) => (
                   <>
-                    <div style={{ width: "50%", display: "flex" }}>
+                    <div style={{ width: "50%", display: "flex" }} key={index}>
                       <img
                         style={{
                           width: "14.87rem",
@@ -203,7 +207,9 @@ function orderConfirm() {
                       />
                       <div style={{ marginTop: "2.5rem" }}>
                         {/* <div style={{ fontSize: '1.3rem' }} >1</div> */}
-                        {/* <div style={{ fontSize: '1.3rem' }} >1 | 1</div> */}
+                        <div style={{ fontSize: "1.3rem" }}>
+                          {item?.product?.englishProductName}
+                        </div>
                         {/* <div style={{ fontSize: '1.3rem' }} >$</div> */}
                         <div style={{ marginTop: "2rem", fontSize: "1.3rem" }}>
                           Qty: {item.qty}
@@ -1055,7 +1061,6 @@ function orderConfirm() {
             </div>
 
             <div
-              onClick={() => {}}
               style={{
                 width: "100%",
                 display: "flex",
@@ -1064,7 +1069,7 @@ function orderConfirm() {
                 marginBottom: "2rem",
               }}
             >
-              <div
+              <button
                 style={{
                   margin: "20px",
                   marginRight: "40px",
@@ -1080,9 +1085,10 @@ function orderConfirm() {
                   fontSize: "1.5rem",
                   lineHeight: "5rem",
                 }}
+                onClick={goToGroupOrder}
               >
                 Group Order
-              </div>
+              </button>
               <div
                 style={{
                   margin: "20px",
