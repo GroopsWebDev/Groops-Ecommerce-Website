@@ -15,6 +15,9 @@ module.exports = {
       fontFamily:{
         'league-spartan': ['League Spartan', 'sans-serif'],
       }
+    },
+    colors: {
+      'purple': '#A638F2',
     }
   }
 };
