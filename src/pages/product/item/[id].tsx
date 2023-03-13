@@ -18,6 +18,11 @@ import OnPolicy from "../../../../public/assets/product/item/policy-on.svg"
 import OnSpec from "../../../../public/assets/product/item/spec-on.svg"
 import Policies from "../../../../public/assets/product/item/policies.svg"
 import Write from "../../../../public/assets/product/item/write-review.svg"
+import Left from "../../../../public/assets/product/item/left.svg"
+import Right from "../../../../public/assets/product/item/right.svg"
+import Based from "../../../../public/assets/product/item/based-on-like.svg"
+
+import Frame from "../../../../public/assets/shop/items/item.svg"
 
 const ProductImages = () => {
   return <>
@@ -42,6 +47,9 @@ const Description = () => {
       <Minus className="mt-1"></Minus>
       <button><AddCart></AddCart></button>
     </div>
+
+    <Based className="mt-10"></Based>
+    <BasedOnLikes></BasedOnLikes>
   </>
 }
 
@@ -73,11 +81,113 @@ const Specs = () => {
       </div>
     </div>
 
-    <div className="flex flex-row justify-center mt-20"><Write></Write></div>
+    <div className="flex flex-row justify-center mt-20">
+      <button><Write></Write></button>
+    </div>
 
   </>
 }
 
+const RecentView = () => {
+
+  const items = [
+    { price: 19.99, name: "item1" },
+    { price: 19.99, name: "item2" },
+    { price: 19.99, name: "item3" },
+    { price: 19.99, name: "item4" },
+    { price: 19.99, name: "item5" },
+  ]
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const getItemsToDisplay = () => {
+
+    if (items.length <= 4) {
+      return items;
+    }
+    const itemsToDisplay = [];
+    if (currentIndex < 0) {
+      setCurrentIndex(items.length + (currentIndex % items.length));
+    }
+    if (items.length > 0) {
+      for (let i = currentIndex; i < currentIndex + 4; i++) {
+        itemsToDisplay.push(items[i % items.length]);
+      }
+    }
+    return itemsToDisplay;
+  };
+
+  return (
+    <div className="flex flex-row flex-wrap justify-center space-x-6 mt-20">
+      <button onClick={() => { setCurrentIndex(currentIndex - 1); }}>
+        <Left className="w-10 mb-16"></Left>
+      </button>
+
+      {getItemsToDisplay().map((item) => (
+        <div>
+          <Frame className="w-64"></Frame>
+          <h5 className="text-blue mt-2">{item ? item.name : null}</h5>
+          <p>${item ? item.price : null}</p>
+        </div>
+      ))}
+
+      <button onClick={() => { setCurrentIndex(currentIndex + 1); }}>
+        <Right className="w-10 mb-16"></Right>
+      </button>
+    </div>
+  );
+};
+
+const BasedOnLikes = () => {
+
+  const items = [
+    { price: 19.99, name: "item1" },
+    { price: 19.99, name: "item2" },
+    { price: 19.99, name: "item3" },
+    { price: 19.99, name: "item4" },
+    { price: 19.99, name: "item5" },
+  ]
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const getItemsToDisplay = () => {
+
+    if (items.length <= 3) {
+      return items;
+    }
+    const itemsToDisplay = [];
+    if (currentIndex < 0) {
+      setCurrentIndex(items.length + (currentIndex % items.length));
+    }
+
+    if (items.length > 0) {
+      for (let i = currentIndex; i < currentIndex + 3; i++) {
+        itemsToDisplay.push(items[i % items.length]);
+      }
+    }
+    return itemsToDisplay;
+  };
+
+  return (
+    <div className="flex flex-row flex-wrap justify-center space-x-6 mt-10">
+      <button onClick={() => { setCurrentIndex(currentIndex - 1); }}>
+        <Left className="w-3 mb-16"></Left>
+      </button>
+
+      {getItemsToDisplay().map((item) => (
+        <div>
+          <Frame className="w-24 broder"></Frame>
+          <h5 className="text-blue mt-2">{item ? item.name : null}</h5>
+          <p>${item ? item.price : null}</p>
+        </div>
+      ))}
+
+      <button onClick={() => { setCurrentIndex(currentIndex + 1); }}>
+        <Right className="w-3 mb-16"></Right>
+      </button>
+    </div>
+  );
+};
 
 
 export default function Item() {
@@ -109,6 +219,12 @@ export default function Item() {
     </div>
 
     <Advertisement className="w-full mt-20" />
+
+    <div className="flex justify-center mt-20">
+      <h2 className="text-purple">Recently Viewed</h2>
+    </div>
+
+    <RecentView></RecentView>
 
     <HelpCenter />
   </>

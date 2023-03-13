@@ -18,6 +18,7 @@ module.exports = {
     },
     colors: {
       'purple': '#A638F2',
+      'blue': 'rgb(6 182 212)'
     }
   }
 };
