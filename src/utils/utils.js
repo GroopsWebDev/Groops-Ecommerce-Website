@@ -1,16 +1,16 @@
-import axios from 'axios';
-import confetti from 'canvas-confetti';
+import axios from "axios";
+import confetti from "canvas-confetti";
 
-export const formatCurrency = (amount = 0, currency = 'USD') =>
-  new Intl.NumberFormat('en-US', {
-    style: 'currency',
+export const formatCurrency = (amount = 0, currency = "USD") =>
+  new Intl.NumberFormat("en-US", {
+    style: "currency",
     currency,
     minimumIntegerDigits: 2,
   }).format(amount / 100);
 
-export const isClient = typeof window === 'object';
+export const isClient = typeof window === "object";
 
-export const fetcher = url => axios.get(url).then(res => res.data);
+export const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 export const shootFireworks = () => {
   const duration = 15 * 1000;
@@ -44,3 +44,29 @@ export const shootFireworks = () => {
     );
   }, 250);
 };
+
+export function generateCode() {
+  let result = "";
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const charactersLength = characters.length;
+  for (let i = 0; i < 8; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
+import moment from "moment";
+
+export function getRemainingTime(date) {
+  const now = moment();
+  const diff = moment(date).diff(now, "hours");
+  const remainingHours = diff % 24;
+  const remainingDays = Math.floor(diff / 24);
+
+  if (diff <= 24) {
+    return `${diff} hours`;
+  } else {
+    return `${remainingDays} days, ${remainingHours} hours`;
+  }
+}

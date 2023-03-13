@@ -9,6 +9,8 @@ import NavPerson from "../../public/assets/navbar/nav-person.svg";
 import NavCart from "../../public/assets/navbar/nav-cart.svg";
 import NavSearch from "../../public/assets/navbar/nav-search.svg";
 import NavHeart from "../../public/assets/navbar/nav-heart.svg";
+import Avatar from "../../public/assets/navbar/avatar.svg";
+
 //nextAuth
 import { signIn, signOut, useSession } from "next-auth/react";
 //react-confirm-alert
@@ -27,10 +29,11 @@ const Header = () => {
   const ref = useRef(null); //ref for overlay
   const { push, asPath } = useRouter();
   const firstName = sessionData?.user?.name?.split(" ")[0];
+  const url = "/member/shoppingCart";
 
-  console.log(`navbar.tsx sessionData?.user: ${sessionData?.user}`);
-
-  const user_img = sessionData?.user?.image;
+  const user_img = sessionData?.user?.image
+    ? "https://api.gr-oops.com/" + sessionData?.user?.image
+    : null;
 
   const logout = () => {
     confirmAlert({
@@ -69,14 +72,13 @@ const Header = () => {
     push(data.url);
   };
 
-  const handleSignIn = () => {
-    // callbackUrl is used to redirect the user to the previous page
-    push(`/signin/signin?callbackUrl=${asPath}`);
-  };
-
   const handleClick = (event: any) => {
     setShowOverlay(!showOverlay);
     setTarget(event.target);
+  };
+
+  const gotocart = () => {
+    push("/member/shoppingCart");
   };
 
   return (
@@ -102,26 +104,35 @@ const Header = () => {
                 >
                   SHOP
                 </Link>
-                <Link
-                  href="/member/group-order"
-                  className="text-xl font-medium text-black no-underline"
-                >
-                  GROUP ORDER
-                </Link>
+                {sessionData && (
+                  <Link
+                    href="/member/group-order"
+                    className="text-xl font-medium text-black no-underline"
+                  >
+                    GROUP ORDER
+                  </Link>
+                )}
                 <文 className="w-7" />
                 <NavSearch className="w-7" />
-                <NavHeart className="w-7" />
 
-                <Link href="/member/shoppingCart">
-                  <NavCart className="w-7" />
-                </Link>
+                {sessionData && <NavHeart className="w-7" />}
+                {sessionData && <NavCart className="w-7" onClick={gotocart} />}
+
                 {/* Login Person Icon */}
                 <div ref={ref}>
                   <div onClick={handleClick}>
-                    <img
-                      src={user_img ? user_img : "null"}
-                      className="w-10 rounded-full"
-                    />
+                    {user_img ? (
+                      <img
+                        src={
+                          user_img
+                            ? user_img
+                            : "/assets/image/pexels-pixabay-220453.jpg"
+                        }
+                        className="w-10 rounded-full"
+                      />
+                    ) : (
+                      <NavPerson className="w-7" />
+                    )}
                   </div>
                   <Overlay
                     show={showOverlay}
@@ -139,29 +150,41 @@ const Header = () => {
                       <Popover.Body className="bg-gradient-to-br from-purple-500 to-pink-400 p-1">
                         <div className="h-full w-full bg-white ">
                           <Link
-                            href="/member/profile"
+                            href="/profile"
                             className="ml-2 text-lg text-black no-underline hover:text-orange-500 hover:underline"
                           >
                             Account Setting
                           </Link>
-                          <div
-                            className="ml-2 text-lg text-black no-underline hover:text-red-500 hover:underline"
-                            onClick={() => {
-                              logout();
-                            }}
+                        </div>
+                        <div className="h-full w-full bg-white ">
+                          <Link
+                            href="/profile/change-password"
+                            className="ml-2 text-lg text-black no-underline hover:text-orange-500 hover:underline"
                           >
-                            Sign Out
-                          </div>
+                            Change Password
+                          </Link>
+                        </div>
+                        <div className="h-full w-full bg-white ">
+                          {sessionData && (
+                            <div
+                              className="ml-2 text-lg text-black no-underline hover:text-red-500 hover:underline"
+                              onClick={() => {
+                                logout();
+                              }}
+                            >
+                              Sign Out
+                            </div>
+                          )}
                         </div>
                       </Popover.Body>
                     </Popover>
                   </Overlay>
                 </div>
                 <div>
-                  Hello,{" "}
+                  Hello,
                   <span className="bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-lg text-transparent">
                     {firstName}
-                  </span>{" "}
+                  </span>
                   !
                 </div>
               </div>
@@ -184,7 +207,7 @@ const Header = () => {
                   HOME
                 </Link>
                 <Link
-                  href="/product"
+                  href="/"
                   className="text-xl font-medium text-black no-underline"
                 >
                   SHOP
@@ -196,20 +219,22 @@ const Header = () => {
                   GROUP ORDER
                 </Link>
                 <文 className="w-7" />
+
                 <NavSearch className="w-7" />
-                <Link href="/guest/shoppingCart">
-                  <NavCart className="w-7" />
-                </Link>
-                <Link href="#">
-                  <NavPerson className="w-7" onClick={handleSignIn} />
-                </Link>
+
+                {sessionData ? (
+                  <Link href={url}>
+                    <NavCart className="w-7" />
+                  </Link>
+                ) : (
+                  ""
+                )}
+
                 <button
                   className="rounded-full border-4 border-black px-10 py-3 font-semibold no-underline transition"
-                  onClick={
-                    sessionData ? () => void signOut() : () => void signIn()
-                  }
+                  onClick={() => signIn()}
                 >
-                  {sessionData ? "Sign out" : "Sign in"}
+                  Sign in
                 </button>
               </div>
             </div>

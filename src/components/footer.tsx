@@ -17,13 +17,13 @@ const Footer = () => {
       <Row>
         <Col lg="auto">
           <h3>About Us</h3>
-          <p className="mt-10 text-2xl font-extralight">privacy</p>
+          <p className="mt-10 text-2xl font-extralight">Privacy</p>
           <p className="mt-10 text-2xl font-extralight">Contact us</p>
         </Col>
         <Col lg="auto" className="ml-20">
           <h3>Groops! Family</h3>
           <p className="mt-10 text-2xl font-extralight">Become a driver</p>
-          <p className="mt-10 text-2xl font-extralight">Contact us</p>
+          {/* <p className="mt-10 text-2xl font-extralight">Contact us</p> */}
         </Col>
         <Col lg="auto" className="ml-20">
           <h3>Follow Us On</h3>

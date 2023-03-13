@@ -1,23 +1,43 @@
-import React from "react"
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
-import Detail from "../product/detail"
+import Detail from "../product/detail";
 
-
-type props = { type: any }
-
+type props = { type: any };
 
 const Row = ({ type }: props) => {
-
-  return <>
-    <div className="mt-10">
-      <div className="flex flex-row flex-wrap space-x-10 mb-10 mt-10 justify-center">
-        <Detail name="product1" price={1} />
-        <Detail name="product1" price={1} />
-        <Detail name="product1" price={1} />
-        <Detail name="product1" price={1} />
+  const [product, setProduct] = useState([]);
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const res = await axios.post(`/api/product/pagination`, {
+        categoryName: type,
+      });
+      if (res.status == 200) {
+        setProduct(res.data.data);
+      }
+    };
+    fetchProduct();
+  }, []);
+  return (
+    <>
+      <div className="mt-10">
+        <div className="mb-10 mt-10 flex flex-row flex-wrap justify-center space-x-10">
+          {product.map((i: any, index) => {
+            return (
+              <div key={index}>
+                <Detail
+                  name={i.englishProductName}
+                  price={i.price}
+                  id={i.skuid}
+                  image={i.image}
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
-  </>
-}
+    </>
+  );
+};
 
-export default Row
+export default Row;
