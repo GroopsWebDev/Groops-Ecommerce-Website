@@ -16,7 +16,7 @@ const Detail = ({ name, price }: props) => {
     <div className="relative text-2xl mb-10" >
       <Item className="w-1/1" />
       <button className="absolute bottom-16 right-5" onClick={() => { setHeart(!heart) }}>
-        {heart ? <HeartRed /> : <Heart />}
+        {heart ? <HeartRed className="w-9" /> : <Heart className="w-9" />}
       </button>
 
       <div className="flex flex-row gap-16 text-xs mr-6 mt-1">
