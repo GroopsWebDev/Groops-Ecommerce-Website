@@ -30,10 +30,11 @@ const Header = () => {
   const { push, asPath } = useRouter();
   const firstName = sessionData?.user?.name?.split(" ")[0];
   const url = "/member/shoppingCart";
-
-  const user_img = sessionData?.user?.image
-    ? "https://api.gr-oops.com/" + sessionData?.user?.image
-    : null;
+  const navbar_text_item_style =
+    "text-xl font-medium text-black no-underline transform transition duration-300 hover:scale-110";
+  const navbar_icon_item_style =
+    "w-7 text-black transform transition duration-300 hover:scale-110";
+  const user_img = sessionData?.user?.image ? sessionData?.user?.image : null;
 
   const logout = () => {
     confirmAlert({
@@ -92,31 +93,36 @@ const Header = () => {
                 <GroopLogo className="w-full" />
               </Link>
               <div className="flex items-center space-x-7">
-                <Link
-                  href="/"
-                  className="text-xl font-medium text-black no-underline"
-                >
+                <Link href="/" className={navbar_text_item_style}>
                   HOME
                 </Link>
-                <Link
-                  href="/product"
-                  className="text-xl font-medium text-black no-underline"
-                >
+                <Link href="/product" className={navbar_text_item_style}>
                   SHOP
                 </Link>
                 {sessionData && (
                   <Link
                     href="/member/group-order"
-                    className="text-xl font-medium text-black no-underline"
+                    className={navbar_text_item_style}
                   >
                     GROUP ORDER
                   </Link>
                 )}
-                <文 className="w-7" />
-                <NavSearch className="w-7" />
-
-                {sessionData && <NavHeart className="w-7" />}
-                {sessionData && <NavCart className="w-7" onClick={gotocart} />}
+                <Link href="/">
+                  <文 className={navbar_icon_item_style} />
+                </Link>
+                <Link href="/">
+                  <NavSearch className={navbar_icon_item_style} />
+                </Link>
+                <Link href="/">
+                  {sessionData && (
+                    <NavHeart className={navbar_icon_item_style} />
+                  )}
+                </Link>
+                <Link href="/member/shoppingCart">
+                  {sessionData && (
+                    <NavCart className={navbar_icon_item_style} />
+                  )}
+                </Link>
 
                 {/* Login Person Icon */}
                 <div ref={ref}>
@@ -126,12 +132,13 @@ const Header = () => {
                         src={
                           user_img
                             ? user_img
-                            : "/assets/image/pexels-pixabay-220453.jpg"
+                            : "../../public/assets/image/pexels-pixabay-220453.jpg"
                         }
                         className="w-10 rounded-full"
+                        referrerPolicy="no-referrer"
                       />
                     ) : (
-                      <NavPerson className="w-7" />
+                      <NavPerson className={navbar_icon_item_style} />
                     )}
                   </div>
                   <Overlay
