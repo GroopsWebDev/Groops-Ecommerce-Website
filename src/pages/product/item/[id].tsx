@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 
 import HelpCenter from "../../../components/help/help-center";
 import Advertisement from "../../../../public/assets/shop/advertisement/advertisement.svg";
-import DummyRecent from "../../../../public/assets/shop/items/item.svg";
 import DummyImage from "./dummy-image.svg";
 import Heart from "../../../../public/assets/shop/items/heart.svg"
 import Add from "../../../../public/assets/shop/items/add.svg"
@@ -21,6 +20,8 @@ import Write from "../../../../public/assets/product/item/write-review.svg"
 import Left from "../../../../public/assets/product/item/left.svg"
 import Right from "../../../../public/assets/product/item/right.svg"
 import Based from "../../../../public/assets/product/item/based-on-like.svg"
+import CommentFrame from "../../../../public/assets/product/item/comment-frame.svg"
+import Star from "../../../../public/assets/product/item/star.svg"
 
 import Frame from "../../../../public/assets/shop/items/item.svg"
 
@@ -82,8 +83,10 @@ const Specs = () => {
     </div>
 
     <div className="flex flex-row justify-center mt-20">
-      <button><Write></Write></button>
+      <h2 className="text-purple">REVIEWS & COMMENTS</h2>
     </div>
+
+    <Comments></Comments>
 
   </>
 }
@@ -136,7 +139,7 @@ const RecentView = () => {
       </button>
     </div>
   );
-};
+}
 
 const BasedOnLikes = () => {
 
@@ -187,7 +190,58 @@ const BasedOnLikes = () => {
       </button>
     </div>
   );
-};
+}
+
+const Comments = () => {
+
+  type ratingprop = { rating: number };
+
+  const Stars = ({ rating }: ratingprop) => {
+
+    let dummy: number[] = [];
+
+    for (let i = 0; i < rating && i < 5; i++) {
+      dummy.push(1);
+    }
+
+    return <div className="flex flex-row absolute z-10 top-5 right-5">
+      {dummy.map((_) => (<Star />))}
+    </div>
+  }
+
+  type props = {
+    username: string, comments: string, date: string, rating: number
+  }
+
+  const Comment = ({ username, comments, date, rating }: props) => {
+    return <>
+      <div className="relative">
+        <CommentFrame></CommentFrame>
+        <div>
+          <h5 className="absolute z-10 top-5 left-5">{username}</h5>
+          <p className="absolute z-10 top-12 left-5">{comments}</p>
+          <p className="absolute z-10 bottom-3 right-5">{date}</p>
+          <Stars rating={rating} />
+        </div>
+      </div>
+    </>
+  }
+
+  return <>
+    <div className="grid grid-cols-3 gap-3 ml-20 mr-20 mt-20">
+      <Comment username="username" comments="Dummy comments"
+        date="2020/01/22" rating={1}></Comment>
+      <Comment username="username" comments="Dummy comments"
+        date="2020/01/22" rating={2}></Comment>
+      <Comment username="username" comments="Dummy comments"
+        date="2020/01/22" rating={3}></Comment>
+      <Comment username="username" comments="Dummy comments"
+        date="2020/01/22" rating={4}></Comment>
+      <Comment username="username" comments="Dummy comments"
+        date="2020/01/22" rating={5}></Comment>
+    </div>
+  </>
+}
 
 
 export default function Item() {
