@@ -59,7 +59,7 @@ const Specs = () => {
   const style = "flex flex-col justify-center place-items-center gap-y-3"
   return <>
 
-    <div className="flex flex-row gap-10 justify-center mt-20 gap-x-64">
+    <div className="flex flex-row flex-wrap gap-8 justify-center mt-20 gap-x-64">
 
       <div className={style}>
         <h4>Rating</h4>
@@ -126,8 +126,8 @@ const RecentView = () => {
         <Left className="w-10 mb-16"></Left>
       </button>
 
-      {getItemsToDisplay().map((item) => (
-        <div>
+      {getItemsToDisplay().map((item, index) => (
+        <div key={index}>
           <Frame className="w-64"></Frame>
           <h5 className="text-blue mt-2">{item ? item.name : null}</h5>
           <p>${item ? item.price : null}</p>
@@ -177,8 +177,8 @@ const BasedOnLikes = () => {
         <Left className="w-3 mb-16"></Left>
       </button>
 
-      {getItemsToDisplay().map((item) => (
-        <div>
+      {getItemsToDisplay().map((item, index) => (
+        <div key={index}>
           <Frame className="w-24 broder"></Frame>
           <h5 className="text-blue mt-2">{item ? item.name : null}</h5>
           <p>${item ? item.price : null}</p>
@@ -205,7 +205,7 @@ const Comments = () => {
     }
 
     return <div className="flex flex-row absolute z-10 top-5 right-5">
-      {dummy.map((_) => (<Star />))}
+      {dummy.map((_, index) => (<Star key={index}/>))}
     </div>
   }
 
