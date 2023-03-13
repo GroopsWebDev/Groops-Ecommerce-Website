@@ -63,27 +63,27 @@ const Specs = () => {
 
       <div className={style}>
         <h4>Rating</h4>
-        <h4 className="text-purple">4.5</h4>
+        <h4 className="text-purple-600">4.5</h4>
       </div>
 
       <div className={style}>
         <h4>Place of Product</h4>
-        <h4 className="text-purple">TAIWAN</h4>
+        <h4 className="text-purple-600">TAIWAN</h4>
       </div>
 
       <div className={style}>
         <h4>Category</h4>
-        <h4 className="text-purple">SOFT DRINK</h4>
+        <h4 className="text-purple-600">SOFT DRINK</h4>
       </div>
 
       <div className={style}>
         <h4>Volume</h4>
-        <h4 className="text-purple">300g/bag</h4>
+        <h4 className="text-purple-600">300g/bag</h4>
       </div>
     </div>
 
     <div className="flex flex-row justify-center mt-20">
-      <h2 className="text-purple">REVIEWS & COMMENTS</h2>
+      <h2 className="text-purple-600">REVIEWS & COMMENTS</h2>
     </div>
 
     <Comments></Comments>
@@ -129,7 +129,7 @@ const RecentView = () => {
       {getItemsToDisplay().map((item, index) => (
         <div key={index}>
           <Frame className="w-64"></Frame>
-          <h5 className="text-blue mt-2">{item ? item.name : null}</h5>
+          <h5 className="text-blue-400 mt-2">{item ? item.name : null}</h5>
           <p>${item ? item.price : null}</p>
         </div>
       ))}
@@ -180,7 +180,7 @@ const BasedOnLikes = () => {
       {getItemsToDisplay().map((item, index) => (
         <div key={index}>
           <Frame className="w-24 broder"></Frame>
-          <h5 className="text-blue mt-2">{item ? item.name : null}</h5>
+          <h5 className="text-blue-400 mt-2">{item ? item.name : null}</h5>
           <p>${item ? item.price : null}</p>
         </div>
       ))}
@@ -275,7 +275,7 @@ export default function Item() {
     <Advertisement className="w-full mt-20" />
 
     <div className="flex justify-center mt-20">
-      <h2 className="text-purple">Recently Viewed</h2>
+      <h2 className="text-purple-600">Recently Viewed</h2>
     </div>
 
     <RecentView></RecentView>
