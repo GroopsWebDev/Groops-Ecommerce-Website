@@ -1,94 +1,128 @@
+import { blue } from "@mui/material/colors";
+import { useRouter } from "next/router";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import HelpCenter from "../../components/help/help-center";
+import Divider from "../../components/shoppingCart/divider";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import * as Yup from "yup";
+import axios from "axios";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "../checkout/checkoutform";
+import { Button, Modal } from "react-bootstrap";
 import { loadStripe } from "@stripe/stripe-js";
-import {
-  CardElement,
-  Elements,
-  useStripe,
-  useElements,
-} from "@stripe/react-stripe-js";
 
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
+//团购-订单确认
 
-import { useForm } from "react-hook-form";
-const apiUrl = "http://localhost:3000/api/";
-import { useRouter } from "next/router";
-import CheckoutForm from "./checkoutform";
-const baseUrl = "http://localhost:3000/";
-import { useSession } from "next-auth/react";
-const CheckoutPage = () => {
+const schema = Yup.object().shape({
+  firstname: Yup.string()
+    .matches(/^[A-Za-z]+[A-Za-z ]*$/, "First name must be alphabet characters.")
+    .min(2, "Needs at least 2 Character")
+    .max(100, "Please enter a First name less than 100 character")
+    .required("First name is required"),
+  lastname: Yup.string()
+    .matches(/^[A-Za-z]+[A-Za-z ]*$/, "Last name must be alphabet characters.")
+    .min(2, "Needs at least 2 Character")
+    .max(100, "Please enter a Last name less than 100 character")
+    .required("Last name is required"),
+  email: Yup.string()
+    .trim()
+    .email("Must be a valid email")
+    .max(255)
+    .required("Please enter the required field")
+    .matches(
+      /^([a-zA-Z0-9_+0-9\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/,
+      "Please enter valid email address."
+    ),
+  password: Yup.string()
+    .matches(/^\S*$/, "Whitespace is not allowed")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})/,
+      "Must contain 8 characters, one uppercase, one lowercase, one number and one special case character"
+    )
+    .required("Password is Mendatory")
+    .min(8, "Password must be at 8 char long")
+    .max(32),
+  confirmPassword: Yup.string()
+    .required("Password is Mendatory")
+    .oneOf([Yup.ref("password")], "Password does not match"),
+  terms: Yup.boolean().oneOf(
+    [true],
+    "You must accept the terms and conditions"
+  ),
+});
+
+function orderConfirm() {
+  const imagePath = "https://api.gr-oops.com/";
+  const [cartItem, setCartItem] = useState<any>([]);
+  const [step, setStep] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [subTotal, setSubTotal] = useState(0);
   const router = useRouter();
-  const [selectPaymentType, setSelectPaymentType] = useState("");
-  const [totalOrderAmount, setTotalOrderAmount] = useState(0);
-
-  const [paymentCompleted, setPaymentCompleted] = useState(false);
-
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const { data: sessionData } = useSession();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const [clientSecret, setClientSecret] = useState("");
+  const stripePromise = loadStripe(
+    "pk_test_51MCWFKI3CTiTs4JqLIbwXO682cGFbfqKkbAQJjfFfkSvGcwjA0GDZvgZkGlFPFTG7ve6CvBRh0IhQtU1Hp9q8Y5I00pmlT9A2M"
+  );
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch("/api/cart/getcart");
+      const data = await response.json();
+      setCartItem(data);
+    }
+    fetchData();
+  }, []);
 
-  const handleInputChange = (e: any) => {
-    setSelectPaymentType(e.target.value);
-  };
-
-  async function onSubmit(data: any) {
-    data.paymentType = selectPaymentType;
-    data.userId = sessionData?.user?.id;
-    const response = await fetch(apiUrl + "checkout", {
+  async function createSecret() {
+    const response = await fetch("/api/create", {
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify({ items: cartItem }),
       headers: {
         "Content-Type": "application/json",
       },
     });
-
-    if (response.status == 200) {
-      handleShow();
-      //router.push(baseUrl + "/product/init");
+    const data = await response.json();
+    if (data) {
+      setClientSecret(data.clientSecret);
     }
   }
 
-  const [clientSecret, setClientSecret] = useState("");
-
-  const stripePromise = loadStripe(
-    "pk_test_51MCWFKI3CTiTs4JqLIbwXO682cGFbfqKkbAQJjfFfkSvGcwjA0GDZvgZkGlFPFTG7ve6CvBRh0IhQtU1Hp9q8Y5I00pmlT9A2M"
-  );
-
   useEffect(() => {
-    let json: any;
-    async function fetchData() {
-      const response = await fetch(apiUrl + "product/get/cartdata");
-      json = await response.json();
-      var totalAmount = 0;
-      for (let i = 0; i < json.length; i++) {
-        totalAmount += json[i].product.price;
+    const sub_total = cartItem.reduce(
+      (acc: any, item: any) => acc + item.product.price * item.qty,
+      0
+    );
+    setSubTotal(sub_total);
+    setTotal(sub_total);
+    createSecret();
+  }, [cartItem]);
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  async function onSubmit(data: any) {
+    try {
+      const result = await axios.post("/api/user/register", data);
+
+      if (result.data.status == 200) {
+        router.push("/login");
+      } else {
+        alert("Registeration failed.");
       }
-      setTotalOrderAmount(totalAmount);
+    } catch (e) {
+      console.log(e);
+      alert("something went wrong.");
     }
-    fetchData();
-    createPayData();
-    async function createPayData() {
-      const response = await fetch(apiUrl + "create", {
-        method: "POST",
-        body: JSON.stringify({ items: json }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json();
-      if (data) {
-        setClientSecret(data.clientSecret);
-      }
-    }
-  }, []);
+  }
 
   const appearance = {
     theme: "stripe",
@@ -98,264 +132,1096 @@ const CheckoutPage = () => {
     appearance,
   };
 
+  async function goToGroupOrder() {
+    router.push("/group/list");
+  }
+
   return (
-    <div className="row">
-      <div className="col-md-6">
-        <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-          <h1 className="mb-6 text-2xl font-bold">Checkout Details</h1>
-          <form
-            className="grid grid-cols-1 gap-y-6"
-            onSubmit={handleSubmit(onSubmit)}
+    <>
+      <div className="orderConfirm">
+        {step == 1 && (
+          <div
+            style={{
+              backgroundColor: "white",
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
           >
-            <div className="row">
-              <div className="col-md-4">
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-gray-700"
+            <div
+              style={{
+                marginTop: "20px",
+                width: "69%",
+                backgroundColor: "#F9f8f6",
+              }}
+            >
+              <div className="">
+                <div
+                  style={{
+                    fontSize: "1.8rem",
+                    marginLeft: "3rem",
+                    marginTop: "2rem",
+                  }}
                 >
-                  Name
-                </label>
-                <div className="mt-1">
-                  <input
-                    {...register("name", {
-                      required: true,
-                      pattern: /^[A-Za-z]+$/,
-                    })}
-                    type="text"
-                    name="name"
-                    id="name"
-                    autoComplete="given-name"
-                    className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  />
-                  {errors.name && (
-                    <span>This field is required and enter only text</span>
-                  )}
+                  {" "}
+                  Your Shopping Cart
                 </div>
+                {/* <div
+                style={{
+                  cursor: "pointer",
+                  fontSize: "1.5rem",
+                  color: "rgb(0,116,186)",
+                  borderBottom: "10px soild black",
+                  textDecoration: "underLine",
+                  margin: "3rem",
+                }}
+              >
+                Sign in
+              </div> */}
               </div>
-              <div className="col-md-4">
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Email address
-                </label>
-                <div className="mt-1">
-                  <input
-                    {...register("email", {
-                      required: true,
-                      pattern: /^\S+@\S+$/i,
-                    })}
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  />
-                  {errors.email && <span>This field is required</span>}
-                </div>
-              </div>
-              <div className="col-md-4">
-                <label
-                  htmlFor="mobile-number"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Mobile Number
-                </label>
-                <div className="mt-1">
-                  <input
-                    {...register("mobileNumber", {
-                      required: true,
-                      minLength: 10,
-                    })}
-                    id="mobileNumber"
-                    name="mobileNumber"
-                    type="number"
-                    autoComplete="cc-number"
-                    className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  />
-                  {errors.mobileNumber && (
-                    <span>
-                      This field is required and should have a minimum length of
-                      10
-                    </span>
-                  )}
-                </div>
+            </div>
+            <div
+              style={{
+                marginTop: "20px",
+                width: "69%",
+                backgroundColor: "#F9f8f6",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "1.8rem",
+                  marginLeft: "3rem",
+                  marginTop: "2rem",
+                }}
+              >
+                {" "}
+                Your Items
               </div>
 
-              <div className="col-md-12">
-                <label
-                  htmlFor="address"
-                  className="block text-sm font-medium text-gray-700"
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  width: "100%",
+                  marginTop: "1rem",
+                  marginBottom: "2rem",
+                }}
+              >
+                <Divider></Divider>
+              </div>
+              <div
+                className="clear-right  divide-x-8 divide-gray-200"
+                style={{ display: "flex", marginBottom: "20px" }}
+              >
+                <div
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
                 >
-                  Address
-                </label>
-                <div className="mt-1">
-                  <textarea
-                    {...register("address", { required: true })}
-                    name="address"
-                    id="address"
-                    autoComplete="given-name"
-                    className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  ></textarea>
-                  {errors.address && <span>This field is required</span>}
+                  {cartItem.map((item: any, index: any) => (
+                    <>
+                      <div
+                        style={{ width: "50%", display: "flex" }}
+                        key={index}
+                      >
+                        <img
+                          style={{
+                            width: "14.87rem",
+                            height: "11.6rem",
+                            borderRadius: "35px",
+                            marginTop: "30px",
+                            marginLeft: "6%",
+                            marginRight: "20px",
+                          }}
+                          className="border border-solid   border-gray-900"
+                          src={imagePath + item["product"].image}
+                          alt=""
+                        />
+                        <div style={{ marginTop: "2.5rem" }}>
+                          {/* <div style={{ fontSize: '1.3rem' }} >1</div> */}
+                          <div style={{ fontSize: "1.3rem" }}>
+                            {item?.product?.englishProductName}
+                          </div>
+                          {/* <div style={{ fontSize: '1.3rem' }} >$</div> */}
+                          <div
+                            style={{ marginTop: "2rem", fontSize: "1.3rem" }}
+                          >
+                            Qty: {item.qty}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        style={{
+                          width: "30%",
+                          textAlign: "center",
+                          lineHeight: "14rem",
+                          color: "rgb(0,116,185)",
+                          fontSize: "1.2rem",
+                        }}
+                      >
+                        {item["product"].price * parseInt(item.qty)}
+                      </div>
+                    </>
+                  ))}
                 </div>
               </div>
-              <div className="col-md-4">
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  City
-                </label>
-                <div className="mt-1">
-                  <input
-                    {...register("city", {
-                      required: true,
-                      pattern: /^[A-Za-z]+$/,
-                    })}
-                    type="text"
-                    name="city"
-                    id="city"
-                    autoComplete="given-name"
-                    className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  />
-                  {errors.city && (
-                    <span>This field is required and enter only text</span>
-                  )}
-                </div>
+            </div>
+
+            <div
+              style={{
+                marginTop: "20px",
+                width: "69%",
+                backgroundColor: "#F9f8f6",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "1.8rem",
+                  marginLeft: "3rem",
+                  marginTop: "2rem",
+                }}
+              >
+                Delivery Options
               </div>
 
-              <div className="col-md-4">
-                <label
-                  htmlFor="state"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  State
-                </label>
-                <div className="mt-1">
-                  <input
-                    {...register("state", {
-                      required: true,
-                      pattern: /^[A-Za-z]+$/,
-                    })}
-                    type="text"
-                    name="state"
-                    id="state"
-                    autoComplete="given-name"
-                    className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  />
-                  {errors.state && (
-                    <span>This field is required and enter only text</span>
-                  )}
-                </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  width: "100%",
+                  marginTop: "1rem",
+                  marginBottom: "2rem",
+                }}
+              >
+                <Divider></Divider>
               </div>
 
-              <div className="col-md-4">
-                <label
-                  htmlFor="zipCode"
-                  className="block text-sm font-medium text-gray-700"
+              {/* radio */}
+              <div style={{ marginLeft: "3rem" }}>
+                <form>
+                  <div className="radio " style={{ margin: "2rem" }}>
+                    <label>
+                      <input
+                        style={{ color: "red", textIndent: "2rem" }}
+                        type="radio"
+                        defaultChecked
+                        name="optradio"
+                      />{" "}
+                      Groops! Instant Delivery (24h guaranteed, only available
+                      in Greater Montreal at this moment)
+                    </label>
+                  </div>
+                  <div style={{ margin: "2rem" }} className="radio">
+                    <label>
+                      <input
+                        style={{ color: "red", textIndent: "2rem" }}
+                        type="radio"
+                        name="optradio"
+                      />{" "}
+                      Pickup (Only available in Greater Montreal at this moment)
+                    </label>
+                  </div>
+                  <div style={{ margin: "2rem" }} className="radio ">
+                    <label>
+                      <input
+                        style={{ color: "red", textIndent: "2rem" }}
+                        type="radio"
+                        name="optradio"
+                      />{" "}
+                      Green Shipping (Available outside Montreal)
+                    </label>
+                  </div>
+                </form>
+              </div>
+
+              <div style={{ marginLeft: "5rem" }}>
+                <div
+                  className="input-group mb-3"
+                  style={{
+                    width: "400px",
+                    display: "flex",
+                    lineHeight: "3rem",
+                  }}
                 >
-                  Zip Code
-                </label>
-                <div className="mt-1">
+                  Tips for your Deliverer{" "}
                   <input
-                    {...register("zipCode", { required: true, minLength: 6 })}
-                    type="number"
-                    name="zipCode"
-                    id="zipCode"
-                    autoComplete="given-name"
-                    className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    style={{ marginLeft: "1rem" }}
+                    type="text"
+                    className="form-control border-dark border"
+                    placeholder="$"
+                    id="usr"
+                    name="username"
                   />
-                  {errors.zipCode && (
-                    <span>
-                      This field is required and should have a minimum length of
-                      6
-                    </span>
-                  )}
+                </div>
+
+                <div style={{ paddingBottom: "3rem", paddingTop: "2rem" }}>
+                  Our deliverers try their best to give you the best services,
+                  so if you tip them they will be happy :)
                 </div>
               </div>
-              <div className="col-md-12 pt-4 text-right">
+            </div>
+            <div
+              style={{
+                padding: "2rem",
+                marginTop: "20px",
+                width: "69%",
+                backgroundColor: "#F9f8f6",
+              }}
+            >
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <div style={{ width: "90%", fontSize: "1.4rem" }}>
+                  <div style={{ fontSize: "1.4rem", marginTop: "3rem" }}>
+                    Mrs.xxxxx{" "}
+                  </div>
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "end",
+                    }}
+                  >
+                    <div style={{ marginTop: "3rem", marginRight: "1rem" }}>
+                      Select
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "30%",
+                        fontSize: "1.2rem",
+                        marginLeft: "3rem",
+                      }}
+                    >
+                      <div style={{}}>KJDHKJHF Ave</div>
+                      <div style={{}}>Montréal QC, CANADA </div>
+                      <div style={{}}>H3C 1A1</div>
+                      <div style={{}}> +1 999-999-9999</div>
+                    </div>
+
+                    <div style={{ marginTop: "1 rem", width: "100px" }}>
+                      <div
+                        style={{
+                          width: "100%",
+                          display: "flex",
+                          justifyContent: "center",
+                          marginTop: "1rem",
+                        }}
+                        onClick={() => {}}
+                      >
+                        {/* {this.state.isChecked ? <svg style={{ cursor: 'pointer' }} viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10303" width="24" height="24"><path d="M512 938.666667C276.352 938.666667 85.333333 747.648 85.333333 512S276.352 85.333333 512 85.333333s426.666667 191.018667 426.666667 426.666667-191.018667 426.666667-426.666667 426.666667z m0-256a170.666667 170.666667 0 1 0 0-341.333334 170.666667 170.666667 0 0 0 0 341.333334z" p-id="10304" fill="#0080F9"></path></svg>
+                          : <svg style={{ cursor: 'pointer' }} viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1647" width="24" height="24"><path d="M512 853.333333c-188.586667 0-341.333333-152.746667-341.333333-341.333333s152.746667-341.333333 341.333333-341.333333 341.333333 152.746667 341.333333 341.333333-152.746667 341.333333-341.333333 341.333333m0-768C276.48 85.333333 85.333333 276.48 85.333333 512s191.146667 426.666667 426.666667 426.666667 426.666667-191.146667 426.666667-426.666667S747.52 85.333333 512 85.333333z" fill="" p-id="1648"></path></svg>
+                        } */}
+                      </div>
+
+                      <div
+                        style={{
+                          display: "flex",
+                          width: "100%",
+                          marginTop: "2rem",
+                        }}
+                      >
+                        <div
+                          style={{
+                            color: "rgb(23,119,177)",
+                            textDecoration: "underline",
+                          }}
+                        >
+                          Edit{" "}
+                        </div>
+                        <div
+                          style={{
+                            marginLeft: "1rem",
+                            color: "rgb(245,36,36)",
+                            textDecoration: "underline",
+                          }}
+                        >
+                          Delete
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "5rem",
+                  marginBottom: "2rem",
+                }}
+              >
+                {" "}
                 <button
-                  type="submit"
-                  className="rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  onClick={() => setStep(1)}
+                  style={{
+                    cursor: "pointer",
+                    boxShadow:
+                      "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+                    width: "15rem",
+                    height: "5rem",
+                    backgroundColor: "black",
+                    color: "white",
+                    textAlign: "center",
+                    fontSize: "1.5rem",
+                    lineHeight: "5rem",
+                  }}
+                >
+                  NEXT
+                </button>
+              </div>
+            </div>
+            <div>
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "1rem",
+                  marginBottom: "5rem",
+                }}
+              >
+                {" "}
+                <button
+                  onClick={() => setStep(2)}
+                  className="border-grey-900 border-2 border-solid  border-current "
+                  style={{
+                    cursor: "pointer",
+                    // boxShadow:
+                    //   "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+                    width: "15rem",
+                    height: "5rem",
+                    backgroundColor: "",
+                    textAlign: "center",
+                    fontSize: "1.5rem",
+                    lineHeight: "4.5rem",
+                  }}
+                >
+                  New Address
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Shipping新地址 */}
+        {step == 2 && (
+          <>
+            <div
+              style={{
+                marginTop: "16rem",
+                backgroundColor: "white",
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <div style={{ width: "60%", fontSize: "1.3rem" }}>
+                <div style={{ display: "flex", width: "100%" }}>
+                  <div>Shipping Address</div>
+
+                  <div>
+                    <div className="form-check">
+                      <input
+                        className="border-dark border"
+                        style={{ marginRight: "10px" }}
+                        type="checkbox"
+                        id="check1"
+                        name="option1"
+                        value="something"
+                        checked
+                      />
+                      <label>Save as your primary address</label>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 按钮 */}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    width: "100%",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      width: "100%",
+                    }}
+                  >
+                    <div style={{ margin: "30px" }} className="form-check">
+                      <input
+                        style={{ marginRight: "10px" }}
+                        type="radio"
+                        id="radio4"
+                        name="optradio"
+                        value="option2"
+                        checked
+                      />
+                      <label className="form-check-label">Ms</label>
+                    </div>
+                    <div style={{ margin: "30px" }} className="form-check">
+                      <input
+                        style={{ marginRight: "10px" }}
+                        type="radio"
+                        id="radio3"
+                        name="optradio"
+                        value="option2"
+                      />
+                      <label className="form-check-label">Mrs</label>
+                    </div>
+                    <div style={{ margin: "30px" }} className="form-check">
+                      <input
+                        style={{ marginRight: "10px" }}
+                        type="radio"
+                        value="option1"
+                      />
+                      <label className="form-check-label">Mr</label>
+                    </div>
+                    <div style={{ margin: "30px" }} className="form-check">
+                      <input
+                        style={{ marginRight: "10px" }}
+                        type="radio"
+                        value="option1"
+                      />
+                      Customize
+                      <input
+                        className="border-b border-indigo-600"
+                        style={{
+                          width: "80px",
+                          marginLeft: "",
+                          marginTop: "-10px",
+                        }}
+                        type="text"
+                        id="usr"
+                        name="username"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/*  输入 */}
+                <div>
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <div
+                      style={{
+                        display: "flex",
+                        width: "100%",
+                        marginBottom: "1.2rem",
+                      }}
+                    >
+                      <div style={{ display: "flex", width: "50%" }}>
+                        <div style={{ width: "100%", padding: "1.5rem" }}>
+                          <textarea
+                            style={{ fontSize: "1.4rem", height: "8rem" }}
+                            placeholder=" First  Name*"
+                            className="form-control border-dark border"
+                            id="comment"
+                            name="text"
+                          ></textarea>
+                        </div>
+                      </div>
+                      <div style={{ display: "flex", width: "50%" }}>
+                        <div style={{ width: "100%", padding: "1.5rem" }}>
+                          <textarea
+                            style={{ fontSize: "1.4rem", height: "8rem" }}
+                            placeholder=" Last  Name*"
+                            className="form-control border-dark border"
+                            id="comment"
+                            name="text"
+                          ></textarea>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      style={{
+                        display: "flex",
+                        width: "100%",
+                        marginBottom: "1.2rem",
+                      }}
+                    >
+                      <div style={{ width: "100%", padding: "1.5rem" }}>
+                        <textarea
+                          style={{ fontSize: "1.4rem", height: "8rem" }}
+                          placeholder=" Adress  1*"
+                          className="form-control border-dark border"
+                          id="comment"
+                          name="text"
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        width: "100%",
+                        marginBottom: "1.2rem",
+                      }}
+                    >
+                      <div style={{ width: "100%", padding: "1.5rem" }}>
+                        <textarea
+                          style={{ fontSize: "1.4rem", height: "8rem" }}
+                          placeholder=" Adress  2"
+                          className="form-control border-dark border"
+                          id="comment"
+                          name="text"
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        width: "100%",
+                        marginBottom: "1.2rem",
+                      }}
+                    >
+                      <div style={{ display: "flex", width: "50%" }}>
+                        <div style={{ width: "100%", padding: "1.5rem" }}>
+                          <textarea
+                            style={{
+                              fontSize: "1.4rem",
+                              height: "8rem",
+                              border: "1px soid #blue !important",
+                            }}
+                            placeholder="  Postal  Code*"
+                            className="form-control border-dark border"
+                            id="comment"
+                            name="text"
+                          ></textarea>
+                        </div>
+                      </div>
+
+                      <div style={{ display: "flex", width: "50%" }}>
+                        <div
+                          style={{
+                            width: "100%",
+                            padding: "1.5rem",
+                            paddingLeft: "0",
+                          }}
+                        >
+                          <textarea
+                            style={{ fontSize: "1.4rem", height: "8rem" }}
+                            placeholder=" City*"
+                            className="form-control border-dark border"
+                            id="comment"
+                            name="text"
+                          ></textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        style={{
+                          width: "100%",
+                          display: "flex",
+                          justifyContent: "center",
+                          marginTop: "5rem",
+                          marginBottom: "2rem",
+                        }}
+                      >
+                        {" "}
+                        <div
+                          style={{
+                            cursor: "pointer",
+                            boxShadow:
+                              "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
+                            width: "15rem",
+                            height: "5rem",
+                            backgroundColor: "black",
+                            color: "white",
+                            textAlign: "center",
+                            fontSize: "1.5rem",
+                            lineHeight: "5rem",
+                          }}
+                        >
+                          SAVE
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            {/*Billing 输入 */}
+
+            <div
+              style={{
+                marginTop: "16rem",
+                marginBottom: "16rem",
+                backgroundColor: "white",
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <div style={{ width: "60%", fontSize: "1.3rem" }}>
+                <div style={{ display: "flex", width: "100%" }}>
+                  <div>Shipping Address</div>
+
+                  <div>
+                    <div className="form-check">
+                      <input
+                        className="border-dark border"
+                        style={{ marginRight: "10px" }}
+                        type="checkbox"
+                        id="check1"
+                        name="option1"
+                        value="something"
+                        checked
+                      />
+                      <label>Save as your primary address</label>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 按钮 */}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    width: "100%",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      width: "100%",
+                    }}
+                  >
+                    <div style={{ margin: "30px" }} className="form-check">
+                      <input
+                        style={{ marginRight: "10px" }}
+                        type="radio"
+                        id="radio1"
+                        name="optradio"
+                        value="option1"
+                        checked
+                      />
+                      <label className="form-check-label">Ms</label>
+                    </div>
+                    <div style={{ margin: "30px" }} className="form-check">
+                      <input
+                        style={{ marginRight: "10px" }}
+                        type="radio"
+                        id="radio2"
+                        name="optradio"
+                        value="option1"
+                      />
+                      <label className="form-check-label">Mrs</label>
+                    </div>
+                    <div style={{ margin: "30px" }} className="form-check">
+                      <input
+                        style={{ marginRight: "10px" }}
+                        type="radio"
+                        value="option1"
+                      />
+                      <label className="form-check-label">Mr</label>
+                    </div>
+                    <div style={{ margin: "30px" }} className="form-check">
+                      <input
+                        style={{ marginRight: "10px" }}
+                        type="radio"
+                        value="option1"
+                      />
+                      Customize
+                      <input
+                        className="border-b border-indigo-600 "
+                        style={{
+                          width: "80px",
+                          marginLeft: "",
+                          marginTop: "-10px",
+                        }}
+                        type="text"
+                        id="usr"
+                        name="username"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/*  输入 */}
+                <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "100%",
+                      marginBottom: "1.2rem",
+                    }}
+                  >
+                    <div style={{ display: "flex", width: "50%" }}>
+                      <div style={{ width: "100%", padding: "1.5rem" }}>
+                        <textarea
+                          style={{ fontSize: "1.4rem", height: "8rem" }}
+                          placeholder=" First  Name*"
+                          className="form-control border-dark border"
+                          id="comment"
+                          name="text"
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div style={{ display: "flex", width: "50%" }}>
+                      <div style={{ width: "100%", padding: "1.5rem" }}>
+                        <textarea
+                          style={{ fontSize: "1.4rem", height: "8rem" }}
+                          placeholder=" Last  Name*"
+                          className="form-control border-dark border"
+                          id="comment"
+                          name="text"
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "100%",
+                      marginBottom: "1.2rem",
+                    }}
+                  >
+                    <div style={{ width: "100%", padding: "1.5rem" }}>
+                      <textarea
+                        style={{ fontSize: "1.4rem", height: "8rem" }}
+                        placeholder=" Adress  1*"
+                        className="form-control border-dark border"
+                        id="comment"
+                        name="text"
+                      ></textarea>
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "100%",
+                      marginBottom: "1.2rem",
+                    }}
+                  >
+                    <div style={{ width: "100%", padding: "1.5rem" }}>
+                      <textarea
+                        style={{ fontSize: "1.4rem", height: "8rem" }}
+                        placeholder=" Adress  2"
+                        className="form-control border-dark border"
+                        id="comment"
+                        name="text"
+                      ></textarea>
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "100%",
+                      marginBottom: "1.2rem",
+                    }}
+                  >
+                    <div style={{ display: "flex", width: "50%" }}>
+                      <div style={{ width: "100%", padding: "1.5rem" }}>
+                        <textarea
+                          style={{
+                            fontSize: "1.4rem",
+                            height: "8rem",
+                            border: "1px soid #blue !important",
+                          }}
+                          placeholder=" Postal  Code*"
+                          className="form-control border-dark border"
+                          id="comment"
+                          name="text"
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div style={{ display: "flex", width: "50%" }}>
+                      <div
+                        style={{
+                          width: "100%",
+                          padding: "1.5rem",
+                          paddingLeft: "0",
+                        }}
+                      >
+                        <textarea
+                          style={{ fontSize: "1.4rem", height: "8rem" }}
+                          placeholder=" City*"
+                          className="form-control border-dark border"
+                          id="comment"
+                          name="text"
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div
+                  onClick={() => {}}
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "5rem",
+                    marginBottom: "2rem",
+                  }}
+                >
+                  {" "}
+                  <div
+                    style={{
+                      cursor: "pointer",
+                      boxShadow:
+                        "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
+                      width: "15rem",
+                      height: "5rem",
+                      backgroundColor: "black",
+                      color: "white",
+                      textAlign: "center",
+                      fontSize: "1.5rem",
+                      lineHeight: "5rem",
+                    }}
+                  >
+                    SAVE
+                  </div>
+                </div>
+                <div
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "5rem",
+                    marginBottom: "2rem",
+                  }}
+                >
+                  {" "}
+                  <button
+                    onClick={() => setStep(1)}
+                    className="border-grey-900 border-2 border-solid  border-current "
+                    style={{
+                      cursor: "pointer",
+                      // boxShadow:
+                      //   "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+                      width: "15rem",
+                      height: "5rem",
+                      backgroundColor: "",
+                      textAlign: "center",
+                      fontSize: "1.5rem",
+                      lineHeight: "4.5rem",
+                    }}
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* 总结 */}
+        {step == 1 && (
+          <div
+            style={{
+              backgroundColor: "white",
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <div
+              style={{
+                marginTop: "20px",
+                width: "69%",
+                backgroundColor: "#F9f8f6",
+              }}
+            >
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <div style={{ width: "90%", fontSize: "1.4rem" }}>
+                  <div style={{ fontSize: "1.4rem", marginTop: "3rem" }}>
+                    Summary
+                  </div>
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div style={{ marginTop: "3rem" }}>Subtotal</div>
+                    <div style={{ marginTop: "3rem" }}>${subTotal}</div>
+                  </div>
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div style={{ marginTop: "3rem" }}>Sales Tax</div>
+                    <div style={{ marginTop: "3rem" }}>———</div>
+                  </div>
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div style={{ marginTop: "3rem" }}>Delivery</div>
+                    <div style={{ marginTop: "3rem" }}>———</div>
+                  </div>
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div style={{ marginTop: "3rem" }}>3% Green Fee</div>
+                    <div style={{ marginTop: "3rem" }}>———</div>
+                  </div>{" "}
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div style={{ marginTop: "3rem" }}>Tips for Deliverer</div>
+                    <div style={{ marginTop: "3rem" }}>———</div>
+                  </div>
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div style={{ marginTop: "3rem", fontSize: "2rem" }}>
+                      Total
+                      <span style={{ fontSize: "1.4rem", marginLeft: "5px" }}>
+                        (Taxes and Delivery Fee excluded)
+                      </span>
+                    </div>
+                    <div style={{ marginTop: "3rem", fontSize: "2rem" }}>
+                      ${total}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "row-reverse",
+                  marginTop: "5rem",
+                  marginBottom: "2rem",
+                }}
+              >
+                <button
+                  style={{
+                    margin: "20px",
+                    marginRight: "40px",
+                    cursor: "pointer",
+                    boxShadow:
+                      "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
+                    width: "18rem",
+                    height: "5rem",
+                    background:
+                      "linear-gradient(to right , rgb(100,12,161),  rgb(244,157,94))",
+                    color: "white",
+                    textAlign: "center",
+                    fontSize: "1.5rem",
+                    lineHeight: "5rem",
+                  }}
+                  onClick={goToGroupOrder}
+                >
+                  Group Order
+                </button>
+                <button
+                  onClick={handleShow}
+                  style={{
+                    margin: "20px",
+                    cursor: "pointer",
+                    boxShadow:
+                      "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
+                    width: "18rem",
+                    height: "5rem",
+                    backgroundColor: "black",
+                    color: "white",
+                    textAlign: "center",
+                    fontSize: "1.5rem",
+                    lineHeight: "5rem",
+                  }}
                 >
                   Place Order
                 </button>
               </div>
             </div>
-          </form>
-        </div>
-      </div>
-      <div className="col-md-6">
-        <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-          <h1 className="mb-6 text-2xl font-bold">Payment Method</h1>
-          <div className="col-md-6 pt-4">
-            <label
-              htmlFor="zipCode"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Total Order Amount : {totalOrderAmount}
-            </label>
           </div>
-          {/* <div className="card" style={{background:"#d7d7d75e"}}>
-              <div className="card-body"><input type="radio" className="mr-2" name="paymentMethodType" value="payPal"  onChange={handleInputChange}/>PayPal</div>     */}
-          {/* <PayPalScriptProvider options={{ "client-id": "test" }}>
-                    <PayPalButtons style={{ layout: "horizontal" }} />
-                </PayPalScriptProvider>   
-                </div>*/}
-          <div className="card mt-3" style={{ background: "#d7d7d75e" }}>
-            <div className="card-body d-flex">
-              <input
-                type="radio"
-                className="mr-2"
-                name="paymentMethodType"
-                value="stripe"
-                onChange={handleInputChange}
-              />
-              <img src="assets/image/stripe.png" style={{ height: "50px" }} />
-            </div>
-          </div>
-          {/* <div className="card mt-3">
-                    <div className="card-body">
-                    <Elements stripe={stripePromise}>
-                        <CheckoutForm />
-                    </Elements>
-                    </div>
-                </div> */}
-          <div></div>
-        </div>
-      </div>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Payment</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="col-md-6 pt-4">
-            <label
-              htmlFor="zipCode"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Total Order Amount : {totalOrderAmount}
-            </label>
-          </div>
-          <div className="card mt-3">
-            <div className="card-body">
-              {clientSecret && (
-                <Elements options={options} stripe={stripePromise}>
-                  <CheckoutForm />
-                </Elements>
-              )}
-            </div>
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </div>
-  );
-};
+        )}
 
-export default CheckoutPage;
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Payment</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div className="col-md-6 pt-4">
+              <label
+                htmlFor="zipCode"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Total Order Amount : {total}
+              </label>
+            </div>
+            <div className="card mt-3">
+              <div className="card-body">
+                {clientSecret && (
+                  <Elements options={options} stripe={stripePromise}>
+                    <CheckoutForm />
+                  </Elements>
+                )}
+              </div>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        <HelpCenter></HelpCenter>
+      </div>
+    </>
+  );
+}
+
+export default orderConfirm;

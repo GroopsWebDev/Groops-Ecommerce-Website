@@ -1,11 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-
-import Detail from "../product/detail";
-
+import ProductCard from "./ProductCard";
 type props = { type: any; filter: string };
 
-const Row = ({ type, filter }: props) => {
+const ProductList = ({ type, filter }: props) => {
   const [product, setProduct] = useState([]);
   useEffect(() => {
     const fetchProduct = async () => {
@@ -18,7 +16,7 @@ const Row = ({ type, filter }: props) => {
       }
     };
     fetchProduct();
-  }, []);
+  }, [filter]);
   return (
     <>
       <div className="mt-10">
@@ -26,7 +24,7 @@ const Row = ({ type, filter }: props) => {
           {product.map((i: any, index) => {
             return (
               <div key={index}>
-                <Detail
+                <ProductCard
                   name={i.englishProductName}
                   price={i.price}
                   id={i.skuid}
@@ -41,4 +39,4 @@ const Row = ({ type, filter }: props) => {
   );
 };
 
-export default Row;
+export default ProductList;

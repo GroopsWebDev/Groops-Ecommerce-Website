@@ -6,6 +6,14 @@ import * as Yup from "yup";
 import { CircularProgress } from "@mui/material";
 import axios from "axios";
 
+type IUser = {
+  fullname: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  terms: string;
+};
+
 const schema = Yup.object().shape({
   fullname: Yup.string()
     .matches(/^[A-Za-z]+[A-Za-z ]*$/, "full name must be alphabet characters.")
@@ -47,9 +55,11 @@ const Register = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<any>({
+  } = useForm<IUser>({
     resolver: yupResolver(schema),
   });
+
+  
   const formStyle = {
     display: "flex",
     flexDirection: "column" as const,
@@ -87,7 +97,6 @@ const Register = () => {
     try {
       setLoading(true);
       const result = await axios.post("/api/user/register", data);
-
       if (result.data.status == 200) {
         router.push("/login");
         setLoading(false);

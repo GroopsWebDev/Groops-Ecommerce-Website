@@ -10,7 +10,8 @@ const ProductDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { data: sessionData } = useSession();
   const router = useRouter();
-  const [data, setData] = useState<any>([]);
+  const [product, setProduct] = useState<any>([]);
+  const [disable, setDisable] = useState(false);
   const imagePath = "https://api.gr-oops.com/";
   const id = router.query.id;
   useEffect(() => {
@@ -22,7 +23,7 @@ const ProductDetails = () => {
         );
         const json = await response.json();
         if (json.status == 200) {
-          setData(json.product);
+          setProduct(json.product);
           setIsLoading(false);
         } else {
           alert("product not found");
@@ -38,13 +39,14 @@ const ProductDetails = () => {
       alert("Login Required");
       return;
     }
+    setDisable(true);
     const postData = {
       product_id: id,
       quantity: "1",
       userId: sessionData?.user?.id,
     };
 
-    const res = await fetch("/api/product/create/cart", {
+    const res = await fetch("/api/cart/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,6 +54,7 @@ const ProductDetails = () => {
       body: JSON.stringify(postData),
     });
     const data = await res.json();
+    setDisable(false);
     if (data.status == 200) {
       router.push("/member/shoppingCart");
     }
@@ -68,43 +71,32 @@ const ProductDetails = () => {
           <div className="w-full px-4 lg:w-6/12">
             <img
               alt="product image"
-              src={imagePath + data.image}
+              src={imagePath + product?.image}
               className="mb-4 w-full rounded-lg shadow-lg"
             />
           </div>
           <div className="w-full px-4 lg:w-6/12">
             <h1 className="mb-2 text-3xl font-semibold">
-              {data.englishProductName}
+              {product?.englishProductName}
             </h1>
-            <p className="mb-2 text-base text-gray-700">{data.description}</p>
+            <p className="mb-2 text-base text-gray-700">
+              {product.description}
+            </p>
+            <p className="mb-2 text-base text-gray-700">
+              {product?.category?.name}
+            </p>
             <div className="mb-4 flex items-center">
               <span className="mr-2 text-2xl font-bold text-gray-700">
-                {data.price}
+                $ {product?.price}
               </span>
             </div>
-            <div className="mb-4 flex items-center">
-              <span className="mr-2 text-2xl font-bold text-gray-700">
-                {data.description}
-              </span>
-              {/* <label htmlFor="quantity" className="mr-2">
-              Quantity:
-            </label> */}
-
-              {/* <input
-              type="number"
-              id="quantity"
-              name="quantity"
-              // defaultValue="1"
-              ref={myRef}
-              className="h-10 w-16 appearance-none rounded border border-gray-400 py-2 px-3 leading-tight text-gray-700 focus:border-blue-500 focus:outline-none"
-            /> */}
-            </div>
-            <a
-              className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
+            <button
+              disabled={disable}
               onClick={AddToCart}
+              className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
-              Add to Cart
-            </a>
+              Add To Cart
+            </button>
           </div>
         </div>
       )}

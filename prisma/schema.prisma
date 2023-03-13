@@ -79,6 +79,7 @@ model User {
   GroupMember   GroupMember[]
   username      String?
   postCode      String?
+  ShippingAddress  ShippingAddress[]
 }
 
 model Category {
@@ -174,3 +175,14 @@ enum Role {
 }
 
 
+model ShippingAddress {
+  id           Int     @id @default(autoincrement())
+  user         User    @relation(fields: [userId], references: [id]) 
+  userId       String
+  firstName    String? 
+  lastName     String? 
+  address1     String? 
+  address2     String? 
+  postalCode   String? 
+  city         String?
+}

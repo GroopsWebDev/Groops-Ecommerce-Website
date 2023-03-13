@@ -30,20 +30,26 @@ import HelpCenter from "../components/help/help-center";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setCategoryList } from "../app/itemManagement";
+import Loader from "../components/loader/loader";
 
 const Home = () => {
   const { data: sessionData } = useSession();
   const [category, setCategory] = useState([]);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const featuredProductsStyle =
     "scale-100 ml-10 mr-10 mb-20 transform transition duration-300 hover:scale-110";
 
   useEffect(() => {
     async function fetchCategory() {
+      setLoading(true);
       const res = await axios.get("/api/category/pagination?page=1&perPage=10");
       if (res.status == 200) {
         setCategory(res.data.data);
         dispatch(setCategoryList(res.data.data));
+        setLoading(false);
+      } else {
+        setLoading(false);
       }
     }
     fetchCategory();
@@ -58,22 +64,26 @@ const Home = () => {
       {/** Section 2 */}
       <OurFeaturedProducts className="ml-auto mr-auto mt-32 mb-20 w-[466px]" />
       <Container>
-        <Row>
-          {category.map((category: any, index) => {
-            let url = "https://api.gr-oops.com/" + category.url;
-            return (
-              <Col sm={6} md={4} key={index}>
-                <Link href={`/product/${category.name}`}>
-                  <img
-                    src={url}
-                    alt={category.name}
-                    className={featuredProductsStyle}
-                  />
-                </Link>
-              </Col>
-            );
-          })}
-        </Row>
+        {loading ? (
+          <Loader />
+        ) : (
+          <Row>
+            {category.map((category: any, index) => {
+              let url = "https://api.gr-oops.com/" + category.url;
+              return (
+                <Col sm={6} md={4} key={index}>
+                  <Link href={`/product/${category.name}`}>
+                    <img
+                      src={url}
+                      alt={category.name}
+                      className={featuredProductsStyle}
+                    />
+                  </Link>
+                </Col>
+              );
+            })}
+          </Row>
+        )}
       </Container>
 
       {/** Section 3 Card Carousel*/}
@@ -87,7 +97,7 @@ const Home = () => {
           <div className="relative">
             <BecomeMember className="w-full" />
             <div className="absolute top-[380px]  left-[115px] ">
-                <JoinNowButton />
+              <JoinNowButton />
             </div>
             <div className="absolute top-[380px] left-[400px]">
               <SignInButton />

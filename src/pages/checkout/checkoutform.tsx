@@ -3,15 +3,14 @@ import {
   PaymentElement,
   LinkAuthenticationElement,
   useStripe,
-  useElements
+  useElements,
 } from "@stripe/react-stripe-js";
-
 
 export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
 
-  const [email, setEmail] = React.useState('');
+  const [email, setEmail] = React.useState("");
   const [message, setMessage] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -46,7 +45,7 @@ export default function CheckoutForm() {
     });
   }, [stripe]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     if (!stripe || !elements) {
@@ -87,10 +86,14 @@ export default function CheckoutForm() {
     <form id="payment-form" onSubmit={handleSubmit}>
       <LinkAuthenticationElement
         id="link-authentication-element"
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e: any) => setEmail(e.target.value)}
       />
       <PaymentElement id="payment-element" options={paymentElementOptions} />
-      <button disabled={isLoading || !stripe || !elements} id="submit" className="btn btn-primary w-100 mt-3">
+      <button
+        disabled={isLoading || !stripe || !elements}
+        id="submit"
+        className="btn btn-primary w-100 mt-3"
+      >
         <span id="button-text">
           {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
         </span>

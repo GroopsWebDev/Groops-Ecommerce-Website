@@ -3,14 +3,13 @@ import { useRouter } from "next/router";
 
 import Category from "../../components/product/category";
 import Welcome from "../../components/welcome";
-import Row from "../../components/shop/row";
 import HelpCenter from "../../components/help/help-center";
-
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import axios from "axios";
+
+import ProductList from "../../components/product/ProductList";
 
 const Shop = () => {
   const router = useRouter();
@@ -64,7 +63,7 @@ const Shop = () => {
           </FormControl>
         </div>
 
-        <Row type={type} />
+        <ProductList type={type} filter={filter} />
       </>
     );
   };
