@@ -16,6 +16,7 @@ export default async function GetExistingGroup(req, res) {
         groupName: {
           not: "",
         },
+        // isActive: true,
       },
     });
 
@@ -28,6 +29,8 @@ export default async function GetExistingGroup(req, res) {
       message: "group not found.",
     });
   } catch (e) {
+     console.log(e);
+     
     const error = handlePrismaError(e);
     return res.json(error);
   }

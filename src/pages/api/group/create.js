@@ -20,7 +20,7 @@ export default async function handler(req, res) {
         include: { product: true },
       });
       const totalCartPrice = cart.reduce((a, c) => a + c.product.price, 0);
-      if (totalCartPrice >= 0) {
+      if (totalCartPrice >= 40) {
         const group = await prisma.group.create({
           data: {
             groupMaster: { connect: { id: userId } },

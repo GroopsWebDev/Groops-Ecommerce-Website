@@ -49,10 +49,8 @@ export default async function handler(req, res) {
           stock,
         },
       });
-      console.log("hii")
       return res.status(200).json({ success: true, product, status: 200 });
     } catch (error) {
-      console.log("byy")
       const payload = handlePrismaError(error);
       return res.status(200).json(payload);
     }

@@ -13,12 +13,28 @@ export default async function handler(req, res) {
       if (!user) {
         return res.json({ message: "User not found", status: 400 });
       }
+      const existing = await prisma.groupMember.findFirst({
+        where: {
+          groupId: groupId,
+          userId: userId,
+        },
+      });
+
+      if (existing) {
+        return res.json({
+          status: 400,
+          message: "You already join this group.",
+        });
+      }
 
       const cart = await prisma.cart.findMany({
         where: { userId },
         include: { product: true },
       });
-      const totalCartPrice = cart.reduce((a, c) => a + c.product.price, 0);
+      const totalCartPrice = cart.reduce(
+        (a, c) => a + c.product.price * c.qty,
+        0
+      );
       if (totalCartPrice >= 30) {
         const group = await prisma.groupMember.create({
           data: {
@@ -26,12 +42,14 @@ export default async function handler(req, res) {
             userId: userId,
           },
         });
-
         res
           .status(200)
           .json({ status: 200, group, message: "Group Join Successfully." });
       } else {
-        res.status(400).json({ message: "Cart total must be greater than 30" });
+        res.status(200).json({
+          status: 400,
+          message: "Cart item price must be grether then $30.",
+        });
       }
     } else {
       res.status(405).json({ message: "Method not allowed" });

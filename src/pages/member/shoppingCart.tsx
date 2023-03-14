@@ -342,12 +342,8 @@ function ShoppingCart() {
                           Delete
                         </div>
                       </div>
-                      {item.isChecked ? (
+                      {/* {item.isChecked ? (
                         <svg
-                          onClick={() => {
-                            (item.isChecked = !item.isChecked),
-                              newPrice(item.id);
-                          }}
                           style={{ cursor: "pointer" }}
                           viewBox="0 0 1024 1024"
                           version="1.1"
@@ -365,10 +361,6 @@ function ShoppingCart() {
                       ) : (
                         <svg
                           style={{ cursor: "pointer" }}
-                          // onClick={() => {
-                          //   (item.isChecked = !item.isChecked),
-                          //     newPrice(this, index);
-                          // }}
                           viewBox="0 0 1024 1024"
                           version="1.1"
                           xmlns="http://www.w3.org/2000/svg"
@@ -382,7 +374,7 @@ function ShoppingCart() {
                             p-id="1648"
                           ></path>
                         </svg>
-                      )}
+                      )} */}
                     </div>
                   </div>
                 ))}
@@ -500,8 +492,6 @@ function ShoppingCart() {
                     </Link>
                   </div>
                 </div>
-
-
               </div>
             ) : (
               <div className="justify-content-center align-content-center  clear-right flex divide-x-8 divide-gray-200 py-5">
@@ -516,28 +506,5 @@ function ShoppingCart() {
     </>
   );
 }
-
-const newTotalPrice = (that: any) => {
-  let temp = 0;
-  for (let i = 0; i < that.state.shoppingCartListData.length; i++) {
-    if (that.state.shoppingCartListData[i].isChecked) {
-      temp += that.state.shoppingCartListData[i].totalPrice;
-    }
-  }
-
-  that.state.Total = temp;
-  that.setState(that.state);
-};
-const newPrice = (cartId: any) => {
-  // that.state.shoppingCartListData[index].totalPrice =
-  //   that.state.shoppingCartListData[index].number *
-  //   that.state.shoppingCartListData[index].price;
-  // newTotalPrice(that);
-};
-const Delete = (that: any, index: any) => {
-  //  newPrice(that, index);
-  // that.state.shoppingCartListData.splice(index, 1);
-  // that.setState(that.state.shoppingCartListData);
-};
 
 export default ShoppingCart;

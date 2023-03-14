@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { ImageUploader } from "../../../utils/imageUpload";
 import moment from "moment";
 import { getRemainingTime } from "../../../utils/utils";
+import { useRouter } from "next/router";
 const CreateGroup = () => {
   const [groupImage, setGroupImage] = useState("");
   const [groupName, setGroupName] = useState("");
@@ -16,6 +17,7 @@ const CreateGroup = () => {
   const [groupData, setGroupData] = useState<any>();
   const { data: sessionData } = useSession();
   const userId = sessionData?.user?.id;
+  const router = useRouter();
 
   const handleImageChange = (e: any) => {
     ImageUploader(e.target.files[0]);
@@ -57,7 +59,12 @@ const CreateGroup = () => {
           confirmButtonText: "OK",
         });
         setGroupData(res.data.group);
-        setSuccess(true);
+        router.push("/checkout", {
+          query: {
+            groupId: res?.data?.group?.groupId,
+          },
+        });
+        // setSuccess(true);
       } else {
         Swal.fire({
           title: "Error",

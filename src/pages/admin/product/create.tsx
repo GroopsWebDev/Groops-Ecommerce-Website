@@ -82,6 +82,10 @@ const productUploadPage: NextPage = ({productId, singleProductData}) => {
                     fields.forEach((field) => {
                         setValue(field, "");
                     });
+                    setProductData({
+                        ...productData,
+                        productImage:""
+                    })
                     Swal.fire({
                         title: "Profile",
                         text: "Your Product Create Successfully",

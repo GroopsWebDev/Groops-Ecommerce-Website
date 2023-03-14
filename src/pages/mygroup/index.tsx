@@ -19,15 +19,20 @@ const GroupList = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      const res = await axios.get("/api/group/getList");
+      const res = await axios.get("/api/mygroup");
+ 
+
       if (res.data.status == 200) {
-        setGroups(res.data.group);
+          const groups = res.data.data;
+        setGroups(groups);
       } else {
         alert("Not Found.");
       }
     };
     fetch();
   }, []);
+ 
+  
 
   const handleSearch = (e: any) => {
     setSearchText(e.target.value);
@@ -38,7 +43,7 @@ const GroupList = () => {
   };
 
   const redirectTo = (id: string) => {
-    window.location.href = "/group/join/" + id;
+    window.location.href = "/mygroup/view/" + id;
   };
 
   const filteredGroups = groups.filter((group: any) =>

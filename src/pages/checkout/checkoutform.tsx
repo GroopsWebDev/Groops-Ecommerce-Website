@@ -5,13 +5,15 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import { CircularProgress } from "@mui/material";
+import { StripePaymentElementOptions } from "@stripe/stripe-js";
 
 export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
 
   const [email, setEmail] = React.useState("");
-  const [message, setMessage] = React.useState(null);
+  const [message, setMessage] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
 
   React.useEffect(() => {
@@ -27,8 +29,8 @@ export default function CheckoutForm() {
       return;
     }
 
-    stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      switch (paymentIntent.status) {
+    stripe.retrievePaymentIntent(clientSecret).then((res: any) => {
+      switch (res?.paymentIntent.status) {
         case "succeeded":
           setMessage("Payment succeeded!");
           break;
@@ -56,11 +58,11 @@ export default function CheckoutForm() {
 
     setIsLoading(true);
 
-    const { error } = await stripe.confirmPayment({
+    const { error }: { error: any } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:3000/paymentStatus",
+        return_url: "http://localhost:3000/success",
       },
     });
 
@@ -78,7 +80,7 @@ export default function CheckoutForm() {
     setIsLoading(false);
   };
 
-  const paymentElementOptions = {
+  const paymentElementOptions: StripePaymentElementOptions = {
     layout: "tabs",
   };
 
@@ -95,7 +97,7 @@ export default function CheckoutForm() {
         className="btn btn-primary w-100 mt-3"
       >
         <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+          {isLoading ? <CircularProgress /> : "Pay now"}
         </span>
       </button>
       {/* Show any error or success messages */}

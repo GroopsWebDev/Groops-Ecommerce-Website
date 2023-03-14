@@ -1,8 +1,11 @@
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { FaImage } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { ImageUploader } from "../../../utils/imageUpload";
+import moment from "moment";
 import { useRouter } from "next/router";
 import { getRemainingTime } from "../../../utils/utils";
 const CreateGroup = () => {
@@ -31,30 +34,25 @@ const CreateGroup = () => {
     }
   }, [id]);
 
-  const joinGroup = async () => {
-    try {
-      const res = await axios.post("/api/group/join", {
-        userId: sessionData?.user?.id,
-        groupId: id,
-      });
-      if (res.data.status == 200) {
-      } else {
-        Swal.fire({
-          title: "Error",
-          text: res.data.message,
-          icon: "error",
-          confirmButtonText: "OK",
-        });
-      }
-    } catch (e: any) {
-      Swal.fire({
-        title: "Error",
-        text: e.message,
-        icon: "error",
-        confirmButtonText: "OK",
-      });
-    }
-  };
+
+  async function mygroupEnd(){
+    
+        const postData = {
+            groupId : id   
+        };
+        const result = await axios.post("/api/group/end", postData );          
+        if (result.data.status == 200) {
+            Swal.fire({
+                title: "Success",
+                text: result.data.message,
+                icon: "success",
+                confirmButtonText: "OK",
+              }).then(function () {
+                location.href = "/mygroup";
+            });
+        } 
+        
+  }
 
   return (
     <Container className="mb-3">
@@ -87,18 +85,16 @@ const CreateGroup = () => {
             Ends in {getRemainingTime(groupData?.endDate)}{" "}
           </span>{" "}
           <br />
-          <button
-            onClick={joinGroup}
-            className="my-2 rounded bg-gradient-to-r from-orange-500 to-blue-500 py-2 px-4 font-bold text-white hover:from-orange-600 hover:to-blue-600"
-          >
-            Join This Group
+          <button className="my-2 rounded bg-gradient-to-r from-orange-500 to-blue-500 py-2 px-4 font-bold text-white hover:from-orange-600 hover:to-blue-600"
+           onClick={ mygroupEnd }>
+             End
           </button>
         </Col>
         <Col xs={12} md={6} className="my-4">
           <h6>People who joined.</h6>
           <div className="flex justify-between">
-            {groupData?.groupMember.map((i: any, index: any) => (
-              <div key={index}>
+            {groupData?.groupMember.map((i: any) => (
+              <div>
                 <img
                   className="my-2 h-16 w-16 rounded-full ring-2 ring-gray-500"
                   src={`https://api.gr-oops.com/${
