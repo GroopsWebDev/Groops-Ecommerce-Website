@@ -1,5 +1,6 @@
 import React from "react"
 import { useState } from "react";
+import Link from "next/link";
 
 import Item from "../../../public/assets/shop/items/item.svg"
 import Heart from "../../../public/assets/shop/items/heart.svg"
@@ -14,7 +15,7 @@ const Detail = ({ name, price }: props) => {
 
   return <>
     <div className="relative text-2xl mb-10" >
-      <Item className="w-1/1" />
+      <Link href="/product/item/id"><Item className="w-1/1 hover:scale-105 duration-300" /></Link>
       <button className="absolute bottom-16 right-5" onClick={() => { setHeart(!heart) }}>
         {heart ? <HeartRed className="w-9" /> : <Heart className="w-9" />}
       </button>
