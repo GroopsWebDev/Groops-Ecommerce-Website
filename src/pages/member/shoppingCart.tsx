@@ -13,6 +13,8 @@ function ShoppingCart() {
   const [cartList, setCartList] = useState<any>([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [disable, setDisable] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchData() {
@@ -92,6 +94,11 @@ function ShoppingCart() {
 
     // update the quantity of the item in the cart
     updateItemQuantity(itemId, newQuantity);
+  };
+
+  const goToCheckout = () => {
+    setDisable(true);
+    router.push("/checkout");
   };
 
   return (
@@ -472,24 +479,24 @@ function ShoppingCart() {
                     }}
                   >
                     {" "}
-                    <Link href="/checkout" className="no-underline">
-                      <div
-                        style={{
-                          cursor: "pointer",
-                          boxShadow:
-                            "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-                          width: "15rem",
-                          height: "5rem",
-                          backgroundColor: "black",
-                          color: "white",
-                          textAlign: "center",
-                          fontSize: "1.5rem",
-                          lineHeight: "5rem",
-                        }}
-                      >
-                        Checkout
-                      </div>
-                    </Link>
+                    <button
+                      onClick={goToCheckout}
+                      disabled={disable}
+                      style={{
+                        cursor: "pointer",
+                        boxShadow:
+                          "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+                        width: "15rem",
+                        height: "5rem",
+                        backgroundColor: "black",
+                        color: "white",
+                        textAlign: "center",
+                        fontSize: "1.5rem",
+                        lineHeight: "5rem",
+                      }}
+                    >
+                      Checkout
+                    </button>
                   </div>
                 </div>
               </div>

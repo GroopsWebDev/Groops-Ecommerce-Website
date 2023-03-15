@@ -8,28 +8,6 @@ import { useState } from "react";
 
 const Success = () => {
   const [paymentStatus, setPaymentStatus] = useState("COMPLETED");
-  const { data: sessionData } = useSession();
-
-  const router = useRouter();
-  const paymentId = router.query.payment_intent;
-
-  useEffect(() => {
-    if (sessionData) {
-      createOrder(paymentId);
-    }
-  }, [sessionData, paymentId]);
-
-  const createOrder = (payment_intent: any) => {
-    axios
-      .post("/api/order/create", {
-        userId: sessionData?.user?.id,
-        payment_intent: payment_intent,
-      })
-      .then((res) => {
-        console.log("order created");
-      })
-      .catch((e) => console.log(e));
-  };
   return (
     <>
       <div className="row">

@@ -13,6 +13,26 @@ export default async function handler(req, res) {
       if (!user) {
         return res.json({ message: "User not found", status: 400 });
       }
+
+      const existingGroup = await prisma.group.findFirst({
+        where: {
+          groupMasterId: userId,
+          endDate: {
+            gte: new Date(),
+          },
+          groupName: {
+            not: "",
+          },
+        },
+      });
+
+      if (existingGroup) {
+        return res.json({
+          status: 400,
+          message:
+            "You can't join a group until your created the group is ended.",
+        });
+      }
       const existing = await prisma.groupMember.findFirst({
         where: {
           groupId: groupId,
@@ -22,8 +42,8 @@ export default async function handler(req, res) {
 
       if (existing) {
         return res.json({
-          status: 400,
-          message: "You already join this group.",
+          status: 200,
+          group: { groupId },
         });
       }
 

@@ -20,10 +20,9 @@ const GroupList = () => {
   useEffect(() => {
     const fetch = async () => {
       const res = await axios.get("/api/mygroup");
- 
 
       if (res.data.status == 200) {
-          const groups = res.data.data;
+        const groups = res.data.data;
         setGroups(groups);
       } else {
         alert("Not Found.");
@@ -31,8 +30,6 @@ const GroupList = () => {
     };
     fetch();
   }, []);
- 
-  
 
   const handleSearch = (e: any) => {
     setSearchText(e.target.value);
@@ -56,12 +53,14 @@ const GroupList = () => {
         <div className="flex">
           <ul className="flex">
             <li className="mr-6">
-              <a className="text-purple-500 hover:text-gray-200">
+              <a className="text-purple-500 hover:text-gray-200" href="/group/list">
                 Group Center
               </a>
             </li>
             <li>
-              <a className="text-black hover:text-gray-200" href={ "/mygroup"}>My Groups</a>
+              <a className="text-black hover:text-gray-200" href={"/mygroup"}>
+                My Groups
+              </a>
             </li>
           </ul>
         </div>

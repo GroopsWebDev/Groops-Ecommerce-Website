@@ -123,6 +123,7 @@ model Order {
   group Group? @relation(fields: [groupId], references: [groupId])
   groupId String? 
   purchasedItem PurchasedItem[]
+  shippingAddress Json?
 }
 
 model PurchasedItem {
@@ -163,7 +164,7 @@ model Group {
 model GroupMember {
   groupMemberId String @id @default(cuid())
   user          User   @relation(fields: [userId], references: [id])
-  userId        String @unique
+  userId        String 
   group         Group  @relation(fields: [groupId], references: [groupId])
   groupId       String
 }

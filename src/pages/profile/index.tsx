@@ -29,6 +29,7 @@ const userSetting = () => {
   const { data: sessionData } = useSession();
   const [loading, setLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState(false);
   const endPointURl = "https://api.gr-oops.com";
 
   const [user, setUser] = useState({
@@ -54,7 +55,8 @@ const userSetting = () => {
     resolver: yupResolver(schema),
   });
 
-  if (sessionData != undefined) {
+  if (sessionData != undefined && status == true) {
+    setStatus(false)
     getSelectedUserData(sessionData);
   }
 
@@ -87,7 +89,9 @@ const userSetting = () => {
       name: data.name,
       phoneNumber: data.phone,
       image:
-        fileData?.name != undefined ? bucketName + "/" + fileData?.name : imageURL,
+        fileData?.name != undefined
+          ? bucketName + "/" + fileData?.name
+          : imageURL,
       postCode: data.postCode.toString(),
       userId: sessionData?.user?.id,
     };
@@ -111,7 +115,6 @@ const userSetting = () => {
   }
 
   async function getSelectedUserData(dataGet: any) {
-    
     const userId = dataGet?.user.id;
     const response = await fetch("/api/user/" + userId);
     const json = await response.json();
@@ -119,7 +122,7 @@ const userSetting = () => {
       const fields = ["name", "phone", "address", "postCode"];
       fields.forEach((field) => {
         if (json.user[field]) {
-          setIsLoading(true)
+          setIsLoading(true);
           setValue(field, json.user[field]);
         } else {
           setValue(field, "");
@@ -128,198 +131,197 @@ const userSetting = () => {
       setImageURL(json.user.image);
     }
   }
-
   useEffect(() => {
-    //setData(sessionData?.user);
-    //setData(sessionData?.user);
-    //getSelectedUserData()
+    setStatus(true);
   }, []);
-
   return (
     <>
       <div>
         <Head>
           <title>User Settings | My App</title>
         </Head>
-        { isLoading ? 
-           <div className="border-1 mx-auto mt-10 mb-12 flex max-w-6xl rounded-md p-6 shadow-lg">
-           <div className="mx-6 w-1/2 pr-8">
-             <div style={{ marginLeft: "200px", marginTop: "150px" }}>
-               <div className="mr-4 h-32 w-32 overflow-hidden rounded-full shadow-sm">
- 
-                 {
-                    imageURL != undefined ?
-                   <img
-                     src={
-                       user.profilePicture == ""
-                         ? endPointURl + "/" + imageURL
-                         : user.profilePicture
-                     }
-                     alt=""
-                     className="h-full w-full object-cover"
-                   />
-                   :
-                   <img
-                     src={user.profilePicture}
-                     alt=""
-                     className="h-full w-full object-cover"
-                 />
-                 }
-               </div>
-             </div>
-             <div style={{ marginLeft: "200px" }}>
-               <label className="focus:shadow-outline mt-5 cursor-pointer rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none">
-                 Choose Image
-                 <input
-                   type="file"
-                   className="hidden"
-                   name="profilePicture"
-                   onChange={handleProfilePictureChange}
-                 />
-               </label>
-             </div>
-           </div>
-           <div className="w-1/2">
-             <h1 className="mb-6 text-2xl font-bold">User Settings</h1>
-             <form onSubmit={handleSubmit(onSubmit)}>
-               <div className="mb-4">
-                 <label
-                   className="mb-2 block font-bold text-gray-700"
-                   htmlFor="name"
-                 >
-                   full name
-                 </label>
- 
-                 <Controller
-                   control={control}
-                   name="name"
-                   defaultValue=""
-                   render={({ field }) => (
-                     <input
-                       {...field}
-                       type="text"
-                       id="name"
-                       name="name"
-                       style={inputStyle}
-                     />
-                   )}
-                 />
-                 {errors.name && (
-                   <span style={{ color: "red" }}>full name is required</span>
-                 )}
-               </div>
-               <div className="mb-4">
-                 <label
-                   className="mb-2 block font-bold text-gray-700"
-                   htmlFor="phone"
-                 >
-                   Phone Number
-                 </label>
-                 <Controller
-                   control={control}
-                   name="phone"
-                   defaultValue=""
-                   render={({ field }) => (
-                     <input
-                       {...field}
-                       type="text"
-                       id="phone"
-                       name="phone"
-                       style={inputStyle}
-                     />
-                   )}
-                 />
- 
-                 {errors.phone && (
-                   <span style={{ color: "red" }}>phone number is required</span>
-                 )}
-               </div>
-               <div className="mb-4">
-                 <label
-                   className="mb-2 block font-bold text-gray-700"
-                   htmlFor="address"
-                 >
-                   Address
-                 </label>
-                 <Controller
-                   control={control}
-                   name="address"
-                   defaultValue=""
-                   render={({ field }) => (
-                     <input
-                       {...field}
-                       type="text"
-                       id="address"
-                       name="address"
-                       style={inputStyle}
-                     />
-                   )}
-                 />
- 
-                 {errors.address && (
-                   <span style={{ color: "red" }}>address is required</span>
-                 )}
-               </div>
-               <div className="mb-4">
-                 <label
-                   className="mb-2 block font-bold text-gray-700"
-                   htmlFor="postCode"
-                 >
-                   Post Code
-                 </label>
-                 <Controller
-                   control={control}
-                   name="postCode"
-                   defaultValue=""
-                   render={({ field }) => (
-                     <input
-                       {...field}
-                       type="text"
-                       id="postCode"
-                       name="postCode"
-                       style={inputStyle}
-                     />
-                   )}
-                 />
- 
-                 {errors.postCode && (
-                   <span style={{ color: "red" }}>post code is required</span>
-                 )}
-               </div>
-               <div className="mb-4">
-                 <label
-                   className="mb-2 block font-bold text-gray-700"
-                   htmlFor="paymentType"
-                 >
-                   Payment Method
-                 </label>
-                 <select
-                   className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 focus:outline-none"
-                   id="paymentType"
-                   name="paymentType"
-                   //  value={user.paymentType}
-                 >
-                   {/* <option value="">-- Select Payment Method --</option> */}
-                   <option value="paypal">Paypal</option>
-                   <option value="debit-card">Visa</option>
-                 </select>
-               </div>
- 
-               <button
-                 type="submit"
-                 className="focus:shadow-outline mx-4 rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
-               >
-                 {loading ? (
-                   <CircularProgress style={{ color: "white" }} />
-                 ) : (
-                   "Save"
-                 )}
-               </button>
-             </form>
-           </div>
-         </div>
-        : <div className="text-center"><CircularProgress style={{ color: "black"}} /></div>}
-        
+        {isLoading ? (
+          <div className="border-1 mx-auto mt-10 mb-12 flex max-w-6xl rounded-md p-6 shadow-lg">
+            <div className="mx-6 w-1/2 pr-8">
+              <div style={{ marginLeft: "200px", marginTop: "150px" }}>
+                <div className="mr-4 h-32 w-32 overflow-hidden rounded-full shadow-sm">
+                  {imageURL != undefined ? (
+                    <img
+                      src={
+                        user.profilePicture == ""
+                          ? endPointURl + "/" + imageURL
+                          : user.profilePicture
+                      }
+                      alt=""
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <img
+                      src={user.profilePicture}
+                      alt=""
+                      className="h-full w-full object-cover"
+                    />
+                  )}
+                </div>
+              </div>
+              <div style={{ marginLeft: "200px" }}>
+                <label className="focus:shadow-outline mt-5 cursor-pointer rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none">
+                  Choose Image
+                  <input
+                    type="file"
+                    className="hidden"
+                    name="profilePicture"
+                    onChange={handleProfilePictureChange}
+                  />
+                </label>
+              </div>
+            </div>
+            <div className="w-1/2">
+              <h1 className="mb-6 text-2xl font-bold">User Settings</h1>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="mb-4">
+                  <label
+                    className="mb-2 block font-bold text-gray-700"
+                    htmlFor="name"
+                  >
+                    Full name
+                  </label>
+
+                  <Controller
+                    control={control}
+                    name="name"
+                    defaultValue=""
+                    render={({ field }) => (
+                      <input
+                        {...field}
+                        type="text"
+                        id="name"
+                        name="name"
+                        style={inputStyle}
+                      />
+                    )}
+                  />
+                  
+                  {errors.name && (
+                    <span style={{ color: "red" }}>full name is required</span>
+                  )}
+                </div>
+                <div className="mb-4">
+                  <label
+                    className="mb-2 block font-bold text-gray-700"
+                    htmlFor="phone"
+                  >
+                    Phone Number
+                  </label>
+                  <Controller
+                    control={control}
+                    name="phone"
+                    defaultValue=""
+                    render={({ field }) => (
+                      <input
+                        {...field}
+                        type="text"
+                        id="phone"
+                        name="phone"
+                        style={inputStyle}
+                      />
+                    )}
+                  />
+                  {errors.phone && (
+                    <span style={{ color: "red" }}>
+                      phone number is required
+                    </span>
+                  )}
+                </div>
+                <div className="mb-4">
+                  <label
+                    className="mb-2 block font-bold text-gray-700"
+                    htmlFor="address"
+                  >
+                    Address
+                  </label>
+                  <Controller
+                    control={control}
+                    name="address"
+                    defaultValue=""
+                    render={({ field }) => (
+                      <textarea
+                        {...field}
+                          rows="4"
+                          id="address"
+                          name="address"
+                          style={inputStyle}
+                      />
+                    )}
+                  />
+
+                  {errors.address && (
+                    <span style={{ color: "red" }}>address is required</span>
+                  )}
+                </div>
+                <div className="mb-4">
+                  <label
+                    className="mb-2 block font-bold text-gray-700"
+                    htmlFor="postCode"
+                  >
+                    Post Code
+                  </label>
+                  <Controller
+                    control={control}
+                    name="postCode"
+                    defaultValue=""
+                    render={({ field }) => (
+                      <input
+                        {...field}
+                        type="text"
+                        id="postCode"
+                        name="postCode"
+                        style={inputStyle}
+                      />
+                    )}
+                  />
+
+                  {errors.postCode && (
+                    <span style={{ color: "red" }}>post code is required</span>
+                  )}
+                </div>
+                <div className="mb-4">
+                  <label
+                    className="mb-2 block font-bold text-gray-700"
+                    htmlFor="paymentType"
+                  >
+                    Payment Method
+                  </label>
+                  <select
+                    className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 focus:outline-none"
+                    id="paymentType"
+                    name="paymentType"
+                    //  value={user.paymentType}
+                  >
+                    {/* <option value="">-- Select Payment Method --</option> */}
+                    <option value="paypal">Paypal</option>
+                    <option value="debit-card">Visa</option>
+                  </select>
+                </div>
+
+                <button
+                  type="submit"
+                  className="focus:shadow-outline mx-4 rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
+                >
+                  {loading ? (
+                    <CircularProgress style={{ color: "white" }} />
+                  ) : (
+                    "Save"
+                  )}
+                </button>
+              </form>
+            </div>
+          </div>
+        ) : (
+          <div className="text-center">
+            <CircularProgress style={{ color: "black" }} />
+          </div>
+        )}
       </div>
     </>
   );

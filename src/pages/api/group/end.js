@@ -19,7 +19,7 @@ export default async function handler(req, res) {
         where: { groupId: groupId },
         data: { isActive: false },
       });
-      
+
       const groupMemberCount = await prisma.groupMember.count({
         where: { groupId: groupId },
       });
@@ -35,32 +35,46 @@ export default async function handler(req, res) {
       );
 
       const order = await prisma.order.findMany({
-        where: { groupId: groupId },
+        where: { groupId: groupId, paymentIntent: { not: null } },
         include: {
           user: true,
+          group: true,
         },
       });
       const discountPer = discountApplied / 100;
-      order.map((i) => {
-        i["discountAmount"] = i.total * discountPer;
-      });
 
-      const refund = await stripe.refunds.create({
-        payment_intent: "pi_3MlRQCI3CTiTs4Jq14esCFTj",
-        amount: 1,
+      // refund process intited.
+      let refundPromises = order.map((i) => {
+        let discountAMt = i.total * discountPer;
+        let paymentId = i.paymentIntent;
+        if (i.group.groupMasterId == i.userId) {
+          // group master benefit calc base on groupMember count
+          // groupMember count even then add $1 and odd then $2.5.
+          let evenBenefit = 1;
+          let oddBenefit = 2.5;
+          let groupMasterBenefit =
+            groupMemberCount % 2 === 0 ? evenBenefit : oddBenefit;
+          discountAMt = parseInt(discountAMt) + groupMasterBenefit;
+        }
+        i["discountAmt"] = discountAMt;
+        return stripe.refunds.create({
+          payment_intent: paymentId,
+          amount: discountAMt,
+        });
       });
-      const refundId = refund.id;
-      const refundedAmount = refund.amount;
-      const currency = refund.currency;
-      await prisma.groupMember.deleteMany({ where: { groupId: groupId } });
-      await prisma.group.delete({ where: { groupId: groupId } });
-      res.status(200).json({
-        refundId,
-        refundedAmount,
-        currency,
-        status: 200,
-        message: "Discount initiated",
-      });
+      try {
+        const result = Promise.all(refundPromises);
+        // delete group after refund proceed.
+        await prisma.groupMember.deleteMany({ where: { groupId: groupId } });
+        await prisma.group.delete({ where: { groupId: groupId } });
+        res.status(200).json({
+          status: 200,
+          message: "Discount initiated",
+          order,
+        });
+      } catch (e) {
+        res.json({ status: 400, message: "Discount Not Initiated." });
+      }
     } else {
       res.status(405).json({ message: "Method not allowed" });
     }

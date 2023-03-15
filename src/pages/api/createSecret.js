@@ -20,6 +20,7 @@ export default async function handler(req, res) {
       automatic_payment_methods: {
         enabled: true,
       },
+      
     });
 
     res.send({

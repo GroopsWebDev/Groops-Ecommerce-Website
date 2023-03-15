@@ -12,6 +12,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../checkout/checkoutform";
 import { Button, Modal } from "react-bootstrap";
 import { loadStripe } from "@stripe/stripe-js";
+import Swal from "sweetalert2";
 
 //团购-订单确认
 
@@ -46,21 +47,41 @@ function orderConfirm() {
   const router = useRouter();
   const [address, setAddress] = useState([]);
   const [show, setShow] = useState(false);
+  const [isChecked, setIsChecked] = useState(true);
+  const [customeStatus, setCustomeStatus] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [clientSecret, setClientSecret] = useState("");
+  const [formStatus, setFormStatus] = useState(true);
+  const [custome, setCustome] = useState();
   const stripePromise = loadStripe(
     "pk_test_51MCWFKI3CTiTs4JqLIbwXO682cGFbfqKkbAQJjfFfkSvGcwjA0GDZvgZkGlFPFTG7ve6CvBRh0IhQtU1Hp9q8Y5I00pmlT9A2M"
   );
+  const {
+    register,
+    setValue,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const [groupId, setGroupId] = useState<any>(null);
+
   useEffect(() => {
+    setGroupId(localStorage.getItem("groupId"));
     async function fetchData() {
       const response = await fetch("/api/cart/getcart");
       const data = await response.json();
       setCartItem(data);
     }
+
     fetchData();
     getAddress();
   }, []);
+
+  useEffect(() => {
+    getAddress();
+  }, [step]);
 
   async function createSecret() {
     axios
@@ -78,29 +99,94 @@ function orderConfirm() {
     );
     setSubTotal(sub_total);
     setTotal(sub_total);
-    createSecret();
   }, [cartItem]);
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+  useEffect(() => {
+    if (total > 0) {
+      createSecret();
+    }
+  }, [total]);
+
+  const handlePrimaryAddress = (event: any) => {
+    if (event.target.checked == true) {
+      setIsChecked(true);
+    } else {
+      setIsChecked(false);
+    }
+  };
+
+  const handleBackPage = () => {
+    setStep(1);
+  };
+
+  const handleStatusChanges = () => {
+    setCustomeStatus(true);
+  };
+  const handleTextChanges = (event: any) => {
+    setCustome(event.target.value);
+  };
+
+  const handleFormStatus = (type: any) => {
+    if (type == "shippingForm") {
+      reset({
+        firstName: "",
+        lastName: "",
+        city: "",
+        postalCode: "",
+        address1: "",
+        address2: "",
+      });
+      setFormStatus(true);
+    } else {
+      reset({
+        firstName: "",
+        lastName: "",
+        city: "",
+        postalCode: "",
+        address1: "",
+        address2: "",
+      });
+      setFormStatus(false);
+    }
+  };
 
   async function onSubmit(data: any) {
     try {
-      const result = await axios.post("/api/user/register", data);
-
-      if (result.data.status == 200) {
-        router.push("/login");
-      } else {
-        alert("Registeration failed.");
+      let rObj = {
+        firstName: data.userType + "." + data.firstName,
+        lastName: data.lastName,
+        address1: data.address1,
+        address2: data.address2,
+        postalCode: data.postalCode,
+        city: data.city,
+        isPrimaryAddress: isChecked,
+      };
+      const response = await fetch("/api/shippingaddress/create", {
+        method: "POST",
+        body: JSON.stringify(rObj),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status == 200) {
+        Swal.fire({
+          title: "Shipping Address",
+          text: "Shipping Address Add Successfully",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+        reset({
+          firstName: "",
+          lastName: "",
+          city: "",
+          postalCode: "",
+          address1: "",
+          address2: "",
+        });
+        setStep(1);
       }
     } catch (e) {
       console.log(e);
-      alert("something went wrong.");
     }
   }
 
@@ -120,14 +206,12 @@ function orderConfirm() {
     try {
       const res = await axios.get("/api/shippingaddress/get");
       if (res.data.status == 200) {
-        setAddress(res.data.address);
+        setAddress(res?.data?.address);
       }
     } catch (e: any) {
       alert(e.message);
     }
   };
-
-  const handleShippiingAddress = (data: any) => {};
 
   return (
     <>
@@ -398,516 +482,753 @@ function orderConfirm() {
         {/* Shipping新地址 */}
         {step == 2 && (
           <>
-            <div
-              style={{
-                marginTop: "16rem",
-                backgroundColor: "white",
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <form onSubmit={handleShippiingAddress}>
-                <div style={{ width: "60%", fontSize: "1.3rem" }}>
-                  <div style={{ display: "flex", width: "100%" }}>
-                    <div>Shipping Address</div>
-
-                    <div>
-                      <div className="form-check">
-                        <input
-                          className="border-dark border"
-                          style={{ marginRight: "10px" }}
-                          type="checkbox"
-                          id="check1"
-                          name="option1"
-                          value="something"
-                          checked
-                        />
-                        <label>Save as your primary address</label>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 按钮 */}
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      width: "100%",
-                    }}
-                  >
+            <div className="row p-4">
+              <div className="col-md-6 text-right">
+                <div
+                  style={{
+                    cursor: "pointer",
+                    boxShadow:
+                      "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
+                    width: "20rem",
+                    height: "5rem",
+                    backgroundColor: "black",
+                    color: "white",
+                    textAlign: "center",
+                    fontSize: "1.5rem",
+                    lineHeight: "5rem",
+                    marginLeft: "290px",
+                  }}
+                  onClick={() => handleFormStatus("shippingForm")}
+                >
+                  Shipping Address
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div
+                  style={{
+                    cursor: "pointer",
+                    boxShadow:
+                      "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
+                    width: "20rem",
+                    height: "5rem",
+                    backgroundColor: "black",
+                    color: "white",
+                    textAlign: "center",
+                    fontSize: "1.5rem",
+                    lineHeight: "5rem",
+                    marginLeft: "290px",
+                  }}
+                  onClick={() => handleFormStatus("billingForm")}
+                >
+                  Billing Address
+                </div>
+              </div>
+              {formStatus ? (
+                <>
+                  <div className="col-md-12">
                     <div
                       style={{
+                        marginTop: "6rem",
+                        backgroundColor: "#F9f8f6",
+                        width: "100%",
                         display: "flex",
                         justifyContent: "center",
-                        width: "100%",
+                        flexDirection: "column",
+                        alignItems: "center",
                       }}
                     >
-                      <div style={{ margin: "30px" }} className="form-check">
-                        <input
-                          style={{ marginRight: "10px" }}
-                          type="radio"
-                          id="radio4"
-                          name="optradio"
-                          value="option2"
-                          checked
-                        />
-                        <label className="form-check-label">Ms</label>
-                      </div>
-                      <div style={{ margin: "30px" }} className="form-check">
-                        <input
-                          style={{ marginRight: "10px" }}
-                          type="radio"
-                          id="radio3"
-                          name="optradio"
-                          value="option2"
-                        />
-                        <label className="form-check-label">Mrs</label>
-                      </div>
-                      <div style={{ margin: "30px" }} className="form-check">
-                        <input
-                          style={{ marginRight: "10px" }}
-                          type="radio"
-                          value="option1"
-                        />
-                        <label className="form-check-label">Mr</label>
-                      </div>
-                      <div style={{ margin: "30px" }} className="form-check">
-                        <input
-                          style={{ marginRight: "10px" }}
-                          type="radio"
-                          value="option1"
-                        />
-                        Customize
-                        <input
-                          className="border-b border-indigo-600"
-                          style={{
-                            width: "80px",
-                            marginLeft: "",
-                            marginTop: "-10px",
-                          }}
-                          type="text"
-                          id="usr"
-                          name="username"
-                        />
-                      </div>
+                      <h2 className="pt-4">Add Shipping Address</h2>
+                      <form
+                        className="grid grid-cols-1 gap-y-6"
+                        onSubmit={handleSubmit(onSubmit)}
+                      >
+                        <div className="row">
+                          <div className="col-md-12">
+                            <div>
+                              <div className="form-check">
+                                <input
+                                  className="border-dark border"
+                                  style={{ marginRight: "10px" }}
+                                  type="checkbox"
+                                  id="isPrimaryAddress"
+                                  name="isPrimaryAddress"
+                                  onChange={handlePrimaryAddress}
+                                  checked={isChecked}
+                                />
+                                <label>Save as your primary address</label>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-md-12">
+                            <div className="row">
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  width: "100%",
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    width: "100%",
+                                  }}
+                                >
+                                  <div
+                                    style={{ margin: "30px" }}
+                                    className="form-check"
+                                  >
+                                    <input
+                                      {...register("userType", {
+                                        required: true,
+                                      })}
+                                      style={{ marginRight: "10px" }}
+                                      type="radio"
+                                      id="radio1"
+                                      name="userType"
+                                      value="Ms"
+                                      checked
+                                    />
+                                    <label className="form-check-label">
+                                      Ms
+                                    </label>
+                                  </div>
+                                  <div
+                                    style={{ margin: "30px" }}
+                                    className="form-check"
+                                  >
+                                    <input
+                                      {...register("userType", {
+                                        required: true,
+                                      })}
+                                      style={{ marginRight: "10px" }}
+                                      type="radio"
+                                      id="radio2"
+                                      name="userType"
+                                      value="Mrs"
+                                    />
+                                    <label className="form-check-label">
+                                      Mrs
+                                    </label>
+                                  </div>
+                                  <div
+                                    style={{ margin: "30px" }}
+                                    className="form-check"
+                                  >
+                                    <input
+                                      {...register("userType", {
+                                        required: true,
+                                      })}
+                                      style={{ marginRight: "10px" }}
+                                      type="radio"
+                                      id="radio3"
+                                      name="userType"
+                                      value="Mr"
+                                    />
+                                    <label className="form-check-label">
+                                      Mr
+                                    </label>
+                                  </div>
+                                  <div
+                                    style={{ margin: "30px" }}
+                                    className="form-check"
+                                  >
+                                    <input
+                                      {...register("userType", {
+                                        required: true,
+                                      })}
+                                      style={{ marginRight: "10px" }}
+                                      type="radio"
+                                      id="radio4"
+                                      name="userType"
+                                      value={custome}
+                                      checked={customeStatus}
+                                      onChange={handleStatusChanges}
+                                    />
+                                    Customize
+                                    <input
+                                      className="border-b border-indigo-600 "
+                                      style={{
+                                        width: "80px",
+                                        marginLeft: "",
+                                        marginTop: "-10px",
+                                      }}
+                                      onChange={handleTextChanges}
+                                      type="text"
+                                      id="usr"
+                                      name="userType"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-md-6">
+                            <label
+                              htmlFor="firstName"
+                              className="block text-sm font-medium text-gray-700"
+                            >
+                              First Name
+                            </label>
+                            <div className="mt-1">
+                              <input
+                                {...register("firstName", {
+                                  required: true,
+                                  pattern: /^[A-Za-z]+$/,
+                                })}
+                                type="text"
+                                name="firstName"
+                                id="firstName"
+                                autoComplete="given-name"
+                                className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                              />
+                              {errors.firstName && (
+                                <span style={{ color: "red" }}>
+                                  This field is required and enter only text
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="col-md-6">
+                            <label
+                              htmlFor="lastName"
+                              className="block text-sm font-medium text-gray-700"
+                            >
+                              Last Name
+                            </label>
+                            <div className="mt-1">
+                              <input
+                                {...register("lastName", {
+                                  required: true,
+                                  pattern: /^[A-Za-z]+$/,
+                                })}
+                                type="text"
+                                name="lastName"
+                                id="lastName"
+                                autoComplete="given-name"
+                                className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                              />
+                              {errors.lastName && (
+                                <span style={{ color: "red" }}>
+                                  This field is required and enter only text
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="col-md-6">
+                            <label
+                              htmlFor="city"
+                              className="block text-sm font-medium text-gray-700"
+                            >
+                              City
+                            </label>
+                            <div className="mt-1">
+                              <input
+                                {...register("city", {
+                                  required: true,
+                                })}
+                                type="text"
+                                name="city"
+                                id="city"
+                                autoComplete="given-name"
+                                className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                              />
+                              {errors.city && (
+                                <span style={{ color: "red" }}>
+                                  This field is required
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="col-md-6">
+                            <label
+                              htmlFor="postalCode"
+                              className="block text-sm font-medium text-gray-700"
+                            >
+                              Postal Code
+                            </label>
+                            <div className="mt-1">
+                              <input
+                                {...register("postalCode", {
+                                  required: true,
+                                  pattern: /^[0-9]+$/,
+                                })}
+                                type="text"
+                                name="postalCode"
+                                id="postalCode"
+                                autoComplete="given-name"
+                                className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                              />
+                              {errors.postalCode && (
+                                <span style={{ color: "red" }}>
+                                  This field is required and enter only number
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="col-md-12">
+                            <label
+                              htmlFor="address1"
+                              className="block text-sm font-medium text-gray-700"
+                            >
+                              Address 1
+                            </label>
+                            <div className="mt-1">
+                              <textarea
+                                {...register("address1", {
+                                  required: true,
+                                })}
+                                rows={5}
+                                name="address1"
+                                id="address1"
+                                autoComplete="given-name"
+                                className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                              />
+                              {errors.address1 && (
+                                <span style={{ color: "red" }}>
+                                  This field is required
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="col-md-12">
+                            <label
+                              htmlFor="address2"
+                              className="block text-sm font-medium text-gray-700"
+                            >
+                              Address 2
+                            </label>
+                            <div className="mt-1">
+                              <textarea
+                                {...register("address2", {
+                                  required: true,
+                                })}
+                                rows={5}
+                                name="address2"
+                                id="address2"
+                                autoComplete="given-name"
+                                className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                              />
+                              {errors.address2 && (
+                                <span style={{ color: "red" }}>
+                                  This field is required
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="col-md-12 pt-4 text-right">
+                            <div>
+                              <div
+                                style={{
+                                  width: "100%",
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  marginTop: "5rem",
+                                  marginBottom: "2rem",
+                                }}
+                              >
+                                <button type="submit">
+                                  {" "}
+                                  <div
+                                    style={{
+                                      cursor: "pointer",
+                                      boxShadow:
+                                        "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
+                                      width: "15rem",
+                                      height: "5rem",
+                                      backgroundColor: "black",
+                                      color: "white",
+                                      textAlign: "center",
+                                      fontSize: "1.5rem",
+                                      lineHeight: "5rem",
+                                    }}
+                                  >
+                                    SAVE
+                                  </div>
+                                </button>
+                                &nbsp;&nbsp;
+                                <div
+                                  style={{
+                                    cursor: "pointer",
+                                    boxShadow:
+                                      "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
+                                    width: "15rem",
+                                    height: "5rem",
+                                    backgroundColor: "black",
+                                    color: "white",
+                                    textAlign: "center",
+                                    fontSize: "1.5rem",
+                                    lineHeight: "5rem",
+                                  }}
+                                  onClick={handleBackPage}
+                                >
+                                  Cancel
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
                     </div>
                   </div>
-
-                  {/*  输入 */}
-                  <div>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                      <div
-                        style={{
-                          display: "flex",
-                          width: "100%",
-                          marginBottom: "1.2rem",
-                        }}
-                      >
-                        <div style={{ display: "flex", width: "50%" }}>
-                          <div style={{ width: "100%", padding: "1.5rem" }}>
-                            <textarea
-                              style={{ fontSize: "1.4rem", height: "8rem" }}
-                              placeholder=" First  Name*"
-                              className="form-control border-dark border"
-                              id="comment"
-                              name="text"
-                            ></textarea>
-                          </div>
-                        </div>
-                        <div style={{ display: "flex", width: "50%" }}>
-                          <div style={{ width: "100%", padding: "1.5rem" }}>
-                            <textarea
-                              style={{ fontSize: "1.4rem", height: "8rem" }}
-                              placeholder=" Last  Name*"
-                              className="form-control border-dark border"
-                              id="comment"
-                              name="text"
-                            ></textarea>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div
-                        style={{
-                          display: "flex",
-                          width: "100%",
-                          marginBottom: "1.2rem",
-                        }}
-                      >
-                        <div style={{ width: "100%", padding: "1.5rem" }}>
-                          <textarea
-                            style={{ fontSize: "1.4rem", height: "8rem" }}
-                            placeholder=" Adress  1*"
-                            className="form-control border-dark border"
-                            id="comment"
-                            name="text"
-                          ></textarea>
-                        </div>
-                      </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          width: "100%",
-                          marginBottom: "1.2rem",
-                        }}
-                      >
-                        <div style={{ width: "100%", padding: "1.5rem" }}>
-                          <textarea
-                            style={{ fontSize: "1.4rem", height: "8rem" }}
-                            placeholder=" Adress  2"
-                            className="form-control border-dark border"
-                            id="comment"
-                            name="text"
-                          ></textarea>
-                        </div>
-                      </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          width: "100%",
-                          marginBottom: "1.2rem",
-                        }}
-                      >
-                        <div style={{ display: "flex", width: "50%" }}>
-                          <div style={{ width: "100%", padding: "1.5rem" }}>
-                            <textarea
-                              style={{
-                                fontSize: "1.4rem",
-                                height: "8rem",
-                                border: "1px soid #blue !important",
-                              }}
-                              placeholder="  Postal  Code*"
-                              className="form-control border-dark border"
-                              id="comment"
-                              name="text"
-                            ></textarea>
-                          </div>
-                        </div>
-
-                        <div style={{ display: "flex", width: "50%" }}>
-                          <div
-                            style={{
-                              width: "100%",
-                              padding: "1.5rem",
-                              paddingLeft: "0",
-                            }}
-                          >
-                            <textarea
-                              style={{ fontSize: "1.4rem", height: "8rem" }}
-                              placeholder=" City*"
-                              className="form-control border-dark border"
-                              id="comment"
-                              name="text"
-                            ></textarea>
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <div
-                          style={{
-                            width: "100%",
-                            display: "flex",
-                            justifyContent: "center",
-                            marginTop: "5rem",
-                            marginBottom: "2rem",
-                          }}
-                        >
-                          {" "}
-                          <div
-                            style={{
-                              cursor: "pointer",
-                              boxShadow:
-                                "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
-                              width: "15rem",
-                              height: "5rem",
-                              backgroundColor: "black",
-                              color: "white",
-                              textAlign: "center",
-                              fontSize: "1.5rem",
-                              lineHeight: "5rem",
-                            }}
-                          >
-                            SAVE
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </form>
-            </div>
-
-            {/*Billing 输入 */}
-
-            <div
-              style={{
-                marginTop: "16rem",
-                marginBottom: "16rem",
-                backgroundColor: "white",
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <form onSubmit={handleShippiingAddress}>
-                <div style={{ width: "60%", fontSize: "1.3rem" }}>
-                  <div style={{ display: "flex", width: "100%" }}>
-                    <div>Shipping Address</div>
-
-                    <div>
-                      <div className="form-check">
-                        <input
-                          className="border-dark border"
-                          style={{ marginRight: "10px" }}
-                          type="checkbox"
-                          id="check1"
-                          name="option1"
-                          value="something"
-                          checked
-                        />
-                        <label>Save as your primary address</label>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 按钮 */}
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      width: "100%",
-                    }}
-                  >
+                </>
+              ) : (
+                <>
+                  <div className="col-md-12">
                     <div
                       style={{
+                        marginTop: "6rem",
+                        backgroundColor: "#F9f8f6",
+                        width: "100%",
                         display: "flex",
                         justifyContent: "center",
-                        width: "100%",
+                        flexDirection: "column",
+                        alignItems: "center",
                       }}
                     >
-                      <div style={{ margin: "30px" }} className="form-check">
-                        <input
-                          style={{ marginRight: "10px" }}
-                          type="radio"
-                          id="radio1"
-                          name="optradio"
-                          value="option1"
-                          checked
-                        />
-                        <label className="form-check-label">Ms</label>
-                      </div>
-                      <div style={{ margin: "30px" }} className="form-check">
-                        <input
-                          style={{ marginRight: "10px" }}
-                          type="radio"
-                          id="radio2"
-                          name="optradio"
-                          value="option1"
-                        />
-                        <label className="form-check-label">Mrs</label>
-                      </div>
-                      <div style={{ margin: "30px" }} className="form-check">
-                        <input
-                          style={{ marginRight: "10px" }}
-                          type="radio"
-                          value="option1"
-                        />
-                        <label className="form-check-label">Mr</label>
-                      </div>
-                      <div style={{ margin: "30px" }} className="form-check">
-                        <input
-                          style={{ marginRight: "10px" }}
-                          type="radio"
-                          value="option1"
-                        />
-                        Customize
-                        <input
-                          className="border-b border-indigo-600 "
-                          style={{
-                            width: "80px",
-                            marginLeft: "",
-                            marginTop: "-10px",
-                          }}
-                          type="text"
-                          id="usr"
-                          name="username"
-                        />
-                      </div>
-                    </div>
-                  </div>
+                      <h2 className="pt-4">Add Billing Addresss</h2>
+                      <form
+                        className="grid grid-cols-1 gap-y-6"
+                        onSubmit={handleSubmit(onSubmit)}
+                      >
+                        <div className="row">
+                          <div className="col-md-12">
+                            <div>
+                              <div className="form-check">
+                                <input
+                                  className="border-dark border"
+                                  style={{ marginRight: "10px" }}
+                                  type="checkbox"
+                                  id="isPrimaryAddress"
+                                  name="isPrimaryAddress"
+                                  onChange={handlePrimaryAddress}
+                                  checked={isChecked}
+                                />
+                                <label>Save as your primary address</label>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-md-12">
+                            <div className="row">
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  width: "100%",
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    width: "100%",
+                                  }}
+                                >
+                                  <div
+                                    style={{ margin: "30px" }}
+                                    className="form-check"
+                                  >
+                                    <input
+                                      {...register("userType", {
+                                        required: true,
+                                      })}
+                                      style={{ marginRight: "10px" }}
+                                      type="radio"
+                                      id="radio1"
+                                      name="userType"
+                                      value="Ms"
+                                      checked
+                                    />
+                                    <label className="form-check-label">
+                                      Ms
+                                    </label>
+                                  </div>
+                                  <div
+                                    style={{ margin: "30px" }}
+                                    className="form-check"
+                                  >
+                                    <input
+                                      {...register("userType", {
+                                        required: true,
+                                      })}
+                                      style={{ marginRight: "10px" }}
+                                      type="radio"
+                                      id="radio2"
+                                      name="userType"
+                                      value="Mrs"
+                                    />
+                                    <label className="form-check-label">
+                                      Mrs
+                                    </label>
+                                  </div>
+                                  <div
+                                    style={{ margin: "30px" }}
+                                    className="form-check"
+                                  >
+                                    <input
+                                      {...register("userType", {
+                                        required: true,
+                                      })}
+                                      style={{ marginRight: "10px" }}
+                                      type="radio"
+                                      id="radio3"
+                                      name="userType"
+                                      value="Mr"
+                                    />
+                                    <label className="form-check-label">
+                                      Mr
+                                    </label>
+                                  </div>
+                                  <div
+                                    style={{ margin: "30px" }}
+                                    className="form-check"
+                                  >
+                                    <input
+                                      {...register("userType", {
+                                        required: true,
+                                      })}
+                                      style={{ marginRight: "10px" }}
+                                      type="radio"
+                                      id="radio4"
+                                      name="userType"
+                                      value={custome}
+                                      checked={customeStatus}
+                                      onChange={handleStatusChanges}
+                                    />
+                                    Customize
+                                    <input
+                                      className="border-b border-indigo-600 "
+                                      style={{
+                                        width: "80px",
+                                        marginLeft: "",
+                                        marginTop: "-10px",
+                                      }}
+                                      onChange={handleTextChanges}
+                                      type="text"
+                                      id="usr"
+                                      name="userType"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 
-                  {/*  输入 */}
-                  <div>
-                    <div
-                      style={{
-                        display: "flex",
-                        width: "100%",
-                        marginBottom: "1.2rem",
-                      }}
-                    >
-                      <div style={{ display: "flex", width: "50%" }}>
-                        <div style={{ width: "100%", padding: "1.5rem" }}>
-                          <textarea
-                            style={{ fontSize: "1.4rem", height: "8rem" }}
-                            placeholder=" First  Name*"
-                            className="form-control border-dark border"
-                            id="comment"
-                            name="text"
-                          ></textarea>
+                        <div className="row">
+                          <div className="col-md-6">
+                            <label
+                              htmlFor="firstName"
+                              className="block text-sm font-medium text-gray-700"
+                            >
+                              First Name
+                            </label>
+                            <div className="mt-1">
+                              <input
+                                {...register("firstName", {
+                                  required: true,
+                                  pattern: /^[A-Za-z]+$/,
+                                })}
+                                type="text"
+                                name="firstName"
+                                id="firstName"
+                                autoComplete="given-name"
+                                className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                              />
+                              {errors.firstName && (
+                                <span style={{ color: "red" }}>
+                                  This field is required and enter text only
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="col-md-6">
+                            <label
+                              htmlFor="lastName"
+                              className="block text-sm font-medium text-gray-700"
+                            >
+                              Last Name
+                            </label>
+                            <div className="mt-1">
+                              <input
+                                {...register("lastName", {
+                                  required: true,
+                                  pattern: /^[A-Za-z]+$/,
+                                })}
+                                type="text"
+                                name="lastName"
+                                id="lastName"
+                                autoComplete="given-name"
+                                className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                              />
+                              {errors.lastName && (
+                                <span style={{ color: "red" }}>
+                                  This field is required and enter text only
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="col-md-6">
+                            <label
+                              htmlFor="city"
+                              className="block text-sm font-medium text-gray-700"
+                            >
+                              City
+                            </label>
+                            <div className="mt-1">
+                              <input
+                                {...register("city", {
+                                  required: true,
+                                })}
+                                type="text"
+                                name="city"
+                                id="city"
+                                autoComplete="given-name"
+                                className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                              />
+                              {errors.city && (
+                                <span style={{ color: "red" }}>
+                                  This field is required
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="col-md-6">
+                            <label
+                              htmlFor="postalCode"
+                              className="block text-sm font-medium text-gray-700"
+                            >
+                              Postal Code
+                            </label>
+                            <div className="mt-1">
+                              <input
+                                {...register("postalCode", {
+                                  required: true,
+                                  pattern: /^[0-9]+$/,
+                                })}
+                                type="text"
+                                name="postalCode"
+                                id="postalCode"
+                                autoComplete="given-name"
+                                className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                              />
+                              {errors.postalCode && (
+                                <span style={{ color: "red" }}>
+                                  This field is required and enter only number
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="col-md-12">
+                            <label
+                              htmlFor="address1"
+                              className="block text-sm font-medium text-gray-700"
+                            >
+                              Address 1
+                            </label>
+                            <div className="mt-1">
+                              <textarea
+                                {...register("address1", {
+                                  required: true,
+                                })}
+                                rows={5}
+                                name="address1"
+                                id="address1"
+                                autoComplete="given-name"
+                                className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                              />
+                              {errors.address1 && (
+                                <span style={{ color: "red" }}>
+                                  This field is required
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="col-md-12">
+                            <label
+                              htmlFor="address2"
+                              className="block text-sm font-medium text-gray-700"
+                            >
+                              Address 2
+                            </label>
+                            <div className="mt-1">
+                              <textarea
+                                {...register("address2", {
+                                  required: true,
+                                })}
+                                rows={5}
+                                name="address2"
+                                id="address2"
+                                autoComplete="given-name"
+                                className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                              />
+                              {errors.address2 && (
+                                <span style={{ color: "red" }}>
+                                  This field is required
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="col-md-12 pt-4 text-right">
+                            <div>
+                              <div
+                                style={{
+                                  width: "100%",
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  marginTop: "5rem",
+                                  marginBottom: "2rem",
+                                }}
+                              >
+                                {" "}
+                                <button type="submit">
+                                  <div
+                                    style={{
+                                      cursor: "pointer",
+                                      boxShadow:
+                                        "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
+                                      width: "15rem",
+                                      height: "5rem",
+                                      backgroundColor: "black",
+                                      color: "white",
+                                      textAlign: "center",
+                                      fontSize: "1.5rem",
+                                      lineHeight: "5rem",
+                                    }}
+                                  >
+                                    SAVE
+                                  </div>
+                                </button>
+                                &nbsp;&nbsp;
+                                <div
+                                  style={{
+                                    cursor: "pointer",
+                                    boxShadow:
+                                      "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
+                                    width: "15rem",
+                                    height: "5rem",
+                                    backgroundColor: "black",
+                                    color: "white",
+                                    textAlign: "center",
+                                    fontSize: "1.5rem",
+                                    lineHeight: "5rem",
+                                  }}
+                                  onClick={handleBackPage}
+                                >
+                                  Cancel
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                      <div style={{ display: "flex", width: "50%" }}>
-                        <div style={{ width: "100%", padding: "1.5rem" }}>
-                          <textarea
-                            style={{ fontSize: "1.4rem", height: "8rem" }}
-                            placeholder=" Last  Name*"
-                            className="form-control border-dark border"
-                            id="comment"
-                            name="text"
-                          ></textarea>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        width: "100%",
-                        marginBottom: "1.2rem",
-                      }}
-                    >
-                      <div style={{ width: "100%", padding: "1.5rem" }}>
-                        <textarea
-                          style={{ fontSize: "1.4rem", height: "8rem" }}
-                          placeholder=" Adress  1*"
-                          className="form-control border-dark border"
-                          id="comment"
-                          name="text"
-                        ></textarea>
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        width: "100%",
-                        marginBottom: "1.2rem",
-                      }}
-                    >
-                      <div style={{ width: "100%", padding: "1.5rem" }}>
-                        <textarea
-                          style={{ fontSize: "1.4rem", height: "8rem" }}
-                          placeholder=" Adress  2"
-                          className="form-control border-dark border"
-                          id="comment"
-                          name="text"
-                        ></textarea>
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        width: "100%",
-                        marginBottom: "1.2rem",
-                      }}
-                    >
-                      <div style={{ display: "flex", width: "50%" }}>
-                        <div style={{ width: "100%", padding: "1.5rem" }}>
-                          <textarea
-                            style={{
-                              fontSize: "1.4rem",
-                              height: "8rem",
-                              border: "1px soid #blue !important",
-                            }}
-                            placeholder=" Postal  Code*"
-                            className="form-control border-dark border"
-                            id="comment"
-                            name="text"
-                          ></textarea>
-                        </div>
-                      </div>
-                      <div style={{ display: "flex", width: "50%" }}>
-                        <div
-                          style={{
-                            width: "100%",
-                            padding: "1.5rem",
-                            paddingLeft: "0",
-                          }}
-                        >
-                          <textarea
-                            style={{ fontSize: "1.4rem", height: "8rem" }}
-                            placeholder=" City*"
-                            className="form-control border-dark border"
-                            id="comment"
-                            name="text"
-                          ></textarea>
-                        </div>
-                      </div>
+                      </form>
                     </div>
                   </div>
-                </div>
-                <div>
-                  <div
-                    onClick={() => {}}
-                    style={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                      marginTop: "5rem",
-                      marginBottom: "2rem",
-                    }}
-                  >
-                    {" "}
-                    <div
-                      style={{
-                        cursor: "pointer",
-                        boxShadow:
-                          "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
-                        width: "15rem",
-                        height: "5rem",
-                        backgroundColor: "black",
-                        color: "white",
-                        textAlign: "center",
-                        fontSize: "1.5rem",
-                        lineHeight: "5rem",
-                      }}
-                    >
-                      SAVE
-                    </div>
-                  </div>
-                  <div
-                    style={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                      marginTop: "5rem",
-                      marginBottom: "2rem",
-                    }}
-                  >
-                    {" "}
-                    <button
-                      onClick={() => setStep(1)}
-                      className="border-grey-900 border-2 border-solid  border-current "
-                      style={{
-                        cursor: "pointer",
-                        // boxShadow:
-                        //   "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-                        width: "15rem",
-                        height: "5rem",
-                        backgroundColor: "",
-                        textAlign: "center",
-                        fontSize: "1.5rem",
-                        lineHeight: "4.5rem",
-                      }}
-                    >
-                      Next
-                    </button>
-                  </div>
-                </div>
-              </form>
+                </>
+              )}
             </div>
           </>
         )}
@@ -1079,9 +1400,9 @@ function orderConfirm() {
             </div>
             <div className="card mt-3">
               <div className="card-body">
-                {clientSecret && (
+                {clientSecret && stripePromise && (
                   <Elements options={options} stripe={stripePromise}>
-                    <CheckoutForm />
+                    <CheckoutForm groupId={groupId} />
                   </Elements>
                 )}
               </div>
@@ -1121,7 +1442,7 @@ function AddressList({ address }: { address: any }) {
       >
         <div style={{ width: "90%", fontSize: "1.4rem" }}>
           <div style={{ fontSize: "1.4rem", marginTop: "3rem" }}>
-            Mrs.xxxxx{" "}
+            {address.firstName + " " + address.lastName}{" "}
           </div>
           <div
             style={{
@@ -1141,15 +1462,15 @@ function AddressList({ address }: { address: any }) {
           >
             <div
               style={{
-                width: "30%",
+                width: "50%",
                 fontSize: "1.2rem",
                 marginLeft: "3rem",
               }}
             >
-              <div style={{}}>KJDHKJHF Ave</div>
-              <div style={{}}>Montréal QC, CANADA </div>
-              <div style={{}}>H3C 1A1</div>
-              <div style={{}}> +1 999-999-9999</div>
+              <div style={{}}>Primary Address: {address.address1}</div>
+              <div style={{}}>Secondary Address :{address.address2}</div>
+              <div style={{}}>City :{address.city}</div>
+              <div style={{}}>{address.postalCode}</div>
             </div>
 
             <div style={{ marginTop: "1 rem", width: "100px" }}>

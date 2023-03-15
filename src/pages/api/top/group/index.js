@@ -1,14 +1,11 @@
-import { prisma } from "../../../server/db/client";
-import handlePrismaError from "../../../utils/prismaExpHanlder";
-import { getServerAuthSession } from "../../../server/common/get-server-auth-session";
+import { prisma } from "../../../../server/db/client";
+import handlePrismaError from "../../../../utils/prismaExpHanlder";
+import { getServerAuthSession } from "../../../../server/common/get-server-auth-session";
 
 export default async function GetExistingGroup(req, res) {
-  const session = await getServerAuthSession({ req, res });
-  if (!session) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
   try {
     const group = await prisma.group.findMany({
+      take: 5,
       where: {
         endDate: {
           gt: new Date(),
@@ -16,7 +13,6 @@ export default async function GetExistingGroup(req, res) {
         groupName: {
           not: "",
         },
-        groupMasterId: { not: session.user["id"] },
         // isActive: true,
       },
     });
@@ -30,8 +26,6 @@ export default async function GetExistingGroup(req, res) {
       message: "group not found.",
     });
   } catch (e) {
-    console.log(e);
-
     const error = handlePrismaError(e);
     return res.json(error);
   }
