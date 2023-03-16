@@ -39,7 +39,7 @@ function orderConfirm() {
   const delivery = 10;
   const salesTax = 13;
   const greenFee = 3;
-  const [tipValue, setTipValue] = useState(0);
+  const [tipValue, setTipValue] = useState<any>("");
   const {
     register,
     setValue,
@@ -84,7 +84,7 @@ function orderConfirm() {
     const finalPrice =
       sub_total +
       delivery +
-      (tipValue ? tipValue : 0) +
+      (tipValue ? parseInt(tipValue) : 0) +
       (subTotal * greenFee + salesTax) / 100;
     setTotal(finalPrice);
   }, [cartItem]);
@@ -115,8 +115,19 @@ function orderConfirm() {
   };
 
   const handleInputChange = (event: any) => {
-    setTipValue(parseInt(event.target.value));
-    setTotal((prev) => prev + parseInt(event.target.value));
+    let value = event.target.value;
+    setTipValue(value);
+    const finalPrice =
+      subTotal +
+      delivery +
+      (value ? parseInt(value) : 0) +
+      (subTotal * greenFee + salesTax) / 100;
+    setTotal(finalPrice);
+    // if (event.target.value) {
+    //   setTotal((prev) => prev + parseInt(event.target.value));
+    // }else{
+
+    // }
   };
 
   const handleFormStatus = (type: any) => {
