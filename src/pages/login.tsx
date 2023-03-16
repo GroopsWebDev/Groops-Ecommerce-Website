@@ -6,6 +6,8 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import React from "react";
+import Swal from "sweetalert2";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 type FormValues = {
   email: string;
@@ -49,9 +51,20 @@ const Login = () => {
       password: data.password,
       callbackUrl: "/",
     });
+    console.log(result)
     if (result.ok) {
       router.push(result.url);
       setLoading(false);
+    }
+    else
+    {
+      setLoading(false);
+      Swal.fire({
+        title: "Login Failed",
+        text: "Login Details Invalid",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
     }
     setError(true);
     setLoading(false);

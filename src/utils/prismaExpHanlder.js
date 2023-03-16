@@ -29,6 +29,7 @@ export default function handlePrismaError(error) {
       message: "Validation Error.",
     };
   } else {
+    console.error(error);
     return {
       status: 500,
       message: "Internal server error",

@@ -6,22 +6,48 @@ import { ValueType } from 'tailwindcss/types/config';
 import { useForm } from "react-hook-form";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from 'react';
+import { ImageUploader } from '../../../utils/imageUpload';
+import { v4 as uuidv4 } from 'uuid';
+import Swal from "sweetalert2";
+import { CircularProgress } from '@mui/material';
 
-const productUploadPage: NextPage = () => {
+const productUploadPage: NextPage = ({productId, singleProductData}) => {
+    
+    const [alcoholStatus, setAlcoholStatus] = useState(
+    [
+        {
+            label:"Yes",
+            value:true
+        },
+        {
+            label:"No",
+            value:false
+        }
+
+    ])
+    const [selectedStatus, setSelectedStatus]= useState(false)
     const { data: sessionData } = useSession();
+    const [fileData, setFileData] = useState<any>();
     const [categoryList, setCategoryList] = useState([])
+    const [loading, setLoading] = useState(false);
     const apiUrl = "http://localhost:3000/api/";
+    const [imageURL, setImageURL] = useState();
+    const endPointURl = "https://api.gr-oops.com";
     const {
         register,
+        setValue,
         handleSubmit,
         formState: { errors },
       } = useForm();
 
+      const bucketName = "img";
       const [productData, setProductData] = useState({
         productImage: "",
       });
     const handleProfilePictureChange = (e: any) => {
         const file = e.target.files[0];
+        setFileData(file)
+        ImageUploader(file)
         setProductData({
           ...productData,
           productImage: URL.createObjectURL(file),
@@ -29,15 +55,19 @@ const productUploadPage: NextPage = () => {
       };
       
     async function onSubmit(data: any) {
-        try {
-                data.skuid = sessionData?.user?.lastname + Date.now();
+        setLoading(true);
+        if(productId == undefined || productId == "")
+        {
+            try {
+                
+                data.skuid = uuidv4();
                 data.alcohol = data.alcohol == "true"
                 data.price = parseInt(data.price)
                 data.retailPrice = parseInt(data.retailPrice)
                 data.costPrice = parseInt(data.costPrice)
                 data.stock = parseInt(data.stock)
                 data.categoryId = parseInt(data.categoryId)
-                data.image = "img/success.png"
+                data.image = fileData?.name != undefined ?  bucketName + "/" + fileData?.name : ""
                 const response = await fetch(apiUrl + "product/create", {
                     method: "POST",
                     body: JSON.stringify(data),
@@ -47,12 +77,63 @@ const productUploadPage: NextPage = () => {
                 });
                 if(response.status == 200)
                 {
-                    alert("Your Product Created Successfully")
+                    setLoading(false);
+                    const fields = ["englishProductName","chineseProductNName","frenchProductNName","placeOfOrigin","productWeight","description","price", "categoryId", "retailPrice", "costPrice", "stock"];
+                    fields.forEach((field) => {
+                        setValue(field, "");
+                    });
+                    setProductData({
+                        ...productData,
+                        productImage:""
+                    })
+                    Swal.fire({
+                        title: "Profile",
+                        text: "Your Product Create Successfully",
+                        icon: "success",
+                        confirmButtonText: "OK",
+                    });
                 }
             } catch (err) {
                 alert(err);
             }
-    }  
+        }
+        else
+        {
+            try {
+                data.skuid = productId
+                data.alcohol = data.alcohol == "true"
+                data.price = parseInt(data.price)
+                data.retailPrice = parseInt(data.retailPrice)
+                data.costPrice = parseInt(data.costPrice)
+                data.stock = parseInt(data.stock)
+                data.categoryId = parseInt(data.categoryId)
+                data.image = fileData?.name != undefined ?  bucketName + "/" + fileData?.name : singleProductData?.product?.image
+                const response = await fetch(apiUrl + "product/update/" + productId, {
+                    method: "POST",
+                    body: JSON.stringify(data),
+                    headers: {
+                    "Content-Type": "application/json",
+                    },
+                });
+                if(response.status == 200)
+                {
+                    setLoading(false);
+                    Swal.fire({
+                        title: "Profile",
+                        text: "Product Updated Successfully",
+                        icon: "success",
+                        confirmButtonText: "OK",
+                    });
+                }
+
+            } catch (err) {
+                alert(err);
+            }    
+        }
+        
+    }
+
+    
     // const mutation = trpc.product.upload.mutation(['product.mutation', {
     //     onSuccess: () => {
     //         console.log('success')
@@ -70,24 +151,60 @@ const productUploadPage: NextPage = () => {
             {
                 setCategoryList(json.data)
             }
-         }   
-    },[])
+         }
+         if(singleProductData != undefined)
+         {
+            if(Object.keys(singleProductData).length !== 0)
+            {
+                if (singleProductData.status === 200) {
+                    setSelectedStatus(singleProductData.product.alcohol)
+                    const fields = ["englishProductName","chineseProductNName","frenchProductNName","placeOfOrigin","productWeight","description","price", "categoryId", "retailPrice", "costPrice", "stock"];
+                    fields.forEach((field) => {
+                    if (singleProductData.product[field]) {
+                        setValue(field, singleProductData.product[field]);
+                    } else {
+                        setValue(field, "");
+                    }
+                    });
+                    setImageURL(singleProductData.product.image);
+                }
+            }  
+         }
+         
+    },[singleProductData])
     return (
         <>
             <div className="row">
                 <div className="col-md-12">
                     <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8 mb-3" style={{border:"1px solid #e0e0e0"}}>
-                    <h1 className="mb-6 text-2xl font-bold">Create Product</h1>
+                    {
+                        productId == undefined ? <><h1 className="mb-6 text-2xl font-bold">Create Product</h1></>:<><h1 className="mb-6 text-2xl font-bold">Update Product</h1></>
+                    }    
+                    
                     <form className="grid grid-cols-1 gap-y-6" onSubmit={handleSubmit(onSubmit)}>
                         <div className="row">
                         <div className="col-md-6 mb-3">
                             <div className="mx-6 w-1/2 pr-8">
                                 <div className="mr-4 h-32 w-32 overflow-hidden shadow-sm" style={{width:"200%"}}>
-                                    <img
-                                    src={productData.productImage}
-                                    alt=""
-                                    className="h-full w-full object-cover"
-                                    />
+                                    {
+                                        imageURL != undefined ?
+                                        <img
+                                        src={
+                                            productData.productImage == ""
+                                            ? endPointURl + "/" + imageURL
+                                            : productData.productImage
+                                        }
+                                        alt=""
+                                        className="h-full w-full object-cover"
+                                        />
+                                        :
+                                        <img
+                                        src={productData.productImage}
+                                        alt=""
+                                        className="h-full w-full object-cover"
+                                        />
+                                    }
+                                    
                                 </div> 
                             </div>
                         </div>
@@ -188,7 +305,7 @@ const productUploadPage: NextPage = () => {
                         
                         <div className="col-md-6">
                             <label htmlFor="productWeight"
-                            className="block text-sm font-medium text-gray-700"> Product Weight 
+                            className="block text-sm font-medium text-gray-700"> Product Weight (In KG) 
                             </label>
                             <div className="mt-1">
                             <input
@@ -214,10 +331,13 @@ const productUploadPage: NextPage = () => {
                             <div className="mt-1">
                             <select className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" {...register("alcohol", {
                                     required: true,
-                                })}>
-                                <option value="true">Yes</option>
-                                <option value="false">No</option>
-                            </select>   
+                                })}  >
+                                {
+                                    alcoholStatus.map( (list, index) =>
+                                    <option key={index} value={list.value} selected={selectedStatus == list.value}>{list.label}</option>
+                                    )
+                                }
+                             </select>      
                             </div>
                         </div>
                         <div className="col-md-6">
@@ -252,12 +372,14 @@ const productUploadPage: NextPage = () => {
                                 })}>
                                 <option value="">--Select Category--</option>    
                                 {
-                                    categoryList.map( (list) =>
-                                    <option value={list.id}>{list.name}</option>
+                                    categoryList.map( (list, index) =>
+                                    <option key={index} value={list.id}>{list.name}</option>
                                     )
                                 }
-                                
-                             </select>   
+                             </select>
+                             {errors.categoryId && (
+                                <span>This field is required</span>
+                             )}   
                             </div>
                         </div>
                         <div className="col-md-6">
@@ -310,6 +432,7 @@ const productUploadPage: NextPage = () => {
                             <input
                                 {...register("stock", {
                                     required: true,
+                                    pattern: /^[0-9]+$/,
                                 })}
                                 type="text"
                                 name="stock"
@@ -347,7 +470,11 @@ const productUploadPage: NextPage = () => {
                             type="submit"
                             className="rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                             >
-                            Submit
+                            {loading ? (
+                                <CircularProgress style={{ color: "white" }} />
+                                ) : (
+                                "Save"
+                            )}
                             </button>
                         </div>
                         </div>

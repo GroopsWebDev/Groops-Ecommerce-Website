@@ -1,11 +1,31 @@
-import React from 'react';
+// components/Loader.tsx
 
-const Loader = () => {
+import React from "react";
+
+const Loader: React.FC = () => {
   return (
-    <div className="fixed top-0 left-0 w-screen h-screen flex items-center justify-center bg-gray-200">
-      <div className="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4">
-        dfdsfsd
-      </div>
+    <div className="loader">
+      <style jsx>{`
+        .loader {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .loader__spinner {
+          border: 8px solid rgba(0, 0, 0, 0.1);
+          border-left-color: #555;
+          border-radius: 50%;
+          width: 40px;
+          height: 40px;
+          animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+      `}</style>
+      <div className="loader__spinner" />
     </div>
   );
 };

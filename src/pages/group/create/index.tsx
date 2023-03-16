@@ -7,6 +7,8 @@ import Swal from "sweetalert2";
 import { ImageUploader } from "../../../utils/imageUpload";
 import moment from "moment";
 import { getRemainingTime } from "../../../utils/utils";
+import { useRouter } from "next/router";
+import { CircularProgress } from "@mui/material";
 const CreateGroup = () => {
   const [groupImage, setGroupImage] = useState("");
   const [groupName, setGroupName] = useState("");
@@ -15,7 +17,9 @@ const CreateGroup = () => {
   const [success, setSuccess] = useState(false);
   const [groupData, setGroupData] = useState<any>();
   const { data: sessionData } = useSession();
+  const [loading, setLoading] = useState(false);
   const userId = sessionData?.user?.id;
+  const router = useRouter();
 
   const handleImageChange = (e: any) => {
     ImageUploader(e.target.files[0]);
@@ -33,6 +37,7 @@ const CreateGroup = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+
     if (!groupName || !groupImage || !groupHours) {
       Swal.fire({
         title: "Error",
@@ -43,6 +48,7 @@ const CreateGroup = () => {
       return;
     }
     try {
+      setLoading(true);
       const res = await axios.post("/api/group/create", {
         groupName: groupName,
         groupImg: `img/${groupImage}`,
@@ -51,29 +57,37 @@ const CreateGroup = () => {
       });
       if (res.data.status == 200) {
         Swal.fire({
-          title: "Group",
           text: "Group Create Successfully.",
           icon: "success",
           confirmButtonText: "OK",
         });
         setGroupData(res.data.group);
-        setSuccess(true);
+        setLoading(false);
+        localStorage.setItem("groupId", res.data.group.groupId);
+        router.push("/checkout");
       } else {
         Swal.fire({
-          title: "Error",
           text: res.data.message,
-          icon: "error",
+          icon: "warning",
           confirmButtonText: "OK",
         });
+        setLoading(false);
       }
     } catch (e: any) {
       Swal.fire({
-        title: "Error",
         text: e.message,
         icon: "error",
         confirmButtonText: "OK",
       });
+      setLoading(false);
     }
+  };
+
+  const resetForm = () => {
+    setGroupHours(1);
+    setGroupName("");
+    setGroupImage("");
+    setImagePreview("");
   };
 
   return (
@@ -136,9 +150,10 @@ const CreateGroup = () => {
               className="mx-2"
               style={{ backgroundColor: "#F67280", borderColor: "#F67280" }}
             >
-              Create Group
+              {loading ? <CircularProgress /> : "Create Group"}
             </Button>
             <Button
+              onClick={resetForm}
               variant="secondary"
               type="button"
               className="mx-2"

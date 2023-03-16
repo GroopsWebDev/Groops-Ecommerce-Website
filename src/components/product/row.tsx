@@ -6,6 +6,7 @@ import Detail from "./detail";
 
 import SeeAll from "../../../public/assets/shop/items/see-all.svg";
 import axios from "axios";
+import ProductCard from "./ProductCard";
 
 type props = { category: any };
 
@@ -15,6 +16,7 @@ const Row = ({ category }: props) => {
     const fetchProduct = async () => {
       const res = await axios.post(`/api/product/pagination`, {
         categoryName: "",
+        perPage: 4,
       });
       if (res.status == 200) {
         setProduct(res.data.data);
@@ -29,7 +31,7 @@ const Row = ({ category }: props) => {
         <div className="mb-10 mt-10 flex flex-row flex-wrap justify-center space-x-10">
           {product.map((i: any) => {
             return (
-              <Detail
+              <ProductCard
                 name={i.englishProductName}
                 price={i.price}
                 id={i.skuid}
@@ -39,8 +41,10 @@ const Row = ({ category }: props) => {
           })}
         </div>
         <div className="mb-10 mt-10 flex flex-row flex-wrap justify-center space-x-10">
-          <Link className="mt-14 w-20" href="">
-            <SeeAll />
+          <Link className="w-25 mt-14" href="">
+            <button className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+              See More
+            </button>
           </Link>
         </div>
       </div>

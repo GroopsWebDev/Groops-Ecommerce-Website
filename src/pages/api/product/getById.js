@@ -1,7 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../server/db/client";
 import handlePrismaError from "../../../utils/prismaExpHanlder";
-
-const prisma = new PrismaClient();
 
 export default async function GetDataById(req, res) {
   try {

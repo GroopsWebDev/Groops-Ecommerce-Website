@@ -3,14 +3,15 @@ import React, { useEffect, useState } from "react";
 
 import Detail from "../product/detail";
 
-type props = { type: any };
+type props = { type: any; filter: string };
 
-const Row = ({ type }: props) => {
+const Row = ({ type, filter }: props) => {
   const [product, setProduct] = useState([]);
   useEffect(() => {
     const fetchProduct = async () => {
       const res = await axios.post(`/api/product/pagination`, {
         categoryName: type,
+        sortBy: filter,
       });
       if (res.status == 200) {
         setProduct(res.data.data);
