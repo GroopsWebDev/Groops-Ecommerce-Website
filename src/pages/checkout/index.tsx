@@ -16,28 +16,6 @@ import Swal from "sweetalert2";
 
 //团购-订单确认
 
-const schema = Yup.object().shape({
-  firstname: Yup.string()
-    .matches(/^[A-Za-z]+[A-Za-z ]*$/, "First name must be alphabet characters.")
-    .min(2, "Needs at least 2 Character")
-    .max(100, "Please enter a First name less than 100 character")
-    .required("First name is required"),
-  lastname: Yup.string()
-    .matches(/^[A-Za-z]+[A-Za-z ]*$/, "Last name must be alphabet characters.")
-    .min(2, "Needs at least 2 Character")
-    .max(100, "Please enter a Last name less than 100 character")
-    .required("Last name is required"),
-  email: Yup.string()
-    .trim()
-    .email("Must be a valid email")
-    .max(255)
-    .required("Please enter the required field")
-    .matches(
-      /^([a-zA-Z0-9_+0-9\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/,
-      "Please enter valid email address."
-    ),
-});
-
 function orderConfirm() {
   const imagePath = "https://api.gr-oops.com/";
   const [cartItem, setCartItem] = useState<any>([]);
@@ -57,6 +35,11 @@ function orderConfirm() {
   const stripePromise = loadStripe(
     "pk_test_51MCWFKI3CTiTs4JqLIbwXO682cGFbfqKkbAQJjfFfkSvGcwjA0GDZvgZkGlFPFTG7ve6CvBRh0IhQtU1Hp9q8Y5I00pmlT9A2M"
   );
+
+  const delivery = 10;
+  const salesTax = 13;
+  const greenFee = 3;
+  const [tipValue, setTipValue] = useState(0);
   const {
     register,
     setValue,
@@ -98,12 +81,17 @@ function orderConfirm() {
       0
     );
     setSubTotal(sub_total);
-    setTotal(sub_total);
+    const finalPrice =
+      sub_total +
+      delivery +
+      (tipValue ? tipValue : 0) +
+      (subTotal * greenFee + salesTax) / 100;
+    setTotal(finalPrice);
   }, [cartItem]);
 
   useEffect(() => {
     if (total > 0) {
-      createSecret();
+      // createSecret();
     }
   }, [total]);
 
@@ -124,6 +112,11 @@ function orderConfirm() {
   };
   const handleTextChanges = (event: any) => {
     setCustome(event.target.value);
+  };
+
+  const handleInputChange = (event: any) => {
+    setTipValue(parseInt(event.target.value));
+    setTotal((prev) => prev + parseInt(event.target.value));
   };
 
   const handleFormStatus = (type: any) => {
@@ -161,7 +154,7 @@ function orderConfirm() {
         city: data.city,
         isPrimaryAddress: isChecked,
       };
-      const response = await fetch("/api/shippingaddress/create", {
+      const response = await fetch("/api/shippingAddress/create", {
         method: "POST",
         body: JSON.stringify(rObj),
         headers: {
@@ -204,12 +197,18 @@ function orderConfirm() {
 
   const getAddress = async () => {
     try {
-      const res = await axios.get("/api/shippingaddress/get");
+      const res = await axios.get("/api/shippingAddress/get");
       if (res.data.status == 200) {
         setAddress(res?.data?.address);
       }
     } catch (e: any) {
-      alert(e.message);
+      console.log(e.message);
+    }
+  };
+
+  const modalClose = (type: any) => {
+    if (type == "true") {
+      handleClose();
     }
   };
 
@@ -432,7 +431,9 @@ function orderConfirm() {
                     className="form-control border-dark border"
                     placeholder="$"
                     id="usr"
+                    onChange={handleInputChange}
                     name="username"
+                    value={tipValue}
                   />
                 </div>
 
@@ -754,7 +755,6 @@ function orderConfirm() {
                               <input
                                 {...register("postalCode", {
                                   required: true,
-                                  pattern: /^[0-9]+$/,
                                 })}
                                 type="text"
                                 name="postalCode"
@@ -1107,7 +1107,6 @@ function orderConfirm() {
                               <input
                                 {...register("postalCode", {
                                   required: true,
-                                  pattern: /^[0-9]+$/,
                                 })}
                                 type="text"
                                 name="postalCode"
@@ -1281,7 +1280,7 @@ function orderConfirm() {
                     }}
                   >
                     <div style={{ marginTop: "3rem" }}>Sales Tax</div>
-                    <div style={{ marginTop: "3rem" }}>———</div>
+                    <div style={{ marginTop: "3rem" }}> {salesTax}%</div>
                   </div>
                   <div
                     style={{
@@ -1291,7 +1290,7 @@ function orderConfirm() {
                     }}
                   >
                     <div style={{ marginTop: "3rem" }}>Delivery</div>
-                    <div style={{ marginTop: "3rem" }}>———</div>
+                    <div style={{ marginTop: "3rem" }}>${delivery} </div>
                   </div>
                   <div
                     style={{
@@ -1301,7 +1300,7 @@ function orderConfirm() {
                     }}
                   >
                     <div style={{ marginTop: "3rem" }}>3% Green Fee</div>
-                    <div style={{ marginTop: "3rem" }}>———</div>
+                    <div style={{ marginTop: "3rem" }}>{greenFee}%</div>
                   </div>{" "}
                   <div
                     style={{
@@ -1311,7 +1310,9 @@ function orderConfirm() {
                     }}
                   >
                     <div style={{ marginTop: "3rem" }}>Tips for Deliverer</div>
-                    <div style={{ marginTop: "3rem" }}>———</div>
+                    <div style={{ marginTop: "3rem" }}>
+                      $ {tipValue ? tipValue : 0}
+                    </div>
                   </div>
                   <div
                     style={{
@@ -1326,6 +1327,7 @@ function orderConfirm() {
                         (Taxes and Delivery Fee excluded)
                       </span>
                     </div>
+
                     <div style={{ marginTop: "3rem", fontSize: "2rem" }}>
                       ${total}
                     </div>
@@ -1385,7 +1387,7 @@ function orderConfirm() {
           </div>
         )}
 
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={handleClose} size="lg">
           <Modal.Header closeButton>
             <Modal.Title>Payment</Modal.Title>
           </Modal.Header>
@@ -1400,11 +1402,19 @@ function orderConfirm() {
             </div>
             <div className="card mt-3">
               <div className="card-body">
-                {clientSecret && stripePromise && (
-                  <Elements options={options} stripe={stripePromise}>
-                    <CheckoutForm groupId={groupId} />
-                  </Elements>
-                )}
+                {/* {clientSecret && stripePromise && (
+                  <Elements options={options} stripe={stripePromise}> */}
+                <CheckoutForm
+                  groupId={groupId}
+                  modalClose={modalClose}
+                  salesTax={salesTax}
+                  delivery={delivery}
+                  tipDelivery={tipValue}
+                  greenFee={greenFee}
+                  total={total}
+                />
+                {/* </Elements> */}
+                {/* )} */}
               </div>
             </div>
           </Modal.Body>

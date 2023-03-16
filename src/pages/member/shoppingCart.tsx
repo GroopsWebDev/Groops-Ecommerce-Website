@@ -425,7 +425,7 @@ function ShoppingCart() {
                       }}
                     >
                       <div style={{ marginTop: "3rem" }}>Sales Tax</div>
-                      <div style={{ marginTop: "3rem" }}>———</div>
+                      <div style={{ marginTop: "3rem" }}>13%</div>
                     </div>
                     <div
                       style={{
@@ -435,7 +435,7 @@ function ShoppingCart() {
                       }}
                     >
                       <div style={{ marginTop: "3rem" }}>Delivery</div>
-                      <div style={{ marginTop: "3rem" }}>———</div>
+                      <div style={{ marginTop: "3rem" }}>$10</div>
                     </div>
                     <div
                       style={{
@@ -445,7 +445,7 @@ function ShoppingCart() {
                       }}
                     >
                       <div style={{ marginTop: "3rem" }}>3% Green Fee</div>
-                      <div style={{ marginTop: "3rem" }}>———</div>
+                      <div style={{ marginTop: "3rem" }}>3%</div>
                     </div>
                     <div
                       style={{
@@ -461,8 +461,9 @@ function ShoppingCart() {
                         </span>
                       </div>
                       <div style={{ marginTop: "3rem", fontSize: "2rem" }}>
-                        $ {totalPrice}
-                      </div>
+ 
+                        $ {totalPrice +10 + totalPrice * 16/100 }
+                       </div>
                     </div>
                   </div>
                 </div>

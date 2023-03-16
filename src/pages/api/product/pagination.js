@@ -16,8 +16,7 @@ export default async function handler(req, res) {
     const { categoryName, sortBy } = req.body;
     const orderBy = PFilter[sortBy] ? PFilter[sortBy] : "desc";
 
-
-
+    
     const where = {};
     if (categoryName) {
       where['category'] = {

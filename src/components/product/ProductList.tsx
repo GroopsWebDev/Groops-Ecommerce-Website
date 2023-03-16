@@ -1,15 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
-type props = { type: any; filter: string };
+type props = { type: any; filter: string ,perPage: any};
 
-const ProductList = ({ type, filter }: props) => {
+const ProductList = ({ type, filter ,perPage }: props) => {
   const [product, setProduct] = useState([]);
   useEffect(() => {
     const fetchProduct = async () => {
       const res = await axios.post(`/api/product/pagination`, {
         categoryName: type,
         sortBy: filter,
+        perPage : perPage
       });
       if (res.status == 200) {
         setProduct(res.data.data);
