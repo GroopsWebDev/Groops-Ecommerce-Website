@@ -60,12 +60,15 @@ import moment from "moment";
 
 export function getRemainingTime(date) {
   const now = moment();
-  const diff = moment(date).diff(now, "hours");
-  const remainingHours = diff % 24;
-  const remainingDays = Math.floor(diff / 24);
+  
+  const diff = moment(date).diff(now , "hours");
+  const  positiveDiff = Math.abs(diff);
 
-  if (diff <= 24) {
-    return `${diff} hours`;
+  const remainingHours = positiveDiff % 24;
+  const remainingDays = Math.floor(positiveDiff / 24);
+
+  if (positiveDiff <= 24) {
+    return `${positiveDiff} hours`;
   } else {
     return `${remainingDays} days, ${remainingHours} hours`;
   }

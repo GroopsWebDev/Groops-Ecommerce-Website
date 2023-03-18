@@ -115,21 +115,24 @@ const userSetting = () => {
   }
 
   async function getSelectedUserData(dataGet: any) {
+    setIsLoading(true);
     const userId = dataGet?.user.id;
     const response = await fetch("/api/user/" + userId);
     const json = await response.json();
     if (json.status === 200) {
       const fields = ["name", "phone", "address", "postCode"];
       fields.forEach((field) => {
-        if (json.user[field]) {
-          setIsLoading(true);
+        if (json.user[field]) {  
           setValue(field, json.user[field]);
         } else {
           setValue(field, "");
         }
+        setIsLoading(false);
       });
       setImageURL(json.user.image);
+      setIsLoading(false);
     }
+    setIsLoading(false);
   }
   useEffect(() => {
     setStatus(true);
@@ -140,7 +143,7 @@ const userSetting = () => {
         <Head>
           <title>User Settings | My App</title>
         </Head>
-        {isLoading ? (
+        {!isLoading ? (
           <div className="border-1 mx-auto mt-10 mb-12 flex max-w-6xl rounded-md p-6 shadow-lg">
             <div className="mx-6 w-1/2 pr-8">
               <div style={{ marginLeft: "200px", marginTop: "150px" }}>
@@ -154,12 +157,14 @@ const userSetting = () => {
                       }
                       alt=""
                       className="h-full w-full object-cover"
+                       
                     />
                   ) : (
                     <img
                       src={user.profilePicture}
                       alt=""
                       className="h-full w-full object-cover"
+                     
                     />
                   )}
                 </div>
@@ -172,6 +177,7 @@ const userSetting = () => {
                     className="hidden"
                     name="profilePicture"
                     onChange={handleProfilePictureChange}
+                    accept="image/png, image/gif, image/jpeg" 
                   />
                 </label>
               </div>
@@ -247,7 +253,7 @@ const userSetting = () => {
                     render={({ field }) => (
                       <textarea
                         {...field}
-                          rows="4"
+                          rows={4}
                           id="address"
                           name="address"
                           style={inputStyle}

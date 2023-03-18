@@ -3,6 +3,8 @@ import handlePrismaError from "../../../utils/prismaExpHanlder";
 import { getServerAuthSession } from "../../../server/common/get-server-auth-session";
 
 import Stripe from "stripe";
+import { getAccessToken } from "../../api/group/paypal"
+import { refundAmount } from "../../api/group/paypal"
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2020-08-27",
@@ -24,6 +26,11 @@ export default async function handler(req, res) {
         where: { groupId: groupId },
       });
 
+      getAccessToken().then(data => {
+        console.log("AccessToken",data)
+      }).catch(err => {
+          console.log(err);
+      });
       if (groupMemberCount == 0) {
         await prisma.group.delete({ where: { groupId: groupId } });
         return res.json({ message: "Group end successfully", status: 200 });
@@ -57,9 +64,19 @@ export default async function handler(req, res) {
           discountAMt = parseInt(discountAMt) + groupMasterBenefit;
         }
         i["discountAmt"] = discountAMt;
-        return stripe.refunds.create({
-          payment_intent: paymentId,
-          amount: discountAMt,
+        // return stripe.refunds.create({
+        //   payment_intent: paymentId,
+        //   amount: discountAMt,
+        // });
+        console.log("paymentId",paymentId)
+        console.log("discountAMt",discountAMt)
+        getAccessToken().then(data => {
+          console.log("AccessToken",data)
+          console.log("paymentId",paymentId)
+          console.log("discountAMt",discountAMt)
+          refundAmount(paymentId,discountAMt,data)
+        }).catch(err => {
+            console.log(err);
         });
       });
       try {

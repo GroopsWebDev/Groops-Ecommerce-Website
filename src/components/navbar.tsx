@@ -212,12 +212,12 @@ const Header = () => {
                 >
                   SHOP
                 </Link>
-                <Link
+                {/* <Link
                   href="/guest/group-order"
                   className="text-xl font-medium text-black no-underline"
                 >
                   GROUP ORDER
-                </Link>
+                </Link> */}
                 <文 className="w-7" />
 
                 <NavSearch className="w-7" />

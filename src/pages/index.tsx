@@ -101,33 +101,31 @@ const Home = () => {
       </Container>
 
       {/** Section 3 Card Carousel*/}
-      <TopGroupsTile className="ml-auto mr-auto mt-10 mb-20 w-60" />
+      {groups.length > 0 && (
+        <TopGroupsTile className="ml-auto mr-auto mt-10 mb-20 w-60" />
+      )}
       {/* <TopGroups className="ml-auto mr-auto w-9/12" /> */}
 
       <div className="container" style={{ maxWidth: "800px" }}>
         <div className="container-fluid">
           <div className="row">
             <div className="col-12">
-              {loading ? (
-                <Loader />
-              ) : (
-                <Carousel>
-                  {groups.map((group: any) => (
-                    <Carousel.Item>
-                      <img
-                        style={{ maxWidth: "800px", maxHeight: "450px" }}
-                        className="d-block w-100"
-                        src={`https://api.gr-oops.com/` + group?.groupImg}
-                        alt={group.groupName}
-                      />
-                      <Carousel.Caption>
-                        <h3>{group.groupName}</h3>
-                        <p>{getRemainingTime(group?.endDate)}</p>
-                      </Carousel.Caption>
-                    </Carousel.Item>
-                  ))}
-                </Carousel>
-              )}
+              <Carousel>
+                {groups.map((group: any) => (
+                  <Carousel.Item>
+                    <img
+                      style={{ maxWidth: "800px", maxHeight: "450px" }}
+                      className="d-block w-100"
+                      src={`https://api.gr-oops.com/` + group?.groupImg}
+                      alt={group.groupName}
+                    />
+                    <Carousel.Caption>
+                      <h3>{group.groupName}</h3>
+                      <p>{getRemainingTime(group?.endDate)}</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                ))}
+              </Carousel>
             </div>
           </div>
         </div>
