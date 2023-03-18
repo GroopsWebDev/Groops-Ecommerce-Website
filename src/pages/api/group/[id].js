@@ -7,6 +7,8 @@ export default async function handler(req, res) {
   if (!session) {
     return res.status(401).json({ message: "Unauthorized" });
   }
+
+   
   try {
     const group = await prisma.group.findUnique({
       where: {

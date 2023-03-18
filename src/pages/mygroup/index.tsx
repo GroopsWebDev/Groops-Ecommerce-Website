@@ -11,11 +11,14 @@ import {
   ListGroup,
 } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
+import Loader from "../../components/loader/loader";
 import { getRemainingTime } from "../../utils/utils";
+
 
 const GroupList = () => {
   const [groups, setGroups] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetch = async () => {
@@ -90,40 +93,44 @@ const GroupList = () => {
       </Row>
       <Row className="justify-content-center align-items-center">
         <Col xs={12} md={8} className="my-3">
+        {loading ? (
+          <Loader />
+        ) : (
           <ListGroup>
-            {filteredGroups.map((group: any) => (
-              <>
-                <ListGroup.Item key={group.groupId}>
-                  <div className="flex justify-between">
-                    <div className="justify-content-center align-items-center">
-                      <img
-                        src={`https://api.gr-oops.com/` + group?.groupImg}
-                        alt={group.groupName}
-                        width="250"
-                        height="250"
-                        className="mr-3"
-                      />
-                    </div>
-                    <div className="">
-                      <span>GroupName:- {group.groupName} </span> <br />
-                      <span>
-                        {" "}
-                        End within:- {getRemainingTime(group?.endDate)}
-                      </span>
-                    </div>
-                    <div className="my-5">
-                      <button
-                        onClick={() => redirectTo(group?.groupId)}
-                        className="rounded bg-gradient-to-r from-orange-500 to-blue-500 py-2 px-4 font-bold text-white hover:from-orange-600 hover:to-blue-600"
-                      >
-                        view
-                      </button>
-                    </div>
+          {filteredGroups.map((group: any) => (
+            <>
+              <ListGroup.Item key={group.groupId}>
+                <div className="flex justify-between">
+                  <div className="justify-content-center align-items-center">
+                    <img
+                      src={`https://api.gr-oops.com/` + group?.groupImg}
+                      alt={group.groupName}
+                      width="250"
+                      height="250"
+                      className="mr-3"
+                    />
                   </div>
-                </ListGroup.Item>
-              </>
-            ))}
-          </ListGroup>
+                  <div className="">
+                    <span>GroupName:- {group.groupName} </span> <br />
+                    <span>
+                      {" "}
+                      End within:- {getRemainingTime(group?.endDate)}
+                    </span>
+                  </div>
+                  <div className="my-5">
+                    <button
+                      onClick={() => redirectTo(group?.groupId)}
+                      className="rounded bg-gradient-to-r from-orange-500 to-blue-500 py-2 px-4 font-bold text-white hover:from-orange-600 hover:to-blue-600"
+                    >
+                      view
+                    </button>
+                  </div>
+                </div>
+              </ListGroup.Item>
+            </>
+          ))}
+        </ListGroup>
+        )}
         </Col>
       </Row>
     </Container>
