@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import Link from "next/link";
 import Heart from "../../../public/assets/shop/items/heart.svg";
 import HeartRed from "../../../public/assets/shop/items/heart-red.svg";
 import Add from "../../../public/assets/shop/items/add.svg";
@@ -25,6 +26,15 @@ const Detail = ({ id, name, price, image }: props) => {
     }
   };
 
+const Detail = ({ name, price }: props) => {
+  const [heart, setHeart] = useState(false)
+
+  return <>
+    <div className="relative text-2xl mb-10" >
+      <Link href="/product/item/id"><Item className="w-1/1 hover:scale-105 duration-300" /></Link>
+      <button className="absolute bottom-16 right-5" onClick={() => { setHeart(!heart) }}>
+        {heart ? <HeartRed className="w-9" /> : <Heart className="w-9" />}
+      </button>
   const handleIncreaseQuantity = () => {
     setQuantity(quantity + 1);
   };
