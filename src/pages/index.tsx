@@ -23,30 +23,50 @@ import Col from "react-bootstrap/Col";
 //react icons
 import JoinNowButton from "../components/elements/join-now-btn";
 import SignInButton from "../components/elements/sign-in-btn";
-import ShopNowButton from "../components/elements/shop-now-btn";
-
 import Welcome from "../components/welcome";
 import HelpCenter from "../components/help/help-center";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setCategoryList } from "../app/itemManagement";
+import Loader from "../components/loader/loader";
+
+// import { Carousel } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Carousel from "react-bootstrap/Carousel";
+import { getRemainingTime } from "../utils/utils";
 
 const Home = () => {
   const { data: sessionData } = useSession();
   const [category, setCategory] = useState([]);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const featuredProductsStyle =
     "scale-100 ml-10 mr-10 mb-20 transform transition duration-300 hover:scale-110";
 
   useEffect(() => {
     async function fetchCategory() {
+      setLoading(true);
       const res = await axios.get("/api/category/pagination?page=1&perPage=10");
       if (res.status == 200) {
         setCategory(res.data.data);
         dispatch(setCategoryList(res.data.data));
+        setLoading(false);
+      } else {
+        setLoading(false);
       }
     }
     fetchCategory();
+  }, []);
+
+  const [groups, setGroups] = useState([]);
+  useEffect(() => {
+    const fetch = async () => {
+      const groups = await axios.get("/api/top/group");
+      if (groups.data.status == 200) {
+        setGroups(groups.data.group);
+      }
+    };
+    fetch();
   }, []);
 
   return (
@@ -58,27 +78,60 @@ const Home = () => {
       {/** Section 2 */}
       <OurFeaturedProducts className="ml-auto mr-auto mt-32 mb-20 w-[466px]" />
       <Container>
-        <Row>
-          {category.map((category: any, index) => {
-            let url = "https://api.gr-oops.com/" + category.url;
-            return (
-              <Col sm={6} md={4} key={index}>
-                <Link href={`/product/${category.name}`}>
-                  <img
-                    src={url}
-                    alt={category.name}
-                    className={featuredProductsStyle}
-                  />
-                </Link>
-              </Col>
-            );
-          })}
-        </Row>
+        {loading ? (
+          <Loader />
+        ) : (
+          <Row>
+            {category.map((category: any, index) => {
+              let url = "https://api.gr-oops.com/" + category.url;
+              return (
+                <Col sm={6} md={4} key={index}>
+                  <Link href={`/product/${category.name}`}>
+                    <img
+                      src={url}
+                      alt={category.name}
+                      className={featuredProductsStyle}
+                    />
+                  </Link>
+                </Col>
+              );
+            })}
+          </Row>
+        )}
       </Container>
 
       {/** Section 3 Card Carousel*/}
       <TopGroupsTile className="ml-auto mr-auto mt-10 mb-20 w-60" />
-      <TopGroups className="ml-auto mr-auto w-9/12" />
+      {/* <TopGroups className="ml-auto mr-auto w-9/12" /> */}
+
+      <div className="container" style={{ maxWidth: "800px" }}>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-12">
+              {loading ? (
+                <Loader />
+              ) : (
+                <Carousel>
+                  {groups.map((group: any) => (
+                    <Carousel.Item>
+                      <img
+                        style={{ maxWidth: "800px", maxHeight: "450px" }}
+                        className="d-block w-100"
+                        src={`https://api.gr-oops.com/` + group?.groupImg}
+                        alt={group.groupName}
+                      />
+                      <Carousel.Caption>
+                        <h3>{group.groupName}</h3>
+                        <p>{getRemainingTime(group?.endDate)}</p>
+                      </Carousel.Caption>
+                    </Carousel.Item>
+                  ))}
+                </Carousel>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/** Section 4 Become a Groops | Hide this if signed in !!!*/}
       {!sessionData && (
@@ -87,7 +140,7 @@ const Home = () => {
           <div className="relative">
             <BecomeMember className="w-full" />
             <div className="absolute top-[380px]  left-[115px] ">
-                <JoinNowButton />
+              <JoinNowButton />
             </div>
             <div className="absolute top-[380px] left-[400px]">
               <SignInButton />
