@@ -7,6 +7,7 @@ export default async function GetExistingGroup(req, res) {
   if (!session) {
     return res.status(401).json({ message: "Unauthorized" });
   }
+  
   try {
     const group = await prisma.group.findMany({
       where: {

@@ -1,6 +1,8 @@
 import { prisma } from "../../server/db/client";
 import Stripe from "stripe";
 import moment from "moment";
+import { getAccessToken } from "../api/group/paypal"
+import { refundAmount } from "../api/group/paypal"
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2020-08-27",
@@ -57,9 +59,14 @@ export default async function handler(req, res) {
     groupIds.push(groupId);
     if (discountAMt > 0) {
       refundPromises.push(
-        stripe.refunds.create({
-          payment_intent: paymentId,
-          amount: discountAMt,
+        // stripe.refunds.create({
+        //   payment_intent: paymentId,
+        //   amount: discountAMt,
+        // })
+        getAccessToken().then(data => {
+          refundAmount(paymentId,discountAMt,data)
+        }).catch(err => {
+            console.log(err);
         })
       );
     }

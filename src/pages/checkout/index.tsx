@@ -8,15 +8,16 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import * as Yup from "yup";
 import axios from "axios";
-import { Elements } from "@stripe/react-stripe-js";
+// import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../checkout/checkoutform";
 import { Button, Modal } from "react-bootstrap";
-import { loadStripe } from "@stripe/stripe-js";
+// import { loadStripe } from "@stripe/stripe-js";
 import Swal from "sweetalert2";
+import StripeButton from "./stripeButton";
 
 //团购-订单确认
 
-function orderConfirm() {
+function checkOut() {
   const imagePath = "https://api.gr-oops.com/";
   const [cartItem, setCartItem] = useState<any>([]);
   const [step, setStep] = useState(1);
@@ -32,14 +33,16 @@ function orderConfirm() {
   const [clientSecret, setClientSecret] = useState("");
   const [formStatus, setFormStatus] = useState(true);
   const [custome, setCustome] = useState();
-  const stripePromise = loadStripe(
-    "pk_test_51MCWFKI3CTiTs4JqLIbwXO682cGFbfqKkbAQJjfFfkSvGcwjA0GDZvgZkGlFPFTG7ve6CvBRh0IhQtU1Hp9q8Y5I00pmlT9A2M"
-  );
+
+  // uncomment when stripe payment enable
+  // const stripePromise = loadStripe(
+  //   "pk_test_51MCWFKI3CTiTs4JqLIbwXO682cGFbfqKkbAQJjfFfkSvGcwjA0GDZvgZkGlFPFTG7ve6CvBRh0IhQtU1Hp9q8Y5I00pmlT9A2M"
+  // );
 
   const delivery = 10;
   const salesTax = 13;
   const greenFee = 3;
-  const [tipValue, setTipValue] = useState(0);
+  const [tipValue, setTipValue] = useState<any>(0);
   const {
     register,
     setValue,
@@ -66,14 +69,15 @@ function orderConfirm() {
     getAddress();
   }, [step]);
 
-  async function createSecret() {
-    axios
-      .post("/api/createSecret", {
-        amount: parseFloat(total.toFixed(2)),
-      })
-      .then((res: any) => setClientSecret(res.data.clientSecret))
-      .catch((err) => console.log(err));
-  }
+  // uncomment when stripe payment enable
+  // async function createSecret() {
+  //   axios
+  //     .post("/api/createSecret", {
+  //       amount: parseFloat(total.toFixed(2)),
+  //     })
+  //     .then((res: any) => setClientSecret(res.data.clientSecret))
+  //     .catch((err) => console.log(err));
+  // }
 
   useEffect(() => {
     const sub_total = cartItem.reduce(
@@ -84,16 +88,17 @@ function orderConfirm() {
     const finalPrice =
       sub_total +
       delivery +
-      (tipValue ? tipValue : 0) +
+      (tipValue ? parseInt(tipValue) : 0) +
       (subTotal * greenFee + salesTax) / 100;
     setTotal(finalPrice);
   }, [cartItem]);
 
-  useEffect(() => {
-    if (total > 0) {
-      // createSecret();
-    }
-  }, [total]);
+  // encomment for stripe payment
+  // useEffect(() => {
+  //   if (total > 0) {
+  //     // createSecret();
+  //   }
+  // }, [total]);
 
   const handlePrimaryAddress = (event: any) => {
     if (event.target.checked == true) {
@@ -115,8 +120,14 @@ function orderConfirm() {
   };
 
   const handleInputChange = (event: any) => {
-    setTipValue(parseInt(event.target.value));
-    setTotal((prev) => prev + parseInt(event.target.value));
+    let value = event.target.value;
+    setTipValue(value);
+    const finalPrice =
+      subTotal +
+      delivery +
+      (value ? parseInt(value) : 0) +
+      (subTotal * greenFee + salesTax) / 100;
+    setTotal(finalPrice);
   };
 
   const handleFormStatus = (type: any) => {
@@ -163,7 +174,7 @@ function orderConfirm() {
       });
       if (response.status == 200) {
         Swal.fire({
-          title: "Shipping Address",
+          // title: "Shipping Address",
           text: "Shipping Address Add Successfully",
           icon: "success",
           confirmButtonText: "OK",
@@ -186,10 +197,12 @@ function orderConfirm() {
   const appearance: any = {
     theme: "stripe",
   };
-  const options = {
-    clientSecret,
-    appearance,
-  };
+
+  // uncomment for stripe
+  // const options = {
+  //   clientSecret,
+  //   appearance,
+  // };
 
   async function goToGroupOrder() {
     router.push("/group/list");
@@ -205,13 +218,6 @@ function orderConfirm() {
       console.log(e.message);
     }
   };
-
-  const modalClose = (type: any) => {
-    if (type == "true") {
-      handleClose();
-    }
-  };
-
   return (
     <>
       <div className="orderConfirm">
@@ -1344,26 +1350,29 @@ function orderConfirm() {
                   marginBottom: "2rem",
                 }}
               >
-                <button
-                  style={{
-                    margin: "20px",
-                    marginRight: "40px",
-                    cursor: "pointer",
-                    boxShadow:
-                      "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
-                    width: "18rem",
-                    height: "5rem",
-                    background:
-                      "linear-gradient(to right , rgb(100,12,161),  rgb(244,157,94))",
-                    color: "white",
-                    textAlign: "center",
-                    fontSize: "1.5rem",
-                    lineHeight: "5rem",
-                  }}
-                  onClick={goToGroupOrder}
-                >
-                  Group Order
-                </button>
+                {!groupId && (
+                  <button
+                    style={{
+                      margin: "20px",
+                      marginRight: "40px",
+                      cursor: "pointer",
+                      boxShadow:
+                        "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
+                      width: "18rem",
+                      height: "5rem",
+                      background:
+                        "linear-gradient(to right , rgb(100,12,161),  rgb(244,157,94))",
+                      color: "white",
+                      textAlign: "center",
+                      fontSize: "1.5rem",
+                      lineHeight: "5rem",
+                    }}
+                    onClick={goToGroupOrder}
+                  >
+                    Group Order
+                  </button>
+                )}
+
                 <button
                   onClick={handleShow}
                   style={{
@@ -1400,21 +1409,37 @@ function orderConfirm() {
                 Total Order Amount : {total}
               </label>
             </div>
+
+            {/* stripe payment */}
+            {/* <div className="card mt-3">
+              <div className="card-body">
+                {clientSecret && stripePromise && (
+                  <Elements options={options} stripe={stripePromise}>
+                    <StripeButton
+                      groupId={groupId}
+                      modalClose={modalClose}
+                      salesTax={salesTax}
+                      delivery={delivery}
+                      tipDelivery={tipValue}
+                      greenFee={greenFee}
+                      total={total}
+                    />
+                  </Elements>
+                )}
+              </div>
+            </div> */}
+
+            {/* paypal element */}
             <div className="card mt-3">
               <div className="card-body">
-                {/* {clientSecret && stripePromise && (
-                  <Elements options={options} stripe={stripePromise}> */}
                 <CheckoutForm
                   groupId={groupId}
-                  modalClose={modalClose}
                   salesTax={salesTax}
                   delivery={delivery}
                   tipDelivery={tipValue}
                   greenFee={greenFee}
                   total={total}
                 />
-                {/* </Elements> */}
-                {/* )} */}
               </div>
             </div>
           </Modal.Body>
@@ -1431,7 +1456,7 @@ function orderConfirm() {
   );
 }
 
-export default orderConfirm;
+export default checkOut;
 
 function AddressList({ address }: { address: any }) {
   return (

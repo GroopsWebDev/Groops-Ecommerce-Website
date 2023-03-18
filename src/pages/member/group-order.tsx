@@ -1,28 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { GetServerSideProps } from "next";
 //nextAuth
 import { useSession, getSession } from "next-auth/react";
-
-//When I click logout, it will redirect to the guestHome page
-// export const getServerSideProps: GetServerSideProps = async (req) => {
-//   const session = await getSession(req);
-//   if (!session) {
-//     return {
-//       redirect: {
-//         destination: "/components/guest/group-order",
-//         permanent: false,
-//       },
-//     };
-//   }
-//   return { props: { session } };
-// };
+import axios from "axios";
+import { Image } from "react-bootstrap";
+import OrderList from "../../components/orderList/orderList";
 
 const groupOrder = () => {
+  const [order, setOrder] = useState([]);
+  useEffect(() => {
+    getOrder();
+  }, []);
+
+  const getOrder = async () => {
+    const res = await axios.get("/api/order/groupOrder");
+    console.log(res.data.order);
+    if (res.data.status == 200) {
+      setOrder(res.data.order);
+    }
+  };
   return (
     <>
-
       <div className="text-6xl">
-        Member Group Order Page
+        <OrderList orders={order} />
       </div>
     </>
   );
