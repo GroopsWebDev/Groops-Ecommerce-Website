@@ -1330,7 +1330,7 @@ function checkOut() {
                     <div style={{ marginTop: "3rem", fontSize: "2rem" }}>
                       Total
                       <span style={{ fontSize: "1.4rem", marginLeft: "5px" }}>
-                        (Taxes and Delivery Fee excluded)
+                        (Taxes and Delivery Fee Included)
                       </span>
                     </div>
 
@@ -1516,7 +1516,7 @@ function AddressList({ address }: { address: any }) {
                   justifyContent: "center",
                   marginTop: "1rem",
                 }}
-                onClick={() => {}}
+                onClick={() => { }}
               >
                 {/* {this.state.isChecked ? <svg style={{ cursor: 'pointer' }} viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10303" width="24" height="24"><path d="M512 938.666667C276.352 938.666667 85.333333 747.648 85.333333 512S276.352 85.333333 512 85.333333s426.666667 191.018667 426.666667 426.666667-191.018667 426.666667-426.666667 426.666667z m0-256a170.666667 170.666667 0 1 0 0-341.333334 170.666667 170.666667 0 0 0 0 341.333334z" p-id="10304" fill="#0080F9"></path></svg>
                 : <svg style={{ cursor: 'pointer' }} viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1647" width="24" height="24"><path d="M512 853.333333c-188.586667 0-341.333333-152.746667-341.333333-341.333333s152.746667-341.333333 341.333333-341.333333 341.333333 152.746667 341.333333 341.333333-152.746667 341.333333-341.333333 341.333333m0-768C276.48 85.333333 85.333333 276.48 85.333333 512s191.146667 426.666667 426.666667 426.666667 426.666667-191.146667 426.666667-426.666667S747.52 85.333333 512 85.333333z" fill="" p-id="1648"></path></svg>
