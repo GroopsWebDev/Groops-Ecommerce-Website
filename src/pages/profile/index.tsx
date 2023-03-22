@@ -20,7 +20,7 @@ const schema = yup.object().shape({
     .max(100, "Please enter a full name less than 100 character"),
 
   phone: yup.string().required("phone number field is required"),
-  postCode: yup.number().required("post code field is required"),
+  postCode: yup.string().required("post code field is required"),
 });
 const userSetting = () => {
   const [imageURL, setImageURL] = useState();
@@ -122,7 +122,7 @@ const userSetting = () => {
     if (json.status === 200) {
       const fields = ["name", "phone", "address", "postCode"];
       fields.forEach((field) => {
-        if (json.user[field]) {  
+        if (json.user[field]) {
           setValue(field, json.user[field]);
         } else {
           setValue(field, "");
@@ -157,14 +157,14 @@ const userSetting = () => {
                       }
                       alt=""
                       className="h-full w-full object-cover"
-                       
+
                     />
                   ) : (
                     <img
                       src={user.profilePicture}
                       alt=""
                       className="h-full w-full object-cover"
-                     
+
                     />
                   )}
                 </div>
@@ -177,7 +177,7 @@ const userSetting = () => {
                     className="hidden"
                     name="profilePicture"
                     onChange={handleProfilePictureChange}
-                    accept="image/png, image/gif, image/jpeg" 
+                    accept="image/png, image/gif, image/jpeg"
                   />
                 </label>
               </div>
@@ -207,7 +207,7 @@ const userSetting = () => {
                       />
                     )}
                   />
-                  
+
                   {errors.name && (
                     <span style={{ color: "red" }}>full name is required</span>
                   )}
@@ -253,10 +253,10 @@ const userSetting = () => {
                     render={({ field }) => (
                       <textarea
                         {...field}
-                          rows={4}
-                          id="address"
-                          name="address"
-                          style={inputStyle}
+                        rows={4}
+                        id="address"
+                        name="address"
+                        style={inputStyle}
                       />
                     )}
                   />
@@ -302,7 +302,7 @@ const userSetting = () => {
                     className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 focus:outline-none"
                     id="paymentType"
                     name="paymentType"
-                    //  value={user.paymentType}
+                  //  value={user.paymentType}
                   >
                     {/* <option value="">-- Select Payment Method --</option> */}
                     <option value="paypal">Paypal</option>
