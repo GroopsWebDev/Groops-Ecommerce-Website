@@ -82,8 +82,8 @@ const Shop = () => {
       <Block />
 
       <div className="mt-20 flex justify-center">
-        <button className="square w-40 bg-black py-2 px-4 font-bold text-white hover:scale-110" onClick={loadMore}>
-          More
+        <button className="square w-48 bg-black py-2 px-4 font-bold text-white transform transition duration-300 hover:scale-110" onClick={loadMore}>
+          <div className="text-2xl">More</div>
         </button>
       </div>
       <HelpCenter />

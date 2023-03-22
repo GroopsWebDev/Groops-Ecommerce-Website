@@ -270,7 +270,7 @@ const userSetting = () => {
                     className="mb-2 block font-bold text-gray-700"
                     htmlFor="postCode"
                   >
-                    Post Code
+                    Postal Code
                   </label>
                   <Controller
                     control={control}
@@ -288,7 +288,7 @@ const userSetting = () => {
                   />
 
                   {errors.postCode && (
-                    <span style={{ color: "red" }}>post code is required</span>
+                    <span style={{ color: "red" }}>postal code is required</span>
                   )}
                 </div>
                 <div className="mb-4">
