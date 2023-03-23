@@ -1375,26 +1375,28 @@ function checkOut() {
                   marginBottom: "2rem",
                 }}
               >
-                <button
-                  style={{
-                    margin: "20px",
-                    marginRight: "40px",
-                    cursor: "pointer",
-                    boxShadow:
-                      "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
-                    width: "18rem",
-                    height: "5rem",
-                    background:
-                      "linear-gradient(to right , rgb(100,12,161),  rgb(244,157,94))",
-                    color: "white",
-                    textAlign: "center",
-                    fontSize: "1.5rem",
-                    lineHeight: "5rem",
-                  }}
-                  onClick={goToGroupOrder}
-                >
-                  Group Order
-                </button>
+                {subTotal > 40 && (
+                  <button
+                    style={{
+                      margin: "20px",
+                      marginRight: "40px",
+                      cursor: "pointer",
+                      boxShadow:
+                        "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
+                      width: "18rem",
+                      height: "5rem",
+                      background:
+                        "linear-gradient(to right , rgb(100,12,161),  rgb(244,157,94))",
+                      color: "white",
+                      textAlign: "center",
+                      fontSize: "1.5rem",
+                      lineHeight: "5rem",
+                    }}
+                    onClick={goToGroupOrder}
+                  >
+                    Group Order
+                  </button>
+                )}
 
                 <button
                   onClick={handleShow}
