@@ -13,6 +13,7 @@ import CheckoutForm from "../checkout/checkoutform";
 import { Button, Modal } from "react-bootstrap";
 // import { loadStripe } from "@stripe/stripe-js";
 import Swal from "sweetalert2";
+
 import StripeButton from "./stripeButton";
 
 //团购-订单确认
@@ -54,7 +55,7 @@ function checkOut() {
   const [groupId, setGroupId] = useState<any>(null);
 
   useEffect(() => {
-    setGroupId(localStorage.getItem("groupId"));
+    setGroupId(sessionStorage.getItem("groupId"));
     async function fetchData() {
       const response = await fetch("/api/cart/getcart");
       const data = await response.json();
@@ -68,6 +69,18 @@ function checkOut() {
   useEffect(() => {
     getAddress();
   }, [step]);
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      sessionStorage.clear();
+    };
+
+    router.events.on("routeChangeStart", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, [router.events]);
 
   // uncomment when stripe payment enable
   // async function createSecret() {
@@ -128,6 +141,11 @@ function checkOut() {
       (value ? parseInt(value) : 0) +
       (subTotal * greenFee + salesTax) / 100;
     setTotal(finalPrice);
+    // if (event.target.value) {
+    //   setTotal((prev) => prev + parseInt(event.target.value));
+    // }else{
+
+    // }
   };
 
   const handleFormStatus = (type: any) => {
@@ -218,6 +236,13 @@ function checkOut() {
       console.log(e.message);
     }
   };
+
+  const modalClose = (type: any) => {
+    if (type == "true") {
+      handleClose();
+    }
+  };
+
   return (
     <>
       <div className="orderConfirm">
@@ -433,7 +458,7 @@ function checkOut() {
                   Tips for your Deliverer{" "}
                   <input
                     style={{ marginLeft: "1rem" }}
-                    type="text"
+                    type="number"
                     className="form-control border-dark border"
                     placeholder="$"
                     id="usr"
@@ -1350,28 +1375,26 @@ function checkOut() {
                   marginBottom: "2rem",
                 }}
               >
-                {!groupId && (
-                  <button
-                    style={{
-                      margin: "20px",
-                      marginRight: "40px",
-                      cursor: "pointer",
-                      boxShadow:
-                        "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
-                      width: "18rem",
-                      height: "5rem",
-                      background:
-                        "linear-gradient(to right , rgb(100,12,161),  rgb(244,157,94))",
-                      color: "white",
-                      textAlign: "center",
-                      fontSize: "1.5rem",
-                      lineHeight: "5rem",
-                    }}
-                    onClick={goToGroupOrder}
-                  >
-                    Group Order
-                  </button>
-                )}
+                <button
+                  style={{
+                    margin: "20px",
+                    marginRight: "40px",
+                    cursor: "pointer",
+                    boxShadow:
+                      "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
+                    width: "18rem",
+                    height: "5rem",
+                    background:
+                      "linear-gradient(to right , rgb(100,12,161),  rgb(244,157,94))",
+                    color: "white",
+                    textAlign: "center",
+                    fontSize: "1.5rem",
+                    lineHeight: "5rem",
+                  }}
+                  onClick={goToGroupOrder}
+                >
+                  Group Order
+                </button>
 
                 <button
                   onClick={handleShow}
@@ -1516,7 +1539,7 @@ function AddressList({ address }: { address: any }) {
                   justifyContent: "center",
                   marginTop: "1rem",
                 }}
-                onClick={() => { }}
+                onClick={() => {}}
               >
                 {/* {this.state.isChecked ? <svg style={{ cursor: 'pointer' }} viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10303" width="24" height="24"><path d="M512 938.666667C276.352 938.666667 85.333333 747.648 85.333333 512S276.352 85.333333 512 85.333333s426.666667 191.018667 426.666667 426.666667-191.018667 426.666667-426.666667 426.666667z m0-256a170.666667 170.666667 0 1 0 0-341.333334 170.666667 170.666667 0 0 0 0 341.333334z" p-id="10304" fill="#0080F9"></path></svg>
                 : <svg style={{ cursor: 'pointer' }} viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1647" width="24" height="24"><path d="M512 853.333333c-188.586667 0-341.333333-152.746667-341.333333-341.333333s152.746667-341.333333 341.333333-341.333333 341.333333 152.746667 341.333333 341.333333-152.746667 341.333333-341.333333 341.333333m0-768C276.48 85.333333 85.333333 276.48 85.333333 512s191.146667 426.666667 426.666667 426.666667 426.666667-191.146667 426.666667-426.666667S747.52 85.333333 512 85.333333z" fill="" p-id="1648"></path></svg>

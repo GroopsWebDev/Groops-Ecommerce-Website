@@ -32,6 +32,15 @@ const CreateGroup = () => {
   };
 
   const handleHoursChange = (e: any) => {
+    const hours = 36; // max hours
+    if (e.target.value > hours) {
+      Swal.fire({
+        text: "Waiting time can not be greater than 36 hours.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
     setGroupHours(e.target.value);
   };
 
@@ -63,7 +72,7 @@ const CreateGroup = () => {
         });
         setGroupData(res.data.group);
         setLoading(false);
-        localStorage.setItem("groupId", res.data.group.groupId);
+        sessionStorage.setItem("groupId", res.data.group.groupId);
         router.push("/checkout");
       } else {
         Swal.fire({

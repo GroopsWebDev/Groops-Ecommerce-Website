@@ -457,13 +457,12 @@ function ShoppingCart() {
                       <div style={{ marginTop: "3rem", fontSize: "2rem" }}>
                         Total
                         <span style={{ fontSize: "1.4rem", marginLeft: "5px" }}>
-                          (Taxes and Delivery Fee excluded)
+                          (Taxes and Delivery Fee Included)
                         </span>
                       </div>
                       <div style={{ marginTop: "3rem", fontSize: "2rem" }}>
- 
-                        $ {totalPrice +10 + totalPrice * 16/100 }
-                       </div>
+                        $ {    totalPrice + 10 + (totalPrice * 16) / 100}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -479,25 +478,30 @@ function ShoppingCart() {
                       marginBottom: "5rem",
                     }}
                   >
-                    {" "}
-                    <button
-                      onClick={goToCheckout}
-                      disabled={disable}
-                      style={{
-                        cursor: "pointer",
-                        boxShadow:
-                          "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-                        width: "15rem",
-                        height: "5rem",
-                        backgroundColor: "black",
-                        color: "white",
-                        textAlign: "center",
-                        fontSize: "1.5rem",
-                        lineHeight: "5rem",
-                      }}
-                    >
-                      Checkout
-                    </button>
+                     
+                    {(totalPrice + 10 + (totalPrice * 16) / 100) >40 ?(
+                       <button
+                       onClick={goToCheckout}
+                       disabled={disable}
+                       style={{
+                         cursor: "pointer",
+                         boxShadow:
+                           "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+                         width: "15rem",
+                         height: "5rem",
+                         backgroundColor: "black",
+                         color: "white",
+                         textAlign: "center",
+                         fontSize: "1.5rem",
+                         lineHeight: "5rem",
+                       }}
+                     >
+                       Checkout
+                     </button>
+                    ):(
+                      ""
+                    )}
+                    
                   </div>
                 </div>
               </div>

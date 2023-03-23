@@ -56,7 +56,7 @@ const userSetting = () => {
   });
 
   if (sessionData != undefined && status == true) {
-    setStatus(false)
+    setStatus(false);
     getSelectedUserData(sessionData);
   }
 
@@ -157,14 +157,12 @@ const userSetting = () => {
                       }
                       alt=""
                       className="h-full w-full object-cover"
-
                     />
                   ) : (
                     <img
                       src={user.profilePicture}
                       alt=""
                       className="h-full w-full object-cover"
-
                     />
                   )}
                 </div>
@@ -302,7 +300,7 @@ const userSetting = () => {
                     className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 focus:outline-none"
                     id="paymentType"
                     name="paymentType"
-                  //  value={user.paymentType}
+                    //  value={user.paymentType}
                   >
                     {/* <option value="">-- Select Payment Method --</option> */}
                     <option value="paypal">Paypal</option>
