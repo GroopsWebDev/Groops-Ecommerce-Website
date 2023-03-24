@@ -65,7 +65,7 @@ Lkh123456
 Groops XD Design File Online (missing special fonts): 
 
 ```yaml
-https://js.design/f/2fN44r?p=QP--WCDTeR
+https://js.design/f/DNsqks?p=UVGdizk3Ey
 ```
 
 Download Groops Design File PDF with this link: 
