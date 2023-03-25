@@ -42,39 +42,39 @@ const Home = () => {
   const featuredProducts = [
     {
       item: <PopularProduct className={featuredProductsStyle} />,
-      link: "/product",
+      link: "/product/Popular Products",
     },
     {
       item: <OnSale className={featuredProductsStyle} />,
-      link: "/",
+      link: "/product/On Sale",
     },
     {
       item: <Drinks className={featuredProductsStyle} />,
-      link: "/",
+      link: "/product/Drinks",
     },
     {
       item: <Snacks className={featuredProductsStyle} />,
-      link: "/",
+      link: "/product/Snacks",
     },
     {
       item: <InstantFood className={featuredProductsStyle} />,
-      link: "/",
+      link: "/product/Instant Food",
     },
     {
       item: <FrozenFood className={featuredProductsStyle} />,
-      link: "/",
+      link: "/product/Frozen Food",
     },
     {
       item: <Kitchen className={featuredProductsStyle} />,
-      link: "/",
+      link: "/product/Kitchen",
     },
     {
       item: <PersonalCare className={featuredProductsStyle} />,
-      link: "/",
+      link: "/product/Personal Care",
     },
     {
       item: <Groceries className={featuredProductsStyle} />,
-      link: "/",
+      link: "/product/Groceries",
     },
   ];
 
