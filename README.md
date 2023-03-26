@@ -6,11 +6,24 @@
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
+
+🚨 Groops Task Assignment.dox:
+
+```yaml
+https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EZO35ee6dfFGm_zWHaig7Z8B_96hTGguxeEebz7u2C4V0w?e=BhWNVG
+```
+
 Backend Issues:
 
+```yaml
 https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EakdoHZGzZpFvKwNZ98AobABv7enXlpdPRYVVmxPB3Xatw?e=UoibP1
+```
 
 Miscellaneous OKI Dev Resources:
+
+```yaml
+https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/ERWT4wNFbClPrRtoF49y3eUBeVWG58FtnWjCzUfrirjA8Q?e=JQpzj2
+```
 
 https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/ERWT4wNFbClPrRtoF49y3eUBeVWG58FtnWjCzUfrirjA8Q?e=JQpzj2
 
