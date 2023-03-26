@@ -25,8 +25,6 @@ Miscellaneous OKI Dev Resources:
 https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/ERWT4wNFbClPrRtoF49y3eUBeVWG58FtnWjCzUfrirjA8Q?e=JQpzj2
 ```
 
-https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/ERWT4wNFbClPrRtoF49y3eUBeVWG58FtnWjCzUfrirjA8Q?e=JQpzj2
-
 ## Getting Started
 Clone down this repository. You will need `node.js` and `git` installed globally on your machine.
 
