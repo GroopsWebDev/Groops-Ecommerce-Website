@@ -217,7 +217,15 @@ function checkOut() {
     } catch (e: any) {
       console.log(e.message);
     }
-  };
+  }
+  
+  // go back to shopping cart
+  async function cancelCheckout() {
+    router.push("/member/shoppingCart");  
+  }
+
+  
+  ;
   return (
     <>
       <div className="orderConfirm">
@@ -1391,6 +1399,27 @@ function checkOut() {
                 >
                   Place Order
                 </button>
+                
+                <button
+                  onClick={cancelCheckout}
+                  style={{
+                    margin: "20px",
+                    cursor: "pointer",
+                    boxShadow:
+                      "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
+                    width: "18rem",
+                    height: "5rem",
+                    backgroundColor: "grey",
+                    color: "white",
+                    textAlign: "center",
+                    fontSize: "1.5rem",
+                    lineHeight: "5rem",
+                  }}
+                >
+                  Cancel Checkout
+                </button>
+
+
               </div>
             </div>
           </div>

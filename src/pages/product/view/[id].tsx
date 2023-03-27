@@ -56,7 +56,8 @@ const ProductDetails = () => {
     const data = await res.json();
     setDisable(false);
     if (data.status == 200) {
-      router.push("/member/shoppingCart");
+      // router.push("/member/shoppingCart");   
+      alert( product?.englishProductName + " Added to cart");
     }
   }
 
