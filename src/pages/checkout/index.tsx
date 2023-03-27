@@ -220,7 +220,7 @@ function checkOut() {
   }
   
   // go back to shopping cart
-  async function cancelCheckout() {
+  function cancelCheckout() {
     router.push("/member/shoppingCart");  
   }
 
