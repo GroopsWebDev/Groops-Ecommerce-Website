@@ -441,7 +441,7 @@ function checkOut() {
                   Tips for your Deliverer{" "}
                   <input
                     style={{ marginLeft: "1rem" }}
-                    type="text"
+                    type="number"
                     className="form-control border-dark border"
                     placeholder="$"
                     id="usr"
