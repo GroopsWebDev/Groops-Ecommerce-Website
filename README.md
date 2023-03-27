@@ -7,13 +7,30 @@ https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/ERWT4wNFbClPrRtoF
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
-Backend Issues:
 
+🚨 Groops Task Assignment.dox:
+
+```yaml
+https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EZO35ee6dfFGm_zWHaig7Z8B_96hTGguxeEebz7u2C4V0w?e=BhWNVG
+```
+
+‼️ Frontend Issues:
+
+```yaml
+https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EWTa7gVQt5BNtwNAt9fMI0oBsqjrpnbra-zi0x8voYpU1Q?e=0c2yei
+```
+
+‼️ Backend Issues:
+
+```yaml
 https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EakdoHZGzZpFvKwNZ98AobABv7enXlpdPRYVVmxPB3Xatw?e=UoibP1
+```
 
-Miscellaneous OKI Dev Resources:
+⭐️ Miscellaneous OKI Dev Resources:
 
+```yaml
 https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/ERWT4wNFbClPrRtoF49y3eUBeVWG58FtnWjCzUfrirjA8Q?e=JQpzj2
+```
 
 ## Getting Started
 Clone down this repository. You will need `node.js` and `git` installed globally on your machine.
@@ -66,7 +83,7 @@ Lkh123456
 Groops XD Design File Online (missing special fonts): 
 
 ```yaml
-https://js.design/f/2fN44r?p=QP--WCDTeR
+https://js.design/f/DNsqks?p=UVGdizk3Ey
 ```
 
 Download Groops Design File PDF with this link: 

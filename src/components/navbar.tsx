@@ -157,7 +157,7 @@ const Header = () => {
                       <Popover.Body className="bg-gradient-to-br from-purple-500 to-pink-400 p-1">
                         <div className="h-full w-full bg-white ">
                           <Link
-                            href="/profile"
+                            href="/member/userCenter"
                             className="ml-2 text-lg text-black no-underline hover:text-orange-500 hover:underline"
                           >
                             Account Setting
