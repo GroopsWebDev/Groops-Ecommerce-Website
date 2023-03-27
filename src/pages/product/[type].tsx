@@ -38,7 +38,6 @@ const Shop = () => {
             id="filter"
             value={filter}
             onChange={handleFilter}
-            label="Age"
           >
             <MenuItem value={"PHL"}>Price: High to Low</MenuItem>
             <MenuItem value={"PLH"}>Price: Low to High</MenuItem>
@@ -52,7 +51,6 @@ const Shop = () => {
           <Select className = "w-40"
             value={place}
             onChange={handlePlace}
-            label="Age"
           >
             <MenuItem value={"china"}>China</MenuItem>
             <MenuItem value={"korea"}>Korea</MenuItem>
