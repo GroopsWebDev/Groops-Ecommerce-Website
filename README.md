@@ -25,6 +25,12 @@ https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EWTa7gVQt5BNtwNAt
 https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EakdoHZGzZpFvKwNZ98AobABv7enXlpdPRYVVmxPB3Xatw?e=UoibP1
 ```
 
+⭐️ Backend Resource:
+
+```yaml
+https://docs.google.com/document/d/1o7Gv-NRj29BsmfoKJ8SqpvkHme7VCQwIIcMiVAp1nW4/edit?usp=sharing
+```
+
 ⭐️ Miscellaneous OKI Dev Resources:
 
 ```yaml
