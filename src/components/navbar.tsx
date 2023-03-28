@@ -33,7 +33,7 @@ const Header = () => {
   const navbar_text_item_style =
     "text-xl font-medium text-black no-underline transform transition duration-300 hover:scale-110";
   const navbar_icon_item_style =
-    "w-7 text-black transform transition duration-300 hover:scale-110";
+    "w-7 text-black transform transition duration-300 hover:scale-110 hover:cursor-pointer";
   const user_img = sessionData?.user?.image ? sessionData?.user?.image : null;
 
   const logout = () => {
@@ -209,25 +209,25 @@ const Header = () => {
               <div className="flex items-center space-x-7">
                 <Link
                   href="/"
-                  className="text-xl font-medium text-black no-underline"
+                  className={navbar_text_item_style}
                 >
                   HOME
                 </Link>
                 <Link
-                  href="/"
-                  className="text-xl font-medium text-black no-underline"
+                  href="/product"
+                  className={navbar_text_item_style}
                 >
                   SHOP
                 </Link>
-                {/* <Link
+                <Link
                   href="/guest/group-order"
-                  className="text-xl font-medium text-black no-underline"
+                  className={navbar_text_item_style}
                 >
                   GROUP ORDER
-                </Link> */}
-                <文 className="w-7" />
+                </Link>
+                <文 className={navbar_icon_item_style} />
 
-                <NavSearch className="w-7" />
+                <NavSearch className={navbar_icon_item_style} />
 
                 {sessionData ? (
                   <Link href={url}>
