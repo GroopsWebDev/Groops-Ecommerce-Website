@@ -6,13 +6,44 @@
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
-Backend Issues:
 
+🚨 Groops Task Assignment.dox:
+
+```yaml
+https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EZO35ee6dfFGm_zWHaig7Z8B_96hTGguxeEebz7u2C4V0w?e=BhWNVG
+```
+
+‼️ Frontend Issues:
+
+```yaml
+https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EWTa7gVQt5BNtwNAt9fMI0oBsqjrpnbra-zi0x8voYpU1Q?e=0c2yei
+```
+
+‼️ Backend Issues:
+
+```yaml
 https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EakdoHZGzZpFvKwNZ98AobABv7enXlpdPRYVVmxPB3Xatw?e=UoibP1
+```
 
-Miscellaneous OKI Dev Resources:
+⭐️ Backend Resource:
 
+```yaml
+https://docs.google.com/document/d/1o7Gv-NRj29BsmfoKJ8SqpvkHme7VCQwIIcMiVAp1nW4/edit?usp=sharing
+```
+
+⭐️ Backend Commodities List: (Add these products to DB + Display on the frontend)
+
+```yaml
+https://uwoca-my.sharepoint.com/:x:/g/personal/czhan672_uwo_ca/EbgkCuTfktNItYqdIJKolooBwYDQbcUHkj8rqhmVrJK8vw?e=x0cUj4
+```
+
+
+
+⭐️ Miscellaneous OKI Dev Resources:
+
+```yaml
 https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/ERWT4wNFbClPrRtoF49y3eUBeVWG58FtnWjCzUfrirjA8Q?e=JQpzj2
+```
 
 ## Getting Started
 Clone down this repository. You will need `node.js` and `git` installed globally on your machine.
