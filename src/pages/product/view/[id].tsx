@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 //nextAuth
 import { useSession } from "next-auth/react";
@@ -14,6 +16,8 @@ const ProductDetails = () => {
   const [disable, setDisable] = useState(false);
   const imagePath = "https://api.gr-oops.com/";
   const id = router.query.id;
+  const notify = () => toast.success(product?.englishProductName + " Added to cart 👌"); //react-toastify - Henry
+
   useEffect(() => {
     if (id) {
       setIsLoading(true);
@@ -56,8 +60,9 @@ const ProductDetails = () => {
     const data = await res.json();
     setDisable(false);
     if (data.status == 200) {
-      // router.push("/member/shoppingCart");   
-      alert( product?.englishProductName + " Added to cart");
+      // router.push("/member/shoppingCart");
+      // alert( product?.englishProductName + " Added to cart"); //add tosatify
+      notify();
     }
   }
 
@@ -98,6 +103,18 @@ const ProductDetails = () => {
             >
               Add To Cart
             </button>
+            <ToastContainer
+              position="bottom-right"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
           </div>
         </div>
       )}
