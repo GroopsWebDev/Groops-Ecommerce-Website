@@ -24,6 +24,13 @@ class userCenter extends React.Component<any, any> {
   render() {
 
 
+    setTimeout(() => {
+      if(document.querySelector('.relative')!=null){
+  var a=document.querySelector('.relative')
+      a.style.display='none'
+      }
+        
+    }, 1);
 
     return (
       <>
@@ -98,8 +105,7 @@ class userCenter extends React.Component<any, any> {
             { this.state.menuIndex==0 ? <MyProfile></MyProfile>:this.state.menuIndex==1 ? <MyOrders></MyOrders>:this.state.menuIndex==2 ? <MyAddress></MyAddress>:this.state.menuIndex==3 ? <Lovelist></Lovelist>: <MyWallet></MyWallet>}
           </div>
           
-          <div style={{ height: '4500px' }}></div>
-
+         
         </div>
       </>
     );

@@ -11,7 +11,7 @@ import { FaTiktok } from "react-icons/fa";
 
 const Footer = () => {
     return (
-    <div className="relative text-white">
+    <div style={{display:'block'}}  className="relative text-white"  >
     <FooterSVG className="w-full" />
     <Container className="absolute top-16 left-10 text-white">
       <Row>
