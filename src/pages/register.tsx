@@ -244,8 +244,7 @@ const Register = () => {
               />
             )}
           />
-          yes, I want to receive deals & products information. I can opt out at
-          any time.
+          I agree with Groop's Terms and Conditions.
         </label>
 
         <button type="submit" style={buttonStyle}>

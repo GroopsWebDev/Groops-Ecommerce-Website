@@ -10,17 +10,17 @@ import NavCart from "../../public/assets/navbar/nav-cart.svg";
 import NavSearch from "../../public/assets/navbar/nav-search.svg";
 import NavHeart from "../../public/assets/navbar/nav-heart.svg";
 import Avatar from "../../public/assets/navbar/avatar.svg";
-
 //nextAuth
 import { signIn, signOut, useSession } from "next-auth/react";
 //react-confirm-alert
 import { confirmAlert } from "react-confirm-alert";
-
 import "react-confirm-alert/src/react-confirm-alert.css";
 //react-bootstrap
 import Overlay from "react-bootstrap/Overlay";
 import Popover from "react-bootstrap/Popover";
 import Button from "react-bootstrap/Button";
+//component
+import NavbarSignInBtn from "./elements/navbar-signin-btn";
 
 const Header = () => {
   const { data: sessionData } = useSession();
@@ -236,13 +236,12 @@ const Header = () => {
                 ) : (
                   ""
                 )}
+           <Link href="/login">
+              
+                    {/* <div className="">  Sign in</div> */}
+                    <NavbarSignInBtn />
 
-                <button
-                  className="rounded-full border-4 border-black px-10 py-3 font-semibold no-underline transition"
-                  onClick={() => signIn()}
-                >
-                  Sign in
-                </button>
+                </Link>
               </div>
             </div>
           </header>

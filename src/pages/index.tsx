@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 
 //nextAuth
 import { useSession, getSession } from "next-auth/react";
 //import SVG
 
-import Drinks from "../../public/assets/product/drinks.svg";
 import OurFeaturedProducts from "../../public/assets/product/our-featured-products.svg";
 
 import BecomeMember from "../../public/assets/membership/become-member-img.svg";
@@ -22,7 +20,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 //react icons
 import JoinNowButton from "../components/elements/join-now-btn";
-import SignInButton from "../components/elements/sign-in-btn";
+import HomeSignInButton from "../components/elements/home-signin-btn";
 import Welcome from "../components/welcome";
 import HelpCenter from "../components/help/help-center";
 import axios from "axios";
@@ -138,10 +136,15 @@ const Home = () => {
           <div className="relative">
             <BecomeMember className="w-full" />
             <div className="absolute top-[380px]  left-[115px] ">
+            <Link href="/register">
               <JoinNowButton />
+              </Link>
             </div>
+
             <div className="absolute top-[380px] left-[400px]">
-              <SignInButton />
+              <Link href="/login">
+                <HomeSignInButton />
+              </Link>
             </div>
           </div>
         </div>
