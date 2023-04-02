@@ -157,20 +157,12 @@ const userSetting = () => {
                       }
                       alt=""
                       className="h-full w-full object-cover"
-<<<<<<< HEAD
-
-=======
->>>>>>> 8a1b8af45a2ab18f23b485b75c8e407522e71463
                     />
                   ) : (
                     <img
                       src={user.profilePicture}
                       alt=""
                       className="h-full w-full object-cover"
-<<<<<<< HEAD
-
-=======
->>>>>>> 8a1b8af45a2ab18f23b485b75c8e407522e71463
                     />
                   )}
                 </div>
