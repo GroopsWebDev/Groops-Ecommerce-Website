@@ -58,7 +58,7 @@ const MyWallet = () => {
                 
             </div>
 
-
+            <div style={{ height: '200px' }}></div>
             {/* 提示框 */}
 
          <div id="showWithdraw" className="rounded-3xl border" style={{ display:'none',position:'fixed',right:'15%',top:'35%',width:'850px',height:'450px',backgroundColor:'#ffffff'}}> 
