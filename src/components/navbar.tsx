@@ -112,6 +112,18 @@ const Header = () => {
                     GROUP ORDER
                   </Link>
                 )}
+
+                {sessionData && (
+                  <Link
+                    href="/group/list"
+                    className="text-xl font-medium text-black no-underline"
+                  >
+                    GROUPS
+                  </Link>
+                )}
+
+
+
                 <文 className="w-7" />
                 <NavSearch className="w-7" />
 

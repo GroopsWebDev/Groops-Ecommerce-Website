@@ -13,6 +13,7 @@ import CheckoutForm from "../checkout/checkoutform";
 import { Button, Modal } from "react-bootstrap";
 // import { loadStripe } from "@stripe/stripe-js";
 import Swal from "sweetalert2";
+
 import StripeButton from "./stripeButton";
 
 //团购-订单确认
@@ -54,7 +55,7 @@ function checkOut() {
   const [groupId, setGroupId] = useState<any>(null);
 
   useEffect(() => {
-    setGroupId(localStorage.getItem("groupId"));
+    setGroupId(sessionStorage.getItem("groupId"));
     async function fetchData() {
       const response = await fetch("/api/cart/getcart");
       const data = await response.json();
@@ -68,6 +69,18 @@ function checkOut() {
   useEffect(() => {
     getAddress();
   }, [step]);
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      sessionStorage.clear();
+    };
+
+    router.events.on("routeChangeStart", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, [router.events]);
 
   // uncomment when stripe payment enable
   // async function createSecret() {
@@ -128,6 +141,11 @@ function checkOut() {
       (value ? parseInt(value) : 0) +
       (subTotal * greenFee + salesTax) / 100;
     setTotal(finalPrice);
+    // if (event.target.value) {
+    //   setTotal((prev) => prev + parseInt(event.target.value));
+    // }else{
+
+    // }
   };
 
   const handleFormStatus = (type: any) => {
@@ -218,6 +236,13 @@ function checkOut() {
       console.log(e.message);
     }
   };
+
+  const modalClose = (type: any) => {
+    if (type == "true") {
+      handleClose();
+    }
+  };
+
   return (
     <>
       <div className="orderConfirm">
@@ -433,7 +458,7 @@ function checkOut() {
                   Tips for your Deliverer{" "}
                   <input
                     style={{ marginLeft: "1rem" }}
-                    type="text"
+                    type="number"
                     className="form-control border-dark border"
                     placeholder="$"
                     id="usr"
@@ -1330,7 +1355,7 @@ function checkOut() {
                     <div style={{ marginTop: "3rem", fontSize: "2rem" }}>
                       Total
                       <span style={{ fontSize: "1.4rem", marginLeft: "5px" }}>
-                        (Taxes and Delivery Fee excluded)
+                        (Taxes and Delivery Fee Included)
                       </span>
                     </div>
 
@@ -1350,7 +1375,7 @@ function checkOut() {
                   marginBottom: "2rem",
                 }}
               >
-                {!groupId && (
+                {subTotal > 40 && (
                   <button
                     style={{
                       margin: "20px",
