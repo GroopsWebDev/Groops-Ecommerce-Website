@@ -74,7 +74,7 @@ const UploadButton = () => {
         font-family="League Spartan"
       >
         <tspan x="0" y="0">
-          Add Photos
+          Select Files
         </tspan>
       </text>
     </svg>
@@ -146,15 +146,12 @@ export default function contact() {
               onChange={handle}
             />
 
-            <Button color="secondary" variant="contained" component="span">
-              Upload button
-            </Button>
+            <UploadButton></UploadButton>
 
-            <SelectFilesButton
-              onClick={() => {
-                handle;
-              }}
-            />
+            {/* <Button color="secondary" variant="contained" component="span">
+              Upload button
+            </Button> */}
+
           </label>
         </div>
       </>
@@ -250,17 +247,17 @@ export default function contact() {
         <div className="mt-20 flex justify-center">
           {/* <button className="bg-black px-8 py-2 text-white">Send</button> */}
           <UploadFilesButton onClick={notify} />
-          <ToastContainer 
-          position="bottom-left"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"/>
+          <ToastContainer
+            position="bottom-left"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light" />
         </div>
       </div>
 
