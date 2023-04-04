@@ -31,12 +31,14 @@ const Row = ({ category }: props) => {
         <div className="mb-10 mt-10 flex flex-row flex-wrap justify-center space-x-10">
           {product.map((i: any) => {
             return (
+              <div key={i.skuid}>
               <ProductCard
                 name={i.englishProductName}
                 price={i.price}
                 id={i.skuid}
                 image={i.image}
               />
+              </div>
             );
           })}
         </div>

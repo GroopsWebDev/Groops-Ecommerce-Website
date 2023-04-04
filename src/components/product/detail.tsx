@@ -12,7 +12,6 @@ import {
   AiOutlineMinusSquare,
   AiOutlinePlusSquare,
 } from "react-icons/ai";
-import Link from "next/link";
 
 type props = { id: string; name: string; price: number; image: string };
 

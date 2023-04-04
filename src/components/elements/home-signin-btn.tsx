@@ -3,7 +3,7 @@ import React from "react";
 const HomeSignInButton = () => {
   return (
     <div>
-      <a
+      <button
         className="no-underline text-2xl group relative inline-flex items-center justify-center overflow-hidden rounded-full border-2 border-white px-6 py-3 pt-2 pb-2 pl-14 pr-14 shadow-md transition duration-300 ease-out"
       >
         <span className="ease absolute inset-0 flex h-full w-full -translate-x-full items-center justify-center bg-gradient-to-br from-blue-600 via-purple-600 to-pink-700 text-white duration-300 group-hover:translate-x-0">
@@ -26,7 +26,7 @@ const HomeSignInButton = () => {
           Sign In
         </span>
         <span className="invisible relative">Sign In</span>
-      </a>
+      </button>
     </div>
   );
 };
