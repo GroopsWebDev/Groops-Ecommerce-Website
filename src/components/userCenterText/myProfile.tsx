@@ -30,7 +30,7 @@ Personal Information
 
 
   <div style={{ margin: '5px' }} className="form-check">
-    <input style={{ marginRight: '10px' }} type="radio" id="radio2" name="optradio" value="option2" checked />
+    <input style={{ marginRight: '10px' }} type="radio" id="radio2" name="optradio" value="option2" defaultChecked />
     <label htmlFor="radio2" className="form-check-label" >Ms</label>
   </div>
   <div style={{ margin: '5px' }} className="form-check">
@@ -125,7 +125,7 @@ My Eamil
 
 
   <div style={{ margin: '5px' }} className="form-check">
-    <input style={{ marginRight: '10px' }} type="radio" id="radio2" name="optradio" value="option2" checked />
+    <input style={{ marginRight: '10px' }} type="radio" id="radio2" name="optradio" value="option2" defaultChecked />
     <label htmlFor="radio2" className="form-check-label" >Ms</label>
   </div>
   <div style={{ margin: '5px' }} className="form-check">
@@ -210,7 +210,7 @@ My phone number
 
 
   <div style={{ margin: '5px' }} className="form-check">
-    <input style={{ marginRight: '10px' }} type="radio" id="radio2" name="optradio" value="option2" checked />
+    <input style={{ marginRight: '10px' }} type="radio" id="radio2" name="optradio" value="option2" defaultChecked />
     <label htmlFor="radio2" className="form-check-label" >Ms</label>
   </div>
   <div style={{ margin: '5px' }} className="form-check">
@@ -304,7 +304,7 @@ My password
 
 
   <div style={{ margin: '5px' }} className="form-check">
-    <input style={{ marginRight: '10px' }} type="radio" id="radio2" name="optradio" value="option2" checked />
+    <input style={{ marginRight: '10px' }} type="radio" id="radio2" name="optradio" value="option2" defaultChecked />
     <label htmlFor="radio2" className="form-check-label" >Ms</label>
   </div>
   <div style={{ margin: '5px' }} className="form-check">

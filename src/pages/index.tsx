@@ -1,21 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-//TRPC
-import { api } from "../utils/api";
+
 //nextAuth
 import { useSession, getSession } from "next-auth/react";
 //import SVG
-import PopularProduct from "../../public/assets/product/popular-product.svg";
-import Drinks from "../../public/assets/product/drinks.svg";
+
 import OurFeaturedProducts from "../../public/assets/product/our-featured-products.svg";
-import OnSale from "../../public/assets/product/on-sale.svg";
-import Snacks from "../../public/assets/product/snacks.svg";
-import InstantFood from "../../public/assets/product/instant-food.svg";
-import FrozenFood from "../../public/assets/product/frozen-food.svg";
-import Kitchen from "../../public/assets/product/kitchen.svg";
-import PersonalCare from "../../public/assets/product/personal-care.svg";
-import Groceries from "../../public/assets/product/groceries.svg";
 
 import BecomeMember from "../../public/assets/membership/become-member-img.svg";
 import GroopsMembership from "../../public/assets/membership/groops-membership-text.svg";
@@ -25,58 +15,57 @@ import TopGroups from "../../public/assets/group/top-groups.svg";
 
 //React Bootstrap
 import Container from "react-bootstrap/Container";
+
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 //react icons
 import JoinNowButton from "../components/elements/join-now-btn";
-import SignInButton from "../components/elements/sign-in-btn";
-import ShopNowButton from "../components/elements/shop-now-btn";
-
+import HomeSignInButton from "../components/elements/home-signin-btn";
 import Welcome from "../components/welcome";
 import HelpCenter from "../components/help/help-center";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setCategoryList } from "../app/itemManagement";
+import Loader from "../components/loader/loader";
+
+// import { Carousel } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Carousel from "react-bootstrap/Carousel";
+import { getRemainingTime } from "../utils/utils";
 
 const Home = () => {
   const { data: sessionData } = useSession();
+  const [category, setCategory] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   const featuredProductsStyle =
     "scale-100 ml-10 mr-10 mb-20 transform transition duration-300 hover:scale-110";
-  const featuredProducts = [
-    {
-      item: <PopularProduct className={featuredProductsStyle} />,
-      link: "/product/Popular Products",
-    },
-    {
-      item: <OnSale className={featuredProductsStyle} />,
-      link: "/product/On Sale",
-    },
-    {
-      item: <Drinks className={featuredProductsStyle} />,
-      link: "/product/Drinks",
-    },
-    {
-      item: <Snacks className={featuredProductsStyle} />,
-      link: "/product/Snacks",
-    },
-    {
-      item: <InstantFood className={featuredProductsStyle} />,
-      link: "/product/Instant Food",
-    },
-    {
-      item: <FrozenFood className={featuredProductsStyle} />,
-      link: "/product/Frozen Food",
-    },
-    {
-      item: <Kitchen className={featuredProductsStyle} />,
-      link: "/product/Kitchen",
-    },
-    {
-      item: <PersonalCare className={featuredProductsStyle} />,
-      link: "/product/Personal Care",
-    },
-    {
-      item: <Groceries className={featuredProductsStyle} />,
-      link: "/product/Groceries",
-    },
-  ];
+
+  useEffect(() => {
+    async function fetchCategory() {
+      setLoading(true);
+      const res = await axios.get("/api/category/pagination?page=1&perPage=10");
+      if (res.status == 200) {
+        setCategory(res.data.data);
+        dispatch(setCategoryList(res.data.data));
+        setLoading(false);
+      } else {
+        setLoading(false);
+      }
+    }
+    fetchCategory();
+  }, []);
+
+  const [groups, setGroups] = useState([]);
+  useEffect(() => {
+    const fetch = async () => {
+      const groups = await axios.get("/api/top/group");
+      if (groups.data.status == 200) {
+        setGroups(groups.data.group);
+      }
+    };
+    fetch();
+  }, []);
 
   return (
     <>
@@ -86,47 +75,76 @@ const Home = () => {
 
       {/** Section 2 */}
       <OurFeaturedProducts className="ml-auto mr-auto mt-32 mb-20 w-[466px]" />
-      <Container className="flex-auto justify-center ">
-        {featuredProducts.map((product, index) => {
-          if (index % 3 === 0) {
-            return (
-              <Row key={index}>
-                <Col>
-                  <Link href={featuredProducts[index]!.link}>
-                    {featuredProducts[index]?.item}
+      <Container>
+        {loading ? (
+          <Loader />
+        ) : (
+          <Row>
+            {category.map((category: any, index) => {
+              let url = "https://api.gr-oops.com/" + category.url;
+              return (
+                <Col sm={6} md={4} key={index}>
+                  <Link href={`/product/${category.name}`}>
+                    <img
+                      src={url}
+                      alt={category.name}
+                      className={featuredProductsStyle}
+                    />
                   </Link>
                 </Col>
-                <Col>
-                  <Link href={featuredProducts[index + 1]!.link}>
-                    {featuredProducts[index + 1]?.item}
-                  </Link>
-                </Col>
-                <Col>
-                  <Link href={featuredProducts[index + 2]!.link}>
-                    {featuredProducts[index + 2]?.item}
-                  </Link>
-                </Col>
-              </Row>
-            );
-          }
-        })}
+              );
+            })}
+          </Row>
+        )}
       </Container>
 
       {/** Section 3 Card Carousel*/}
-      <TopGroupsTile className="ml-auto mr-auto mt-10 mb-20 w-60" />
-      <TopGroups className="ml-auto mr-auto w-9/12" />
+      {groups.length > 0 && (
+        <TopGroupsTile className="ml-auto mr-auto mt-10 mb-20 w-60" />
+      )}
+      {/* <TopGroups className="ml-auto mr-auto w-9/12" /> */}
+
+      <div className="container" style={{ maxWidth: "800px" }}>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-12">
+              <Carousel>
+                {groups.map((group: any) => (
+                  <Carousel.Item>
+                    <img
+                      style={{ maxWidth: "800px", maxHeight: "450px" }}
+                      className="d-block w-100"
+                      src={`https://api.gr-oops.com/` + group?.groupImg}
+                      alt={group.groupName}
+                    />
+                    <Carousel.Caption>
+                      <h3>{group.groupName}</h3>
+                      <p>{getRemainingTime(group?.endDate)}</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                ))}
+              </Carousel>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/** Section 4 Become a Groops | Hide this if signed in !!!*/}
-      {sessionData ? null : (
+      {!sessionData && (
         <div>
           <GroopsMembership className="ml-auto mr-auto mt-32 mb-20 w-[430px]" />
           <div className="relative">
             <BecomeMember className="w-full" />
             <div className="absolute top-[380px]  left-[115px] ">
+            <Link href="/register">
               <JoinNowButton />
+              </Link>
             </div>
+
             <div className="absolute top-[380px] left-[400px]">
-              <SignInButton />
+              <Link href="/login">
+                <HomeSignInButton />
+              </Link>
             </div>
           </div>
         </div>

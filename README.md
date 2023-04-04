@@ -1,8 +1,9 @@
-<h1 align="center">
-  Groops E-commerce Website
-</h1>
+# Create T3 App
+https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/ERWT4wNFbClPrRtoF49y3eUBeVWG58FtnWjCzUfrirjA8Q?e=JQpzj2
+(OKI Dev Resources)
 
-# 🚨 Please keep the code confidential! Donnot share any code or business information to the public cloud‼️
+
+
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
@@ -140,3 +141,12 @@ You can check out the [create-t3-app GitHub repository](https://github.com/t3-os
 ## How do I deploy this?
 
 Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+
+
+
+Shopping Cart item storage methods:
+https://www.pc6.com/infoview/Article_29864.html
+
+To add new product information to database(Release 1.0)
+type 'npx prisma studio' in terminal to open localhost port
+the port contains basic UI.
