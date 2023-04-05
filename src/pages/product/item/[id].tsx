@@ -196,14 +196,12 @@ const Comments = () => {
 
   type ratingprop = { rating: number };
 
+  // show stars for rating
   const Stars = ({ rating }: ratingprop) => {
-
     let dummy: number[] = [];
-
     for (let i = 0; i < rating && i < 5; i++) {
       dummy.push(1);
     }
-
     return <div className="flex flex-row absolute z-10 top-5 right-5">
       {dummy.map((_, index) => (<Star key={index}/>))}
     </div>
@@ -213,6 +211,7 @@ const Comments = () => {
     username: string, comments: string, date: string, rating: number
   }
 
+  // a single comment
   const Comment = ({ username, comments, date, rating }: props) => {
     return <>
       <div className="relative">
@@ -227,6 +226,7 @@ const Comments = () => {
     </>
   }
 
+  // a grid of comments
   return <>
     <div className="grid grid-cols-3 gap-3 ml-20 mr-20 mt-20">
       <Comment username="username" comments="Dummy comments"
