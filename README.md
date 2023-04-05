@@ -61,6 +61,10 @@ https://create.t3.gg/en/usage/first-steps
 
 2. Add `.env` file to the root directory and configure the credentials in that file
 
+```yaml
+cp .env.example .env
+```
+
 4. NPM Install
 ```yaml
 npm install
