@@ -16,27 +16,31 @@ import {
 type props = { id: string; name: string; price: number; image: string };
 
 const Detail = ({ id, name, price, image }: props) => {
-  const [heart, setHeart] = useState(false);
   let url = "https://api.gr-oops.com/" + image;
+
+  const [heart, setHeart] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  
   const handleDecreaseQuantity = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
     }
   };
 
-const Detail = ({ name, price }: props) => {
-  const [heart, setHeart] = useState(false)
-
-  return <>
-    <div className="relative text-2xl mb-10" >
-      <Link href="/product/item/id"><Item className="w-1/1 hover:scale-105 duration-300" /></Link>
-      <button className="absolute bottom-16 right-5" onClick={() => { setHeart(!heart) }}>
-        {heart ? <HeartRed className="w-9" /> : <Heart className="w-9" />}
-      </button>
   const handleIncreaseQuantity = () => {
     setQuantity(quantity + 1);
   };
+
+// const Detail = ({ name, price }: props) => {
+//   const [heart, setHeart] = useState(false)
+
+  // return <>
+  //   <div className="relative text-2xl mb-10" >
+  //     <Link href="/product/item/id"><Item className="w-1/1 hover:scale-105 duration-300" /></Link>
+  //     <button className="absolute bottom-16 right-5" onClick={() => { setHeart(!heart) }}>
+  //       {heart ? <HeartRed className="w-9" /> : <Heart className="w-9" />}
+  //     </button>
+
   return (
     <>
       <div className="relative mb-10 overflow-hidden rounded-lg bg-white text-2xl shadow-lg">

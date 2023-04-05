@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import Link from "next/link";
 
-import Detail from "./detail";
+// import Detail from "./detail";
 
 import SeeAll from "../../../public/assets/shop/items/see-all.svg";
 import axios from "axios";
