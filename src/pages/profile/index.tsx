@@ -56,7 +56,7 @@ const userSetting = () => {
   });
 
   if (sessionData != undefined && status == true) {
-    setStatus(false)
+    setStatus(false);
     getSelectedUserData(sessionData);
   }
 
@@ -160,14 +160,12 @@ const userSetting = () => {
                       }
                       alt=""
                       className="h-full w-full object-cover"
-
                     />
                   ) : (
                     <img
                       src={user.profilePicture}
                       alt=""
                       className="h-full w-full object-cover"
-
                     />
                   )}
                 </div>
