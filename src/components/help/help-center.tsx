@@ -20,14 +20,20 @@ const HelpCenter = () => {
     <div className="mb-20">
       <HelpCenterText className="ml-auto mr-auto mt-32 mb-10 w-60" />
       <div className={row_style}>
-        <Link href="/"><QuestionsAboutYourOrder className={item_style} /> </Link>
-        <Link href="/"><DeliveryOrPickup className={item_style} /></Link>
-        <Link href="/"><EarningsWithGroups className={item_style} /></Link>
+        <Link href={{ pathname: "/help/contact", query: { num: 1 } }}>
+          <QuestionsAboutYourOrder className={item_style} /></Link>
+        <Link href={{ pathname: "/help/contact", query: { num: 2 } }}>
+          <DeliveryOrPickup className={item_style} /></Link>
+        <Link href={{ pathname: "/help/contact", query: { num: 3 } }}>
+          <EarningsWithGroups className={item_style} /></Link>
       </div>
       <div className={row_style}>
-        <Link href="/"><AccountAndPurchase className={item_style} /></Link>
-        <Link href="/"><MembershipsAdnGifts className={item_style} /></Link>
-        <Link href="/"><RequestProducts className={item_style} /></Link>
+        <Link href={{ pathname: "/help/contact", query: { num: 4 } }}>
+          <AccountAndPurchase className={item_style} /></Link>
+        <Link href={{ pathname: "/help/contact", query: { num: 5 } }}>
+          <MembershipsAdnGifts className={item_style} /></Link>
+        <Link href={{ pathname: "/help/contact", query: { num: 6 } }}>
+          <RequestProducts className={item_style} /></Link>
       </div>
     </div>
   </>
