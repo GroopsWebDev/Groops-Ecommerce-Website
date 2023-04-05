@@ -61,6 +61,10 @@ https://create.t3.gg/en/usage/first-steps
 
 2. Add `.env` file to the root directory and configure the credentials in that file
 
+```yaml
+cp .env.example .env
+```
+
 4. NPM Install
 ```yaml
 npm install
@@ -68,7 +72,7 @@ npm install
 4. Run `npx prisma db push` from the root directory 
 (This command will sync your Prisma schema with your database and will generate the TypeScript types for the Prisma Client based on your schema.)
 
-🚨 only run this command when 'DATABASE_URL=file:./db.sqlite', otherwise the actual DB would be overwritten!‼️
+🚨 only run this command when 'DATABASE_URL=file:./db.sqlite', otherwise the actual DB would be overwritten‼️
 
 ```yaml
 npx prisma db push
