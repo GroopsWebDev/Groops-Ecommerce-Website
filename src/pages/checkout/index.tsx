@@ -235,7 +235,6 @@ function checkOut() {
     } catch (e: any) {
       console.log(e.message);
     }
-<<<<<<< HEAD
   }
   
   // go back to shopping cart
@@ -245,16 +244,6 @@ function checkOut() {
 
   
   ;
-=======
-  };
-
-  const modalClose = (type: any) => {
-    if (type == "true") {
-      handleClose();
-    }
-  };
-
->>>>>>> Tyson-Backend
   return (
     <>
       <div className="orderConfirm">
@@ -477,7 +466,12 @@ function checkOut() {
                     onChange={handleInputChange}
                     name="username"
                     value={tipValue}
+                    min="0"
                   />
+                  {tipValue < 0 && (
+                    <span style={{ color: "red" }}>
+                      Tip value can not be negative
+                    </span>)}
                 </div>
 
                 <div style={{ paddingBottom: "3rem", paddingTop: "2rem" }}>
