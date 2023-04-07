@@ -21,6 +21,12 @@ const Success = () => {
                 />
                 Your Payment Status : {paymentStatus}
               </h1>
+              <a
+                href="/"
+                className="w-25 mb-12 rounded bg-green-500  p-2 font-bold text-black"
+              >
+                Go To Home
+              </a>
             </div>
           )}
           {paymentStatus === "requires_payment_method" && (

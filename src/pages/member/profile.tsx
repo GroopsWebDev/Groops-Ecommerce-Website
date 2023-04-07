@@ -5,6 +5,7 @@ import { GetServerSideProps } from "next";
 import { api } from "../../utils/api";
 
 const Profile = () => {
+  
   const userName = api.example.getUserID.useQuery();
   return (
     <>
