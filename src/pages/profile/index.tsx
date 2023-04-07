@@ -10,6 +10,8 @@ import { useSession } from "next-auth/react";
 import Swal from "sweetalert2";
 import { ImageUploader } from "../../utils/imageUpload";
 import { CircularProgress } from "@mui/material";
+import { Field } from "formik";
+import { Session } from "inspector";
 
 const schema = yup.object().shape({
   name: yup
@@ -105,7 +107,7 @@ const userSetting = () => {
         confirmButtonText: "OK",
       });
       // redirect to the home page here
-      router.push("/member");
+      router.push("/");
 
     } else {
       setLoading(false);
