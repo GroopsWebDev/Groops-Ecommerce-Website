@@ -23,8 +23,8 @@ const PhoneIcon = () => {
         data-name="􀌾"
         transform="translate(17 28)"
         fill="#fff"
-        font-size="29"
-        font-family="SF Compact"
+        fontSize="29"
+        fontFamily="SF Compact"
       >
         <tspan x="-16.114" y="0">
           􀌾
@@ -58,8 +58,8 @@ const UploadButton = () => {
         data-name="􀅼"
         transform="translate(33.881 37.978)"
         fill="#797979"
-        font-size="33"
-        font-family="SF Compact"
+        fontSize="33"
+        fontFamily="SF Compact"
       >
         <tspan x="0" y="0">
           􀅼
@@ -70,8 +70,8 @@ const UploadButton = () => {
         data-name="Add Photos"
         transform="translate(17.881 65.747)"
         fill="#797979"
-        font-size="15"
-        font-family="League Spartan"
+        fontSize="15"
+        fontFamily="League Spartan"
       >
         <tspan x="0" y="0">
           Select Files
