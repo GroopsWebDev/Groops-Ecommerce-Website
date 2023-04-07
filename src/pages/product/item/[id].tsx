@@ -1,12 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react"
 import { useRouter } from 'next/router';
+import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
 
 import { Spinner } from "react-bootstrap";
 
 import HelpCenter from "../../../components/help/help-center";
 import Advertisement from "../../../../public/assets/shop/advertisement/advertisement.svg";
-import DummyImage from "./dummy-image.svg";
 import Heart from "../../../../public/assets/shop/items/heart.svg"
 import Add from "../../../../public/assets/shop/items/add.svg"
 import Minus from "../../../../public/assets/shop/items/minus.svg"
@@ -17,7 +18,6 @@ import Spec from "../../../../public/assets/product/item/spec.svg"
 import OnPolicy from "../../../../public/assets/product/item/policy-on.svg"
 import OnSpec from "../../../../public/assets/product/item/spec-on.svg"
 import Policies from "../../../../public/assets/product/item/policies.svg"
-import Write from "../../../../public/assets/product/item/write-review.svg"
 import Left from "../../../../public/assets/product/item/left.svg"
 import Right from "../../../../public/assets/product/item/right.svg"
 import Based from "../../../../public/assets/product/item/based-on-like.svg"
@@ -31,10 +31,15 @@ export default function Item() {
 
   const router = useRouter();
   const { id } = router.query;
+  const { data: sessionData } = useSession();
+
   const [page, setPage] = useState(0);
   const [product, setProduct] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [disable, setDisable] = useState(false);
+
   const imagePath = "https://api.gr-oops.com/"
+  const notify = () => toast.success(product?.englishProductName + " Added to cart 👌");
 
   useEffect(() => {
     if (id) {
@@ -55,6 +60,34 @@ export default function Item() {
     }
   }, [id]);
 
+  async function AddToCart() {
+    if (!sessionData) {
+      alert("Login Required");
+      return;
+    }
+    setDisable(true);
+    const postData = {
+      product_id: id,
+      quantity: "1",
+      userId: sessionData?.user?.id,
+    };
+
+    const res = await fetch("/api/cart/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postData),
+    });
+    const data = await res.json();
+    setDisable(false);
+    if (data.status == 200) {
+      // router.push("/member/shoppingCart");
+      // alert( product?.englishProductName + " Added to cart"); //add tosatify
+      notify();
+    }
+  }
+
   const Description = () => {
 
     return <>
@@ -72,7 +105,7 @@ export default function Item() {
           <div className="flex flex-row gap-x-9 mt-5">
             <Add className="mt-1"></Add>
             <Minus className="mt-1"></Minus>
-            <button><AddCart></AddCart></button>
+            <button disabled={disable} onClick={AddToCart}><AddCart /></button>
           </div>
 
           <Based className="mt-10"></Based>
@@ -306,7 +339,7 @@ export default function Item() {
 
     <Advertisement className="w-full mt-20" />
 
-    
+
     <h2 className="text-purple-600 text-center mt-20">Recently Viewed</h2>
     <RecentView></RecentView>
 
