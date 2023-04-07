@@ -44,7 +44,7 @@ const CreateGroup = () => {
         groupId: id,
       });
       if (res.data.status == 200) {
-        localStorage.setItem("groupId", id);
+        sessionStorage.setItem("groupId", id);
         router.push("/checkout");
       } else {
         Swal.fire({

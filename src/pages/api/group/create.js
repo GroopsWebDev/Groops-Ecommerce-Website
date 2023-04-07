@@ -39,7 +39,7 @@ export default async function handler(req, res) {
         include: { product: true },
       });
       const shouldJoin = 40;
-      const totalCartPrice = cart.reduce((a, c) => a + c.product.price, 0);
+      const totalCartPrice = cart.reduce((a, c) => a + (c.product.price * c.qty), 0);
       if (totalCartPrice >= shouldJoin) {
         const existing = await prisma.group.findFirst({
           where: { groupName: groupName },

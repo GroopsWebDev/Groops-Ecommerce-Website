@@ -19,6 +19,7 @@ type props = {
 
 type IOption = {
   "client-id": string;
+  currency?: string;
 };
 
 function CheckoutForm({
@@ -32,6 +33,7 @@ function CheckoutForm({
   const items: Item = {
     amount: {
       value: total,
+      currency: "USD",
     },
   };
   const { data: sessionData } = useSession();
@@ -39,6 +41,7 @@ function CheckoutForm({
   const [message, setMessage] = useState("");
   const [disbale, setDisabled] = useState(false);
   const options: IOption = {
+    currency: "USD",
     "client-id":
       "Ac10w7nB1ajnCTJaCXeynxFdKTxZ4AkSkr834dFwKhGjvXRXIlKsvXKX-VdShQwAxr3wZyLrM5sR1HSB",
   };
@@ -70,7 +73,7 @@ function CheckoutForm({
         salesTax: salesTax,
         delivery: delivery,
         greenFee: greenFee,
-        tipDelivery: tipDelivery,
+        tipDelivery: tipDelivery ? tipDelivery : 0,
         total: total,
       })
       .then((res) => {
@@ -85,7 +88,7 @@ function CheckoutForm({
   return (
     <PayPalScriptProvider options={options}>
       {message && (
-        <p className="flex items-center justify-center p-2">
+        <p className="flex items-center justify-center p-2 text-green-400">
           Payment successful!
         </p>
       )}

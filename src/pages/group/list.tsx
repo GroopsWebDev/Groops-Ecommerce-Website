@@ -1,4 +1,6 @@
 import axios from "axios";
+import moment from "moment";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import {
   Container,
@@ -16,6 +18,7 @@ const GroupList = () => {
   
   const [groups, setGroups] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     const fetch = async () => {
@@ -32,11 +35,11 @@ const GroupList = () => {
   };
 
   const handleCreateGroup = () => {
-    window.location.href = "/group/create";
+    router.push("/group/create");
   };
 
   const redirectTo = (id: string) => {
-    window.location.href = "/group/join/" + id;
+    router.push("/group/join/" + id);
   };
 
   const filteredGroups = groups.filter((group: any) =>
