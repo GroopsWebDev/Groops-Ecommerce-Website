@@ -207,16 +207,10 @@ const Header = () => {
                 <GroopLogo className="w-full" />
               </Link>
               <div className="flex items-center space-x-7">
-                <Link
-                  href="/"
-                  className={navbar_text_item_style}
-                >
+                <Link href="/" className={navbar_text_item_style}>
                   HOME
                 </Link>
-                <Link
-                  href="/product"
-                  className={navbar_text_item_style}
-                >
+                <Link href="/product" className={navbar_text_item_style}>
                   SHOP
                 </Link>
                 <Link
@@ -236,11 +230,9 @@ const Header = () => {
                 ) : (
                   ""
                 )}
-           <Link href="/login">
-              
-                    {/* <div className="">  Sign in</div> */}
-                    <NavbarSignInBtn />
-
+                <Link href="/login">
+                  {/* <div className="">  Sign in</div> */}
+                  <NavbarSignInBtn />
                 </Link>
               </div>
             </div>
