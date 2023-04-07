@@ -1,5 +1,4 @@
 import axios from "axios";
-import moment from "moment";
 import React, { useEffect, useState } from "react";
 import {
   Container,
@@ -14,6 +13,7 @@ import { FaSearch } from "react-icons/fa";
 import { getRemainingTime } from "../../utils/utils";
 
 const GroupList = () => {
+  
   const [groups, setGroups] = useState([]);
   const [searchText, setSearchText] = useState("");
 
