@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { getRemainingTime } from "../../../utils/utils";
 import { CircularProgress } from "@mui/material";
 import Loader from "../../../components/loader/loader";
+import Link from "next/link";
 const CreateGroup = () => {
   const router = useRouter();
 
@@ -104,6 +105,9 @@ const CreateGroup = () => {
             >
               {loading ? <CircularProgress /> : "Join This Group"}
             </button>
+            <Link href="/group/list">
+            <button className="ml-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" >Back to Group List</button>
+            </Link>
           </Col>
           <Col xs={12} md={6} className="my-4">
             <h6>People who joined.</h6>
