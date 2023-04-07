@@ -14,12 +14,15 @@ import {
 import { FaSearch } from "react-icons/fa";
 import { getRemainingTime } from "../../utils/utils";
 
+import HelpCenter from "../../components/help/help-center";
+import { table } from "console";
+
 
 const GroupCenterIcon = () => {
   return <svg xmlns="http://www.w3.org/2000/svg" width="173" height="30" viewBox="0 0 173 30">
-    <text id="_GROUP_CENTRE" data-name="👥 GROUP CENTRE" transform="translate(0 23)" fill="#a638f2" font-size="21" font-family="AppleColorEmoji, Apple Color Emoji">
+    <text id="_GROUP_CENTRE" data-name="👥 GROUP CENTRE" transform="translate(0 23)" fill="#525252" font-size="21" font-family="AppleColorEmoji, Apple Color Emoji">
       <tspan x="0" y="0">👥</tspan>
-      <tspan y="0" font-family="League Spartan" font-weight="500"> GROUP CENTRE</tspan>
+      <tspan y="0" font-family="League Spartan" font-weight="500">GROUP CENTRE</tspan>
     </text>
   </svg>
 }
@@ -34,7 +37,7 @@ const MyGroupIcon = () => {
 }
 
 const CreateGroupButton = () => {
-  return <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 241 62">
+  return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 241 62">
     <defs>
       <linearGradient id="linear-gradient" x1="0.218" y1="0.415" x2="1" y2="1.079" gradientUnits="objectBoundingBox">
         <stop offset="0" stop-color="#6f199b" />
@@ -48,10 +51,12 @@ const CreateGroupButton = () => {
 
 }
 
+type rprops = {num : number}
+type table = {[key : number] : string}
 
-const GroupList = () => {
+const Group = () => {
 
-  const [groups, setGroups] = useState([]);
+  const [groups, setGroups] = useState<any[]>([]);
   const [searchText, setSearchText] = useState("");
   const router = useRouter();
 
@@ -81,20 +86,54 @@ const GroupList = () => {
     group.groupName.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  return (
-    <Container fluid>
-      <nav className="flex flex-wrap items-center justify-center gap-10">
-        <a
-          className="text-purple-500 hover:text-gray-200"
-          href="/group/list"
-        >
-          <GroupCenterIcon></GroupCenterIcon>
-        </a>
-        <a className="text-black hover:text-gray-200" href={"/mygroup"}>
-          <MyGroupIcon></MyGroupIcon>
-        </a>
-      </nav>
+  const GroupRow = ({num} : rprops) => {
 
+    const numTable : table = {
+      1 : "Popular Groups",
+      2 : "New Groups",
+      3 : "Ending Soon"
+    }
+
+    return <>
+      <h1 className="text-center mt-20 text-purple-600">{numTable[num]}</h1>
+      <div className="flex flex-row justify-center place-items-center mt-10 gap-10">
+        {groups.map((group, index) => (
+          index < 4 ?
+            <div key={index}>
+              <img
+                src={`https://api.gr-oops.com/` + group?.groupImg}
+                alt={group.groupName}
+                width="250"
+                className="mr-3 rounded-xl"
+              />
+              <span className="text-blue-400">{group.groupName}</span>
+              <div>Ends in {getRemainingTime(group?.endDate)}</div>
+            </div> : null
+        ))}
+      </div>
+
+    </>
+  }
+
+  return <>
+    {}
+    <nav className="flex flex-wrap items-center justify-center gap-10 mt-10">
+      <a
+        className="text-purple-500 hover:text-gray-200"
+        href="/group/list"
+      >
+        <GroupCenterIcon></GroupCenterIcon>
+      </a>
+      <a className="text-black hover:text-gray-200" href={"/mygroup"}>
+        <MyGroupIcon></MyGroupIcon>
+      </a>
+    </nav>
+
+    <div className="flex flex-row justify-center">
+      <h1 className="mt-20 text-purple-600">Search a Group</h1>
+    </div>
+
+    <div className="mt-10">
       <Row className="justify-content-center align-items-center">
         <Col xs={12} md={6} className="my-3">
           <InputGroup>
@@ -109,60 +148,19 @@ const GroupList = () => {
           </InputGroup>
         </Col>
         <Col xs={12} md={2} className="my-3">
-          {/* <Button
-            variant="primary"
-            onClick={handleCreateGroup}
-            className="w-100"
-          >
+          <button className="w-52" onClick={handleCreateGroup}>
             <CreateGroupButton></CreateGroupButton>
-          </Button> */}
-          <button className="w-52">
-          <CreateGroupButton></CreateGroupButton>
           </button>
         </Col>
       </Row>
-      <Row className="justify-content-center align-items-center">
-        <Col xs={12} md={8} className="my-3">
-          <ListGroup>
-            {filteredGroups.length
-              ? filteredGroups.map((group: any) => (
-                <>
-                  <ListGroup.Item key={group.groupId}>
-                    <div className="flex justify-between">
-                      <div className="justify-content-center align-items-center">
-                        <img
-                          src={`https://api.gr-oops.com/` + group?.groupImg}
-                          alt={group.groupName}
-                          width="250"
-                          height="250"
-                          className="mr-3"
-                        />
-                      </div>
-                      <div className="">
-                        <span>GroupName:- {group.groupName} </span> <br />
-                        <span>
-                          {" "}
-                          End within:- {getRemainingTime(group?.endDate)}
-                        </span>
-                      </div>
-                      <div className="my-5">
-                        <button
-                          onClick={() => redirectTo(group?.groupId)}
-                          className="rounded bg-gradient-to-r from-orange-500 to-blue-500 py-2 px-4 font-bold text-white hover:from-orange-600 hover:to-blue-600"
-                        >
-                          view
-                        </button>
-                      </div>
-                    </div>
-                  </ListGroup.Item>
-                </>
-              ))
-              : "Group Not Found."}
-          </ListGroup>
-        </Col>
-      </Row>
-    </Container>
-  );
+    </div>
+
+    <GroupRow num = {1}></GroupRow>
+    <GroupRow num = {2}></GroupRow>
+    <GroupRow num = {3}></GroupRow>
+
+    <HelpCenter></HelpCenter>
+  </>
 };
 
-export default GroupList;
+export default Group;
