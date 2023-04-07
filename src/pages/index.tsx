@@ -109,8 +109,8 @@ const Home = () => {
           <div className="row">
             <div className="col-12">
               <Carousel>
-                {groups.map((group: any) => (
-                  <Carousel.Item>
+                {groups.map((group: any, index) => (
+                  <Carousel.Item key={index}>
                     <img
                       style={{ maxWidth: "800px", maxHeight: "450px" }}
                       className="d-block w-100"
