@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Swal from "sweetalert2";
-
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { getRemainingTime } from "../../../utils/utils";
 import Loader from "../../../components/loader/loader";
@@ -90,6 +90,9 @@ const CreateGroup = () => {
             >
               End
             </button>
+            <Link href="/group/list">
+            <button className="ml-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" >Back to Group List</button>
+            </Link>
           </Col>
           <Col xs={12} md={6} className="my-4">
             <h6>People who joined.</h6>
