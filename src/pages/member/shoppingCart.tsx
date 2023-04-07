@@ -457,13 +457,12 @@ function ShoppingCart() {
                       <div style={{ marginTop: "3rem", fontSize: "2rem" }}>
                         Total
                         <span style={{ fontSize: "1.4rem", marginLeft: "5px" }}>
-                          (Taxes and Delivery Fee excluded)
+                          (Taxes and Delivery Fee Included)
                         </span>
                       </div>
                       <div style={{ marginTop: "3rem", fontSize: "2rem" }}>
- 
-                        $ {totalPrice +10 + totalPrice * 16/100 }
-                       </div>
+                        $ {totalPrice + 10 + (totalPrice * 16) / 100}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -479,7 +478,6 @@ function ShoppingCart() {
                       marginBottom: "5rem",
                     }}
                   >
-                    {" "}
                     <button
                       onClick={goToCheckout}
                       disabled={disable}

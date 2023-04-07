@@ -56,7 +56,7 @@ const userSetting = () => {
   });
 
   if (sessionData != undefined && status == true) {
-    setStatus(false)
+    setStatus(false);
     getSelectedUserData(sessionData);
   }
 
@@ -104,6 +104,9 @@ const userSetting = () => {
         icon: "success",
         confirmButtonText: "OK",
       });
+      // redirect to the home page here
+      router.push("/member");
+
     } else {
       setLoading(false);
       Swal.fire({
@@ -157,14 +160,12 @@ const userSetting = () => {
                       }
                       alt=""
                       className="h-full w-full object-cover"
-
                     />
                   ) : (
                     <img
                       src={user.profilePicture}
                       alt=""
                       className="h-full w-full object-cover"
-
                     />
                   )}
                 </div>

@@ -56,15 +56,17 @@ export default async function handler(req, res) {
         0
       );
       if (totalCartPrice >= 30) {
-        const group = await prisma.groupMember.create({
-          data: {
-            groupId: groupId,
-            userId: userId,
-          },
+        // const group = await prisma.groupMember.create({
+        //   data: {
+        //     groupId: groupId,
+        //     userId: userId,
+        //   },
+        // });
+        res.status(200).json({
+          status: 200,
+          group: { groupId },
+          message: "Group Join Successfully.",
         });
-        res
-          .status(200)
-          .json({ status: 200, group, message: "Group Join Successfully." });
       } else {
         res.status(200).json({
           status: 400,
