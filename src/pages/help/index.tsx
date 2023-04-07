@@ -1,4 +1,4 @@
-import react from "react";
+import React from "react";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
@@ -15,7 +15,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 
-const Icon = () => {
+const PhoneIcon = () => {
   return (
     <svg className="w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 35">
       <text
@@ -81,7 +81,7 @@ const UploadButton = () => {
   );
 };
 
-export default function contact() {
+export default function Help() {
   const router = useRouter();
   const { num } = router.query;
 
@@ -270,7 +270,7 @@ export default function contact() {
               example@groops-mail.com
             </a>
             &nbsp;
-            <Icon></Icon>
+            <PhoneIcon />
             111-111-111
           </div>
         </button>
