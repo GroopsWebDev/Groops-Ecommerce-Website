@@ -33,7 +33,6 @@ const ProductDetails = () => {
           alert("product not found");
         }
       }
-
       fetchData();
     }
   }, [id]);
