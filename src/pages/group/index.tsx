@@ -9,6 +9,7 @@ import {
 } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
 import { getRemainingTime } from "../../utils/utils";
+import Link from "next/link";
 
 import HelpCenter from "../../components/help/help-center";
 import { table } from "console";
@@ -16,6 +17,7 @@ import { table } from "console";
 import GroupCenterIcon from "../../../public/assets/group/group-center-icon.svg"
 import MyGroupIcon from "../../../public/assets/group/my-group-icon.svg"
 import CreateGroupButton from "../../../public/assets/group/create-group-button.svg"
+import SeeAll from "../../../public/assets/shop/items/see-all.svg";
 
 
 type rprops = {num : number}
@@ -73,8 +75,11 @@ const Group = () => {
               <div>Ends in {getRemainingTime(group?.endDate)}</div>
             </div> : null
         ))}
+        <Link 
+        href={num === 1 ? "/group/popular" : (num === 2 ? "/group/new" : "/group/ending")}>
+        <SeeAll className = "w-20 hover:scale-110 duration-200"/>
+        </Link>
       </div>
-
     </>
   }
 

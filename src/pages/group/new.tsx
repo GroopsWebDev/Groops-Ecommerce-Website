@@ -80,7 +80,7 @@ export default function Popular() {
       </Row>
     </div>
 
-    <h1 className = "text-purple-600 text-center mt-20">Popular Groups</h1>
+    <h1 className = "text-purple-600 text-center mt-20">New Groups</h1>
 
     <div className="flex flex-col place-items-center mt-20">
       {groups.map((group, index) => (
