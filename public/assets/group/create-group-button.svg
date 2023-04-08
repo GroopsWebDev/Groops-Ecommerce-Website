@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 241 62">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.218" y1="0.415" x2="1" y2="1.079" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#6f199b" />
+      <stop offset="1" stop-color="#ffa255" />
+    </linearGradient>
+  </defs>
+  <rect id="Rectangle_841" data-name="Rectangle 841" width="241" height="62" rx="10" fill="url(#linear-gradient)" />
+  <text id="_" data-name="􀅼" transform="translate(27.504 43.5)" fill="#fff" stroke="#fff" stroke-width="0.3"
+    font-size="35" font-family="SF Compact">
+    <tspan x="0" y="0">􀅼</tspan>
+  </text>
+  <text id="Create_a_Group" data-name="Create a Group" transform="translate(69.496 38.215)" fill="#fff" stroke="#fff"
+    stroke-width="0.3" font-size="22" font-family="League Spartan" font-weight="500">
+    <tspan x="0" y="0">Create a Group</tspan>
+  </text>
+</svg>
