@@ -88,7 +88,7 @@ const Group = () => {
     <nav className="flex flex-wrap items-center justify-center gap-10 mt-10">
       <a
         className="text-purple-500 hover:text-gray-200"
-        href="/group/list"
+        href="/group"
       >
         <GroupCenterIcon></GroupCenterIcon>
       </a>
