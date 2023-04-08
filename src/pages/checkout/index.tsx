@@ -236,13 +236,13 @@ function checkOut() {
       console.log(e.message);
     }
   }
-  
+
   // go back to shopping cart
   function cancelCheckout() {
-    router.push("/member/shoppingCart");  
+    router.push("/member/shoppingCart");
   }
 
-  
+
   ;
   return (
     <>
@@ -487,28 +487,11 @@ function checkOut() {
 
             <div>
               <div
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: "1rem",
-                  marginBottom: "5rem",
-                }}
+              className="w-full flex justify-center mt-4 mb-20"
               >
                 <button
                   onClick={() => setStep(2)}
-                  className="border-grey-900 border-2 border-solid  border-current "
-                  style={{
-                    cursor: "pointer",
-                    // boxShadow:
-                    //   "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-                    width: "15rem",
-                    height: "5rem",
-                    backgroundColor: "",
-                    textAlign: "center",
-                    fontSize: "1.5rem",
-                    lineHeight: "4.5rem",
-                  }}
+                  className="border-gray-900 border-2 border-solid border-current w-60 h-20 text-center text-lg leading-18 cursor-pointer"
                 >
                   New Address
                 </button>
@@ -1422,7 +1405,7 @@ function checkOut() {
                 >
                   Place Order
                 </button>
-                
+
                 <button
                   onClick={cancelCheckout}
                   style={{
@@ -1568,7 +1551,7 @@ function AddressList({ address }: { address: any }) {
                   justifyContent: "center",
                   marginTop: "1rem",
                 }}
-                onClick={() => {}}
+                onClick={() => { }}
               >
                 {/* {this.state.isChecked ? <svg style={{ cursor: 'pointer' }} viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10303" width="24" height="24"><path d="M512 938.666667C276.352 938.666667 85.333333 747.648 85.333333 512S276.352 85.333333 512 85.333333s426.666667 191.018667 426.666667 426.666667-191.018667 426.666667-426.666667 426.666667z m0-256a170.666667 170.666667 0 1 0 0-341.333334 170.666667 170.666667 0 0 0 0 341.333334z" p-id="10304" fill="#0080F9"></path></svg>
                 : <svg style={{ cursor: 'pointer' }} viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1647" width="24" height="24"><path d="M512 853.333333c-188.586667 0-341.333333-152.746667-341.333333-341.333333s152.746667-341.333333 341.333333-341.333333 341.333333 152.746667 341.333333 341.333333-152.746667 341.333333-341.333333 341.333333m0-768C276.48 85.333333 85.333333 276.48 85.333333 512s191.146667 426.666667 426.666667 426.666667 426.666667-191.146667 426.666667-426.666667S747.52 85.333333 512 85.333333z" fill="" p-id="1648"></path></svg>
