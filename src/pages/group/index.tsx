@@ -14,8 +14,10 @@ import Link from "next/link";
 import HelpCenter from "../../components/help/help-center";
 import { table } from "console";
 
-import GroupCenterIcon from "../../../public/assets/group/group-center-icon.svg"
-import MyGroupIcon from "../../../public/assets/group/my-group-icon.svg"
+import GroupCenterIcon from "../../../public/assets/group/group-center-icon.svg";
+import MyGroupIcon from "../../../public/assets/group/my-group-icon.svg";
+import GroupCenterIconOn from "../../../public/assets/group/group-center-icon-on.svg";
+import MyGroupIconOn from "../../../public/assets/group/my-group-icon-on.svg";
 import CreateGroupButton from "../../../public/assets/group/create-group-button.svg"
 import SeeAll from "../../../public/assets/shop/items/see-all.svg";
 
@@ -90,7 +92,7 @@ const Group = () => {
         className="text-purple-500 hover:text-gray-200"
         href="/group"
       >
-        <GroupCenterIcon></GroupCenterIcon>
+        <GroupCenterIconOn />
       </a>
       <a className="text-black hover:text-gray-200" href={"/mygroup"}>
         <MyGroupIcon></MyGroupIcon>
