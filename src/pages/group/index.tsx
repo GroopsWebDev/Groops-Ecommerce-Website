@@ -45,10 +45,6 @@ const Group = () => {
     router.push("/group/create");
   };
 
-  const redirectTo = (id: string) => {
-    router.push("/group/join/" + id);
-  };
-
   const filteredGroups = groups.filter((group: any) =>
     group.groupName.toLowerCase().includes(searchText.toLowerCase())
   );
@@ -82,9 +78,8 @@ const Group = () => {
     </>
   }
 
-  
+
   return <>
-    {}
     <nav className="flex flex-wrap items-center justify-center gap-10 mt-10">
       <a
         className="text-purple-500 hover:text-gray-200"
