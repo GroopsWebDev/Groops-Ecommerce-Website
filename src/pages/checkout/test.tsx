@@ -482,7 +482,7 @@ function checkOut() {
             </div>
             {/* Primary Address */}
             {address.length > 0 &&
-              address.map((address: any, index) => <div key={index}><AddressList address={address} /></div>)}
+              address.map((address: any) => <div key={address.id}><AddressList address={address} /></div>)}
             {/* End Primary Address */}
 
             <div>

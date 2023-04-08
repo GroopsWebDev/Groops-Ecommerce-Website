@@ -94,8 +94,8 @@ const GroupList = () => {
           <ListGroup>
             {filteredGroups.length
               ? filteredGroups.map((group: any) => (
-                  <>
-                    <ListGroup.Item key={group.groupId}>
+                  <div key={group.groupId}>
+                    <ListGroup.Item >
                       <div className="flex justify-between">
                         <div className="justify-content-center align-items-center">
                           <img
@@ -123,7 +123,7 @@ const GroupList = () => {
                         </div>
                       </div>
                     </ListGroup.Item>
-                  </>
+                  </div>
                 ))
               : "Group Not Found."}
           </ListGroup>
@@ -134,3 +134,5 @@ const GroupList = () => {
 };
 
 export default GroupList;
+
+
