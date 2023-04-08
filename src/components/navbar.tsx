@@ -101,7 +101,7 @@ const Header = () => {
                 </Link>
                 {sessionData && (
                   <Link
-                    href="/member/group-order"
+                    href="/group"
                     className={navbar_text_item_style}
                   >
                     GROUP ORDER

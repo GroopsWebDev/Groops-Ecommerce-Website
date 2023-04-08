@@ -9,21 +9,14 @@ import {
 } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
 import { getRemainingTime } from "../../utils/utils";
-import Link from "next/link";
 
 import HelpCenter from "../../components/help/help-center";
-import { table } from "console";
-
-import GroupCenterIcon from "../../../public/assets/group/group-center-icon.svg"
-import MyGroupIcon from "../../../public/assets/group/my-group-icon.svg"
-import CreateGroupButton from "../../../public/assets/group/create-group-button.svg"
-import SeeAll from "../../../public/assets/shop/items/see-all.svg";
+import GroupCenterIcon from "../../../public/assets/group/group-center-icon.svg";
+import MyGroupIcon from "../../../public/assets/group/my-group-icon.svg";
+import CreateGroupButton from "../../../public/assets/group/create-group-button.svg";
 
 
-type rprops = {num : number}
-type table = {[key : number] : string}
-
-const Group = () => {
+export default function Popular() {
 
   const [groups, setGroups] = useState<any[]>([]);
   const [searchText, setSearchText] = useState("");
@@ -46,42 +39,6 @@ const Group = () => {
   const handleCreateGroup = () => {
     router.push("/group/create");
   };
-
-  const filteredGroups = groups.filter((group: any) =>
-    group.groupName.toLowerCase().includes(searchText.toLowerCase())
-  );
-
-  const GroupRow = ({num} : rprops) => {
-
-    const numTable : table = {
-      1 : "Popular Groups",
-      2 : "New Groups",
-      3 : "Ending Soon"
-    }
-
-    return <>
-      <h1 className="text-center mt-20 text-purple-600">{numTable[num]}</h1>
-      <div className="flex flex-row justify-center place-items-center mt-10 gap-10">
-        {groups.map((group, index) => (
-          index < 4 ?
-            <div key={index}>
-              <img
-                src={`https://api.gr-oops.com/` + group?.groupImg}
-                alt={group.groupName}
-                width="250"
-                className="mr-3 rounded-xl"
-              />
-              <span className="text-blue-400">{group.groupName}</span>
-              <div>Ends in {getRemainingTime(group?.endDate)}</div>
-            </div> : null
-        ))}
-        <Link 
-        href={num === 1 ? "/group/popular" : (num === 2 ? "/group/new" : "/group/ending")}>
-        <SeeAll className = "w-20 hover:scale-110 duration-200"/>
-        </Link>
-      </div>
-    </>
-  }
 
 
   return <>
@@ -123,12 +80,23 @@ const Group = () => {
       </Row>
     </div>
 
-    <GroupRow num = {1}></GroupRow>
-    <GroupRow num = {2}></GroupRow>
-    <GroupRow num = {3}></GroupRow>
+    <h1 className = "text-purple-600 text-center mt-20">Popular Groups</h1>
 
-    <HelpCenter></HelpCenter>
+    <div className="flex flex-col place-items-center mt-20">
+      {groups.map((group, index) => (
+        <div key={index} className="flex flex-col place-items-center relative">
+          <img
+            src={`https://api.gr-oops.com/` + group?.groupImg}
+            alt={group.groupName}
+            className="rounded-xl w-1/2"
+          />
+          <h5 className="absolute top-3 left-1/4 text-white">{group?.groupName}</h5>
+          <div className="absolute bottom-3 left-1/4 text-white">Ends in {getRemainingTime(group?.endDate)}</div>
+        </div>
+      ))}
+    </div>
+
+    <HelpCenter />
+
   </>
-};
-
-export default Group;
+}

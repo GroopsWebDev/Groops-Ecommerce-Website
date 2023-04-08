@@ -31,7 +31,7 @@ const ProductCard = ({ id, name, price, image }: props) => {
   return (
     <>
       <div className="relative mb-10 overflow-hidden rounded-lg bg-white text-2xl shadow-lg">
-        <Link href={`/product/view/${id}`}>
+        <Link href={`/product/item/${id}`}>
           <img src={url} className="h-64 w-full object-cover object-center" />
         </Link>
         <button
