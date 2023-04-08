@@ -3,8 +3,8 @@ import { GetServerSideProps } from "next";
 //nextAuth
 import { useSession, getSession } from "next-auth/react";
 import axios from "axios";
-import { Image } from "react-bootstrap";
 import OrderList from "../../components/orderList/orderList";
+import PopUpwindow from "../../components/elements/pop-up-window";
 
 const groupOrder = () => {
   const [order, setOrder] = useState([]);
@@ -21,6 +21,7 @@ const groupOrder = () => {
   };
   return (
     <>
+      <PopUpwindow />
       <div className="text-6xl">
         <OrderList orders={order} />
       </div>

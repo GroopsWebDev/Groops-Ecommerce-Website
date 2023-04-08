@@ -348,11 +348,11 @@ const MyWallet = () => {
 const showWithdraw = () => {
   let a = document.querySelector("#showWithdraw");
 
-  a!.style!.display = "block";
+  (a as HTMLElement).style.display = "block";
 };
 const hiddenWithdraw = () => {
   let a = document.querySelector("#showWithdraw");
 
-  a.style.display = "none";
+  (a as HTMLElement).style.display = "block";
 };
 export default MyWallet;
