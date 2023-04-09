@@ -14,6 +14,7 @@ import HelpCenter from "../../components/help/help-center";
 import GroupCenterIcon from "../../../public/assets/group/group-center-icon.svg";
 import MyGroupIcon from "../../../public/assets/group/my-group-icon.svg";
 import CreateGroupButton from "../../../public/assets/group/create-group-button.svg";
+import GroupCenterIconOn from "../../../public/assets/group/group-center-icon-on.svg";
 
 
 export default function Popular() {
@@ -47,7 +48,7 @@ export default function Popular() {
         className="text-purple-500 hover:text-gray-200"
         href="/group"
       >
-        <GroupCenterIcon></GroupCenterIcon>
+        <GroupCenterIconOn />
       </a>
       <a className="text-black hover:text-gray-200" href={"/mygroup"}>
         <MyGroupIcon></MyGroupIcon>
