@@ -90,8 +90,8 @@ const CreateGroup = () => {
             >
               End
             </button>
-            <Link href="/group/list">
-            <button className="ml-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" >Back to Group List</button>
+            <Link href="/mygroup">
+            <button className="ml-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" >Back to My Groups</button>
             </Link>
           </Col>
           <Col xs={12} md={6} className="my-4">

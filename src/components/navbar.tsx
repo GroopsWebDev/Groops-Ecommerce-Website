@@ -214,7 +214,7 @@ const Header = () => {
                   SHOP
                 </Link>
                 <Link
-                  href="/guest/group-order"
+                  href="/group"
                   className={navbar_text_item_style}
                 >
                   GROUP ORDER
