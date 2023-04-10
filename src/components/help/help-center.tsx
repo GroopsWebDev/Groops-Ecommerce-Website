@@ -20,19 +20,19 @@ const HelpCenter = () => {
     <div className="mb-20">
       <HelpCenterText className="ml-auto mr-auto mt-32 mb-10 w-60" />
       <div className={row_style}>
-        <Link href={{ pathname: "/help/contact", query: { num: 1 } }}>
+        <Link href={{ pathname: "/help", query: { num: 1 } }}>
           <QuestionsAboutYourOrder className={item_style} /></Link>
-        <Link href={{ pathname: "/help/contact", query: { num: 2 } }}>
+        <Link href={{ pathname: "/help", query: { num: 2 } }}>
           <DeliveryOrPickup className={item_style} /></Link>
-        <Link href={{ pathname: "/help/contact", query: { num: 3 } }}>
+        <Link href={{ pathname: "/help", query: { num: 3 } }}>
           <EarningsWithGroups className={item_style} /></Link>
       </div>
       <div className={row_style}>
-        <Link href={{ pathname: "/help/contact", query: { num: 4 } }}>
+        <Link href={{ pathname: "/help", query: { num: 4 } }}>
           <AccountAndPurchase className={item_style} /></Link>
-        <Link href={{ pathname: "/help/contact", query: { num: 5 } }}>
+        <Link href={{ pathname: "/help", query: { num: 5 } }}>
           <MembershipsAdnGifts className={item_style} /></Link>
-        <Link href={{ pathname: "/help/contact", query: { num: 6 } }}>
+        <Link href={{ pathname: "/help", query: { num: 6 } }}>
           <RequestProducts className={item_style} /></Link>
       </div>
     </div>

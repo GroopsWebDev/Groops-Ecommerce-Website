@@ -215,7 +215,7 @@ const UserCenter = () => {
                 onClick={() => {
                   setMenuIndex(0);
                 }}
-                className={`bg-[#5B196A] bg-purple-900 py-4 pl-16 hover:bg-purple-600`}
+                className="bg-purple-900 py-4 pl-16 hover:bg-purple-600"
               >
                 {" "}
                 My Profile

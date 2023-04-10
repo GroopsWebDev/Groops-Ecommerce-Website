@@ -56,20 +56,16 @@ export function generateCode() {
   return result;
 }
 
-import moment from "moment";
-
-export function getRemainingTime(date) {
-  const now = moment();
-  
-  const diff = moment(date).diff(now , "hours");
-  const  positiveDiff = Math.abs(diff);
-
-  const remainingHours = positiveDiff % 24;
-  const remainingDays = Math.floor(positiveDiff / 24);
-
-  if (positiveDiff <= 24) {
-    return `${positiveDiff} hours`;
-  } else {
-    return `${remainingDays} days, ${remainingHours} hours`;
+export function getRemainingTime(endDate) {
+  const end = new Date(endDate);
+  const now = new Date();
+  const timeLeft = end.getTime() - now.getTime();
+  if (timeLeft < 0) {
+    return '0 days 0 hours';
   }
+  const daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+  const hoursLeft = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+  return `${daysLeft} days ${hoursLeft} hours`;
 }
+
+

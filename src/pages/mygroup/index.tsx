@@ -13,6 +13,7 @@ import {
 import { FaSearch } from "react-icons/fa";
 import Loader from "../../components/loader/loader";
 import { getRemainingTime } from "../../utils/utils";
+import Link from "next/link";
 
 
 const GroupList = () => {
@@ -56,14 +57,14 @@ const GroupList = () => {
         <div className="flex">
           <ul className="flex">
             <li className="mr-6">
-              <a className="text-purple-500 hover:text-gray-200" href="/group/list">
+              <Link className="text-purple-500 hover:text-gray-200" href="/group">
                 Group Center
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="text-black hover:text-gray-200" href={"/mygroup"}>
+              <Link className="text-black hover:text-gray-200" href={"/mygroup"}>
                 My Groups
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

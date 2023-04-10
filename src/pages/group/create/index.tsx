@@ -1,4 +1,5 @@
 import axios from "axios";
+import Link from "next/link";
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
@@ -9,6 +10,7 @@ import moment from "moment";
 import { getRemainingTime } from "../../../utils/utils";
 import { useRouter } from "next/router";
 import { CircularProgress } from "@mui/material";
+
 const CreateGroup = () => {
   const [groupImage, setGroupImage] = useState("");
   const [groupName, setGroupName] = useState("");
@@ -192,8 +194,11 @@ const CreateGroup = () => {
               className="mx-2"
               style={{ backgroundColor: "#355C7D", borderColor: "#355C7D" }}
             >
-              Cancel
+              Reset
             </Button>
+            <Link href="/group/list">
+            <Button className="mx-2" >Back to Group List</Button>
+            </Link>
           </div>
         </Form>
       ) : (
