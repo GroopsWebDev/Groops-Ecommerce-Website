@@ -1,10 +1,3 @@
-<h1 align="center">Groops E-commerce website</h1>
-
-🚨 Groops Task Assignment.dox:
-
-```yaml
-https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EZO35ee6dfFGm_zWHaig7Z8B_96hTGguxeEebz7u2C4V0w?e=BhWNVG
-```
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
