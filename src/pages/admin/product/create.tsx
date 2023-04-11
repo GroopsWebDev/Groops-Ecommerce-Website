@@ -10,8 +10,14 @@ import { ImageUploader } from '../../../utils/imageUpload';
 import { v4 as uuidv4 } from 'uuid';
 import Swal from "sweetalert2";
 import { CircularProgress } from '@mui/material';
+import { Interface } from 'readline';
 
-const productUploadPage: NextPage = ({productId, singleProductData}) => {
+interface Props {
+    productId: string;
+    singleProductData: any;
+}
+
+const productUploadPage = ({productId, singleProductData}: Props) => {
     
     const [alcoholStatus, setAlcoholStatus] = useState(
     [
@@ -333,9 +339,9 @@ const productUploadPage: NextPage = ({productId, singleProductData}) => {
                                     required: true,
                                 })}  >
                                 {
-                                    alcoholStatus.map( (list, index) =>
-                                    <option key={index} value={list.value} selected={selectedStatus == list.value}>{list.label}</option>
-                                    )
+                                    // alcoholStatus.map( (list, index) =>
+                                    // <option key={index} value={list.value} selected={selectedStatus == list.value}>{list.label}</option>
+                                    // )
                                 }
                              </select>      
                             </div>
@@ -372,9 +378,9 @@ const productUploadPage: NextPage = ({productId, singleProductData}) => {
                                 })}>
                                 <option value="">--Select Category--</option>    
                                 {
-                                    categoryList.map( (list, index) =>
-                                    <option key={index} value={list.id}>{list.name}</option>
-                                    )
+                                    // categoryList.map( (list, index) =>
+                                    // <option key={index} value={list.id}>{list.name}</option>
+                                    // )
                                 }
                              </select>
                              {errors.categoryId && (
@@ -454,7 +460,7 @@ const productUploadPage: NextPage = ({productId, singleProductData}) => {
                                 {...register("description", {
                                     required: true,
                                 })}
-                                rows="3"
+                                rows={3}
                                 name="description"
                                 id="description"
                                 autoComplete="given-name"
