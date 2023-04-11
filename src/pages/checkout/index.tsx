@@ -1412,52 +1412,59 @@ function checkOut() {
                   marginBottom: "2rem",
                 }}
               >
-                {subTotal>39?
-                (<button
-                  onClick={cancelCheckout}
-                  style={{
-                    margin: "20px",
-                    cursor: "pointer",
-                    boxShadow:
-                      "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
-                    width: "18rem",
-                    height: "5rem",
-                    backgroundColor: "grey",
-                    color: "white",
-                    textAlign: "center",
-                    fontSize: "1.5rem",
-                    lineHeight: "5rem",
-                  }}
-                >
-                  Back to Cart
-                </button>):(<Link href="/product" className="m-5">
-                  <ShopMoreButton text={"Shop More"}/>
-                </Link>)}
-        
-               
-
-                {/* Group Order btn */}
-                {subTotal > 39 && (
-                  <button
-                    style={{
-                      margin: "20px",
-                      marginRight: "40px",
-                      cursor: "pointer",
-                      boxShadow:
-                        "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
-                      width: "18rem",
-                      height: "5rem",
-                      background:
-                        "linear-gradient(to right , rgb(100,12,161),  rgb(244,157,94))",
-                      color: "white",
-                      textAlign: "center",
-                      fontSize: "1.5rem",
-                      lineHeight: "5rem",
-                    }}
-                    onClick={goToGroupOrder}
-                  >
-                    Group Order
-                  </button>
+                {subTotal > 39 ? (
+                  <div>
+                    <button
+                      onClick={cancelCheckout}
+                      style={{
+                        margin: "20px",
+                        cursor: "pointer",
+                        boxShadow:
+                          "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
+                        width: "18rem",
+                        height: "5rem",
+                        backgroundColor: "grey",
+                        color: "white",
+                        textAlign: "center",
+                        fontSize: "1.5rem",
+                        lineHeight: "5rem",
+                      }}
+                    >
+                      Back to Cart
+                    </button>
+                    <button
+                      style={{
+                        margin: "20px",
+                        marginRight: "40px",
+                        cursor: "pointer",
+                        boxShadow:
+                          "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
+                        width: "18rem",
+                        height: "5rem",
+                        background:
+                          "linear-gradient(to right , rgb(100,12,161),  rgb(244,157,94))",
+                        color: "white",
+                        textAlign: "center",
+                        fontSize: "1.5rem",
+                        lineHeight: "5rem",
+                      }}
+                      onClick={goToGroupOrder}
+                    >
+                      Group Order
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <Link href="/product" className="m-5">
+                      <ShopMoreButton text={"Shop More"} />
+                    </Link>
+                    <button
+                      className="m-5 mr-10 h-20 w-64 cursor-pointer border border-pink-800 text-center text-2xl leading-10 text-white"
+                      onClick={goToGroupOrder}
+                    >
+                      Group Order
+                    </button>
+                  </>
                 )}
 
                 {/* only group order; no individual order */}
