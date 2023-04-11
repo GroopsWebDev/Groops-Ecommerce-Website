@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-
 import HelpCenter from "../../components/help/help-center";
 import Divider from "../../components/shoppingCart/divider";
 import React, { useEffect } from "react";
@@ -13,8 +12,12 @@ import CheckoutForm from "../checkout/checkoutform";
 import { Button, Modal } from "react-bootstrap";
 // import { loadStripe } from "@stripe/stripe-js";
 import Swal from "sweetalert2";
-
 import StripeButton from "./stripeButton";
+import ExitPopupButton from "../../components/elements/exit-pop-up-btn";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import Link from "next/link";
+import ShopMoreButton from "../../components/elements/shop-more-btn";
 
 //团购-订单确认
 
@@ -30,7 +33,7 @@ function checkOut() {
   const [isChecked, setIsChecked] = useState(true);
   const [customeStatus, setCustomeStatus] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const handleShow = () => setShow(true); //for place order btn
   const [clientSecret, setClientSecret] = useState("");
   const [formStatus, setFormStatus] = useState(true);
   const [custome, setCustome] = useState();
@@ -222,9 +225,47 @@ function checkOut() {
   //   appearance,
   // };
 
-  async function goToGroupOrder() {
-    router.push("/group/list");
-  }
+  const goToGroupOrder = () => {
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div className="rounded-md border-2 border-black bg-white">
+            <div className="m-4">
+              <h1>Group Mode</h1>
+              <p>You’re entering the group mode. </p>
+              <p>
+                In this mode you will go to the group order directly when
+                checkout, The minimum order amount will be $39 (tax excluded).
+              </p>
+              <p>
+                Your group/group member status will be canceled if you leave
+                Groops! without completing an order.
+              </p>
+              <p>
+                You can click on “Select items” on the process bar to continue
+                the group order, or you can go to “Shopping Cart” to continue
+                the group order.
+              </p>
+              <p>
+                By clicking “OK”, you agree to the above terms and conditions.
+              </p>
+              <div className="flex justify-center">
+                <Link href="/group">
+                  <ExitPopupButton
+                    onClick={() => {
+                      onClose();
+                    }}
+                    text="OK"
+                    className="ml-4"
+                  />
+                </Link>
+              </div>
+            </div>
+          </div>
+        );
+      },
+    });
+  };
 
   const getAddress = async () => {
     try {
@@ -235,15 +276,13 @@ function checkOut() {
     } catch (e: any) {
       console.log(e.message);
     }
-  }
+  };
 
   // go back to shopping cart
   function cancelCheckout() {
     router.push("/member/shoppingCart");
   }
 
-
-  ;
   return (
     <>
       <div className="orderConfirm">
@@ -471,7 +510,8 @@ function checkOut() {
                   {tipValue < 0 && (
                     <span style={{ color: "red" }}>
                       Tip value can not be negative
-                    </span>)}
+                    </span>
+                  )}
                 </div>
 
                 <div style={{ paddingBottom: "3rem", paddingTop: "2rem" }}>
@@ -482,16 +522,18 @@ function checkOut() {
             </div>
             {/* Primary Address */}
             {address.length > 0 &&
-              address.map((address: any, index) => <div key={index}><AddressList address={address} /></div>)}
+              address.map((address: any, index) => (
+                <div key={index}>
+                  <AddressList address={address} />
+                </div>
+              ))}
             {/* End Primary Address */}
 
             <div>
-              <div
-              className="w-full flex justify-center mt-4 mb-20"
-              >
+              <div className="mt-4 mb-20 flex w-full justify-center">
                 <button
                   onClick={() => setStep(2)}
-                  className="border-gray-900 border-2 border-solid border-current w-60 h-20 text-center text-lg leading-18 cursor-pointer"
+                  className="leading-18 h-20 w-60 cursor-pointer border-2 border-solid border-gray-900 border-current text-center text-lg"
                 >
                   New Address
                 </button>
@@ -1355,16 +1397,47 @@ function checkOut() {
                 </div>
               </div>
 
+              {subTotal < 39 && (
+                <div className="mt-20 flex justify-center text-3xl">
+                  The minimum order amount will be $39 (tax excluded).
+                </div>
+              )}
+
               <div
                 style={{
                   width: "100%",
                   display: "flex",
                   flexDirection: "row-reverse",
-                  marginTop: "5rem",
+                  marginTop: "2rem",
                   marginBottom: "2rem",
                 }}
               >
-                {subTotal > 40 && (
+                {subTotal>39?
+                (<button
+                  onClick={cancelCheckout}
+                  style={{
+                    margin: "20px",
+                    cursor: "pointer",
+                    boxShadow:
+                      "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
+                    width: "18rem",
+                    height: "5rem",
+                    backgroundColor: "grey",
+                    color: "white",
+                    textAlign: "center",
+                    fontSize: "1.5rem",
+                    lineHeight: "5rem",
+                  }}
+                >
+                  Back to Cart
+                </button>):(<Link href="/product" className="m-5">
+                  <ShopMoreButton text={"Shop More"}/>
+                </Link>)}
+        
+               
+
+                {/* Group Order btn */}
+                {subTotal > 39 && (
                   <button
                     style={{
                       margin: "20px",
@@ -1387,7 +1460,8 @@ function checkOut() {
                   </button>
                 )}
 
-                <button
+                {/* only group order; no individual order */}
+                {/* <button
                   onClick={handleShow}
                   style={{
                     margin: "20px",
@@ -1404,28 +1478,7 @@ function checkOut() {
                   }}
                 >
                   Place Order
-                </button>
-
-                <button
-                  onClick={cancelCheckout}
-                  style={{
-                    margin: "20px",
-                    cursor: "pointer",
-                    boxShadow:
-                      "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
-                    width: "18rem",
-                    height: "5rem",
-                    backgroundColor: "grey",
-                    color: "white",
-                    textAlign: "center",
-                    fontSize: "1.5rem",
-                    lineHeight: "5rem",
-                  }}
-                >
-                  Cancel Checkout
-                </button>
-
-
+                </button> */}
               </div>
             </div>
           </div>
@@ -1551,7 +1604,7 @@ function AddressList({ address }: { address: any }) {
                   justifyContent: "center",
                   marginTop: "1rem",
                 }}
-                onClick={() => { }}
+                onClick={() => {}}
               >
                 {/* {this.state.isChecked ? <svg style={{ cursor: 'pointer' }} viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10303" width="24" height="24"><path d="M512 938.666667C276.352 938.666667 85.333333 747.648 85.333333 512S276.352 85.333333 512 85.333333s426.666667 191.018667 426.666667 426.666667-191.018667 426.666667-426.666667 426.666667z m0-256a170.666667 170.666667 0 1 0 0-341.333334 170.666667 170.666667 0 0 0 0 341.333334z" p-id="10304" fill="#0080F9"></path></svg>
                 : <svg style={{ cursor: 'pointer' }} viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1647" width="24" height="24"><path d="M512 853.333333c-188.586667 0-341.333333-152.746667-341.333333-341.333333s152.746667-341.333333 341.333333-341.333333 341.333333 152.746667 341.333333 341.333333-152.746667 341.333333-341.333333 341.333333m0-768C276.48 85.333333 85.333333 276.48 85.333333 512s191.146667 426.666667 426.666667 426.666667 426.666667-191.146667 426.666667-426.666667S747.52 85.333333 512 85.333333z" fill="" p-id="1648"></path></svg>

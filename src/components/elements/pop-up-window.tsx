@@ -1,8 +1,6 @@
 import React from "react";
-import UploadFilesButton from "./help-center-send-files-btn";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import Button from "react-bootstrap/Button";
 import JoinGroupButton from "./join-group-btn";
 import ExitPopupButton from "./exit-pop-up-btn";
 

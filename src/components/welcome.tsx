@@ -20,7 +20,7 @@ const Welcome = () => {
             <WelcomeImage1 className="w-full" />
             <div className="absolute top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 transform">
               <Link href="/product">
-                <ShopNowButton />
+                <ShopNowButton text="Shop Now"/>
               </Link>
             </div>
           </div>
@@ -31,17 +31,18 @@ const Welcome = () => {
             <WelcomeImage2 className="w-full" />
             <div className="absolute top-3/4 left-1/4 -translate-x-1/2 -translate-y-1/2 transform">
             <Link href="/product">
-                <ShopNowButton />
+                <ShopNowButton text="Shop Now"/>
               </Link>
             </div>
           </div>
         </Carousel.Item>
+        
         <Carousel.Item>
           <div className="relative h-fit font-sans text-white">
             <WelcomeImage3 className="w-full" />
             <div className="absolute top-3/4 left-1/4 -translate-x-1/2 -translate-y-1/2 transform">
             <Link href="/product">
-                <ShopNowButton />
+                <ShopNowButton text="Shop Now"/>
               </Link>
             </div>
           </div>
