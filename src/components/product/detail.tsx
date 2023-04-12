@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import Link from "next/link";
-import Heart from "../../../public/assets/shop/items/heart.svg";
-import HeartRed from "../../../public/assets/shop/items/heart-red.svg";
-import Add from "../../../public/assets/shop/items/add.svg";
-import Minus from "../../../public/assets/shop/items/minus.svg";
 import {
   AiFillHeart,
   AiFillMinusSquare,

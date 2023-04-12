@@ -1,8 +1,6 @@
 import React from "react";
-import UploadFilesButton from "./help-center-send-files-btn";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import Button from "react-bootstrap/Button";
 import JoinGroupButton from "./join-group-btn";
 import ExitPopupButton from "./exit-pop-up-btn";
 
@@ -14,7 +12,7 @@ const PopUpwindow = () => {
         return (
             <div className="rounded-md border-2 border-black bg-white">
             <div className="m-4">
-              <h1>You have joined Fairy's group successfully</h1>
+              <h1>You have joined Fairy&apos;s group successfully</h1>
               <p>This group ends in 2 days</p>
               <p>This group has in 5 members | 10% discount earned</p>
               <p>Next step to to proceed your checkout </p>
@@ -46,7 +44,7 @@ const PopUpwindow = () => {
         return (
             <div className="rounded-md border-2 border-black bg-white">
             <div className="m-4">
-              <h3>It looks like you are already in John's Group </h3>
+              <h3>It looks like you are already in John&apos;s Group </h3>
               <p>One member can only join one group at a time</p>
               <p>You can always quit the your current group and join a new group</p>
               <div className="flex justify-center">
@@ -74,3 +72,5 @@ const PopUpwindow = () => {
 };
 
 export default PopUpwindow;
+
+

@@ -1,5 +1,11 @@
 // This is your test secret API key.
-const stripe = require("stripe")("sk_test_51MCWFKI3CTiTs4JqSMOnqsY2c2ZotTNkLMQ1KmQN2ICp3e4haPzmGP7Iuu1Otf7gFIn0ZOM3ObZTr3kghaa5G1Ef00X3qMPPjZ");
+// const stripe = require("stripe")("sk_test_51MCWFKI3CTiTs4JqSMOnqsY2c2ZotTNkLMQ1KmQN2ICp3e4haPzmGP7Iuu1Otf7gFIn0ZOM3ObZTr3kghaa5G1Ef00X3qMPPjZ");
+
+import { Stripe } from "stripe";
+const stripe = new Stripe(
+  "sk_test_51MCWFKI3CTiTs4JqSMOnqsY2c2ZotTNkLMQ1KmQN2ICp3e4haPzmGP7Iuu1Otf7gFIn0ZOM3ObZTr3kghaa5G1Ef00X3qMPPjZ",
+  { apiVersion: "2020-08-27" }
+);
 
 const calculateOrderAmount = (items) => {
   // Replace this constant with a calculation of the order's amount

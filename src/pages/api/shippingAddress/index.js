@@ -2,8 +2,6 @@ import { prisma } from "../../../server/db/client";
 import { NextApiHandler } from 'next';
 import handlePrismaError from "../../../utils/prismaExpHanlder";
 
-
-
 async function CreateCart(req, res) {
     try {
 

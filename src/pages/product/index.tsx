@@ -17,7 +17,6 @@ import Snack from "../../../public/assets/shop/category/snack.svg";
 import Personal from "../../../public/assets/shop/category/personal.svg";
 
 import Advertisement from "../../../public/assets/shop/advertisement/advertisement.svg";
-import { Container } from "react-bootstrap";
 
 const Product = () => {
   const style: string = "";

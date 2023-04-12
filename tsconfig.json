@@ -26,11 +26,12 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs",
-    "src/pages/api/checkout_sessions/index.js",
-    "src/pages/api/cart/index.js",
-    "src/utils/utils.js",
-    "src/pages/api/checkout_sessions/[id].js",
-    "src/utils/get-stripe.js"
+    "**/*.js", //include js files - Henry testing
+    // "src/pages/api/checkout_sessions/index.js",
+    // "src/pages/api/cart/index.js",
+    // "src/utils/utils.js",
+    // "src/pages/api/checkout_sessions/[id].js",
+    // "src/utils/get-stripe.js"
   ],
   "exclude": [
     "node_modules"

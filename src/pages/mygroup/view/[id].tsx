@@ -7,13 +7,17 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { getRemainingTime } from "../../../utils/utils";
 import Loader from "../../../components/loader/loader";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import ExitPopupButton from "../../../components/elements/exit-pop-up-btn";
+
 const CreateGroup = () => {
   const router = useRouter();
-
   const { id } = router.query;
   const [groupData, setGroupData] = useState<any>();
   const { data: sessionData } = useSession();
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     if (typeof window !== "undefined" && id) {
       setLoading(true);
@@ -34,6 +38,33 @@ const CreateGroup = () => {
       fetch();
     }
   }, [id]);
+
+  const handleEndGroup = () => {
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+            <div className="rounded-md border-2 border-black bg-white">
+            <div className="m-4">
+              <h1>Are you sure to end this group now?</h1>
+              <p>(If the group ends now, all benefits associated with this group will be evaluated based on the current group size.)</p>
+              <div className="flex justify-center">
+                <ExitPopupButton
+                  onClick={onClose}
+                  text="Cancel"
+                  className="mr-4"
+                />
+                <ExitPopupButton
+                  onClick={() => {mygroupEnd(),onClose()}}
+                  text="End Group"
+                  className="ml-4"
+                />
+              </div>
+            </div>
+          </div>
+        );
+      },
+    });
+  };
 
   async function mygroupEnd() {
     const postData = {
@@ -86,7 +117,7 @@ const CreateGroup = () => {
             <br />
             <button
               className="my-2 rounded bg-gradient-to-r from-orange-500 to-blue-500 py-2 px-4 font-bold text-white hover:from-orange-600 hover:to-blue-600"
-              onClick={mygroupEnd}
+              onClick={handleEndGroup}
             >
               End
             </button>
