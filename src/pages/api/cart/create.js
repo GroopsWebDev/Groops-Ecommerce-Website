@@ -2,7 +2,7 @@ import { prisma } from "../../../server/db/client";
 
 async function CreateCart(req, res) {
   try{
-    const { product_id, quantity, userId } = req.body;
+    // const { product_id, quantity, userId } = req.body;
 
     const existingCartItem = await prisma.cart.findFirst({
       where: {
@@ -30,10 +30,10 @@ async function CreateCart(req, res) {
           qty: quantity,
         },
       });
-      res.json({ status: 200, cartItem });
+      res.json({ status: 200, cartItem })
     }
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ message: error.message })
   }
 }
 

@@ -1,5 +1,7 @@
+import stripe from "stripe";
+
 // This is your test secret API key.
-const stripe = require("stripe")(
+const stripe = stripe(
   "sk_test_51MCWFKI3CTiTs4JqSMOnqsY2c2ZotTNkLMQ1KmQN2ICp3e4haPzmGP7Iuu1Otf7gFIn0ZOM3ObZTr3kghaa5G1Ef00X3qMPPjZ"
 );
 
@@ -30,5 +32,4 @@ export default async function handler(req, res) {
     return res.status(500).json({ messae: e.message });
   }
 }
-
 
