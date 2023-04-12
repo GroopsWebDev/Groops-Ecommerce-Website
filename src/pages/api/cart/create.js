@@ -1,4 +1,6 @@
-import { prisma } from "../../../server/db/client";
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 async function CreateCart(req, res) {
   try{
@@ -38,3 +40,4 @@ async function CreateCart(req, res) {
 }
 
 export default CreateCart;
+
