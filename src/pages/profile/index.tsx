@@ -10,6 +10,7 @@ import { useSession } from "next-auth/react";
 import Swal from "sweetalert2";
 import { ImageUploader } from "../../utils/imageUpload";
 import { CircularProgress } from "@mui/material";
+import Image from "next/image";
 
 const schema = yup.object().shape({
   name: yup
@@ -22,7 +23,8 @@ const schema = yup.object().shape({
   phone: yup.string().required("phone number field is required"),
   postCode: yup.string().required("post code field is required"),
 });
-const userSetting = () => {
+
+const UserSetting = () => {
   const [imageURL, setImageURL] = useState();
   const [fileData, setFileData] = useState<any>();
   const router = useRouter();
@@ -106,7 +108,6 @@ const userSetting = () => {
       });
       // redirect to the home page here
       router.push("/member");
-
     } else {
       setLoading(false);
       Swal.fire({
@@ -152,7 +153,7 @@ const userSetting = () => {
               <div style={{ marginLeft: "200px", marginTop: "150px" }}>
                 <div className="mr-4 h-32 w-32 overflow-hidden rounded-full shadow-sm">
                   {imageURL != undefined ? (
-                    <img
+                    <Image
                       src={
                         user.profilePicture == ""
                           ? endPointURl + "/" + imageURL
@@ -162,7 +163,7 @@ const userSetting = () => {
                       className="h-full w-full object-cover"
                     />
                   ) : (
-                    <img
+                    <Image
                       src={user.profilePicture}
                       alt=""
                       className="h-full w-full object-cover"
@@ -289,7 +290,9 @@ const userSetting = () => {
                   />
 
                   {errors.postCode && (
-                    <span style={{ color: "red" }}>postal code is required</span>
+                    <span style={{ color: "red" }}>
+                      postal code is required
+                    </span>
                   )}
                 </div>
                 <div className="mb-4">
@@ -303,7 +306,7 @@ const userSetting = () => {
                     className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 focus:outline-none"
                     id="paymentType"
                     name="paymentType"
-                  //  value={user.paymentType}
+                    //  value={user.paymentType}
                   >
                     {/* <option value="">-- Select Payment Method --</option> */}
                     <option value="paypal">Paypal</option>
@@ -333,4 +336,4 @@ const userSetting = () => {
     </>
   );
 };
-export default userSetting;
+export default UserSetting;

@@ -28,6 +28,7 @@ const ProductCard = ({ id, name, price, image }: props) => {
   const handleIncreaseQuantity = () => {
     setQuantity(quantity + 1);
   };
+  
   return (
     <>
       <div className="relative mb-10 overflow-hidden rounded-lg bg-white text-2xl shadow-lg">

@@ -11,7 +11,7 @@ async function CreateCart(req, res) {
       },
     });
     if (existingCartItem) {
-      let qty = parseInt(existingCartItem.qty) + parseInt(quantity);
+      const qty = parseInt(existingCartItem.qty) + parseInt(quantity);
       await prisma.cart.update({
         where: {
           id: existingCartItem.id,

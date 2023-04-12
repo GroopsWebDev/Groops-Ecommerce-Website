@@ -159,7 +159,6 @@ const myProfile = () => {
 
                   <div>
                     <div
-                      onClick={() => {}}
                       style={{
                         width: "100%",
                         display: "flex",
@@ -314,7 +313,6 @@ const myProfile = () => {
 
                   <div>
                     <div
-                      onClick={() => {}}
                       style={{
                         width: "100%",
                         display: "flex",
@@ -508,7 +506,6 @@ const myProfile = () => {
 
                   <div>
                     <div
-                      onClick={() => {}}
                       style={{
                         width: "100%",
                         display: "flex",
@@ -705,7 +702,6 @@ const myProfile = () => {
                   </div>
                   <div>
                     <div
-                      onClick={() => {}}
                       style={{
                         width: "100%",
                         display: "flex",
