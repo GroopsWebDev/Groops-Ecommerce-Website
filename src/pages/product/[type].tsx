@@ -15,10 +15,10 @@ const Shop = () => {
   const [product, setProduct] = useState([]);
   const router = useRouter();
   const { type } = router.query;
-  let perPage = 10;
+  const perPage = 10;
 
   const loadMore = ( ) => {
-    let perPage = 10; 
+    const perPage = 10; 
   };
   
   

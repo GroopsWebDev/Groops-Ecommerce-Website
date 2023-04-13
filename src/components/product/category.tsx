@@ -14,7 +14,7 @@ import { string } from "zod";
 
 const Catergory = () => {
 
-  const style:string = "hover:scale-110 duration-300"
+  const style = "hover:scale-110 duration-300"
 
   return <>
     <div className="flex flex-wrap w-full gap-10 mt-10 mb-10">

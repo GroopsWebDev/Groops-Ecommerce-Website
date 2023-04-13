@@ -129,7 +129,7 @@ const CreateGroup = () => {
             <h6>People who joined.</h6>
             <div className="flex justify-between">
               {groupData?.groupMember.map((i: any) => (
-                <div>
+                <div key={i.user.name}>
                   <img
                     className="my-2 h-16 w-16 rounded-full ring-2 ring-gray-500"
                     src={`https://api.gr-oops.com/${
