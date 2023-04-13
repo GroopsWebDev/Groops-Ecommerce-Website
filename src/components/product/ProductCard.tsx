@@ -17,7 +17,7 @@ type props = { id: string; name: string; price: number; image: string };
 
 const ProductCard = ({ id, name, price, image }: props) => {
   const [heart, setHeart] = useState(false);
-  let url = "https://api.gr-oops.com/" + image;
+  const url = "https://api.gr-oops.com/" + image;
   const [quantity, setQuantity] = useState(1);
   const handleDecreaseQuantity = () => {
     if (quantity > 1) {

@@ -35,6 +35,7 @@ const CreateGroup = () => {
 
   const handleHoursChange = (e: any) => {
     const hours = 36; // max hours
+                      // check placeholders as well in case change this value
     if (e.target.value > hours) {
       Swal.fire({
         text: "Waiting time can not be greater than 36 hours.",
@@ -49,15 +50,36 @@ const CreateGroup = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    if (!groupName || !groupImage || !groupHours) {
+    if (!groupName) {
       Swal.fire({
         title: "Error",
-        text: "Form Validation Error.",
+        text: "Form Validation Error: No GroupName is Found.",
         icon: "error",
         confirmButtonText: "OK",
       });
       return;
     }
+
+    if (!groupImage) {
+      Swal.fire({
+        title: "Error",
+        text: "Form Validation Error: No Group Image Found.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+    if (!groupHours) {
+      Swal.fire({
+        title: "Error",
+        text: "Form Validation Error: No Group Hours Found.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
     try {
       setLoading(true);
       const res = await axios.post("/api/group/create", {
@@ -148,6 +170,8 @@ const CreateGroup = () => {
                 <Form.Control
                   type="number"
                   min={1}
+                  max = {36}
+                  placeholder="Max 36 hrs"
                   value={groupHours}
                   onChange={handleHoursChange}
                 />

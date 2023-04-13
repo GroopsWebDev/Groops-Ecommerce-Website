@@ -10,6 +10,8 @@ import { useSession } from "next-auth/react";
 import Swal from "sweetalert2";
 import { ImageUploader } from "../../utils/imageUpload";
 import { CircularProgress } from "@mui/material";
+import { Field } from "formik";
+import { Session } from "inspector";
 import Image from "next/image";
 
 const schema = yup.object().shape({
@@ -108,6 +110,7 @@ const UserSetting = () => {
       });
       // redirect to the home page here
       router.push("/member");
+
     } else {
       setLoading(false);
       Swal.fire({
