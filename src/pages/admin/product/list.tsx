@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import Link from "next/link";
@@ -10,12 +9,12 @@ import InputLabel from "@mui/material/InputLabel";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import ReactPaginate from "react-paginate";
 
-var page = 1;
-var perPage = 10;
-var type = "NoFilter";
-var categoryType = "";
+const page = 1;
+const perPage = 10;
+const type = "NoFilter";
+const categoryType = "";
 
-const productListPage: NextPage = () => {
+const ProductListPage = () => {
   const [productData, setProductData] = useState([{}]);
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState("");
@@ -30,7 +29,7 @@ const productListPage: NextPage = () => {
 
   const handleFilter = (event: SelectChangeEvent) => {
     setFilter(event.target.value);
-    getList(page, perPage, (type = "Filter"), event.target.value);
+    getList(page, perPage, "Filter", event.target.value);
   };
 
   const [place, setPlace] = useState("");
@@ -51,18 +50,12 @@ const productListPage: NextPage = () => {
     categoryType: any
   ) {
     setLoading(true);
-    let rObj;
-    if (type == "Filter") {
-      rObj = {
-        categoryName: categoryType,
-        sortBy: "desc",
-      };
-    } else {
-      rObj = {
-        page: pageType + 1,
-        perPage: perPageType,
-      };
-    }
+    const rObj = {
+      page: pageType + 1,
+      perPage: perPageType,
+      categoryName: categoryType ? categoryType : undefined,
+      sortBy: "desc",
+    };
     const response = await fetch(apiUrl + "product/pagination", {
       method: "POST",
       body: JSON.stringify(rObj),
@@ -201,4 +194,4 @@ const productListPage: NextPage = () => {
   );
 };
 
-export default productListPage;
+export default ProductListPage;

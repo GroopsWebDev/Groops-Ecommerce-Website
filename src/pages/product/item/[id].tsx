@@ -33,7 +33,7 @@ export default function Item() {
   const [page, setPage] = useState(0);
   const [product, setProduct] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [disable, setDisable] = useState(false);
+  // const [disable, setDisable] = useState(false);
 
   const imagePath = "https://api.gr-oops.com/";
   const notify = () =>

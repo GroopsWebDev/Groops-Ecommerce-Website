@@ -9,9 +9,8 @@ import NavPerson from "../../public/assets/navbar/nav-person.svg";
 import NavCart from "../../public/assets/navbar/nav-cart.svg";
 import NavSearch from "../../public/assets/navbar/nav-search.svg";
 import NavHeart from "../../public/assets/navbar/nav-heart.svg";
-import Avatar from "../../public/assets/navbar/avatar.svg";
 //nextAuth
-import { signIn, signOut, useSession } from "next-auth/react";
+import {  signOut, useSession } from "next-auth/react";
 //react-confirm-alert
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
@@ -27,7 +26,7 @@ const Header = () => {
   const [showOverlay, setShowOverlay] = useState(false); //ref for overlay
   const [target, setTarget] = useState(null); //target for overlay
   const ref = useRef(null); //ref for overlay
-  const { push, asPath } = useRouter();
+  const { push } = useRouter();
   const firstName = sessionData?.user?.name?.split(" ")[0];
   const url = "/member/shoppingCart";
   const navbar_text_item_style =
@@ -76,10 +75,6 @@ const Header = () => {
   const handleClick = (event: any) => {
     setShowOverlay(!showOverlay);
     setTarget(event.target);
-  };
-
-  const gotocart = () => {
-    push("/member/shoppingCart");
   };
 
   return (
