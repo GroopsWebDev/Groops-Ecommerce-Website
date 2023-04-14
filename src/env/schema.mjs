@@ -21,8 +21,6 @@ export const serverSchema = z.object({
   ),
   GOOGLE_CLIENT_ID: z.string(),
   GOOGLE_CLIENT_SECRET: z.string(),
-  STRIPE_PUBLISHABLE_KEY: z.string(),
-  STRIPE_SECRET_KEY: z.string(),
   MINIO_ACCESS_KEY: z.string(),
   MINIO_SECRET_KEY: z.string(),
   MINIO_ENDPOINT: z.string(),
