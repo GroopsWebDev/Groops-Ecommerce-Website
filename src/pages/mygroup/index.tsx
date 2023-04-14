@@ -1,3 +1,4 @@
+import HelpCenter from "../../components/help/help-center";
 import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -92,11 +93,10 @@ const GroupList = () => {
           </Button>
         </Col>
       </Row>
-      <Row className="justify-content-center align-items-center">
-        <Col xs={12} md={8} className="my-3">
+      <div className="flex justify-content-center h-96 align-items-center">
         {loading ? (
           <Loader />
-        ) : (
+        ) : filteredGroups.length > 0 ? (
           <ListGroup>
           {filteredGroups.map((group: any) => (
             <>
@@ -131,9 +131,14 @@ const GroupList = () => {
             </>
           ))}
         </ListGroup>
+        ) : (
+          <div className="h-2/5">
+            <h1>It looks like you dont have any groups here. Go create one!</h1>
+          </div>
+          
         )}
-        </Col>
-      </Row>
+      </div>
+      <HelpCenter />
     </Container>
   );
 };
