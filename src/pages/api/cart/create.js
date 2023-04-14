@@ -1,10 +1,11 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';  //doesnt work
+const prisma = new PrismaClient();//doesnt work
 
-const prisma = new PrismaClient();
+// import { prisma } from "../../../server/db/client";
 
 async function CreateCart(req, res) {
   try{
-    // const { product_id, quantity, userId } = req.body;
+    const { product_id, quantity, userId } = req.body;
 
     const existingCartItem = await prisma.cart.findFirst({
       where: {
