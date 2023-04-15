@@ -12,7 +12,6 @@ import CheckoutForm from "../checkout/checkoutform";
 import { Button, Modal } from "react-bootstrap";
 // import { loadStripe } from "@stripe/stripe-js";
 import Swal from "sweetalert2";
-import StripeButton from "./stripeButton";
 import ExitPopupButton from "../../components/tailwind-buttons/exit-pop-up-btn";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
@@ -21,7 +20,7 @@ import ShopMoreButton from "../../components/tailwind-buttons/shop-more-btn";
 
 //团购-订单确认
 
-function checkOut() {
+function useCheckOut() {
   const imagePath = "https://api.gr-oops.com/";
   const [cartItem, setCartItem] = useState<any>([]);
   const [step, setStep] = useState(1);
@@ -136,7 +135,7 @@ function checkOut() {
   };
 
   const handleInputChange = (event: any) => {
-    let value = event.target.value;
+    const value = event.target.value;
     setTipValue(value);
     const finalPrice =
       subTotal +
@@ -177,7 +176,7 @@ function checkOut() {
 
   async function onSubmit(data: any) {
     try {
-      let rObj = {
+      const rObj = {
         firstName: data.userType + "." + data.firstName,
         lastName: data.lastName,
         address1: data.address1,
@@ -1505,25 +1504,7 @@ function checkOut() {
               </label>
             </div>
 
-            {/* stripe payment */}
-            {/* <div className="card mt-3">
-              <div className="card-body">
-                {clientSecret && stripePromise && (
-                  <Elements options={options} stripe={stripePromise}>
-                    <StripeButton
-                      groupId={groupId}
-                      modalClose={modalClose}
-                      salesTax={salesTax}
-                      delivery={delivery}
-                      tipDelivery={tipValue}
-                      greenFee={greenFee}
-                      total={total}
-                    />
-                  </Elements>
-                )}
-              </div>
-            </div> */}
-
+          
             {/* paypal element */}
             <div className="card mt-3">
               <div className="card-body">
@@ -1551,7 +1532,7 @@ function checkOut() {
   );
 }
 
-export default checkOut;
+export default useCheckOut;
 
 function AddressList({ address }: { address: any }) {
   return (
@@ -1611,7 +1592,9 @@ function AddressList({ address }: { address: any }) {
                   justifyContent: "center",
                   marginTop: "1rem",
                 }}
-                onClick={() => {}}
+                
+                // onClick={() => {}}     // Unexpected empty arrow function.  @typescript-eslint/no-empty-function
+
               >
                 {/* {this.state.isChecked ? <svg style={{ cursor: 'pointer' }} viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10303" width="24" height="24"><path d="M512 938.666667C276.352 938.666667 85.333333 747.648 85.333333 512S276.352 85.333333 512 85.333333s426.666667 191.018667 426.666667 426.666667-191.018667 426.666667-426.666667 426.666667z m0-256a170.666667 170.666667 0 1 0 0-341.333334 170.666667 170.666667 0 0 0 0 341.333334z" p-id="10304" fill="#0080F9"></path></svg>
                 : <svg style={{ cursor: 'pointer' }} viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1647" width="24" height="24"><path d="M512 853.333333c-188.586667 0-341.333333-152.746667-341.333333-341.333333s152.746667-341.333333 341.333333-341.333333 341.333333 152.746667 341.333333 341.333333-152.746667 341.333333-341.333333 341.333333m0-768C276.48 85.333333 85.333333 276.48 85.333333 512s191.146667 426.666667 426.666667 426.666667 426.666667-191.146667 426.666667-426.666667S747.52 85.333333 512 85.333333z" fill="" p-id="1648"></path></svg>

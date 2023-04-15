@@ -81,7 +81,7 @@ const Home = () => {
         ) : (
           <Row>
             {category.map((category: any, index) => {
-              let url = "https://api.gr-oops.com/" + category.url;
+              const url = "https://api.gr-oops.com/" + category.url;
               return (
                 <Col sm={6} md={4} key={index}>
                   <Link href={`/product/${category.name}`}>

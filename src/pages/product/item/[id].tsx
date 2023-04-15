@@ -33,7 +33,7 @@ export default function Item() {
   const [page, setPage] = useState(0);
   const [product, setProduct] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [disable, setDisable] = useState(false);
+  // const [disable, setDisable] = useState(false);
 
   const imagePath = "https://api.gr-oops.com/";
   const notify = () =>
@@ -133,7 +133,8 @@ export default function Item() {
 
     // show stars for rating
     const Stars = ({ rating }: ratingprop) => {
-      let dummy: number[] = [];
+      //let dummy: number[] = [];
+      const dummy: number[] = [];
       for (let i = 0; i < rating && i < 5; i++) {
         dummy.push(1);
       }

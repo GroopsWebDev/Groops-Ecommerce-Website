@@ -265,14 +265,7 @@ const Register = () => {
               />
             )}
           />
-          I agree with Groop's{" "}
-          <a
-            onClick={showTermsConditions}
-            className="cursor-pointer text-blue-600"
-          >
-            Terms and Conditions
-          </a>
-          .
+          I agree with Groop's Terms and Conditions.
         </label>
 
         <button type="submit" style={buttonStyle}>

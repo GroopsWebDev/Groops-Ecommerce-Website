@@ -8,12 +8,12 @@ import { useRouter } from "next/router";
 function CartDetails() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const myRef: any = useRef(null);
+  // const myRef: any = useRef(null);
   const { data: sessionData } = useSession();
   const [data, setData] = useState<any>([]);
   const imagePath = "https://api.gr-oops.com/";
   const apiUrl = "http://localhost:3000/api/";
-  const webUrl = "http://localhost:3000/";
+  // const webUrl = "http://localhost:3000/";
   const [value, setValue] = useState(false);
 
   useEffect(() => {
