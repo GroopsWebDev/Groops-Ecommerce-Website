@@ -12,7 +12,7 @@ import CheckoutForm from "../checkout/checkoutform";
 import { Button, Modal } from "react-bootstrap";
 // import { loadStripe } from "@stripe/stripe-js";
 import Swal from "sweetalert2";
-import StripeButton from "./stripeButton";
+// import StripeButton from "./stripeButton";
 import ExitPopupButton from "../../components/elements/exit-pop-up-btn";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";

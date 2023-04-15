@@ -1,15 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
-import Heart from "../../../public/assets/shop/items/heart.svg";
-import HeartRed from "../../../public/assets/shop/items/heart-red.svg";
-import Add from "../../../public/assets/shop/items/add.svg";
-import Minus from "../../../public/assets/shop/items/minus.svg";
 import {
   AiFillHeart,
-  AiFillMinusSquare,
   AiOutlineHeart,
-  AiOutlineMinusSquare,
-  AiOutlinePlusSquare,
 } from "react-icons/ai";
 import Link from "next/link";
 

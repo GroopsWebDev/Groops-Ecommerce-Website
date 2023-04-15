@@ -1,11 +1,8 @@
 {
   "compilerOptions": {
     "target": "es2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "checkJs": false,
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -26,14 +23,12 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs",
-    "**/*.js", //include js files - Henry testing
+    "**/*.js" //include js files - Henry testing
     // "src/pages/api/checkout_sessions/index.js",
     // "src/pages/api/cart/index.js",
     // "src/utils/utils.js",
     // "src/pages/api/checkout_sessions/[id].js",
     // "src/utils/get-stripe.js"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
