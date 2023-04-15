@@ -4,7 +4,7 @@ import { GetServerSideProps } from "next";
 import { useSession, getSession } from "next-auth/react";
 import axios from "axios";
 import OrderList from "../../components/orderList/orderList";
-import PopUpwindow from "../../components/elements/pop-up-window";
+import PopUpwindow from "../../components/tailwind-buttons/pop-up-window";
 
 const groupOrder = () => {
   const [order, setOrder] = useState([]);

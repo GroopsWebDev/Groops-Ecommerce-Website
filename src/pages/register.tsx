@@ -5,6 +5,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { CircularProgress } from "@mui/material";
 import axios from "axios";
+import { confirmAlert } from "react-confirm-alert";
+import ExitPopupButton from "../components/tailwind-buttons/exit-pop-up-btn";
+import { ScrollView } from "react-native";
 
 type IUser = {
   fullname: string;
@@ -50,6 +53,7 @@ const schema = Yup.object().shape({
 const Register = () => {
   const [loading, setLoading] = React.useState(false);
   const router = useRouter();
+  const [agreeToTerms, setAgreeToTerms] = React.useState(false);
 
   const {
     control,
@@ -59,7 +63,6 @@ const Register = () => {
     resolver: yupResolver(schema),
   });
 
-  
   const formStyle = {
     display: "flex",
     flexDirection: "column" as const,
@@ -111,6 +114,43 @@ const Register = () => {
     }
   }
 
+  const showTermsConditions = () => {
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div className="rounded-md border-2 border-black bg-white">
+            <div className="m-4">
+              <h1 className="text-center">Terms of Service</h1>
+              <p>This group ends in 2 days This group ends in 2 days This group ends in 2 days This group ends in 2 days</p>
+              <p>This group has in 5 members | 10% discount earned</p>
+              <p>Next step to to proceed your checkout </p>
+              <p>
+                (The discount refund will be sent back to your mayment account
+                in 3 days after this group ends.
+              </p>
+              <p>
+                {" "}
+                You can also view your group discount refund history in your
+                user center.)
+              </p>
+
+              <div className="flex justify-center">
+                <ExitPopupButton
+                  onClick={() => {
+                    setAgreeToTerms(true);
+                    onClose();
+                  }}
+                  text="Agree"
+                  className="mr-4"
+                />
+              </div>
+            </div>
+          </div>
+        );
+      },
+    });
+  };
+
   return (
     <div>
       <h1 style={{ textAlign: "center" }}>
@@ -140,29 +180,6 @@ const Register = () => {
               <span style={{ color: "red" }}>{errors.fullname["message"]}</span>
             )}
           </div>
-
-          {/* <div style={{ flex: "1", marginLeft: "10px" }}>
-            <label htmlFor="lastname" style={labelStyle}>
-              Last Name
-            </label>
-            <Controller
-              control={control}
-              name="lastname"
-              defaultValue=""
-              render={({ field }) => (
-                <input
-                  {...field}
-                  type="text"
-                  id="lastname"
-                  name="lastname"
-                  style={inputStyle}
-                />
-              )}
-            />
-            {errors.lastname && (
-              <span style={{ color: "red" }}>{errors.lastname["message"]}</span>
-            )}
-          </div> */}
         </div>
 
         <label htmlFor="email" style={labelStyle}>
@@ -241,10 +258,21 @@ const Register = () => {
                 type="checkbox"
                 name="terms"
                 style={checkboxStyle}
+                checked={agreeToTerms}
+                onClick={() => {
+                  setAgreeToTerms(!agreeToTerms);
+                }}
               />
             )}
           />
-          I agree with Groop's Terms and Conditions.
+          I agree with Groop's{" "}
+          <a
+            onClick={showTermsConditions}
+            className="cursor-pointer text-blue-600"
+          >
+            Terms and Conditions
+          </a>
+          .
         </label>
 
         <button type="submit" style={buttonStyle}>

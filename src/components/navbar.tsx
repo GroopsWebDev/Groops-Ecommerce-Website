@@ -20,7 +20,7 @@ import Overlay from "react-bootstrap/Overlay";
 import Popover from "react-bootstrap/Popover";
 import Button from "react-bootstrap/Button";
 //component
-import NavbarSignInBtn from "./elements/navbar-signin-btn";
+import NavbarSignInBtn from "./tailwind-buttons/navbar-signin-btn";
 
 const Header = () => {
   const { data: sessionData } = useSession();
@@ -100,10 +100,7 @@ const Header = () => {
                   SHOP
                 </Link>
                 {sessionData && (
-                  <Link
-                    href="/group"
-                    className={navbar_text_item_style}
-                  >
+                  <Link href="/group" className={navbar_text_item_style}>
                     GROUP ORDER
                   </Link>
                 )}
@@ -213,10 +210,7 @@ const Header = () => {
                 <Link href="/product" className={navbar_text_item_style}>
                   SHOP
                 </Link>
-                <Link
-                  href="/group"
-                  className={navbar_text_item_style}
-                >
+                <Link href="/group" className={navbar_text_item_style}>
                   GROUP ORDER
                 </Link>
                 <文 className={navbar_icon_item_style} />

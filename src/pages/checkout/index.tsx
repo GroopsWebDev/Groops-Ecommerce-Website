@@ -13,11 +13,11 @@ import { Button, Modal } from "react-bootstrap";
 // import { loadStripe } from "@stripe/stripe-js";
 import Swal from "sweetalert2";
 import StripeButton from "./stripeButton";
-import ExitPopupButton from "../../components/elements/exit-pop-up-btn";
+import ExitPopupButton from "../../components/tailwind-buttons/exit-pop-up-btn";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import Link from "next/link";
-import ShopMoreButton from "../../components/elements/shop-more-btn";
+import ShopMoreButton from "../../components/tailwind-buttons/shop-more-btn";
 
 //团购-订单确认
 

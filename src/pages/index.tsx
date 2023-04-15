@@ -19,8 +19,8 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 //react icons
-import JoinNowButton from "../components/elements/join-now-btn";
-import HomeSignInButton from "../components/elements/home-signin-btn";
+import JoinNowButton from "../components/tailwind-buttons/join-now-btn";
+import HomeSignInButton from "../components/tailwind-buttons/home-signin-btn";
 import Welcome from "../components/welcome";
 import HelpCenter from "../components/help/help-center";
 import axios from "axios";
@@ -136,8 +136,8 @@ const Home = () => {
           <div className="relative">
             <BecomeMember className="w-full" />
             <div className="absolute top-[380px]  left-[115px] ">
-            <Link href="/register">
-              <JoinNowButton />
+              <Link href="/register">
+                <JoinNowButton />
               </Link>
             </div>
 

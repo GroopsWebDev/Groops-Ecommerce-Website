@@ -4,8 +4,8 @@ import { useState } from "react";
 //nextAuth
 import { useSession } from "next-auth/react";
 
-import JoinNowButton from "../../../components/elements/join-now-btn";
-import SignInButton from "../../../components/elements/home-signin-btn";
+import JoinNowButton from "../../../components/tailwind-buttons/join-now-btn";
+import SignInButton from "../../../components/tailwind-buttons/home-signin-btn";
 
 const ProductDetails = () => {
   const { data: sessionData } = useSession();
