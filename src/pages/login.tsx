@@ -8,6 +8,7 @@ import * as yup from "yup";
 import React from "react";
 import Swal from "sweetalert2";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Link from "next/link";
 
 type FormValues = {
   email: string;
@@ -158,12 +159,12 @@ const Login = () => {
               </div>
 
               <div className="text-sm">
-                <a
+                <Link
                   href="#"
                   className="font-medium text-indigo-600 hover:text-indigo-500"
                 >
                   Forgot your password?
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -215,7 +216,7 @@ const Login = () => {
               <p>
                 <span className="text-black-500 bg-white px-2">
                   <span style={{ textDecoration: "none", color: "black" }}>
-                    <a href="/register">Join </a>
+                    <Link href="/register">Join </Link>
                   </span>
                   to unlock the best of Groops!
                 </span>

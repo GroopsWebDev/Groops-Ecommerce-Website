@@ -133,7 +133,7 @@ export default function Item() {
 
     // show stars for rating
     const Stars = ({ rating }: ratingprop) => {
-      let dummy: number[] = [];
+      const dummy: number[] = [];
       for (let i = 0; i < rating && i < 5; i++) {
         dummy.push(1);
       }

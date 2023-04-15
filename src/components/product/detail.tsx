@@ -12,7 +12,7 @@ import {
 type props = { id: string; name: string; price: number; image: string };
 
 const Detail = ({ id, name, price, image }: props) => {
-  let url = "https://api.gr-oops.com/" + image;
+  const url = "https://api.gr-oops.com/" + image;
 
   const [heart, setHeart] = useState(false);
   const [quantity, setQuantity] = useState(1);

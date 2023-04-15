@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useState } from "react";
-
+import Link from "next/link";
 //nextAuth
 
 const Success = () => {
@@ -21,12 +21,12 @@ const Success = () => {
                 />
                 Your Payment Status : {paymentStatus}
               </h1>
-              <a
+              <Link
                 href="/"
                 className="w-25 mb-12 rounded bg-green-500  p-2 font-bold text-black"
               >
                 Go To Home
-              </a>
+              </Link>
             </div>
           )}
           {paymentStatus === "requires_payment_method" && (
