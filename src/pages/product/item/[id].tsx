@@ -83,6 +83,8 @@ export default function Item() {
       // router.push("/member/shoppingCart");
       notify();
     }
+
+    
   }
 
   const Description = () => {
