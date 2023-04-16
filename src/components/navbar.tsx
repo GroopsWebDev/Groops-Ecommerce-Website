@@ -19,7 +19,7 @@ import Overlay from "react-bootstrap/Overlay";
 import Popover from "react-bootstrap/Popover";
 import Button from "react-bootstrap/Button";
 //component
-import NavbarSignInBtn from "./elements/navbar-signin-btn";
+import NavbarSignInBtn from "./tailwind-buttons/navbar-signin-btn";
 import ShoppingCartPopUp from "./shoppingCart/shoppingCartPopup";
 
 const Header = () => {
