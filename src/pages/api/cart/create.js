@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 
 async function CreateCart(req, res) {
   try{
-    // const { product_id, quantity, userId } = req.body;
+    const { product_id, quantity, userId } = req.body;
 
     const existingCartItem = await prisma.cart.findFirst({
       where: {

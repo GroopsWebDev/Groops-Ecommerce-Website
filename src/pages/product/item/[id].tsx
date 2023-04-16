@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { Spinner } from "react-bootstrap";
 import HelpCenter from "../../../components/help/help-center";
+import ShoppingCartPopUp from "../../../components/userCenterText/shoppingCartPopup";
 import Advertisement from "../../../../public/assets/shop/advertisement/advertisement.svg";
 import Heart from "../../../../public/assets/shop/items/heart.svg";
 import Add from "../../../../public/assets/shop/items/add.svg";
@@ -33,7 +34,8 @@ export default function Item() {
   const [page, setPage] = useState(0);
   const [product, setProduct] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(false);
-  // const [disable, setDisable] = useState(false);
+  const [isShoppingCartPopupVisible, setShoppingCartPopupVisible] = useState(false);
+  const [disable, setDisable] = useState(false);
 
   const imagePath = "https://api.gr-oops.com/";
   const notify = () =>
@@ -83,6 +85,9 @@ export default function Item() {
       // router.push("/member/shoppingCart");
       notify();
     }
+
+    // invoke the shopping cart popup
+    setShoppingCartPopupVisible(true);
   }
 
   const Description = () => {
@@ -133,8 +138,7 @@ export default function Item() {
 
     // show stars for rating
     const Stars = ({ rating }: ratingprop) => {
-      //let dummy: number[] = [];
-      const dummy: number[] = [];
+      let dummy: number[] = [];
       for (let i = 0; i < rating && i < 5; i++) {
         dummy.push(1);
       }
@@ -398,6 +402,9 @@ export default function Item() {
       <RecentView></RecentView>
 
       <HelpCenter />
+      
+      {/* shopping cart popup */}
+      { isShoppingCartPopupVisible ? <ShoppingCartPopUp /> : null}
     </>
   );
 }
