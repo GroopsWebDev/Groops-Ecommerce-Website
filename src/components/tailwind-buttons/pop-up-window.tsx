@@ -25,7 +25,7 @@ const PopUpwindow = () => {
                   className="mr-4"
                 />
                 <ExitPopupButton
-                  onClick={() => {onClose()}}
+                   onClick={onClose}
                   text="Proceed to Checkout"
                   className="ml-4"
                 />

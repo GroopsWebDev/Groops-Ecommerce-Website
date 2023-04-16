@@ -8,9 +8,9 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import Button from "@mui/material/Button";
-import SelectFilesButton from "../../components/elements/help-center-select-files-btn";
-import UploadFilesButton from "../../components/elements/help-center-send-files-btn";
-import ToggleFilesButton from "../../components/elements/help-center-toggle-files-btn";
+import SelectFilesButton from "../../components/tailwind-buttons/help-center-select-files-btn";
+import UploadFilesButton from "../../components/tailwind-buttons/help-center-send-files-btn";
+import ToggleFilesButton from "../../components/tailwind-buttons/help-center-toggle-files-btn";
 import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -151,7 +151,6 @@ export default function Help() {
             {/* <Button color="secondary" variant="contained" component="span">
               Upload button
             </Button> */}
-
           </label>
         </div>
       </>
@@ -257,7 +256,8 @@ export default function Help() {
             pauseOnFocusLoss
             draggable
             pauseOnHover
-            theme="light" />
+            theme="light"
+          />
         </div>
       </div>
 

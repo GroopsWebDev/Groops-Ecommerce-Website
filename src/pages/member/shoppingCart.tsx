@@ -29,7 +29,7 @@ function ShoppingCart() {
   }, []);
 
   useEffect(() => {
-    let price = cartList.reduce(
+    const price = cartList.reduce(
       (acc: any, item: any) => acc + item.product.price * item.qty,
       0
     );

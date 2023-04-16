@@ -1,15 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
-import Heart from "../../../public/assets/shop/items/heart.svg";
-import HeartRed from "../../../public/assets/shop/items/heart-red.svg";
-import Add from "../../../public/assets/shop/items/add.svg";
-import Minus from "../../../public/assets/shop/items/minus.svg";
 import {
   AiFillHeart,
-  AiFillMinusSquare,
   AiOutlineHeart,
-  AiOutlineMinusSquare,
-  AiOutlinePlusSquare,
 } from "react-icons/ai";
 import Link from "next/link";
 
@@ -17,7 +10,7 @@ type props = { id: string; name: string; price: number; image: string };
 
 const ProductCard = ({ id, name, price, image }: props) => {
   const [heart, setHeart] = useState(false);
-  let url = "https://api.gr-oops.com/" + image;
+  const url = "https://api.gr-oops.com/" + image;
   const [quantity, setQuantity] = useState(1);
   const handleDecreaseQuantity = () => {
     if (quantity > 1) {
