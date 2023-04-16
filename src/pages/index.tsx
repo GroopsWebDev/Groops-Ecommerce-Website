@@ -5,8 +5,7 @@ import Link from "next/link";
 import { useSession, getSession } from "next-auth/react";
 //import SVG
 
-import OurFeaturedProducts from "../../public/assets/product/our-featured-products.svg";
-
+import OurFeaturedProducts from "../../public/assets/category/our-featured-products.svg";
 import BecomeMember from "../../public/assets/membership/become-member-img.svg";
 import GroopsMembership from "../../public/assets/membership/groops-membership-text.svg";
 
@@ -72,6 +71,8 @@ const Home = () => {
       {/** BODY */}
       {/** Section 1 */}
       <Welcome />
+
+      
 
       {/** Section 2 */}
       <OurFeaturedProducts className="ml-auto mr-auto mt-32 mb-20 w-[466px]" />

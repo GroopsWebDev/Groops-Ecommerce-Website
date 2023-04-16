@@ -19,7 +19,7 @@ const ProductDetails = () => {
             <div className="mx-auto max-w-7xl py-6 text-center sm:px-6 lg:px-8">
               <h1 className="mb-12 text-2xl font-bold">
                 <img
-                  src="assets/image/success.png"
+                  src="assets/utility/success.png"
                   style={{ marginLeft: "553px" }}
                 />
                 Your Payment Status : {paymentStatus}
@@ -30,7 +30,7 @@ const ProductDetails = () => {
             <div className="mx-auto max-w-7xl py-6 text-center sm:px-6 lg:px-8">
               <h1 className="mb-12 text-2xl font-bold">
                 <img
-                  src="assets/image/failed.png"
+                  src="assets/utility/failed.png"
                   style={{ marginLeft: "553px" }}
                 />
                 Your Payment Status : {paymentStatus}

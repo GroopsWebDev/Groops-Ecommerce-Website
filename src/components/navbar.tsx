@@ -9,7 +9,6 @@ import NavPerson from "../../public/assets/navbar/nav-person.svg";
 import NavCart from "../../public/assets/navbar/nav-cart.svg";
 import NavSearch from "../../public/assets/navbar/nav-search.svg";
 import NavHeart from "../../public/assets/navbar/nav-heart.svg";
-import Avatar from "../../public/assets/navbar/avatar.svg";
 //nextAuth
 import { signIn, signOut, useSession } from "next-auth/react";
 //react-confirm-alert
@@ -37,7 +36,7 @@ const Header = () => {
     "w-7 text-black transform transition duration-300 hover:scale-110 hover:cursor-pointer";
   const user_img = sessionData?.user?.image ? sessionData?.user?.image : null;
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [isMouseOverPopup, setIsMouseOverPopup] = useState(false);
+  const [isMouseOverCartPopup, setIsMouseCartOverPopup] = useState(false);
   const logout = () => {
     confirmAlert({
       customUI: ({ onClose }) => {
@@ -75,17 +74,26 @@ const Header = () => {
     push(data.url);
   };
 
-  const onMouseEnterPopup = () => {
-    setIsMouseOverPopup(true);
+  const onMouseEnterCartPopup = () => {
+    setIsMouseCartOverPopup(true);
   };
-  
-  const onMouseLeavePopup = () => {
-    setIsMouseOverPopup(false);
+
+  const onMouseLeaveCartPopup = () => {
+    setIsMouseCartOverPopup(false);
   };
 
   const onClickPerson = (event: any) => {
     setShowOverlay(!showOverlay);
     setTarget(event.target);
+  };
+
+  const onMouseEnterPerson = (event: any) => {
+    setShowOverlay(true);
+    setTarget(event.target);
+  };
+
+  const onMouseLeavePerson = (event: any) => {
+    setShowOverlay(false);
   };
 
   return (
@@ -123,17 +131,19 @@ const Header = () => {
                 </Link>
                 <Link href="/member/shoppingCart">
                   {sessionData && (
-                    <NavCart className={navbar_icon_item_style} />
+                    <div onMouseEnter={() => setIsCartOpen(true)}>
+                      <NavCart className={navbar_icon_item_style} />
+                    </div>
                   )}
                 </Link>
 
                 {/* <ShoppingCartPopUp /> */}
                 {isCartOpen && (
                   <ShoppingCartPopUp
-                    isOpen={isCartOpen || isMouseOverPopup}
+                    isOpen={isCartOpen || isMouseOverCartPopup}
                     onClose={() => setIsCartOpen(false)}
-                    onMouseEnter={onMouseEnterPopup}
-                    onMouseLeave={onMouseLeavePopup}
+                    onMouseEnter={onMouseEnterCartPopup}
+                    onMouseLeave={onMouseLeaveCartPopup}
                   />
                 )}
                 {/* Login Person Icon */}
@@ -141,15 +151,10 @@ const Header = () => {
                   <div
                     // onMouseEnter={onMouseEnterPerson}
                     onClick={onClickPerson} //fix code
-                    onMouseEnter={() => setIsCartOpen(true)}
                   >
                     {user_img ? (
                       <img
-                        src={
-                          user_img
-                            ? user_img
-                            : "../../public/assets/image/pexels-pixabay-220453.jpg"
-                        }
+                        src={user_img}
                         className="w-10 rounded-full"
                         referrerPolicy="no-referrer"
                       />
@@ -157,7 +162,7 @@ const Header = () => {
                       <NavPerson className={navbar_icon_item_style} />
                     )}
                   </div>
-                  <div>
+                  <div onMouseLeave={onMouseLeavePerson}>
                     <Overlay
                       show={showOverlay}
                       target={target}
