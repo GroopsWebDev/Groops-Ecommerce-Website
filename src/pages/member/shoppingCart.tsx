@@ -105,7 +105,6 @@ function ShoppingCart() {
 
   return (
     <>
-      <ShoppingCartPopUp />
       <div className="shoppingCart">
         <div
           style={{
