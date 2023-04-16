@@ -21,6 +21,7 @@ import Popover from "react-bootstrap/Popover";
 import Button from "react-bootstrap/Button";
 //component
 import NavbarSignInBtn from "./elements/navbar-signin-btn";
+import ShoppingCartPopUp from "./shoppingCart/shoppingCartPopup";
 
 const Header = () => {
   const { data: sessionData } = useSession();
@@ -35,6 +36,7 @@ const Header = () => {
   const navbar_icon_item_style =
     "w-7 text-black transform transition duration-300 hover:scale-110 hover:cursor-pointer";
   const user_img = sessionData?.user?.image ? sessionData?.user?.image : null;
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const logout = () => {
     confirmAlert({
@@ -73,13 +75,13 @@ const Header = () => {
     push(data.url);
   };
 
-  const handleClick = (event: any) => {
-    setShowOverlay(!showOverlay);
-    setTarget(event.target);
+  const onMouseLeavePerson = (event: any) => {
+    setShowOverlay(false);
   };
 
-  const gotocart = () => {
-    push("/member/shoppingCart");
+  const onClickPerson = (event: any) => {
+    setShowOverlay(true);
+    setTarget(event.target);
   };
 
   return (
@@ -100,10 +102,7 @@ const Header = () => {
                   SHOP
                 </Link>
                 {sessionData && (
-                  <Link
-                    href="/group"
-                    className={navbar_text_item_style}
-                  >
+                  <Link href="/group" className={navbar_text_item_style}>
                     GROUP ORDER
                   </Link>
                 )}
@@ -124,9 +123,14 @@ const Header = () => {
                   )}
                 </Link>
 
+                {/* <ShoppingCartPopUp /> */}
+
                 {/* Login Person Icon */}
                 <div ref={ref}>
-                  <div onClick={handleClick}>
+                  <div
+                    // onMouseEnter={onMouseEnterPerson}
+                    onClick={onClickPerson} //fix code
+                  >
                     {user_img ? (
                       <img
                         src={
@@ -141,51 +145,55 @@ const Header = () => {
                       <NavPerson className={navbar_icon_item_style} />
                     )}
                   </div>
-                  <Overlay
-                    show={showOverlay}
-                    target={target}
-                    placement="bottom"
-                    container={ref}
-                    containerPadding={10}
-                  >
-                    <Popover id="popover-contained" className="text-center ">
-                      <Popover.Header className="bg-gradient-to-br from-purple-600 to-pink-600 text-white">
-                        {sessionData.user?.name}
-                        <div className="text-sm">{sessionData.user?.email}</div>
-                      </Popover.Header>
+                  <div onMouseLeave={onMouseLeavePerson}>
+                    <Overlay
+                      show={showOverlay}
+                      target={target}
+                      placement="bottom"
+                      container={ref}
+                      containerPadding={10}
+                    >
+                      <Popover id="popover-contained" className="text-center ">
+                        <Popover.Header className="bg-gradient-to-br from-purple-600 to-pink-600 text-white">
+                          {sessionData.user?.name}
+                          <div className="text-sm">
+                            {sessionData.user?.email}
+                          </div>
+                        </Popover.Header>
 
-                      <Popover.Body className="bg-gradient-to-br from-purple-500 to-pink-400 p-1">
-                        <div className="h-full w-full bg-white ">
-                          <Link
-                            href="/member/userCenter"
-                            className="ml-2 text-lg text-black no-underline hover:text-orange-500 hover:underline"
-                          >
-                            Account Setting
-                          </Link>
-                        </div>
-                        <div className="h-full w-full bg-white ">
-                          <Link
-                            href="/profile/change-password"
-                            className="ml-2 text-lg text-black no-underline hover:text-orange-500 hover:underline"
-                          >
-                            Change Password
-                          </Link>
-                        </div>
-                        <div className="h-full w-full bg-white ">
-                          {sessionData && (
-                            <div
-                              className="ml-2 text-lg text-black no-underline hover:text-red-500 hover:underline"
-                              onClick={() => {
-                                logout();
-                              }}
+                        <Popover.Body className="bg-gradient-to-br from-purple-500 to-pink-400 p-1">
+                          <div className="h-full w-full bg-white ">
+                            <Link
+                              href="/member/userCenter"
+                              className="ml-2 text-lg text-black no-underline hover:text-orange-500 hover:underline"
                             >
-                              Sign Out
-                            </div>
-                          )}
-                        </div>
-                      </Popover.Body>
-                    </Popover>
-                  </Overlay>
+                              Account Setting
+                            </Link>
+                          </div>
+                          <div className="h-full w-full bg-white ">
+                            <Link
+                              href="/profile/change-password"
+                              className="ml-2 text-lg text-black no-underline hover:text-orange-500 hover:underline"
+                            >
+                              Change Password
+                            </Link>
+                          </div>
+                          <div className="h-full w-full bg-white ">
+                            {sessionData && (
+                              <div
+                                className="ml-2 text-lg text-black no-underline hover:text-red-500 hover:underline"
+                                onClick={() => {
+                                  logout();
+                                }}
+                              >
+                                Sign Out
+                              </div>
+                            )}
+                          </div>
+                        </Popover.Body>
+                      </Popover>
+                    </Overlay>
+                  </div>
                 </div>
                 <div>
                   Hello,
@@ -213,10 +221,7 @@ const Header = () => {
                 <Link href="/product" className={navbar_text_item_style}>
                   SHOP
                 </Link>
-                <Link
-                  href="/group"
-                  className={navbar_text_item_style}
-                >
+                <Link href="/group" className={navbar_text_item_style}>
                   GROUP ORDER
                 </Link>
                 <文 className={navbar_icon_item_style} />

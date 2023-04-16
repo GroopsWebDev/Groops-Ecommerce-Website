@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 const imagePath = "https://api.gr-oops.com/";
-import { Fragment, useState } from 'react'
-import { Dialog, Menu, Transition } from '@headlessui/react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
-import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
+import { Fragment, useState } from "react";
+import { Dialog, Menu, Transition } from "@headlessui/react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 
 function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 const ShoppingCartPopUp: React.FC<any> = (props) => {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(true);
   const [cartList, setCartList] = useState<any>([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -41,7 +41,7 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
     setDisable(true);
     router.push("/checkout");
   };
-  
+
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -61,9 +61,11 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
               >
                 <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
                   <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
-                    <div className="w-10/12 mx-auto px-6 pt-6 pb-1">
+                    <div className="mx-auto w-10/12 px-6 pt-6 pb-1">
                       <div className="flex items-start justify-between">
-                        <Dialog.Title className="text-base font-semibold leading-6 text-gray-900">My Shopping Cart</Dialog.Title>
+                        <Dialog.Title className="text-base font-semibold leading-6 text-gray-900">
+                          My Shopping Cart
+                        </Dialog.Title>
                         <div className="ml-3 flex h-7 items-center">
                           <button
                             type="button"
@@ -76,34 +78,58 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                         </div>
                       </div>
                     </div>
-                    <div className="w-10/12 border-b border-gray-200 mx-auto">
-                    </div>
-                    <ul role="list" className="flex-1 divide-y divide-gray-200 overflow-y-auto">
+                    <div className="mx-auto w-10/12 border-b border-gray-200"></div>
+                    <ul
+                      role="list"
+                      className="flex-1 divide-y divide-gray-200 overflow-y-auto"
+                    >
                       {cartList.map((item: any, index: any) => (
                         <li key={index}>
                           <div className="group relative flex items-center px-5 py-6">
-                            <a href='#' className="-m-1 block flex-1 p-1">
-                              <div className="absolute inset-0 group-hover:bg-gray-50" aria-hidden="true" />
+                            <a href="#" className="-m-1 block flex-1 p-1">
+                              <div
+                                className="absolute inset-0 group-hover:bg-gray-50"
+                                aria-hidden="true"
+                              />
                               <div className="relative flex min-w-0 flex-1 items-center">
                                 <span className="relative inline-block flex-shrink-0">
-                                  <img className="h-10 w-10 rounded-full" src={imagePath + item["product"].image} alt="" />
+                                  <img
+                                    className="h-10 w-10 rounded-full"
+                                    src={imagePath + item["product"].image}
+                                    alt=""
+                                  />
                                 </span>
                                 <div className="text-sm">
-                                  <p className="ml-5 mb-1 truncate font-medium text-gray-900">{item["product"].englishProductName}</p>
-                                  <div className="ml-5 mb-0 flex items-center justify-center truncate space-x-2">
-                                    <p className="text-gray-500 inline-flex mx-0">category {item["product"].categoryId}</p>
-                                    <p className="text-gray-500 inline-flex">Subtype</p>
+                                  <p className="ml-5 mb-1 truncate font-medium text-gray-900">
+                                    {item["product"].englishProductName}
+                                  </p>
+                                  <div className="ml-5 mb-0 flex items-center justify-center space-x-2 truncate">
+                                    <p className="mx-0 inline-flex text-gray-500">
+                                      category {item["product"].categoryId}
+                                    </p>
+                                    <p className="inline-flex text-gray-500">
+                                      Subtype
+                                    </p>
                                   </div>
-                                  <div className="ml-5 truncate space-x-1.5">
-                                    <p className="truncate text-sm text-gray-500 inline-flex">{item.qty} x</p>
-                                    <p className="truncate text-sm text-gray-500 inline-flex">${item["product"].price}</p>
+                                  <div className="ml-5 space-x-1.5 truncate">
+                                    <p className="inline-flex truncate text-sm text-gray-500">
+                                      {item.qty} x
+                                    </p>
+                                    <p className="inline-flex truncate text-sm text-gray-500">
+                                      ${item["product"].price}
+                                    </p>
                                   </div>
                                 </div>
                               </div>
                             </a>
-                            <Menu as="div" className="relative ml-2 inline-block flex-shrink-0 text-left">
+                            <Menu
+                              as="div"
+                              className="relative ml-2 inline-block flex-shrink-0 text-left"
+                            >
                               <Menu.Button className="group relative inline-flex h-8 w-8 items-center justify-center rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                                <span className="sr-only">Open options menu</span>
+                                <span className="sr-only">
+                                  Open options menu
+                                </span>
                                 <span className="flex h-full w-full items-center justify-center rounded-full">
                                   <EllipsisVerticalIcon
                                     className="h-5 w-5 text-gray-400 group-hover:text-gray-500"
@@ -127,8 +153,10 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                                         <a
                                           href="#"
                                           className={classNames(
-                                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                            'block px-4 py-2 text-sm'
+                                            active
+                                              ? "bg-gray-100 text-gray-900"
+                                              : "text-gray-700",
+                                            "block px-4 py-2 text-sm"
                                           )}
                                         >
                                           action item 1
@@ -140,8 +168,10 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                                         <a
                                           href="#"
                                           className={classNames(
-                                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                            'block px-4 py-2 text-sm'
+                                            active
+                                              ? "bg-gray-100 text-gray-900"
+                                              : "text-gray-700",
+                                            "block px-4 py-2 text-sm"
                                           )}
                                         >
                                           action item 2
@@ -164,7 +194,7 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
         </div>
       </Dialog>
     </Transition.Root>
-  )
-}
+  );
+};
 
 export default ShoppingCartPopUp;

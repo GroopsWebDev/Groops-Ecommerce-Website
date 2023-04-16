@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Loading from "react-loading";
 import axios from "axios";
-import ShoppingCartPopUp from "../../components/userCenterText/shoppingCartPopup";
+import ShoppingCartPopUp from "../../components/shoppingCart/shoppingCartPopup";
 
 function ShoppingCart() {
   const [cartList, setCartList] = useState<any>([]);
