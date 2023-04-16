@@ -12,12 +12,13 @@ function classNames(...classes: string[]) {
 }
 
 const ShoppingCartPopUp: React.FC<any> = (props) => {
-  const [open, setOpen] = useState(true)
+  const {isOpen, onClose} = props;
+  const router = useRouter();
+
   const [cartList, setCartList] = useState<any>([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [loading, setLoading] = useState(false);
   const [disable, setDisable] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
     async function fetchData() {
@@ -43,8 +44,8 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
   };
   
   return (
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+    <Transition.Root show={isOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={onClose}>
         <div className="fixed inset-0" />
 
         <div className="fixed inset-0 overflow-hidden">
@@ -68,7 +69,7 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                           <button
                             type="button"
                             className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-indigo-500"
-                            onClick={() => setOpen(false)}
+                            onClick={onClose}
                           >
                             <span className="sr-only">Close panel</span>
                             <XMarkIcon className="h-6 w-6" aria-hidden="true" />

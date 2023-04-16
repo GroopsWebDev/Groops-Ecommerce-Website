@@ -37,7 +37,7 @@ const Header = () => {
     "w-7 text-black transform transition duration-300 hover:scale-110 hover:cursor-pointer";
   const user_img = sessionData?.user?.image ? sessionData?.user?.image : null;
   const [isCartOpen, setIsCartOpen] = useState(false);
-
+  const [isMouseOverPopup, setIsMouseOverPopup] = useState(false);
   const logout = () => {
     confirmAlert({
       customUI: ({ onClose }) => {
@@ -75,12 +75,16 @@ const Header = () => {
     push(data.url);
   };
 
-  const onMouseLeavePerson = (event: any) => {
-    setShowOverlay(false);
+  const onMouseEnterPopup = () => {
+    setIsMouseOverPopup(true);
+  };
+  
+  const onMouseLeavePopup = () => {
+    setIsMouseOverPopup(false);
   };
 
   const onClickPerson = (event: any) => {
-    setShowOverlay(true);
+    setShowOverlay(!showOverlay);
     setTarget(event.target);
   };
 
@@ -124,12 +128,20 @@ const Header = () => {
                 </Link>
 
                 {/* <ShoppingCartPopUp /> */}
-
+                {isCartOpen && (
+                  <ShoppingCartPopUp
+                    isOpen={isCartOpen || isMouseOverPopup}
+                    onClose={() => setIsCartOpen(false)}
+                    onMouseEnter={onMouseEnterPopup}
+                    onMouseLeave={onMouseLeavePopup}
+                  />
+                )}
                 {/* Login Person Icon */}
                 <div ref={ref}>
                   <div
                     // onMouseEnter={onMouseEnterPerson}
                     onClick={onClickPerson} //fix code
+                    onMouseEnter={() => setIsCartOpen(true)}
                   >
                     {user_img ? (
                       <img
@@ -145,7 +157,7 @@ const Header = () => {
                       <NavPerson className={navbar_icon_item_style} />
                     )}
                   </div>
-                  <div onMouseLeave={onMouseLeavePerson}>
+                  <div>
                     <Overlay
                       show={showOverlay}
                       target={target}

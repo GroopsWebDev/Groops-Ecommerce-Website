@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { Spinner } from "react-bootstrap";
 import HelpCenter from "../../../components/help/help-center";
-import ShoppingCartPopUp from "../../../components/userCenterText/shoppingCartPopup";
+import ShoppingCartPopUp from "../../../components/shoppingCart/shoppingCartPopup";
 import Advertisement from "../../../../public/assets/shop/advertisement/advertisement.svg";
 import Heart from "../../../../public/assets/shop/items/heart.svg";
 import Add from "../../../../public/assets/shop/items/add.svg";
