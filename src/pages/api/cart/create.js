@@ -1,5 +1,4 @@
-import { PrismaClient } from '@prisma/client';  //doesnt work
-const prisma = new PrismaClient();//doesnt work
+import { PrismaClient } from "@prisma/client";
 
 // import { prisma } from "../../../server/db/client";
 
@@ -33,12 +32,11 @@ async function CreateCart(req, res) {
           qty: quantity,
         },
       });
-      res.json({ status: 200, cartItem })
+      res.json({ status: 200, cartItem });
     }
   } catch (error) {
-    res.status(400).json({ message: error.message })
+    res.status(400).json({ message: error.message });
   }
 }
 
 export default CreateCart;
-

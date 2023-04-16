@@ -9,7 +9,7 @@ import { getRemainingTime } from "../../../utils/utils";
 import Loader from "../../../components/loader/loader";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import ExitPopupButton from "../../../components/elements/exit-pop-up-btn";
+import ExitPopupButton from "../../../components/tailwind-buttons/exit-pop-up-btn";
 
 const CreateGroup = () => {
   const router = useRouter();
@@ -43,10 +43,13 @@ const CreateGroup = () => {
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
-            <div className="rounded-md border-2 border-black bg-white">
+          <div className="rounded-md border-2 border-black bg-white">
             <div className="m-4">
               <h1>Are you sure to end this group now?</h1>
-              <p>(If the group ends now, all benefits associated with this group will be evaluated based on the current group size.)</p>
+              <p>
+                (If the group ends now, all benefits associated with this group
+                will be evaluated based on the current group size.)
+              </p>
               <div className="flex justify-center">
                 <ExitPopupButton
                   onClick={onClose}
@@ -54,7 +57,9 @@ const CreateGroup = () => {
                   className="mr-4"
                 />
                 <ExitPopupButton
-                  onClick={() => {mygroupEnd(),onClose()}}
+                  onClick={() => {
+                    mygroupEnd(), onClose();
+                  }}
                   text="End Group"
                   className="ml-4"
                 />
@@ -122,14 +127,16 @@ const CreateGroup = () => {
               End
             </button>
             <Link href="/mygroup">
-            <button className="ml-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" >Back to My Groups</button>
+              <button className="ml-8 rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700">
+                Back to My Groups
+              </button>
             </Link>
           </Col>
           <Col xs={12} md={6} className="my-4">
             <h6>People who joined.</h6>
             <div className="flex justify-between">
               {groupData?.groupMember.map((i: any) => (
-                <div>
+                <div key = {i.user.name} >
                   <img
                     className="my-2 h-16 w-16 rounded-full ring-2 ring-gray-500"
                     src={`https://api.gr-oops.com/${

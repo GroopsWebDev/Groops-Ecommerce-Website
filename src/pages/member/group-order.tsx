@@ -6,7 +6,7 @@ import axios from "axios";
 import { Image } from "react-bootstrap";
 import OrderList from "../../components/orderList/orderList";
 
-const groupOrder = () => {
+const useGroupOrder = () => {
   const [order, setOrder] = useState([]);
   useEffect(() => {
     getOrder();
@@ -28,4 +28,4 @@ const groupOrder = () => {
   );
 };
 
-export default groupOrder;
+export default useGroupOrder;

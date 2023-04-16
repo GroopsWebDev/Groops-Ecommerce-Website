@@ -10,11 +10,10 @@ import Kitchen from "../../../public/assets/category/kitchen.svg"
 import NewArrivals from "../../../public/assets/category/new-arrivals.svg"
 import Snack from "../../../public/assets/category/snack.svg"
 import Personal from "../../../public/assets/category/personal-care.svg"
-import { string } from "zod";
 
 const Catergory = () => {
 
-  const style:string = "hover:scale-110 duration-300"
+  const style = "hover:scale-110 duration-300"
 
   return <>
     <div className="flex flex-wrap w-full gap-10 mt-10 mb-10">

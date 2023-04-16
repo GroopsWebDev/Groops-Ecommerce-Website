@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import Category from "../../components/product/category";
 import Welcome from "../../components/welcome";
@@ -19,7 +19,8 @@ import Personal from "../../../public/assets/shop/category/personal.svg";
 import Advertisement from "../../../public/assets/shop/advertisement/advertisement.svg";
 
 const Product = () => {
-  const style: string = "";
+  //const style: string = "";
+  const style = "";
   return (
     <>
       <Category />
