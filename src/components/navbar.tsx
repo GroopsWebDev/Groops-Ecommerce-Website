@@ -123,7 +123,7 @@ const Header = () => {
                 </Link>
                 <Link href="/member/shoppingCart">
                   {sessionData && (
-                    <NavCart className={navbar_icon_item_style} />
+                    <NavCart className={navbar_icon_item_style} onMouseEnter={() => setIsCartOpen(true)}/>
                   )}
                 </Link>
 
@@ -141,7 +141,6 @@ const Header = () => {
                   <div
                     // onMouseEnter={onMouseEnterPerson}
                     onClick={onClickPerson} //fix code
-                    onMouseEnter={() => setIsCartOpen(true)}
                   >
                     {user_img ? (
                       <img
