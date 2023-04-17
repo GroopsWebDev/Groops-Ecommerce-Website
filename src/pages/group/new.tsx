@@ -88,20 +88,22 @@ export default function Popular() {
       <h1 className="mt-20 text-center text-purple-600">New Groups</h1>
 
       <div className="mt-20 flex flex-col place-items-center">
-        {groups.map((group, index) => (
+      {groups.map((group, index) => (
           <div
             key={index}
-            className="relative flex flex-col place-items-center"
+            className="relative flex flex-col place-items-center mb-10"
           >
+            <div className="justify-center align-center h-72 w-[35rem]">
             <img
               src={`https://api.gr-oops.com/` + group?.groupImg}
               alt={group.groupName}
-              className="w-1/2 rounded-xl"
+              className=" rounded-xl h-full w-full object-cover object-center"
             />
-            <h5 className="absolute top-3 left-1/4 text-white">
+            </div>
+            <h5 className="absolute top-3 left-1/4 text-white backdrop-blur-3 bg-gray-900 bg-opacity-50 rounded-lg p-0.5">
               {group?.groupName}
             </h5>
-            <div className="absolute bottom-3 left-1/4 text-white">
+            <div className="absolute bottom-3 left-1/4 text-white backdrop-blur-3 bg-gray-900 bg-opacity-50 rounded-lg p-0.5">
               Ends in {getRemainingTime(group?.endDate)}
             </div>
           </div>

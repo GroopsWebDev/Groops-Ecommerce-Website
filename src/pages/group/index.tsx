@@ -67,12 +67,14 @@ const Group = () => {
           {groups.map((group, index) =>
             index < 4 ? (
               <div key={index}>
+                <div className="w-64 h-48">
                 <img
                   src={`https://api.gr-oops.com/` + group?.groupImg}
                   alt={group.groupName}
                   width="250"
-                  className="mr-3 rounded-xl"
+                  className="mr-3 h-full w-full"
                 />
+                </div>
                 <span className="text-blue-400">{group.groupName}</span>
                 <div>Ends in {getRemainingTime(group?.endDate)}</div>
               </div>
