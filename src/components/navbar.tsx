@@ -150,8 +150,8 @@ const Header = () => {
                 {/* Login Person Icon */}
                 <div ref={ref}>
                   <div
-                    // onMouseEnter={onMouseEnterPerson}
-                    onClick={onClickPerson} //fix code
+                    onClick={onClickPerson}
+                    className="cursor-pointer"
                   >
                     {user_img ? (
                       <img
