@@ -265,7 +265,7 @@ const Register = () => {
               />
             )}
           />
-          I agree with Groop's Terms and Conditions.
+          I agree with Groop&apos;s Terms and Conditions.
         </label>
 
         <button type="submit" style={buttonStyle}>
