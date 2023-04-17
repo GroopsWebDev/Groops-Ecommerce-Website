@@ -87,7 +87,7 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                           <div className="group relative flex items-center px-5 py-6">
                             <a href='#' className="-m-1 block flex-1 p-1">
                               <div className="absolute inset-0 group-hover:bg-gray-50" aria-hidden="true" />
-                              <Link href="/member/shoppingCart">
+                              <Link href="#"> {/*  route to this product page  */}
                               <div className="relative flex min-w-0 flex-1 items-center">
                                 <span className="relative inline-block flex-shrink-0">
                                   <img className="h-10 w-10 rounded-full" src={imagePath + item["product"].image} alt="" />
@@ -162,7 +162,7 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                       ))}
                     </ul>
                     <Link href="/member/shoppingCart" className='no-underline'>
-                    <ExitPopupButton text="Go to Cart" className="flex justify-center mx-auto mb-32" onClick={()=>{return}}/>
+                    <ExitPopupButton text="Go to Cart" className="flex justify-center mx-auto mb-32" onClick={onClose}/>
                     </Link>
                   </div>
                   
