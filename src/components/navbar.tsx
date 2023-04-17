@@ -20,6 +20,7 @@ import Popover from "react-bootstrap/Popover";
 import Button from "react-bootstrap/Button";
 //component
 import NavbarSignInBtn from "./tailwind-buttons/navbar-signin-btn";
+import ShoppingCartPopUp from "./shoppingCart/shoppingCartPopup";
 
 const Header = () => {
   const { data: sessionData } = useSession();
@@ -34,7 +35,8 @@ const Header = () => {
   const navbar_icon_item_style =
     "w-7 text-black transform transition duration-300 hover:scale-110 hover:cursor-pointer";
   const user_img = sessionData?.user?.image ? sessionData?.user?.image : null;
-
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isMouseOverCartPopup, setIsMouseCartOverPopup] = useState(false);
   const logout = () => {
     confirmAlert({
       customUI: ({ onClose }) => {
@@ -72,9 +74,27 @@ const Header = () => {
     push(data.url);
   };
 
-  const handleClick = (event: any) => {
+  const onMouseEnterCartPopup = () => {
+    setIsMouseCartOverPopup(true);
+    setIsCartOpen(true);
+  };
+
+  const onMouseLeaveCartPopup = () => {
+    setIsMouseCartOverPopup(false);
+  };
+
+  const onClickPerson = (event: any) => {
     setShowOverlay(!showOverlay);
     setTarget(event.target);
+  };
+
+  const onMouseEnterPerson = (event: any) => {
+    setShowOverlay(true);
+    setTarget(event.target);
+  };
+
+  const onMouseLeavePerson = (event: any) => {
+    setShowOverlay(false);
   };
 
   return (
@@ -112,20 +132,30 @@ const Header = () => {
                 </Link>
                 <Link href="/member/shoppingCart">
                   {sessionData && (
-                    <NavCart className={navbar_icon_item_style} />
+                    <div onMouseEnter={onMouseEnterCartPopup}>
+      <NavCart className={navbar_icon_item_style} />
+                    </div>
                   )}
                 </Link>
 
+                {/* <ShoppingCartPopUp /> */}
+                {isCartOpen && (
+                  <ShoppingCartPopUp
+                    isOpen={isCartOpen || isMouseOverCartPopup}
+                    onClose={() => setIsCartOpen(false)}
+                    onMouseEnter={onMouseEnterCartPopup}
+                    onMouseLeave={onMouseLeaveCartPopup}
+                  />
+                )}
                 {/* Login Person Icon */}
                 <div ref={ref}>
-                  <div onClick={handleClick}>
+                  <div
+                    // onMouseEnter={onMouseEnterPerson}
+                    onClick={onClickPerson} //fix code
+                  >
                     {user_img ? (
                       <img
-                        src={
-                          user_img
-                            ? user_img
-                            : "../../public/assets/image/pexels-pixabay-220453.jpg"
-                        }
+                        src={user_img}
                         className="w-10 rounded-full"
                         referrerPolicy="no-referrer"
                       />
@@ -133,51 +163,55 @@ const Header = () => {
                       <NavPerson className={navbar_icon_item_style} />
                     )}
                   </div>
-                  <Overlay
-                    show={showOverlay}
-                    target={target}
-                    placement="bottom"
-                    container={ref}
-                    containerPadding={10}
-                  >
-                    <Popover id="popover-contained" className="text-center ">
-                      <Popover.Header className="bg-gradient-to-br from-purple-600 to-pink-600 text-white">
-                        {sessionData.user?.name}
-                        <div className="text-sm">{sessionData.user?.email}</div>
-                      </Popover.Header>
+                  <div onMouseLeave={onMouseLeavePerson}>
+                    <Overlay
+                      show={showOverlay}
+                      target={target}
+                      placement="bottom"
+                      container={ref}
+                      containerPadding={10}
+                    >
+                      <Popover id="popover-contained" className="text-center ">
+                        <Popover.Header className="bg-gradient-to-br from-purple-600 to-pink-600 text-white">
+                          {sessionData.user?.name}
+                          <div className="text-sm">
+                            {sessionData.user?.email}
+                          </div>
+                        </Popover.Header>
 
-                      <Popover.Body className="bg-gradient-to-br from-purple-500 to-pink-400 p-1">
-                        <div className="h-full w-full bg-white ">
-                          <Link
-                            href="/member/userCenter"
-                            className="ml-2 text-lg text-black no-underline hover:text-orange-500 hover:underline"
-                          >
-                            Account Setting
-                          </Link>
-                        </div>
-                        <div className="h-full w-full bg-white ">
-                          <Link
-                            href="/profile/change-password"
-                            className="ml-2 text-lg text-black no-underline hover:text-orange-500 hover:underline"
-                          >
-                            Change Password
-                          </Link>
-                        </div>
-                        <div className="h-full w-full bg-white ">
-                          {sessionData && (
-                            <div
-                              className="ml-2 text-lg text-black no-underline hover:text-red-500 hover:underline"
-                              onClick={() => {
-                                logout();
-                              }}
+                        <Popover.Body className="bg-gradient-to-br from-purple-500 to-pink-400 p-1">
+                          <div className="h-full w-full bg-white ">
+                            <Link
+                              href="/member/userCenter"
+                              className="ml-2 text-lg text-black no-underline hover:text-orange-500 hover:underline"
                             >
-                              Sign Out
-                            </div>
-                          )}
-                        </div>
-                      </Popover.Body>
-                    </Popover>
-                  </Overlay>
+                              Account Setting
+                            </Link>
+                          </div>
+                          <div className="h-full w-full bg-white ">
+                            <Link
+                              href="/profile/change-password"
+                              className="ml-2 text-lg text-black no-underline hover:text-orange-500 hover:underline"
+                            >
+                              Change Password
+                            </Link>
+                          </div>
+                          <div className="h-full w-full bg-white ">
+                            {sessionData && (
+                              <div
+                                className="ml-2 text-lg text-black no-underline hover:text-red-500 hover:underline"
+                                onClick={() => {
+                                  logout();
+                                }}
+                              >
+                                Sign Out
+                              </div>
+                            )}
+                          </div>
+                        </Popover.Body>
+                      </Popover>
+                    </Overlay>
+                  </div>
                 </div>
                 <div>
                   Hello,

@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { Spinner } from "react-bootstrap";
 import HelpCenter from "../../../components/help/help-center";
-import ShoppingCartPopUp from "../../../components/userCenterText/shoppingCartPopup";
+import ShoppingCartPopUp from "../../../components/shoppingCart/shoppingCartPopup";
 import Advertisement from "../../../../public/assets/shop/advertisement/advertisement.svg";
 import Heart from "../../../../public/assets/shop/items/heart.svg";
 import Add from "../../../../public/assets/shop/items/add.svg";
@@ -362,6 +362,10 @@ export default function Item() {
     );
   };
 
+  const handleCartClose = () => {
+    setShoppingCartPopupVisible(false);
+  }
+
   return (
     <>
       {/* product details */}
@@ -404,7 +408,7 @@ export default function Item() {
       <HelpCenter />
       
       {/* shopping cart popup */}
-      { isShoppingCartPopupVisible ? <ShoppingCartPopUp /> : null}
+      { isShoppingCartPopupVisible ? <ShoppingCartPopUp isOpen={true} onClose={handleCartClose} /> : null}
     </>
   );
 }

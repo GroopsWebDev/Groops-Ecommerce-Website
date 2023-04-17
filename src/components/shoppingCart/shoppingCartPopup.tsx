@@ -6,45 +6,21 @@ import { Fragment, useState } from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
-
-// const cartList = [
-//   {
-//     productName: 'hoya bar',
-//     type: 'type',
-//     subType: 'subtype',
-//     qty: 1,
-//     price: 2.99,
-//     href: '#',
-//     imageUrl:
-//       'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-//     status: 'online',
-//   },
-
-//   // More people...
-//   {
-//     productName: 'yoooo',
-//     type: 'type',
-//     subType: 'subtype',
-//     qty: 2,
-//     price: 399.99,
-//     href: '#',
-//     imageUrl:
-//       'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-//     status: 'online',
-//   },
-// ]
+import Link from 'next/link';
+import ExitPopupButton from '../tailwind-buttons/exit-pop-up-btn';
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
 const ShoppingCartPopUp: React.FC<any> = (props) => {
-  const [open, setOpen] = useState(true)
+  const {isOpen, onClose} = props;
+  const router = useRouter();
+
   const [cartList, setCartList] = useState<any>([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [loading, setLoading] = useState(false);
   const [disable, setDisable] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
     async function fetchData() {
@@ -70,8 +46,8 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
   };
   
   return (
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+    <Transition.Root show={isOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={onClose}>
         <div className="fixed inset-0" />
 
         <div className="fixed inset-0 overflow-hidden">
@@ -88,14 +64,14 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
               >
                 <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
                   <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
-                    <div className="px-6 pt-6 pb-3">
+                    <div className="w-10/12 mx-auto px-6 pt-6 pb-1">
                       <div className="flex items-start justify-between">
                         <Dialog.Title className="text-base font-semibold leading-6 text-gray-900">My Shopping Cart</Dialog.Title>
                         <div className="ml-3 flex h-7 items-center">
                           <button
                             type="button"
                             className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-indigo-500"
-                            onClick={() => setOpen(false)}
+                            onClick={onClose}
                           >
                             <span className="sr-only">Close panel</span>
                             <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -109,24 +85,26 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                       {cartList.map((item: any, index: any) => (
                         <li key={index}>
                           <div className="group relative flex items-center px-5 py-6">
-                            <a href={cartList.productName} className="-m-1 block flex-1 p-1">
+                            <a href='#' className="-m-1 block flex-1 p-1">
                               <div className="absolute inset-0 group-hover:bg-gray-50" aria-hidden="true" />
+                              <Link href="/member/shoppingCart">
                               <div className="relative flex min-w-0 flex-1 items-center">
                                 <span className="relative inline-block flex-shrink-0">
                                   <img className="h-10 w-10 rounded-full" src={imagePath + item["product"].image} alt="" />
                                 </span>
-                                <div className="text-sm leading-none">
-                                  <p className="ml-4 mb-1 truncate font-medium text-gray-900">{item["product"].englishProductName}</p>
-                                  <div className="ml-4 mb-0 flex items-center justify-center truncate space-x-2">
-                                    <p className="text-gray-500 inline-flex mx-0">{item["product"].type}</p>
-                                    <p className="text-gray-500 inline-flex">{item["product"].subtype}</p>
+                                <div className="text-sm">
+                                  <p className="ml-5 mb-1 truncate font-medium text-gray-900">{item["product"].englishProductName}</p>
+                                  <div className="ml-5 mb-0 flex items-center justify-center truncate space-x-2">
+                                    <p className="text-gray-500 inline-flex mx-0">category {item["product"].categoryId}</p>
+                                    <p className="text-gray-500 inline-flex">Subtype</p>
                                   </div>
-                                  <div className="ml-4 truncate space-x-2">
-                                    <p className="truncate text-sm text-gray-500 inline-flex">{item.qty}</p>
-                                    <p className="truncate text-sm text-gray-500 inline-flex">{item["product"].price}</p>
+                                  <div className="ml-5 truncate space-x-1.5">
+                                    <p className="truncate text-sm text-gray-500 inline-flex">{item.qty} x</p>
+                                    <p className="truncate text-sm text-gray-500 inline-flex">${item["product"].price}</p>
                                   </div>
                                 </div>
                               </div>
+                              </Link>
                             </a>
                             <Menu as="div" className="relative ml-2 inline-block flex-shrink-0 text-left">
                               <Menu.Button className="group relative inline-flex h-8 w-8 items-center justify-center rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
@@ -158,7 +136,7 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                                             'block px-4 py-2 text-sm'
                                           )}
                                         >
-                                          View profile
+                                          action item 1
                                         </a>
                                       )}
                                     </Menu.Item>
@@ -171,7 +149,7 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                                             'block px-4 py-2 text-sm'
                                           )}
                                         >
-                                          Send message
+                                          action item 2
                                         </a>
                                       )}
                                     </Menu.Item>
@@ -183,7 +161,11 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                         </li>
                       ))}
                     </ul>
+                    <Link href="/member/shoppingCart" className='no-underline'>
+                    <ExitPopupButton text="Go to Cart" className="flex justify-center mx-auto mb-32" onClick={()=>{return}}/>
+                    </Link>
                   </div>
+                  
                 </Dialog.Panel>
               </Transition.Child>
             </div>
