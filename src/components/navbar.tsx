@@ -19,7 +19,7 @@ import Overlay from "react-bootstrap/Overlay";
 import Popover from "react-bootstrap/Popover";
 import Button from "react-bootstrap/Button";
 //component
-import NavbarSignInBtn from "./elements/navbar-signin-btn";
+import NavbarSignInBtn from "./tailwind-buttons/navbar-signin-btn";
 import ShoppingCartPopUp from "./shoppingCart/shoppingCartPopup";
 
 const Header = () => {
@@ -76,6 +76,7 @@ const Header = () => {
 
   const onMouseEnterCartPopup = () => {
     setIsMouseCartOverPopup(true);
+    setIsCartOpen(true);
   };
 
   const onMouseLeaveCartPopup = () => {
@@ -131,7 +132,9 @@ const Header = () => {
                 </Link>
                 <Link href="/member/shoppingCart">
                   {sessionData && (
-                    <NavCart className={navbar_icon_item_style} />
+                    <div onMouseEnter={onMouseEnterCartPopup}>
+      <NavCart className={navbar_icon_item_style} />
+                    </div>
                   )}
                 </Link>
 

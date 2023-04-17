@@ -6,6 +6,8 @@ import { Fragment, useState } from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
+import Link from 'next/link';
+import ExitPopupButton from '../tailwind-buttons/exit-pop-up-btn';
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -85,6 +87,7 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                           <div className="group relative flex items-center px-5 py-6">
                             <a href='#' className="-m-1 block flex-1 p-1">
                               <div className="absolute inset-0 group-hover:bg-gray-50" aria-hidden="true" />
+                              <Link href="/member/shoppingCart">
                               <div className="relative flex min-w-0 flex-1 items-center">
                                 <span className="relative inline-block flex-shrink-0">
                                   <img className="h-10 w-10 rounded-full" src={imagePath + item["product"].image} alt="" />
@@ -101,6 +104,7 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                                   </div>
                                 </div>
                               </div>
+                              </Link>
                             </a>
                             <Menu as="div" className="relative ml-2 inline-block flex-shrink-0 text-left">
                               <Menu.Button className="group relative inline-flex h-8 w-8 items-center justify-center rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
@@ -157,7 +161,11 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                         </li>
                       ))}
                     </ul>
+                    <Link href="/member/shoppingCart" className='no-underline'>
+                    <ExitPopupButton text="Go to Cart" className="flex justify-center mx-auto mb-32" onClick={()=>{return}}/>
+                    </Link>
                   </div>
+                  
                 </Dialog.Panel>
               </Transition.Child>
             </div>
