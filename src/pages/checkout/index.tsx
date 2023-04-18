@@ -369,10 +369,9 @@ function useCheckOut() {
                   }}
                 >
                   {cartItem.map((item: any, index: any) => (
-                    <>
+                    <div key={index}>
                       <div
                         style={{ width: "50%", display: "flex" }}
-                        key={index}
                       >
                         <img
                           style={{
@@ -412,7 +411,7 @@ function useCheckOut() {
                       >
                         {item["product"].price * parseInt(item.qty)}
                       </div>
-                    </>
+                    </div>
                   ))}
                 </div>
               </div>
