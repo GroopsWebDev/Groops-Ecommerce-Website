@@ -76,6 +76,7 @@ const Header = () => {
 
   const onMouseEnterCartPopup = () => {
     setIsMouseCartOverPopup(true);
+    setIsCartOpen(true);
   };
 
   const onMouseLeaveCartPopup = () => {
@@ -131,7 +132,9 @@ const Header = () => {
                 </Link>
                 <Link href="/member/shoppingCart">
                   {sessionData && (
-                    <NavCart className={navbar_icon_item_style} />
+                    <div onMouseEnter={onMouseEnterCartPopup}>
+      <NavCart className={navbar_icon_item_style} />
+                    </div>
                   )}
                 </Link>
 
