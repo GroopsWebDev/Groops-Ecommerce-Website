@@ -30,7 +30,7 @@ export default async function handler(req, res) {
       if (existingGroup) {
         return res.json({
           status: 400,
-          message: "You can't create a group until the group is ended.",
+          message: "You can't create another group before the current group ends!\nOne member can only have one group at a time.",
         });
       }
 
@@ -66,7 +66,7 @@ export default async function handler(req, res) {
       } else {
         res
           .status(200)
-          .json({ status: 400, message: "Cart total must be greater than 40" });
+          .json({ status: 400, message: "You total purchase (pretax) must be greater than $40 to continue" });
       }
     } else {
       res.status(405).json({ message: "Method not allowed" });

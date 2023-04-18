@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import { Row, Col, InputGroup, FormControl } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
 import { getRemainingTime } from "../../utils/utils";
@@ -13,7 +14,7 @@ import GroupCenterIconOn from "../../../public/assets/group/group-center-icon-on
 import MyGroupIconOn from "../../../public/assets/group/my-group-icon-on.svg";
 import CreateGroupButton from "../../../public/assets/group/create-group-button.svg";
 import SeeAll from "../../../public/assets/shop/items/see-all.svg";
-import { useSession } from "next-auth/react";
+import MyGroupEmptyBag from "../../../public/assets/group/my-group-empty-bag.svg";
 
 type rprops = { num: number };
 type table = { [key: number]: string };
@@ -63,35 +64,46 @@ const Group = () => {
     return (
       <>
         <h1 className="mt-20 text-center text-purple-600">{numTable[num]}</h1>
-        <div className="mt-10 flex flex-row place-items-center justify-center gap-10">
-          {groups.map((group, index) =>
-            index < 4 ? (
-              <div key={index}>
-                <div className="w-64 h-48">
-                <img
-                  src={`https://api.gr-oops.com/` + group?.groupImg}
-                  alt={group.groupName}
-                  width="250"
-                  className="mr-3 h-full w-full"
-                />
+        {groups.length === 0 ? (
+          <div className="flex flex-col items-center justify-center">
+            <div className="mb-5 mt-5 text-[#A0A0A0]">
+              <h3>No Group Found</h3>
+            </div>
+            <div className="flex justify-center">
+              <MyGroupEmptyBag className="w-20" />
+            </div>
+          </div>
+        ) : (
+          <div className="mt-10 flex flex-row place-items-center justify-center gap-10">
+            {groups.map((group, index) =>
+              index < 4 ? (
+                <div key={index}>
+                  <div className="h-48 w-64">
+                    <img
+                      src={`https://api.gr-oops.com/` + group?.groupImg}
+                      alt={group.groupName}
+                      width="250"
+                      className="mr-3 h-full w-full"
+                    />
+                  </div>
+                  <span className="text-blue-400">{group.groupName}</span>
+                  <div>Ends in {getRemainingTime(group?.endDate)}</div>
                 </div>
-                <span className="text-blue-400">{group.groupName}</span>
-                <div>Ends in {getRemainingTime(group?.endDate)}</div>
-              </div>
-            ) : null
-          )}
-          <Link
-            href={
-              num === 1
-                ? "/group/popular"
-                : num === 2
-                ? "/group/new"
-                : "/group/ending"
-            }
-          >
-            <SeeAll className="w-20 duration-200 hover:scale-110" />
-          </Link>
-        </div>
+              ) : null
+            )}
+            <Link
+              href={
+                num === 1
+                  ? "/group/popular"
+                  : num === 2
+                  ? "/group/new"
+                  : "/group/ending"
+              }
+            >
+              <SeeAll className="w-20 duration-200 hover:scale-110" />
+            </Link>
+          </div>
+        )}
       </>
     );
   };

@@ -17,7 +17,7 @@ export default async function GetExistingGroup(req, res) {
         groupName: {
           not: "",
         },
-        groupMasterId: { not: session.user["id"] },
+        // groupMasterId: { not: session.user["id"] }, // don't show the group that the user created
         // isActive: true,
       },
     });

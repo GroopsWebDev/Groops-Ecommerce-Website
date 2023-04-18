@@ -34,12 +34,12 @@ export default function Item() {
   const [page, setPage] = useState(0);
   const [product, setProduct] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isShoppingCartPopupVisible, setShoppingCartPopupVisible] = useState(false);
+  // const [isShoppingCartPopupVisible, setShoppingCartPopupVisible] = useState(false);
   const [disable, setDisable] = useState(false);
 
   const imagePath = "https://api.gr-oops.com/";
   const notify = () =>
-    toast.success(product?.englishProductName + " Added to cart 👌");
+    toast.success(product?.englishProductName + " added to cart 👌");
   useEffect(() => {
     if (id) {
       setIsLoading(true);
@@ -86,7 +86,7 @@ export default function Item() {
     }
 
     // invoke the shopping cart popup
-    setShoppingCartPopupVisible(true);
+    // setShoppingCartPopupVisible(true);
   }
 
   const Description = () => {
@@ -362,9 +362,9 @@ export default function Item() {
     );
   };
 
-  const handleCartClose = () => {
-    setShoppingCartPopupVisible(false);
-  }
+  // const handleCartClose = () => {
+  //   setShoppingCartPopupVisible(false);
+  // }
 
   return (
     <>
@@ -408,7 +408,7 @@ export default function Item() {
       <HelpCenter />
       
       {/* shopping cart popup */}
-      { isShoppingCartPopupVisible ? <ShoppingCartPopUp isOpen={true} onClose={handleCartClose} /> : null}
+      {/* { isShoppingCartPopupVisible ? <ShoppingCartPopUp isOpen={true} onClose={handleCartClose} /> : null} */}
     </>
   );
 }
