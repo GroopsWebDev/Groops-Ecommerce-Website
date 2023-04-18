@@ -1578,10 +1578,10 @@ function AddressList({ address }: { address: any }) {
                 marginLeft: "3rem",
               }}
             >
-              <div style={{}}>Primary Address: {address.address1}</div>
-              <div style={{}}>Secondary Address :{address.address2}</div>
-              <div style={{}}>City :{address.city}</div>
-              <div style={{}}>{address.postalCode}</div>
+              <div >Primary Address: {address.address1}</div>
+              <div >Secondary Address :{address.address2}</div>
+              <div >City :{address.city}</div>
+              <div >{address.postalCode}</div>
             </div>
 
             <div style={{ marginTop: "1 rem", width: "100px" }}>

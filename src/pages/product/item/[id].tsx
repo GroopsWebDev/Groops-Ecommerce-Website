@@ -40,7 +40,6 @@ export default function Item() {
   const imagePath = "https://api.gr-oops.com/";
   const notify = () =>
     toast.success(product?.englishProductName + " Added to cart 👌");
-
   useEffect(() => {
     if (id) {
       setIsLoading(true);
@@ -214,6 +213,7 @@ export default function Item() {
     );
   };
 
+
   const Specs = () => {
     const style = "flex flex-col justify-center place-items-center gap-y-3";
     return (
@@ -225,18 +225,18 @@ export default function Item() {
           </div>
 
           <div className={style}>
-            <h4>Place of Product</h4>
-            <h4 className="text-purple-600">TAIWAN</h4>
+            <h4>Place of Origin</h4>
+            <h4 className="text-purple-600">{product?.placeOfOrigin}</h4>
           </div>
 
           <div className={style}>
             <h4>Category</h4>
-            <h4 className="text-purple-600">SOFT DRINK</h4>
+            <h4 className="text-purple-600">{product?.category?.name}</h4>
           </div>
 
           <div className={style}>
             <h4>Volume</h4>
-            <h4 className="text-purple-600">300g/bag</h4>
+            <h4 className="text-purple-600">{product?.productWeight}</h4>
           </div>
         </div>
 
