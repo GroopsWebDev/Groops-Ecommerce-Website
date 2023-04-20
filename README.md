@@ -19,6 +19,12 @@ https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EWTa7gVQt5BNtwNAt
 https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EakdoHZGzZpFvKwNZ98AobABv7enXlpdPRYVVmxPB3Xatw?e=UoibP1
 ```
 
+🛍️ 团购process:
+
+```yaml
+https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EQ3qr8dtnM5EpOtVDzGK1PAB4AUkZp0b62IPptWD2qxhoQ?e=mHfX4p
+```
+
 ⭐️ Backend Resource:
 
 ```yaml
