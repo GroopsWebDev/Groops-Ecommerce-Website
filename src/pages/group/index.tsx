@@ -14,11 +14,14 @@ import CreateGroupButton from "../../../public/assets/group/create-group-button.
 import SeeAll from "../../../public/assets/shop/items/see-all.svg";
 import MyGroupEmptyBag from "../../../public/assets/group/my-group-empty-bag.svg";
 
+import List from "../../components/group/list";
+import { Group } from "@prisma/client";
+
 type rprops = { num: number };
 type table = { [key: number]: string };
 
 const Group = () => {
-  const [groups, setGroups] = useState<any[]>([]);
+  const [groups, setGroups] = useState<Group[]>([]);
   const [searchText, setSearchText] = useState("");
   const router = useRouter();
   const { data: sessionData } = useSession();
@@ -48,7 +51,7 @@ const Group = () => {
     router.push("/group/create");
   };
 
-  const filteredGroups = groups.filter((group: any) =>
+  const filteredGroups : Group[] = groups.filter((group: any) =>
     group.groupName.toLowerCase().includes(searchText.toLowerCase())
   );
 
@@ -80,7 +83,7 @@ const Group = () => {
                     <div className="h-48 w-64">
                       <img
                         src={`https://api.gr-oops.com/` + group?.groupImg}
-                        alt={group.groupName}
+                        alt={group.groupName ? group.groupName : undefined}
                         width="250"
                         className="mr-3 h-full w-full hover:scale-110 duration-300"
                       />
@@ -150,6 +153,8 @@ const Group = () => {
         </Row>
       </div>
 
+
+      {searchText? <List groups={filteredGroups} /> : null}
       <GroupRow num={1}></GroupRow>
       <GroupRow num={2}></GroupRow>
       <GroupRow num={3}></GroupRow>

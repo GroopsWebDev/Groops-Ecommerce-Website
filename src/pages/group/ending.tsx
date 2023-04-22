@@ -1,16 +1,21 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+
 import { Row, Col, InputGroup, FormControl } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
 import { getRemainingTime } from "../../utils/utils";
+
 import HelpCenter from "../../components/help/help-center";
-import GroupCenterIcon from "../../../public/assets/group/group-center-icon.svg";
 import MyGroupIcon from "../../../public/assets/group/my-group-icon.svg";
 import CreateGroupButton from "../../../public/assets/group/create-group-button.svg";
 import GroupCenterIconOn from "../../../public/assets/group/group-center-icon-on.svg";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+
+
+import List from "../../components/group/list";
+import { Group } from "@prisma/client";
 
 export default function Popular() {
   const [groups, setGroups] = useState<any[]>([]);
@@ -42,6 +47,10 @@ export default function Popular() {
   const handleCreateGroup = () => {
     router.push("/group/create");
   };
+
+  const filteredGroups : Group[] = groups.filter((group: any) =>
+    group.groupName.toLowerCase().includes(searchText.toLowerCase())
+  );
 
   return (
     <>
@@ -84,20 +93,22 @@ export default function Popular() {
         </Row>
       </div>
 
+      {searchText? <List groups={filteredGroups} /> : null}
+
       <h1 className="mt-20 text-center text-purple-600">Ending Soon</h1>
 
       <div className="mt-20 flex flex-col place-items-center">
-      {groups.map((group, index) => (
+        {groups.map((group, index) => (
           <div
             key={index}
             className="relative flex flex-col place-items-center mb-10"
           >
             <div className="justify-center align-center h-72 w-[35rem]">
-            <img
-              src={`https://api.gr-oops.com/` + group?.groupImg}
-              alt={group.groupName}
-              className=" rounded-xl h-full w-full object-cover object-center"
-            />
+              <img
+                src={`https://api.gr-oops.com/` + group?.groupImg}
+                alt={group.groupName}
+                className=" rounded-xl h-full w-full object-cover object-center"
+              />
             </div>
             <h5 className="absolute top-3 left-1/4 text-white backdrop-blur-3 bg-gray-900 bg-opacity-50 rounded-lg p-0.5">
               {group?.groupName}

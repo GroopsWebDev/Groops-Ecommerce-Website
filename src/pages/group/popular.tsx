@@ -6,12 +6,15 @@ import { FaSearch } from "react-icons/fa";
 import { getRemainingTime } from "../../utils/utils";
 
 import HelpCenter from "../../components/help/help-center";
-import GroupCenterIcon from "../../../public/assets/group/group-center-icon.svg";
 import GroupCenterIconOn from "../../../public/assets/group/group-center-icon-on.svg";
 import MyGroupIcon from "../../../public/assets/group/my-group-icon.svg";
 import CreateGroupButton from "../../../public/assets/group/create-group-button.svg";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+
+
+import List from "../../components/group/list";
+import { Group } from "@prisma/client";
 
 export default function Popular() {
   const [groups, setGroups] = useState<any[]>([]);
@@ -43,6 +46,10 @@ export default function Popular() {
   const handleCreateGroup = () => {
     router.push("/group/create");
   };
+
+  const filteredGroups : Group[] = groups.filter((group: any) =>
+    group.groupName.toLowerCase().includes(searchText.toLowerCase())
+  );
 
   return (
     <>
@@ -84,6 +91,8 @@ export default function Popular() {
           ) : null}
         </Row>
       </div>
+
+      {searchText? <List groups={filteredGroups} /> : null}
 
       <h1 className="mt-20 text-center text-purple-600">Popular Groups</h1>
 
