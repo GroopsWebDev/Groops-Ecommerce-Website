@@ -8,10 +8,8 @@ import { getRemainingTime } from "../../utils/utils";
 import Link from "next/link";
 import HelpCenter from "../../components/help/help-center";
 import { table } from "console";
-import GroupCenterIcon from "../../../public/assets/group/group-center-icon.svg";
 import MyGroupIcon from "../../../public/assets/group/my-group-icon.svg";
 import GroupCenterIconOn from "../../../public/assets/group/group-center-icon-on.svg";
-import MyGroupIconOn from "../../../public/assets/group/my-group-icon-on.svg";
 import CreateGroupButton from "../../../public/assets/group/create-group-button.svg";
 import SeeAll from "../../../public/assets/shop/items/see-all.svg";
 import MyGroupEmptyBag from "../../../public/assets/group/my-group-empty-bag.svg";
@@ -78,16 +76,18 @@ const Group = () => {
             {groups.map((group, index) =>
               index < 4 ? (
                 <div key={index}>
-                  <div className="h-48 w-64">
-                    <img
-                      src={`https://api.gr-oops.com/` + group?.groupImg}
-                      alt={group.groupName}
-                      width="250"
-                      className="mr-3 h-full w-full"
-                    />
-                  </div>
-                  <span className="text-blue-400">{group.groupName}</span>
-                  <div>Ends in {getRemainingTime(group?.endDate)}</div>
+                  <Link href={`/join/` + group.groupId} className="no-underline">
+                    <div className="h-48 w-64">
+                      <img
+                        src={`https://api.gr-oops.com/` + group?.groupImg}
+                        alt={group.groupName}
+                        width="250"
+                        className="mr-3 h-full w-full hover:scale-110 duration-300"
+                      />
+                    </div>
+                    <span className="text-blue-400">{group.groupName}</span>
+                    <div>Ends in {getRemainingTime(group?.endDate)}</div>
+                  </Link>
                 </div>
               ) : null
             )}
@@ -96,8 +96,8 @@ const Group = () => {
                 num === 1
                   ? "/group/popular"
                   : num === 2
-                  ? "/group/new"
-                  : "/group/ending"
+                    ? "/group/new"
+                    : "/group/ending"
               }
             >
               <SeeAll className="w-20 duration-200 hover:scale-110" />
