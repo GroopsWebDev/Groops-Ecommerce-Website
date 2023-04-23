@@ -107,12 +107,6 @@ Lkh123456
 https://js.design/f/tG6OLu?p=Ug3WOcDXLK
 ```
 
-👀 Download Groops Design File PDF with this link: 
-
-```yaml
-https://we.tl/t-S0ROSLMAZI
-```
-
 1. Open XD file in Adobe XD app, select the section and right click on it. Click 'copy svg code'.
 <div align="center">
   <img alt= "export svg" src="https://github.com/HenryCZhang/OKI-T3JS/blob/dev/README_Img/export_svg.png" width="70%"/>
