@@ -1,7 +1,7 @@
 import axios from "axios";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { FaImage } from "react-icons/fa";
 import Swal from "sweetalert2";
@@ -14,7 +14,7 @@ import { CircularProgress } from "@mui/material";
 const CreateGroup = () => {
   const [groupImage, setGroupImage] = useState("");
   const [groupName, setGroupName] = useState("");
-  const [groupHours, setGroupHours] = useState(12);
+  const [groupHours, setGroupHours] = useState(24);
   const [imagePreview, setImagePreview] = useState(null || "");
   const [success, setSuccess] = useState(false);
   const [groupData, setGroupData] = useState<any>();
@@ -35,7 +35,7 @@ const CreateGroup = () => {
 
   const handleHoursChange = (e: any) => {
     const max_hours = 36; // max hours
-                      // check placeholders as well in case change this value
+    // check placeholders as well in case change this value
     if (e.target.value > max_hours) {
       Swal.fire({
         text: "Waiting time can not be greater than 36 hours.",
@@ -166,13 +166,19 @@ const CreateGroup = () => {
                 />
               </Form.Group>
               <Form.Group controlId="formHours">
-                <Form.Label>Waiting Time (hours)</Form.Label>
-                <Form.Control
-                  type="number"
-                  min={12}
-                  max = {36}
-                  placeholder="12 - 36 hrs"
-                  value={groupHours}
+                <label
+                  for="waitingTimeSlider"
+                  className="mt-3 inline-block text-black dark:text-white"
+                >
+                  Waiting Time: {groupHours} hours
+                </label>
+                <input
+                  type="range"
+                  className="h-1.5 w-full cursor-pointer appearance-none rounded-lg border-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
+                  min="12"
+                  max="36"
+                  step="0.5"
+                  id="waitingTimeSlider"
                   onChange={handleHoursChange}
                 />
               </Form.Group>
@@ -197,7 +203,7 @@ const CreateGroup = () => {
               Reset
             </Button>
             <Link href="/group/list">
-            <Button className="mx-2" >Back to Group List</Button>
+              <Button className="mx-2">Back to Group List</Button>
             </Link>
           </div>
         </Form>
