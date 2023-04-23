@@ -14,7 +14,7 @@ import { CircularProgress } from "@mui/material";
 const CreateGroup = () => {
   const [groupImage, setGroupImage] = useState("");
   const [groupName, setGroupName] = useState("");
-  const [groupHours, setGroupHours] = useState(1);
+  const [groupHours, setGroupHours] = useState(12);
   const [imagePreview, setImagePreview] = useState(null || "");
   const [success, setSuccess] = useState(false);
   const [groupData, setGroupData] = useState<any>();
@@ -34,9 +34,9 @@ const CreateGroup = () => {
   };
 
   const handleHoursChange = (e: any) => {
-    const hours = 36; // max hours
+    const max_hours = 36; // max hours
                       // check placeholders as well in case change this value
-    if (e.target.value > hours) {
+    if (e.target.value > max_hours) {
       Swal.fire({
         text: "Waiting time can not be greater than 36 hours.",
         icon: "error",
@@ -169,9 +169,9 @@ const CreateGroup = () => {
                 <Form.Label>Waiting Time (hours)</Form.Label>
                 <Form.Control
                   type="number"
-                  min={1}
+                  min={12}
                   max = {36}
-                  placeholder="Max 36 hrs"
+                  placeholder="12 - 36 hrs"
                   value={groupHours}
                   onChange={handleHoursChange}
                 />
