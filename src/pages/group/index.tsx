@@ -81,15 +81,15 @@ const Group = () => {
               index < 4 ? (
                 <div key={index}>
                   <Link href={`/join/` + group.groupId} className="no-underline">
-                    <div className="h-48 w-64">
+                    <div className="h-48 w-64 mb-2">
                       <img
                         src={`https://api.gr-oops.com/` + group?.groupImg}
                         alt={group.groupName ? group.groupName : undefined}
                         width="250"
-                        className="mr-3 h-full w-full hover:scale-110 duration-300 rounded-3xl"
+                        className="mr-3 h-full w-full hover:scale-105 duration-300 rounded-3xl"
                       />
                     </div>
-                    <span className="text-blue-400">{group.groupName}</span>
+                    <span className="text-blue-500">{group.groupName}</span>
                     <div>
                       <span className="text-black">
                         Ends in <span className="text-red-500">{getRemainingTime(group?.endDate)}</span>
