@@ -50,7 +50,8 @@ const productUploadPage = ({productId, singleProductData}: Props) => {
       const [productData, setProductData] = useState({
         productImage: "",
       });
-    const handleProfilePictureChange = (e: any) => {
+
+    const handleProductPictureChange = (e: any) => {
         const file = e.target.files[0];
         setFileData(file)
         ImageUploader(file)
@@ -221,10 +222,9 @@ const productUploadPage = ({productId, singleProductData}: Props) => {
                                     type="file"
                                     className="hidden"
                                     name="profilePicture"
-                                    onChange={handleProfilePictureChange}
+                                    onChange={handleProductPictureChange}
                                     />
                                 </label>
-                               
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="englishProductName"
@@ -242,7 +242,7 @@ const productUploadPage = ({productId, singleProductData}: Props) => {
                                 className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                             />
                             {errors.englishProductName && (
-                                <span>This field is required</span>
+                                <span className="text-red-500">This field is required</span>
                              )}
                             </div>
                         </div>
@@ -262,7 +262,7 @@ const productUploadPage = ({productId, singleProductData}: Props) => {
                                 className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                             />
                             {errors.chineseProductNName && (
-                                <span>This field is required</span>
+                                <span className="text-red-500">This field is required</span>
                              )}
                             </div>
                         </div>
@@ -282,7 +282,7 @@ const productUploadPage = ({productId, singleProductData}: Props) => {
                                 className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                             />
                             {errors.frenchProductNName && (
-                                <span>This field is required</span>
+                                <span className="text-red-500">This field is required</span>
                              )}
                             </div>
                         </div>
@@ -304,7 +304,7 @@ const productUploadPage = ({productId, singleProductData}: Props) => {
                                 className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                             />
                             {errors.placeOfOrigin && (
-                                <span>This field is required and text enter only</span>
+                                <span className="text-red-500">This field is required and text enter only</span>
                              )}
                             </div>
                         </div>
@@ -326,10 +326,10 @@ const productUploadPage = ({productId, singleProductData}: Props) => {
                                 className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                             />
                             {errors.productWeight && (
-                                <span>This field is required and enter number only</span>
+                                <span className="text-red-500">This field is required and enter number only</span>
                              )}
                             </div>
-                        </div>
+                        </div> 
                         <div className="col-md-6">
                             <label htmlFor="alcohol"
                             className="block text-sm font-medium text-gray-700"> Alcohol 
@@ -339,9 +339,9 @@ const productUploadPage = ({productId, singleProductData}: Props) => {
                                     required: true,
                                 })}  >
                                 {
-                                    // alcoholStatus.map( (list, index) =>
-                                    // <option key={index} value={list.value} selected={selectedStatus == list.value}>{list.label}</option>
-                                    // )
+                                    alcoholStatus.map( (list, index) =>
+                                    <option key={index} selected={selectedStatus == list.value}>{list.label}</option>
+                                    )
                                 }
                              </select>      
                             </div>
@@ -363,7 +363,7 @@ const productUploadPage = ({productId, singleProductData}: Props) => {
                                 className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                             />
                             {errors.price && (
-                                <span>This field is required and enter number only</span>
+                                <span className="text-red-500">This field is required and enter number only</span>
                              )}
                             </div>
                         </div>
@@ -378,13 +378,13 @@ const productUploadPage = ({productId, singleProductData}: Props) => {
                                 })}>
                                 <option value="">--Select Category--</option>    
                                 {
-                                    // categoryList.map( (list, index) =>
-                                    // <option key={index} value={list.id}>{list.name}</option>
-                                    // )
+                                    categoryList.map( (list, index) =>
+                                    <option key={index} value={list.id}>{list.name}</option>
+                                    )
                                 }
                              </select>
                              {errors.categoryId && (
-                                <span>This field is required</span>
+                                <span className="text-red-500">This field is required</span>
                              )}   
                             </div>
                         </div>
@@ -405,7 +405,7 @@ const productUploadPage = ({productId, singleProductData}: Props) => {
                                 className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                             />
                             {errors.retailPrice && (
-                                <span>This field is required and enter number only</span>
+                                <span className="text-red-500">This field is required and enter number only</span>
                              )}
                             </div>
                         </div>
@@ -426,7 +426,7 @@ const productUploadPage = ({productId, singleProductData}: Props) => {
                                 className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                             />
                             {errors.costPrice && (
-                                <span>This field is required and enter number only</span>
+                                <span className="text-red-500">This field is required and enter number only</span>
                              )}
                             </div>
                         </div>
@@ -447,7 +447,7 @@ const productUploadPage = ({productId, singleProductData}: Props) => {
                                 className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                             />
                             {errors.stock && (
-                                <span>This field is required</span>
+                                <span className="text-red-500" >This field is required</span>
                              )}
                             </div>
                         </div>
@@ -467,7 +467,7 @@ const productUploadPage = ({productId, singleProductData}: Props) => {
                                 className="block w-full rounded-md border border-gray-300 py-2 px-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                             />
                             {errors.description && (
-                                <span>This field is required</span>
+                                <span className="text-red-500">This field is required</span>
                              )}
                             </div>
                         </div>
