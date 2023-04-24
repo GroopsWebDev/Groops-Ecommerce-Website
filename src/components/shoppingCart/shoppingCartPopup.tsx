@@ -40,6 +40,56 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
     setTotalPrice(price);
   }, [cartList]);
 
+  const updateItemQuantity = (itemId: any, newQuantity: any) => {
+    // find the index of the item in the cartList
+    const itemIndex = cartList.findIndex((item: any) => item.id == itemId);
+
+    if (itemIndex !== -1) {
+      // item found in cartList
+      // create a new copy of the cartList to avoid directly modifying the original state
+      const newCartList = [...cartList];
+
+      // update the quantity of the identified item in the new cartList copy
+      if (newQuantity === 0) {
+        // if new quantity is zero, remove the item from the cartList
+        newCartList.splice(itemIndex, 1);
+      } else {
+        // otherwise, update the quantity of the identified item in the new cartList copy
+        newCartList[itemIndex].qty = newQuantity;
+      }
+      // update the cartList state with the new copy
+      setCartList(newCartList);
+      axios.post("/api/cart/updateQty", {
+        cartId: itemId,
+        qty: newQuantity.toString(),
+      });
+    }
+  };
+  const incrementItemQuantity = (itemId: any) => {
+    // find the current quantity of the item in the cart
+    const currentItem = cartList.find((item: any) => item.id == itemId);
+    const currentQuantity = currentItem ? parseInt(currentItem.qty) : 0;
+
+    // increment the quantity by 1
+    const newQuantity = currentQuantity + 1;
+
+    // update the quantity of the item in the cart
+    updateItemQuantity(itemId, newQuantity);
+  };
+
+  // function to decrement the quantity of an item in the cart
+  const decrementItemQuantity = (itemId: any) => {
+    // find the current quantity of the item in the cart
+    const currentItem = cartList.find((item: any) => item.id === itemId);
+    const currentQuantity = currentItem ? parseInt(currentItem.qty) : 0;
+
+    // decrement the quantity by 1, but not below 0
+    const newQuantity = Math.max(currentQuantity - 1, 0);
+
+    // update the quantity of the item in the cart
+    updateItemQuantity(itemId, newQuantity);
+  };
+
   const goToCheckout = () => {
     setDisable(true);
     router.push("/checkout");
@@ -82,115 +132,131 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                       </div>
                     </div>
                     <div className="mx-auto w-10/12 border-b border-gray-200"></div>
-                    <ul
-                      role="list"
-                      className="flex-1 divide-y divide-gray-200 overflow-y-auto"
-                    >
-                      {cartList.map((item: any, index: any) => (
-                        <li key={index}>
-                          <div className="group relative flex items-center px-5 py-6">
-                            <div
-                              className="absolute inset-0 group-hover:bg-gray-50"
-                              aria-hidden="true"
-                            />
-                            <Link href="#">
-                              {" "}
-                              {/* click on a product -> route to this product detail page  */}
-                              <div className="relative flex min-w-0 flex-1 items-center">
-                                <span className="relative inline-block flex-shrink-0">
-                                  <img
-                                    className="h-10 w-10 rounded-full"
-                                    src={imagePath + item["product"].image}
-                                    alt=""
-                                  />
-                                </span>
-                                <div className="text-sm">
-                                  <p className="ml-5 mb-1 truncate font-medium text-gray-900">
-                                    {item["product"].englishProductName}
-                                  </p>
-                                  <div className="ml-5 mb-0 flex items-center justify-center space-x-2 truncate">
-                                    <p className="mx-0 inline-flex text-gray-500">
-                                      category {item["product"].categoryId}
+                    {cartList.length ? (
+                      <ul
+                        role="list"
+                        className="flex-1 divide-y divide-gray-200 overflow-y-auto"
+                      >
+                        {cartList.map((item: any, index: any) => (
+                          <li key={index}>
+                            <div className="group relative flex items-center px-5 py-6">
+                              <div
+                                className="absolute inset-0 group-hover:bg-gray-50"
+                                aria-hidden="true"
+                              />
+                              <Link href="#">
+                                {" "}
+                                {/* click on a product -> route to this product detail page  */}
+                                <div className="relative flex min-w-0 flex-1 items-center">
+                                  <span className="relative inline-block flex-shrink-0">
+                                    <img
+                                      className="h-10 w-10 rounded-full"
+                                      src={imagePath + item["product"].image}
+                                      alt=""
+                                    />
+                                  </span>
+                                  <div className="text-sm">
+                                    <p className="ml-5 mb-1 truncate font-medium text-gray-900">
+                                      {item["product"].englishProductName}
                                     </p>
-                                    <p className="inline-flex text-gray-500">
-                                      Subtype
-                                    </p>
-                                  </div>
-                                  <div className="ml-5 space-x-1.5 truncate">
-                                    <p className="inline-flex truncate text-sm text-gray-500">
-                                      {item.qty} x
-                                    </p>
-                                    <p className="inline-flex truncate text-sm text-gray-500">
-                                      ${item["product"].price}
-                                    </p>
+                                    <div className="ml-5 mb-0 flex items-center justify-center space-x-2 truncate">
+                                      <p className="mx-0 inline-flex text-gray-500">
+                                        category {item["product"].categoryId}
+                                      </p>
+                                      <p className="inline-flex text-gray-500">
+                                        Subtype
+                                      </p>
+                                    </div>
+                                    <div className="ml-5 space-x-1.5 truncate">
+                                      <p className="inline-flex truncate text-sm text-gray-500">
+                                        {item.qty} x
+                                      </p>
+                                      <p className="inline-flex truncate text-sm text-gray-500">
+                                        ${item["product"].price}
+                                      </p>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                            </Link>
-                            <Menu
-                              as="div"
-                              className="relative ml-2 inline-block flex-shrink-0 text-left"
-                            >
-                              <Menu.Button className="group relative inline-flex h-8 w-8 items-center justify-center rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                                <span className="sr-only">
-                                  Open options menu
-                                </span>
-                                <span className="flex h-full w-full items-center justify-center rounded-full">
-                                  <EllipsisVerticalIcon
-                                    className="h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                                    aria-hidden="true"
-                                  />
-                                </span>
-                              </Menu.Button>
-                              <Transition
-                                as={Fragment}
-                                enter="transition ease-out duration-100"
-                                enterFrom="transform opacity-0 scale-95"
-                                enterTo="transform opacity-100 scale-100"
-                                leave="transition ease-in duration-75"
-                                leaveFrom="transform opacity-100 scale-100"
-                                leaveTo="transform opacity-0 scale-95"
+                              </Link>
+                              <Menu
+                                as="div"
+                                className="relative ml-5 inline-block flex-shrink-0 space-x-2 text-left"
                               >
-                                <Menu.Items className="absolute right-9 top-0 z-10 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                  <div className="py-1">
-                                    <Menu.Item>
-                                      {({ active }) => (
-                                        <a
-                                          href="#"
-                                          className={classNames(
-                                            active
-                                              ? "bg-gray-100 text-gray-900"
-                                              : "text-gray-700",
-                                            "block px-4 py-2 text-sm"
-                                          )}
-                                        >
-                                          action item 1
-                                        </a>
-                                      )}
-                                    </Menu.Item>
-                                    <Menu.Item>
-                                      {({ active }) => (
-                                        <a
-                                          href="#"
-                                          className={classNames(
-                                            active
-                                              ? "bg-gray-100 text-gray-900"
-                                              : "text-gray-700",
-                                            "block px-4 py-2 text-sm"
-                                          )}
-                                        >
-                                          action item 2
-                                        </a>
-                                      )}
-                                    </Menu.Item>
-                                  </div>
-                                </Menu.Items>
-                              </Transition>
-                            </Menu>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
+                                <Menu.Button className="group relative inline-flex h-6 w-6 items-center justify-center rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-0">
+                                  <span className="sr-only">
+                                    Decrement Item Quantity
+                                  </span>
+                                  <span className="flex h-full w-full items-center justify-center rounded-full">
+                                    <svg
+                                      onClick={(e) => {
+                                        decrementItemQuantity(item.id);
+                                      }}
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                      strokeWidth={1.5}
+                                      stroke="currentColor"
+                                      className="h-6 w-6"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                                      />
+                                    </svg>
+                                  </span>
+                                </Menu.Button>
+                                <Menu.Button className="group relative inline-flex h-6 w-6 items-center justify-center rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-0">
+                                  <span className="sr-only">
+                                    Increment Item quantity
+                                  </span>
+                                  <span className="flex h-full w-full items-center justify-center rounded-full">
+                                    <svg
+                                      onClick={(e) => {
+                                        incrementItemQuantity(item.id);
+                                      }}
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                      strokeWidth={1.5}
+                                      stroke="currentColor"
+                                      className="h-6 w-6"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                                      />
+                                    </svg>
+                                  </span>
+                                </Menu.Button>
+                              </Menu>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <div className="flex h-5/6 flex-col justify-center p-10">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="mx-auto h-6 w-6 stroke-slate-500"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                          />
+                        </svg>
+                        <p className="mx-auto text-slate-500">
+                          Oops, you cart is empty
+                        </p>
+                      </div>
+                    )}
+
                     <Link href="/member/shoppingCart" className="no-underline">
                       <ExitPopupButton
                         text="Go to Cart"
