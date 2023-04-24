@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="126.598" height="94.307" viewBox="0 0 126.598 94.307">
+  <defs>
+    <linearGradient id="linear-gradient" x1="-0.095" y1="0.505" x2="0.955" y2="0.577" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#3884b4"/>
+      <stop offset="1" stop-color="#9e41fd"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" y1="0.5" x2="1" y2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#4806a9"/>
+      <stop offset="0.361" stop-color="#c81f85"/>
+      <stop offset="0.671" stop-color="#ff5f5a"/>
+      <stop offset="1" stop-color="#ffb446"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_353" data-name="Group 353" transform="translate(-1752 -1203.572)">
+    <path id="截圖_2022-12-09_18.58.50" data-name="截圖 2022-12-09 18.58.50" d="M65.182.049c36.149.658,65.575,7.752,65.725,15.845s-29.033,14.12-65.182,13.461S.151,21.6,0,13.511,29.033-.609,65.182.049Z" transform="matrix(0.848, -0.53, 0.53, 0.848, 1752, 1272.942)" fill="url(#linear-gradient)"/>
+    <path id="截圖_2022-12-09_18.58.50-2" data-name="截圖 2022-12-09 18.58.50" d="M52.279.061C81.3.72,104.95,6.5,105.1,12.965S81.845,24.144,52.822,23.486.151,17.05,0,10.582,23.256-.6,52.279.061Z" transform="matrix(0.848, -0.53, 0.53, 0.848, 1764.495, 1268.589)" fill="#fff"/>
+    <circle id="截圖_2022-12-09_18.57.50" data-name="截圖 2022-12-09 18.57.50" cx="36.451" cy="36.451" r="36.451" transform="translate(1778.961 1280.983) rotate(-90)" fill="url(#linear-gradient-2)"/>
+    <ellipse id="截圖_2022-12-09_18.57.50-2" data-name="截圖 2022-12-09 18.57.50" cx="9.737" cy="36.451" rx="9.737" ry="36.451" transform="translate(1778.961 1254.271) rotate(-90)" fill="#ff346f" opacity="0.377"/>
+    <ellipse id="截圖_2022-12-09_18.57.50-3" data-name="截圖 2022-12-09 18.57.50" cx="7.603" cy="27.214" rx="7.603" ry="27.214" transform="translate(1788.085 1275.106) rotate(-90)" fill="#8a0c97"/>
+    <ellipse id="截圖_2022-12-09_18.57.50-4" data-name="截圖 2022-12-09 18.57.50" cx="8.247" cy="30.875" rx="8.247" ry="30.875" transform="translate(1784.423 1234.234) rotate(-90)" fill="#ff8e4d" opacity="0.474"/>
+  </g>
+</svg>

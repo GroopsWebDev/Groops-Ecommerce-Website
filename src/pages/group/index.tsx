@@ -13,6 +13,7 @@ import GroupCenterIconOn from "../../../public/assets/group/group-center-icon-on
 import CreateGroupButton from "../../../public/assets/group/create-group-button.svg";
 import SeeAll from "../../../public/assets/shop/items/see-all.svg";
 import MyGroupEmptyBag from "../../../public/assets/group/my-group-empty-bag.svg";
+import Ball from "../../../public/assets/utility/ball.svg";
 
 import List from "../../components/group/list";
 import { Group } from "@prisma/client";
@@ -51,7 +52,7 @@ const Group = () => {
     router.push("/group/create");
   };
 
-  const filteredGroups : Group[] = groups.filter((group: any) =>
+  const filteredGroups: Group[] = groups.filter((group: any) =>
     group.groupName.toLowerCase().includes(searchText.toLowerCase())
   );
 
@@ -85,11 +86,15 @@ const Group = () => {
                         src={`https://api.gr-oops.com/` + group?.groupImg}
                         alt={group.groupName ? group.groupName : undefined}
                         width="250"
-                        className="mr-3 h-full w-full hover:scale-110 duration-300"
+                        className="mr-3 h-full w-full hover:scale-110 duration-300 rounded-3xl"
                       />
                     </div>
                     <span className="text-blue-400">{group.groupName}</span>
-                    <div>Ends in {getRemainingTime(group?.endDate)}</div>
+                    <div>
+                      <span className="text-black">
+                        Ends in <span className="text-red-500">{getRemainingTime(group?.endDate)}</span>
+                      </span>
+                    </div>
                   </Link>
                 </div>
               ) : null
@@ -111,6 +116,7 @@ const Group = () => {
     );
   };
 
+  //main return
   return (
     <>
       <nav className="mt-10 flex flex-wrap items-center justify-center gap-10">
@@ -153,8 +159,10 @@ const Group = () => {
         </Row>
       </div>
 
+      {searchText ? <List groups={filteredGroups} title="search" /> : null}
 
-      {searchText? <List groups={filteredGroups} /> : null}
+      <Ball className="absolute right-10" />
+
       <GroupRow num={1}></GroupRow>
       <GroupRow num={2}></GroupRow>
       <GroupRow num={3}></GroupRow>
