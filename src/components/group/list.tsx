@@ -1,4 +1,3 @@
-import { Group } from "@prisma/client";
 import { getRemainingTime } from "../../utils/utils";
 import Ball from "../../../public/assets/utility/ball.svg";
 
