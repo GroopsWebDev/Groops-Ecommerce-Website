@@ -22,6 +22,8 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
   const [loading, setLoading] = useState(false);
   const [disable, setDisable] = useState(false);
 
+  const baseUrl = 'http://localhost:3000';
+
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
@@ -95,6 +97,11 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
     router.push("/checkout");
   };
 
+  const goToProduct = (productId: any) => {
+    setDisable(true);
+    router.push(`product/item/${productId}`);
+  };
+
   return (
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={onClose}>
@@ -136,31 +143,32 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                       <ul role="list" className="flex-1 overflow-y-auto">
                         {cartList.map((item: any, index: any) => (
                           <li key={index}>
-                            <div className="group relative mr-9 flex items-center px-5 py-6">
+                            <div className="group relative mr-9 flex items-center justify-between px-3 py-6">
                               <div
                                 className="absolute inset-0 group-hover:bg-gray-50"
                                 aria-hidden="true"
                               />
-                              <Link href="#">
-                                {" "}
+                              <Link href={`${baseUrl}/product/item/${item['product'].skuid}`}>
                                 {/* click on a product -> route to this product detail page  */}
-                                <div className="relative flex min-w-0 flex-1 items-center">
+                                <div className="relative flex min-w-0 flex-1 items-center space-x-2">
                                   <span className="relative inline-block flex-shrink-0">
-                                    <img
-                                      className="h-10 w-10 rounded-full"
-                                      src={imagePath + item["product"].image}
-                                      alt=""
-                                    />
+                                      <img
+                                        className="h-10 w-10 rounded-full"
+                                        src={imagePath + item["product"].image}
+                                        alt=""
+                                      />
                                   </span>
                                   <div className="text-sm">
-                                    <p className="ml-5 mb-1 truncate font-medium text-gray-900">
-                                      {item["product"].englishProductName}
+                                    <p className="text-md ml-5 mb-1 truncate font-bold text-gray-900">
+                                      {item[
+                                        "product"
+                                      ].englishProductName.toUpperCase()}
                                     </p>
                                     <div className="ml-5 mb-0 flex items-center justify-center space-x-2 truncate">
-                                      <p className="mx-0 inline-flex text-gray-500">
+                                      <p className="mx-0 inline-flex font-light text-gray-500 no-underline">
                                         category {item["product"].categoryId}
                                       </p>
-                                      <p className="inline-flex text-gray-500">
+                                      <p className="inline-flex font-light text-gray-500 no-underline">
                                         Subtype
                                       </p>
                                     </div>
