@@ -16,11 +16,11 @@ import MyGroupEmptyBag from "../../../public/assets/group/my-group-empty-bag.svg
 import Ball from "../../../public/assets/utility/ball.svg";
 
 import List from "../../components/group/list";
-import { Group } from "@prisma/client";
+import { group } from "@prisma/client";
 
 
 const Group = () => {
-  const [groups, setGroups] = useState<Group[]>([]);
+  const [groups, setGroups] = useState<group[]>([]);
   const [searchText, setSearchText] = useState("");
   const router = useRouter();
   const { data: sessionData } = useSession();
@@ -50,7 +50,7 @@ const Group = () => {
     router.push("/group/create");
   };
 
-  const filteredGroups: Group[] = groups.filter((group: any) =>
+  const filteredGroups: group[] = groups.filter((group: any) =>
     group.groupName.toLowerCase().includes(searchText.toLowerCase())
   );
 
