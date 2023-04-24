@@ -26,9 +26,9 @@ const Row = ({ category }: props) => {
   }, []);
   return (
     <>
-      <div className="mt-10">
+      <div className="mt-20">
         <div className="flex items-center justify-center">{category}</div>
-        <div className="mb-10 mt-10 flex flex-row flex-wrap justify-center space-x-10">
+        <div className="mt-10 flex flex-row flex-wrap justify-center space-x-10">
           {product.map((i: any) => {
             return (
               <div key={i.skuid}>
@@ -42,9 +42,9 @@ const Row = ({ category }: props) => {
             );
           })}
         </div>
-        <div className="mb-10 mt-10 flex flex-row flex-wrap justify-center space-x-10">
-          <Link className="w-25 mt-14" href="">
-            <button className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+        <div className="mt-4 flex flex-row flex-wrap justify-center space-x-10">
+          <Link className="w-25 mb-4 no-underline" href="">
+            <button className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
               See More
             </button>
           </Link>
