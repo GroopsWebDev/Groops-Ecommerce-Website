@@ -101,16 +101,10 @@ Adobe XD Account Password:
 Lkh123456
 ```
 
-Groops XD Design File Online (missing special fonts): 
+👁️ Groops XD Design File Online (missing special fonts): 
 
 ```yaml
-https://js.design/f/DNsqks?p=UVGdizk3Ey
-```
-
-Download Groops Design File PDF with this link: 
-
-```yaml
-https://we.tl/t-S0ROSLMAZI
+https://js.design/f/tG6OLu?p=Ug3WOcDXLK
 ```
 
 1. Open XD file in Adobe XD app, select the section and right click on it. Click 'copy svg code'.

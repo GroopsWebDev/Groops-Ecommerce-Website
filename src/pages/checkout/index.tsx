@@ -12,9 +12,6 @@ import CheckoutForm from "../checkout/checkoutform";
 import { Button, Modal } from "react-bootstrap";
 // import { loadStripe } from "@stripe/stripe-js";
 import Swal from "sweetalert2";
-import ExitPopupButton from "../../components/tailwind-buttons/exit-pop-up-btn";
-import { confirmAlert } from "react-confirm-alert";
-import "react-confirm-alert/src/react-confirm-alert.css";
 import Link from "next/link";
 import ShopMoreButton from "../../components/tailwind-buttons/shop-more-btn";
 
@@ -32,7 +29,7 @@ function useCheckOut() {
   const [isChecked, setIsChecked] = useState(true);
   const [customeStatus, setCustomeStatus] = useState(false);
   const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true); //for place order btn
+  const handleShow = () => setShow(true); //for place order btn
   const [clientSecret, setClientSecret] = useState("");
   const [formStatus, setFormStatus] = useState(true);
   const [custome, setCustome] = useState();
@@ -224,48 +221,6 @@ function useCheckOut() {
   //   appearance,
   // };
 
-  const goToGroupOrder = () => {
-    confirmAlert({
-      customUI: ({ onClose }) => {
-        return (
-          <div className="rounded-md border-2 border-black bg-white">
-            <div className="m-4">
-              <h1>Group Mode</h1>
-              <p>You’re entering the group mode. </p>
-              <p>
-                In this mode you will go to the group order directly when
-                checkout, The minimum order amount will be $39 (tax excluded).
-              </p>
-              <p>
-                Your group/group member status will be canceled if you leave
-                Groops! without completing an order.
-              </p>
-              <p>
-                You can click on “Select items” on the process bar to continue
-                the group order, or you can go to “Shopping Cart” to continue
-                the group order.
-              </p>
-              <p>
-                By clicking “OK”, you agree to the above terms and conditions.
-              </p>
-              <div className="flex justify-center">
-                <Link href="/group">
-                  <ExitPopupButton
-                    onClick={() => {
-                      onClose();
-                    }}
-                    text="OK"
-                    className="ml-4"
-                  />
-                </Link>
-              </div>
-            </div>
-          </div>
-        );
-      },
-    });
-  };
-
   const getAddress = async () => {
     try {
       const res = await axios.get("/api/shippingAddress/get");
@@ -370,9 +325,7 @@ function useCheckOut() {
                 >
                   {cartItem.map((item: any, index: any) => (
                     <div key={index}>
-                      <div
-                        style={{ width: "50%", display: "flex" }}
-                      >
+                      <div style={{ width: "50%", display: "flex" }}>
                         <img
                           style={{
                             width: "14.87rem",
@@ -1430,60 +1383,36 @@ function useCheckOut() {
                     >
                       Back to Cart
                     </button>
+                    {/* only group order; no individual order */}
+         
                     <button
-                      style={{
-                        margin: "20px",
-                        marginRight: "40px",
-                        cursor: "pointer",
-                        boxShadow:
-                          "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
-                        width: "18rem",
-                        height: "5rem",
-                        background:
-                          "linear-gradient(to right , rgb(100,12,161),  rgb(244,157,94))",
-                        color: "white",
-                        textAlign: "center",
-                        fontSize: "1.5rem",
-                        lineHeight: "5rem",
-                      }}
-                      onClick={goToGroupOrder}
-                    >
-                      Group Order
-                    </button>
+        style={{
+          margin: "20px",
+          marginRight: "40px",
+          cursor: "pointer",
+          boxShadow:
+            "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
+          width: "18rem",
+          height: "5rem",
+          background:
+            "linear-gradient(to right , #640CA1, #F49D5E)",
+          color: "white",
+          textAlign: "center",
+          fontSize: "1.5rem",
+          lineHeight: "5rem",
+        }}
+        onClick={handleShow}
+      >
+        Check out
+      </button>
                   </div>
                 ) : (
                   <>
                     <Link href="/product" className="m-5">
                       <ShopMoreButton text={"Shop More"} />
                     </Link>
-                    <button
-                      className="m-5 mr-10 h-20 w-64 cursor-pointer border border-pink-800 text-center text-2xl leading-10 text-white"
-                      onClick={goToGroupOrder}
-                    >
-                      Group Order
-                    </button>
                   </>
                 )}
-
-                {/* only group order; no individual order */}
-                {/* <button
-                  onClick={handleShow}
-                  style={{
-                    margin: "20px",
-                    cursor: "pointer",
-                    boxShadow:
-                      "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1)",
-                    width: "18rem",
-                    height: "5rem",
-                    backgroundColor: "black",
-                    color: "white",
-                    textAlign: "center",
-                    fontSize: "1.5rem",
-                    lineHeight: "5rem",
-                  }}
-                >
-                  Place Order
-                </button> */}
               </div>
             </div>
           </div>
@@ -1503,7 +1432,6 @@ function useCheckOut() {
               </label>
             </div>
 
-          
             {/* paypal element */}
             <div className="card mt-3">
               <div className="card-body">
@@ -1577,10 +1505,10 @@ function AddressList({ address }: { address: any }) {
                 marginLeft: "3rem",
               }}
             >
-              <div >Primary Address: {address.address1}</div>
-              <div >Secondary Address :{address.address2}</div>
-              <div >City :{address.city}</div>
-              <div >{address.postalCode}</div>
+              <div>Primary Address: {address.address1}</div>
+              <div>Secondary Address :{address.address2}</div>
+              <div>City :{address.city}</div>
+              <div>{address.postalCode}</div>
             </div>
 
             <div style={{ marginTop: "1 rem", width: "100px" }}>
@@ -1591,9 +1519,8 @@ function AddressList({ address }: { address: any }) {
                   justifyContent: "center",
                   marginTop: "1rem",
                 }}
-                
-                // onClick={() => {}}     // Unexpected empty arrow function.  @typescript-eslint/no-empty-function
 
+                // onClick={() => {}}     // Unexpected empty arrow function.  @typescript-eslint/no-empty-function
               >
                 {/* {this.state.isChecked ? <svg style={{ cursor: 'pointer' }} viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10303" width="24" height="24"><path d="M512 938.666667C276.352 938.666667 85.333333 747.648 85.333333 512S276.352 85.333333 512 85.333333s426.666667 191.018667 426.666667 426.666667-191.018667 426.666667-426.666667 426.666667z m0-256a170.666667 170.666667 0 1 0 0-341.333334 170.666667 170.666667 0 0 0 0 341.333334z" p-id="10304" fill="#0080F9"></path></svg>
                 : <svg style={{ cursor: 'pointer' }} viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1647" width="24" height="24"><path d="M512 853.333333c-188.586667 0-341.333333-152.746667-341.333333-341.333333s152.746667-341.333333 341.333333-341.333333 341.333333 152.746667 341.333333 341.333333-152.746667 341.333333-341.333333 341.333333m0-768C276.48 85.333333 85.333333 276.48 85.333333 512s191.146667 426.666667 426.666667 426.666667 426.666667-191.146667 426.666667-426.666667S747.52 85.333333 512 85.333333z" fill="" p-id="1648"></path></svg>
