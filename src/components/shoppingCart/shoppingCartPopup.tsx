@@ -22,7 +22,7 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
   const [loading, setLoading] = useState(false);
   const [disable, setDisable] = useState(false);
 
-  const baseUrl = 'http://localhost:3000';
+  const baseUrl = "http://localhost:3000";
 
   useEffect(() => {
     async function fetchData() {
@@ -120,8 +120,8 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                 leaveTo="translate-x-full"
               >
                 <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
-                  <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
-                    <div className="mx-auto w-10/12 px-6 pt-6 pb-1">
+                  <div className="flex max-h-96 min-h-screen flex-col overflow-y-scroll bg-white shadow-xl">
+                    <div className="mx-auto w-10/12 pt-6 pb-1">
                       <div className="flex items-start justify-between">
                         <Dialog.Title className="text-base font-semibold leading-6 text-gray-900">
                           My Shopping Cart
@@ -140,7 +140,10 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                     </div>
                     <div className="mx-auto w-10/12 border-b border-gray-200"></div>
                     {cartList.length ? (
-                      <ul role="list" className="flex-1 overflow-y-auto">
+                      <ul
+                        role="list"
+                        className="h-96 flex-auto overflow-y-auto"
+                      >
                         {cartList.map((item: any, index: any) => (
                           <li key={index}>
                             <div className="group relative mr-9 flex items-center justify-between px-3 py-6">
@@ -148,15 +151,18 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                                 className="absolute inset-0 group-hover:bg-gray-50"
                                 aria-hidden="true"
                               />
-                              <Link href={`${baseUrl}/product/item/${item['product'].skuid}`}>
+                              <Link
+                                href={`${baseUrl}/product/item/${item["product"].skuid}`}
+                                className="no-underline"
+                              >
                                 {/* click on a product -> route to this product detail page  */}
                                 <div className="relative flex min-w-0 flex-1 items-center space-x-2">
                                   <span className="relative inline-block flex-shrink-0">
-                                      <img
-                                        className="h-10 w-10 rounded-full"
-                                        src={imagePath + item["product"].image}
-                                        alt=""
-                                      />
+                                    <img
+                                      className="h-10 w-10 rounded-full"
+                                      src={imagePath + item["product"].image}
+                                      alt=""
+                                    />
                                   </span>
                                   <div className="text-sm">
                                     <p className="text-md ml-5 mb-1 truncate font-bold text-gray-900">
@@ -165,18 +171,18 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                                       ].englishProductName.toUpperCase()}
                                     </p>
                                     <div className="ml-5 mb-0 flex items-center justify-center space-x-2 truncate">
-                                      <p className="mx-0 inline-flex font-light text-gray-500 no-underline">
+                                      <p className="mx-0 inline-flex font-light text-gray-900 no-underline">
                                         category {item["product"].categoryId}
                                       </p>
-                                      <p className="inline-flex font-light text-gray-500 no-underline">
-                                        Subtype
+                                      <p className="inline-flex font-light text-gray-900 no-underline">
+                                        · Subtype
                                       </p>
                                     </div>
                                     <div className="ml-5 space-x-1.5 truncate">
-                                      <p className="inline-flex truncate text-sm text-gray-500">
+                                      <p className="inline-flex truncate text-sm text-gray-900">
                                         {item.qty} x
                                       </p>
-                                      <p className="inline-flex truncate text-sm text-gray-500">
+                                      <p className="inline-flex truncate text-sm text-gray-900">
                                         ${item["product"].price}
                                       </p>
                                     </div>
@@ -271,13 +277,26 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                       </div>
                     )}
 
-                    <Link href="/member/shoppingCart" className="no-underline">
-                      <ExitPopupButton
-                        text="Go to Cart"
-                        className="mx-auto mb-32 flex justify-center"
-                        onClick={onClose}
-                      />
-                    </Link>
+                    <div className="mx-auto w-10/12 border-b mb-2 border-gray-200"></div>
+                    <div className="mx-auto w-10/12 mt-auto mb-4 flex flex-col">
+                      <div className="flex flex-row justify-between">
+                        <p>3 items</p>
+                        <p>total: $300</p>
+                      </div>
+                      <Link
+                        href="/member/shoppingCart"
+                        className="mx-auto no-underline"
+                      >
+                        <ExitPopupButton
+                          text="Go to Cart"
+                          className="mx-auto flex justify-center"
+                          onClick={onClose}
+                        />
+                      </Link>
+                      <div className="mt-3 text-center text-xs">
+                        Up to $100 Cash rewards + %x discount with this group
+                      </div>
+                    </div>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
