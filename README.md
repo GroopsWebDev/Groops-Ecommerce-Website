@@ -31,7 +31,7 @@ https://docs.google.com/document/d/1_vmmMtdhGWJg9gy_RMMCRAJhYQAxJYdPyOAUc_hiSMk/
 https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EQ3qr8dtnM5EpOtVDzGK1PAB4AUkZp0b62IPptWD2qxhoQ?e=mHfX4p
 ```
 
-⭐️ Backend Resource:
+⭐️ Backend API Doc:
 
 ```yaml
 https://docs.google.com/document/d/1o7Gv-NRj29BsmfoKJ8SqpvkHme7VCQwIIcMiVAp1nW4/edit?usp=sharing
