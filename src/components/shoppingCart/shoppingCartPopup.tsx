@@ -133,13 +133,10 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                     </div>
                     <div className="mx-auto w-10/12 border-b border-gray-200"></div>
                     {cartList.length ? (
-                      <ul
-                        role="list"
-                        className="flex-1 overflow-y-auto"
-                      >
+                      <ul role="list" className="flex-1 overflow-y-auto">
                         {cartList.map((item: any, index: any) => (
                           <li key={index}>
-                            <div className="group relative flex items-center px-5 py-6 mr-9">
+                            <div className="group relative mr-9 flex items-center px-5 py-6">
                               <div
                                 className="absolute inset-0 group-hover:bg-gray-50"
                                 aria-hidden="true"
@@ -180,7 +177,7 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                               </Link>
                               <Menu
                                 as="div"
-                                className="relative ml-5 inline-block flex-shrink-0 space-x-2 text-left"
+                                className="relative ml-6 inline-block flex-shrink-0 space-x-4 text-left"
                               >
                                 <Menu.Button className="group relative inline-flex h-6 w-6 items-center justify-center rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-0">
                                   <span className="sr-only">
@@ -192,17 +189,21 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                                         decrementItemQuantity(item.id);
                                       }}
                                       xmlns="http://www.w3.org/2000/svg"
-                                      fill="none"
-                                      viewBox="0 0 24 24"
-                                      strokeWidth={1.5}
-                                      stroke="currentColor"
+                                      viewBox="0 0 28 29"
                                       className="h-6 w-6"
                                     >
-                                      <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                                      />
+                                      <text
+                                        id="_"
+                                        data-name="􀁏"
+                                        transform="translate(14 23)"
+                                        fill="#6e6e6e"
+                                        font-size="24"
+                                        font-family="SF Compact"
+                                      >
+                                        <tspan x="-13.273" y="0">
+                                          􀁏
+                                        </tspan>
+                                      </text>
                                     </svg>
                                   </span>
                                 </Menu.Button>
@@ -216,22 +217,27 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                                         incrementItemQuantity(item.id);
                                       }}
                                       xmlns="http://www.w3.org/2000/svg"
-                                      fill="none"
-                                      viewBox="0 0 24 24"
-                                      strokeWidth={1.5}
-                                      stroke="currentColor"
+                                      viewBox="0 0 28 29"
                                       className="h-6 w-6"
                                     >
-                                      <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                                      />
+                                      <text
+                                        id="_"
+                                        data-name="􀁍"
+                                        transform="translate(14 23)"
+                                        fill="#a638f2"
+                                        font-size="24"
+                                        font-family="SF Compact"
+                                      >
+                                        <tspan x="-13.273" y="0">
+                                          􀁍
+                                        </tspan>
+                                      </text>
                                     </svg>
                                   </span>
                                 </Menu.Button>
                               </Menu>
                             </div>
+                            <div className="mr-10 border-b border-gray-200"></div>
                           </li>
                         ))}
                       </ul>
