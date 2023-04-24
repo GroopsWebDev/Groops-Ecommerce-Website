@@ -102,7 +102,7 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
 
         <div className="fixed inset-0 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
-            <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10 sm:pl-16">
+            <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full">
               <Transition.Child
                 as={Fragment}
                 enter="transform transition ease-in-out duration-500 sm:duration-700"
@@ -135,11 +135,11 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                     {cartList.length ? (
                       <ul
                         role="list"
-                        className="flex-1 divide-y divide-gray-200 overflow-y-auto"
+                        className="flex-1 overflow-y-auto"
                       >
                         {cartList.map((item: any, index: any) => (
                           <li key={index}>
-                            <div className="group relative flex items-center px-5 py-6">
+                            <div className="group relative flex items-center px-5 py-6 mr-9">
                               <div
                                 className="absolute inset-0 group-hover:bg-gray-50"
                                 aria-hidden="true"
