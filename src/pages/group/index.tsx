@@ -18,8 +18,6 @@ import Ball from "../../../public/assets/utility/ball.svg";
 import List from "../../components/group/list";
 import { Group } from "@prisma/client";
 
-type rprops = { num: number };
-type table = { [key: number]: string };
 
 const Group = () => {
   const [groups, setGroups] = useState<Group[]>([]);
@@ -56,8 +54,8 @@ const Group = () => {
     group.groupName.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  const GroupRow = ({ num }: rprops) => {
-    const numTable: table = {
+  const GroupRow = ({ num } : {num : number}) => {
+    const numTable : {[key: number] : string } = {
       1: "Popular Groups",
       2: "New Groups",
       3: "Ending Soon",
