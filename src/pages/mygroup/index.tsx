@@ -140,7 +140,7 @@ const GroupList = () => {
         ) : (
           <div className="justify-center">
             <h1 className="text-[#A0A0A0]">
-              It looks like you dont have any groups here. Go create one!
+              It looks like you don't have any groups here. Go create one!
             </h1>
             <MyGroupEmptyBag className="mx-auto mt-5 w-20" />
           </div>
