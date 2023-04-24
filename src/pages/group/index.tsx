@@ -8,19 +8,21 @@ import { getRemainingTime } from "../../utils/utils";
 import Link from "next/link";
 import HelpCenter from "../../components/help/help-center";
 import { table } from "console";
-import GroupCenterIcon from "../../../public/assets/group/group-center-icon.svg";
 import MyGroupIcon from "../../../public/assets/group/my-group-icon.svg";
 import GroupCenterIconOn from "../../../public/assets/group/group-center-icon-on.svg";
-import MyGroupIconOn from "../../../public/assets/group/my-group-icon-on.svg";
 import CreateGroupButton from "../../../public/assets/group/create-group-button.svg";
 import SeeAll from "../../../public/assets/shop/items/see-all.svg";
 import MyGroupEmptyBag from "../../../public/assets/group/my-group-empty-bag.svg";
+import Ball from "../../../public/assets/utility/ball.svg";
+
+import List from "../../components/group/list";
+import { Group } from "@prisma/client";
 
 type rprops = { num: number };
 type table = { [key: number]: string };
 
 const Group = () => {
-  const [groups, setGroups] = useState<any[]>([]);
+  const [groups, setGroups] = useState<Group[]>([]);
   const [searchText, setSearchText] = useState("");
   const router = useRouter();
   const { data: sessionData } = useSession();
@@ -50,7 +52,7 @@ const Group = () => {
     router.push("/group/create");
   };
 
-  const filteredGroups = groups.filter((group: any) =>
+  const filteredGroups: Group[] = groups.filter((group: any) =>
     group.groupName.toLowerCase().includes(searchText.toLowerCase())
   );
 
@@ -78,16 +80,22 @@ const Group = () => {
             {groups.map((group, index) =>
               index < 4 ? (
                 <div key={index}>
-                  <div className="h-48 w-64">
-                    <img
-                      src={`https://api.gr-oops.com/` + group?.groupImg}
-                      alt={group.groupName}
-                      width="250"
-                      className="mr-3 h-full w-full"
-                    />
-                  </div>
-                  <span className="text-blue-400">{group.groupName}</span>
-                  <div>Ends in {getRemainingTime(group?.endDate)}</div>
+                  <Link href={`/join/` + group.groupId} className="no-underline">
+                    <div className="h-48 w-64">
+                      <img
+                        src={`https://api.gr-oops.com/` + group?.groupImg}
+                        alt={group.groupName ? group.groupName : undefined}
+                        width="250"
+                        className="mr-3 h-full w-full hover:scale-110 duration-300 rounded-3xl"
+                      />
+                    </div>
+                    <span className="text-blue-400">{group.groupName}</span>
+                    <div>
+                      <span className="text-black">
+                        Ends in <span className="text-red-500">{getRemainingTime(group?.endDate)}</span>
+                      </span>
+                    </div>
+                  </Link>
                 </div>
               ) : null
             )}
@@ -96,8 +104,8 @@ const Group = () => {
                 num === 1
                   ? "/group/popular"
                   : num === 2
-                  ? "/group/new"
-                  : "/group/ending"
+                    ? "/group/new"
+                    : "/group/ending"
               }
             >
               <SeeAll className="w-20 duration-200 hover:scale-110" />
@@ -108,6 +116,7 @@ const Group = () => {
     );
   };
 
+  //main return
   return (
     <>
       <nav className="mt-10 flex flex-wrap items-center justify-center gap-10">
@@ -149,6 +158,10 @@ const Group = () => {
           ) : null}
         </Row>
       </div>
+
+      {searchText ? <List groups={filteredGroups} title="search" /> : null}
+
+      <Ball className="absolute right-10" />
 
       <GroupRow num={1}></GroupRow>
       <GroupRow num={2}></GroupRow>
