@@ -36,7 +36,7 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
   }, []);
   useEffect(() => {
     const price = cartList.reduce(
-      (acc: any, item: any) => acc + item.product.price * item.qty,
+      (acc: number, item: any) => acc + item["product"].price * item.qty,
       0
     );
     setTotalPrice(price);
@@ -120,7 +120,7 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                 leaveTo="translate-x-full"
               >
                 <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
-                  <div className="flex max-h-96 min-h-screen flex-col overflow-y-scroll bg-white shadow-xl">
+                  <div className="flex min-h-fit flex-col overflow-y-scroll bg-white shadow-xl">
                     <div className="mx-auto w-10/12 pt-6 pb-1">
                       <div className="flex items-start justify-between">
                         <Dialog.Title className="text-base font-semibold leading-6 text-gray-900">
@@ -277,11 +277,11 @@ const ShoppingCartPopUp: React.FC<any> = (props) => {
                       </div>
                     )}
 
-                    <div className="mx-auto w-10/12 border-b mb-2 border-gray-200"></div>
-                    <div className="mx-auto w-10/12 mt-auto mb-4 flex flex-col">
+                    <div className="mx-auto mb-2 w-10/12 border-b border-gray-200"></div>
+                    <div className="mx-auto mt-auto mb-4 flex w-10/12 flex-col">
                       <div className="flex flex-row justify-between">
-                        <p>3 items</p>
-                        <p>total: $300</p>
+                        <p>{cartList.length} items</p>
+                        <p>total: ${totalPrice}</p>
                       </div>
                       <Link
                         href="/member/shoppingCart"
