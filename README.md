@@ -8,7 +8,7 @@ https://git-scm.com/downloads
 
 1. Clone the repository
 ```yaml
-git clone https://github.com/HenryCZhang/OKI-T3JS.git
+git clone --branch dev-admin https://github.com/HenryCZhang/Groops-Ecommerce-Website.git
 ```
 1.1 🚨 Read the First Steps of the T3 Stack setup:
 
