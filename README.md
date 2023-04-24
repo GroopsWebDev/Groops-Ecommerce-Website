@@ -68,10 +68,11 @@ https://create.t3.gg/en/usage/first-steps
 cp .env.example .env
 ```
 
-4. NPM Install
+3. NPM Install
 ```yaml
 npm install
 ```
+
 4. Run `npx prisma db push` from the root directory 
 (This command will sync your Prisma schema with your database and will generate the TypeScript types for the Prisma Client based on your schema.)
 
@@ -80,14 +81,17 @@ npm install
 ```yaml
 npx prisma db push
 ```
+
 5. View the app locally
 ```yaml
 npm run dev
 ```
+
 6. Follow T3 Frist Steps for further configurations
 ```yaml
 https://create.t3.gg/en/usage/first-steps
 ```
+
 ## Front End SVG Embedment:
 
 (Adobe XD account is reuqired to use Adobe XD App. ‼️ Only 2 devices are allowed to use one account simultaneously ‼️)
