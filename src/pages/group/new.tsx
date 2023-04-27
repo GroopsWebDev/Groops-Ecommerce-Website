@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Row, Col, InputGroup, FormControl } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
-import { getRemainingTime } from "../../utils/utils";
 
 import HelpCenter from "../../components/help/help-center";
 import MyGroupIcon from "../../../public/assets/group/my-group-icon.svg";
@@ -13,7 +12,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 import List from "../../components/group/list";
-import { Group } from "@prisma/client";
+import { group } from "@prisma/client";
 
 export default function Popular() {
   const [groups, setGroups] = useState<any[]>([]);
@@ -46,7 +45,7 @@ export default function Popular() {
     router.push("/group/create");
   };
 
-  const filteredGroups : Group[] = groups.filter((group: any) =>
+  const filteredGroups : group[] = groups.filter((group: any) =>
     group.groupName.toLowerCase().includes(searchText.toLowerCase())
   );
 

@@ -16,13 +16,11 @@ import MyGroupEmptyBag from "../../../public/assets/group/my-group-empty-bag.svg
 import Ball from "../../../public/assets/utility/ball.svg";
 
 import List from "../../components/group/list";
-import { Group } from "@prisma/client";
+import { group } from "@prisma/client";
 
-type rprops = { num: number };
-type table = { [key: number]: string };
 
 const Group = () => {
-  const [groups, setGroups] = useState<Group[]>([]);
+  const [groups, setGroups] = useState<group[]>([]);
   const [searchText, setSearchText] = useState("");
   const router = useRouter();
   const { data: sessionData } = useSession();
@@ -52,12 +50,12 @@ const Group = () => {
     router.push("/group/create");
   };
 
-  const filteredGroups: Group[] = groups.filter((group: any) =>
+  const filteredGroups: group[] = groups.filter((group: any) =>
     group.groupName.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  const GroupRow = ({ num }: rprops) => {
-    const numTable: table = {
+  const GroupRow = ({ num } : {num : number}) => {
+    const numTable : {[key: number] : string } = {
       1: "Popular Groups",
       2: "New Groups",
       3: "Ending Soon",
