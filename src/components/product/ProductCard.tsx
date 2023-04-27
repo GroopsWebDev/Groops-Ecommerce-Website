@@ -1,9 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import {
-  AiFillHeart,
-  AiOutlineHeart,
-} from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import Link from "next/link";
 
 type props = { id: string; name: string; price: number; image: string };
@@ -21,12 +18,17 @@ const ProductCard = ({ id, name, price, image }: props) => {
   const handleIncreaseQuantity = () => {
     setQuantity(quantity + 1);
   };
-  
+
   return (
     <>
       <div className="relative mb-10 overflow-hidden rounded-lg bg-white text-2xl shadow-lg">
         <Link href={`/product/item/${id}`}>
-          <img src={url} className="h-64 w-full object-cover object-center" />
+          <div className="h-64 w-72">
+            <img
+              src={url}
+              className="h-full w-full object-cover object-center"
+            />
+          </div>
         </Link>
         <button
           className="absolute bottom-16 right-5"
