@@ -1,19 +1,25 @@
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
-🚨 Derick - Groops Task Assignment.dox:
+🚨 Groops Dev Issues:
+
+```yaml
+https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EfWIqNScCtBBqtfVSNinWdIB1pOLnpSz6XHKiDKvRz0gyQ?e=C7hgk8
+```
+
+⏰ Derick - Groops Task Assignment.dox:
 
 ```yaml
 https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EZO35ee6dfFGm_zWHaig7Z8B_96hTGguxeEebz7u2C4V0w?e=BhWNVG
 ```
 
-🚨 Eddy - Groops Task Assignment.dox:
+⏰ Eddy - Groops Task Assignment.dox:
 
 ```yaml
 https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EWTa7gVQt5BNtwNAt9fMI0oBsqjrpnbra-zi0x8voYpU1Q?e=0c2yei
 ```
 
-🚨 Harvey - Groops Task Assignment.dox:
+⏰ Harvey - Groops Task Assignment.dox:
 
 ```yaml
 https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EakdoHZGzZpFvKwNZ98AobABv7enXlpdPRYVVmxPB3Xatw?e=UoibP1
