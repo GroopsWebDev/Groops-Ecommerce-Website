@@ -3,57 +3,40 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 
 🚨 Groops Dev Issues:
 
-```yaml
 https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EfWIqNScCtBBqtfVSNinWdIB1pOLnpSz6XHKiDKvRz0gyQ?e=C7hgk8
-```
+
 
 ⏰ Derick - Groops Task Assignment.dox:
 
-```yaml
 https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EZO35ee6dfFGm_zWHaig7Z8B_96hTGguxeEebz7u2C4V0w?e=BhWNVG
-```
 
 ⏰ Eddy - Groops Task Assignment.dox:
 
-```yaml
 https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EWTa7gVQt5BNtwNAt9fMI0oBsqjrpnbra-zi0x8voYpU1Q?e=0c2yei
-```
 
 ⏰ Harvey - Groops Task Assignment.dox:
 
-```yaml
 https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EakdoHZGzZpFvKwNZ98AobABv7enXlpdPRYVVmxPB3Xatw?e=UoibP1
-```
 
 🛍️ 最新團購邏輯+說明 April 20th:
 
-```yaml
 https://docs.google.com/document/d/1_vmmMtdhGWJg9gy_RMMCRAJhYQAxJYdPyOAUc_hiSMk/edit#heading=h.bypzj6sb1uvj
-```
 
 🛍️ 团购process:
 
-```yaml
 https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EQ3qr8dtnM5EpOtVDzGK1PAB4AUkZp0b62IPptWD2qxhoQ?e=mHfX4p
-```
 
 ⭐️ Backend API Doc:
 
-```yaml
 https://docs.google.com/document/d/1o7Gv-NRj29BsmfoKJ8SqpvkHme7VCQwIIcMiVAp1nW4/edit?usp=sharing
-```
 
 ⭐️ Backend Commodities List: (Add these products to DB + Display on the frontend)
 
-```yaml
 https://uwoca-my.sharepoint.com/:x:/g/personal/czhan672_uwo_ca/EbgkCuTfktNItYqdIJKolooBwYDQbcUHkj8rqhmVrJK8vw?e=x0cUj4
-```
 
 ⭐️ Miscellaneous OKI Dev Resources:
 
-```yaml
 https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/ERWT4wNFbClPrRtoF49y3eUBeVWG58FtnWjCzUfrirjA8Q?e=JQpzj2
-```
 
 ## Getting Started
 Clone down this repository. You will need `node.js` and `git` installed globally on your machine.
