@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import Divider from "../shoppingCart/divider";
-import Swal from "sweetalert2";
 import { useSession } from "next-auth/react";
 import axios from "axios";
-
 
 const myProfile = () => {
 
@@ -11,7 +9,9 @@ const myProfile = () => {
   const { data: sessionData } = useSession();
 
   const changePassword = async ({ current, newpass }: { current: any, newpass: any }) => {
+
     setIsLoading(true);
+
     const response = await axios.post("/api/user/changePassword",
       {
         id: sessionData?.user?.email,
@@ -20,6 +20,24 @@ const myProfile = () => {
       });
 
     setIsLoading(false);
+    if (response.data.status != 200) {
+      alert(response.data.message);
+    }
+  }
+
+  const changeProfile = async ({ name, image, address, postCode, phone }: {
+    name: String, image: String, address: String, postCode: String, phone: String
+  }) => {
+    setIsLoading(true);
+    const response = await axios.post("/api/user/update",
+      {
+        name: name,
+        image: image,
+        address: address,
+        postCode: postCode,
+        phone: phone,
+      });
+
     if (response.data.status != 200) {
       alert(response.data.message);
     }
