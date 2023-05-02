@@ -7,6 +7,8 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 
 ⌨️ [Tailwind CSS Cheat Sheet](https://nerdcave.com/tailwind-cheat-sheet)
 
+⌨️ [Ultimate Tailwind CSS Tutorial](https://www.youtube.com/watch?v=pfaSUYaSgRo)
+
 🛍️ [最新團購邏輯+說明 April 20th](https://docs.google.com/document/d/1_vmmMtdhGWJg9gy_RMMCRAJhYQAxJYdPyOAUc_hiSMk/edit#heading=h.bypzj6sb1uvj)
 
 🛍️ [团购process](https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EQ3qr8dtnM5EpOtVDzGK1PAB4AUkZp0b62IPptWD2qxhoQ?e=mHfX4p)
