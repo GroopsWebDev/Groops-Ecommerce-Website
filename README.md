@@ -3,6 +3,9 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 
 📝 [Dev Standardization](https://uwoca-my.sharepoint.com/:p:/g/personal/czhan672_uwo_ca/EVUIgLS4TY1AvOaXxFb3wLoBhI0iKf6BFOLQuVjPHSnwjQ?e=VdJRwa)
 
+🏻‍💻 [Project Log](https://github.com/users/HenryCZhang/projects/1/views/2?layout=roadmap)
+
+
 🧑🏻‍💻 [Tailwind Cheat Sheet](https://nerdcave.com/tailwind-cheat-sheet)
 
 
