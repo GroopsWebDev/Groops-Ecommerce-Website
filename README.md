@@ -3,11 +3,9 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 
 📝 [Dev Standardization](https://uwoca-my.sharepoint.com/:p:/g/personal/czhan672_uwo_ca/EVUIgLS4TY1AvOaXxFb3wLoBhI0iKf6BFOLQuVjPHSnwjQ?e=VdJRwa)
 
-🏻‍💻 [Project Log](https://github.com/users/HenryCZhang/projects/1/views/2?layout=roadmap)
+📆 [Project Log](https://github.com/orgs/GroopsWebDev/projects/2)
 
-
-🧑🏻‍💻 [Tailwind Cheat Sheet](https://nerdcave.com/tailwind-cheat-sheet)
-
+⌨️ [Tailwind CSS Cheat Sheet](https://nerdcave.com/tailwind-cheat-sheet)
 
 🛍️ [最新團購邏輯+說明 April 20th](https://docs.google.com/document/d/1_vmmMtdhGWJg9gy_RMMCRAJhYQAxJYdPyOAUc_hiSMk/edit#heading=h.bypzj6sb1uvj)
 
@@ -18,6 +16,12 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 ⭐️ [Backend Commodities List](https://uwoca-my.sharepoint.com/:x:/g/personal/czhan672_uwo_ca/EbgkCuTfktNItYqdIJKolooBwYDQbcUHkj8rqhmVrJK8vw?e=x0cUj4): (Add these products to DB + Display on the frontend)
 
 ⭐️ [Miscellaneous OKI Dev Resources](https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/ERWT4wNFbClPrRtoF49y3eUBeVWG58FtnWjCzUfrirjA8Q?e=JQpzj2)
+
+🧑🏻‍💻 [Groops 技术组文案 Google Doc](https://drive.google.com/drive/folders/1WMX8lih_z8u6f5l4JqASJsooj5A1BmVc)
+
+📑 [Groops 网页文案素材 Google Doc](https://drive.google.com/drive/folders/1P12ub1fNfw6AiWATmXrmP9MWOvJXKDdl)
+
+⌨️ [Groops 董事会 Google Doc](https://drive.google.com/drive/folders/1xEKxPaBMwIzt-sqtS7GUNSB6pYQxiqd2)
 
 <div align="center">
   <h3>Version Control Flow</h3>
