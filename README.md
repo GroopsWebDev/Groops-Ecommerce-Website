@@ -1,53 +1,29 @@
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
-🚨 Derick - Groops Task Assignment.dox:
+📝 [Dev Standardization](https://uwoca-my.sharepoint.com/:p:/g/personal/czhan672_uwo_ca/EVUIgLS4TY1AvOaXxFb3wLoBhI0iKf6BFOLQuVjPHSnwjQ?e=VdJRwa)
 
-```yaml
-https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EZO35ee6dfFGm_zWHaig7Z8B_96hTGguxeEebz7u2C4V0w?e=BhWNVG
-```
+🏻‍💻 [Project Log](https://github.com/users/HenryCZhang/projects/1/views/2?layout=roadmap)
 
-🚨 Eddy - Groops Task Assignment.dox:
 
-```yaml
-https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EWTa7gVQt5BNtwNAt9fMI0oBsqjrpnbra-zi0x8voYpU1Q?e=0c2yei
-```
+🧑🏻‍💻 [Tailwind Cheat Sheet](https://nerdcave.com/tailwind-cheat-sheet)
 
-🚨 Harvey - Groops Task Assignment.dox:
 
-```yaml
-https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EakdoHZGzZpFvKwNZ98AobABv7enXlpdPRYVVmxPB3Xatw?e=UoibP1
-```
+🛍️ [最新團購邏輯+說明 April 20th](https://docs.google.com/document/d/1_vmmMtdhGWJg9gy_RMMCRAJhYQAxJYdPyOAUc_hiSMk/edit#heading=h.bypzj6sb1uvj)
 
-🛍️ 最新團購邏輯+說明 April 20th:
+🛍️ [团购process](https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EQ3qr8dtnM5EpOtVDzGK1PAB4AUkZp0b62IPptWD2qxhoQ?e=mHfX4p)
 
-```yaml
-https://docs.google.com/document/d/1_vmmMtdhGWJg9gy_RMMCRAJhYQAxJYdPyOAUc_hiSMk/edit#heading=h.bypzj6sb1uvj
-```
+⭐️ [Backend API Doc](https://docs.google.com/document/d/1o7Gv-NRj29BsmfoKJ8SqpvkHme7VCQwIIcMiVAp1nW4/edit?usp=sharing)
 
-🛍️ 团购process:
+⭐️ [Backend Commodities List](https://uwoca-my.sharepoint.com/:x:/g/personal/czhan672_uwo_ca/EbgkCuTfktNItYqdIJKolooBwYDQbcUHkj8rqhmVrJK8vw?e=x0cUj4): (Add these products to DB + Display on the frontend)
 
-```yaml
-https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EQ3qr8dtnM5EpOtVDzGK1PAB4AUkZp0b62IPptWD2qxhoQ?e=mHfX4p
-```
+⭐️ [Miscellaneous OKI Dev Resources](https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/ERWT4wNFbClPrRtoF49y3eUBeVWG58FtnWjCzUfrirjA8Q?e=JQpzj2)
 
-⭐️ Backend API Doc:
+⏰ [Derick - Groops Task Assignment](https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EZO35ee6dfFGm_zWHaig7Z8B_96hTGguxeEebz7u2C4V0w?e=BhWNVG)
 
-```yaml
-https://docs.google.com/document/d/1o7Gv-NRj29BsmfoKJ8SqpvkHme7VCQwIIcMiVAp1nW4/edit?usp=sharing
-```
+⏰ [Eddy - Groops Task Assignment](https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EWTa7gVQt5BNtwNAt9fMI0oBsqjrpnbra-zi0x8voYpU1Q?e=0c2yei)
 
-⭐️ Backend Commodities List: (Add these products to DB + Display on the frontend)
-
-```yaml
-https://uwoca-my.sharepoint.com/:x:/g/personal/czhan672_uwo_ca/EbgkCuTfktNItYqdIJKolooBwYDQbcUHkj8rqhmVrJK8vw?e=x0cUj4
-```
-
-⭐️ Miscellaneous OKI Dev Resources:
-
-```yaml
-https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/ERWT4wNFbClPrRtoF49y3eUBeVWG58FtnWjCzUfrirjA8Q?e=JQpzj2
-```
+⏰ [Harvey - Groops Task Assignment](https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EakdoHZGzZpFvKwNZ98AobABv7enXlpdPRYVVmxPB3Xatw?e=UoibP1)
 
 ## Getting Started
 Clone down this repository. You will need `node.js` and `git` installed globally on your machine.
