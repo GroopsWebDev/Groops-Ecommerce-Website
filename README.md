@@ -19,12 +19,6 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 
 ⭐️ [Miscellaneous OKI Dev Resources](https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/ERWT4wNFbClPrRtoF49y3eUBeVWG58FtnWjCzUfrirjA8Q?e=JQpzj2)
 
-⏰ [Derick - Groops Task Assignment](https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EZO35ee6dfFGm_zWHaig7Z8B_96hTGguxeEebz7u2C4V0w?e=BhWNVG)
-
-⏰ [Eddy - Groops Task Assignment](https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EWTa7gVQt5BNtwNAt9fMI0oBsqjrpnbra-zi0x8voYpU1Q?e=0c2yei)
-
-⏰ [Harvey - Groops Task Assignment](https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EakdoHZGzZpFvKwNZ98AobABv7enXlpdPRYVVmxPB3Xatw?e=UoibP1)
-
 <div align="center">
   <h3>Version Control Flow</h3>
   <img alt= "Git Version Control Flow.png" src="https://github.com/HenryCZhang/OKI-T3JS/blob/dev/README_Img/Git Version Control Flow.png" width="70%"/>
