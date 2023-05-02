@@ -23,7 +23,7 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 
 📑 [Groops 网页文案素材 Google Doc](https://drive.google.com/drive/folders/1P12ub1fNfw6AiWATmXrmP9MWOvJXKDdl)
 
-⌨️ [Groops 董事会 Google Doc](https://drive.google.com/drive/folders/1xEKxPaBMwIzt-sqtS7GUNSB6pYQxiqd2)
+🧰 [Groops 董事会 Google Doc](https://drive.google.com/drive/folders/1xEKxPaBMwIzt-sqtS7GUNSB6pYQxiqd2)
 
 <div align="center">
   <h3>Version Control Flow</h3>
