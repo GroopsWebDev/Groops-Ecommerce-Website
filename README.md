@@ -1,6 +1,8 @@
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
+🗺️ [Page Routing Map](https://miro.com/welcomeonboard/NXdEcWtrQWFGeUJNQWI3blNFQXpQSW9ySkR0czAzNUV6VWN0bkViY2lBM0hJWkJnc000REhxQ1BIa2VqZE9WdXwzNDU4NzY0NTE3MTM3NjkxNzk1fDI=?share_link_id=249460423803)
+
 📝 [Dev Standardization](https://uwoca-my.sharepoint.com/:p:/g/personal/czhan672_uwo_ca/EVUIgLS4TY1AvOaXxFb3wLoBhI0iKf6BFOLQuVjPHSnwjQ?e=VdJRwa)
 
 📆 [Project Log](https://github.com/orgs/GroopsWebDev/projects/2)
