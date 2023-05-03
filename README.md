@@ -29,12 +29,17 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
   <h3>Version Control Flow</h3>
   <img alt= "Git Version Control Flow.png" src="https://github.com/HenryCZhang/OKI-T3JS/blob/dev/README_Img/Git Version Control Flow.png" width="70%"/>
 </div>
-<p align="center">(Before changing your code:)</p>
+<p align="center"><i>Before changing your code:</i></p>
 <p align="center">Git pull dev (make sure your branch is consistent with the main branch)</p>
 <p align="center">Coding…</p>
-<p align="center">(After changing your code:)</p>
+<p align="center"><i>After changing your code:</i></p>
 <p align="center">Git push dev (push your code to your branch - > merge request to the Derick branch)</p>
 <p align="center">Derick resolves any merge conflicts / bugs -> PR Dev branch</p>
+
+<div align="center">
+  <h3>Folder Structure + File Naming Convention</h3>
+  <img alt= "Git Version Control Flow.png" src="https://github.com/HenryCZhang/OKI-T3JS/blob/dev/README_Img/naming convention.png" width="100%"/>
+</div>
 
 <div align="center">
   <h3>Agile Devops</h3>
