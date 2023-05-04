@@ -1,6 +1,16 @@
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
+🗺️ [Page Routing Map](https://miro.com/welcomeonboard/NXdEcWtrQWFGeUJNQWI3blNFQXpQSW9ySkR0czAzNUV6VWN0bkViY2lBM0hJWkJnc000REhxQ1BIa2VqZE9WdXwzNDU4NzY0NTE3MTM3NjkxNzk1fDI=?share_link_id=249460423803)
+
+📝 [Dev Standardization](https://uwoca-my.sharepoint.com/:p:/g/personal/czhan672_uwo_ca/EVUIgLS4TY1AvOaXxFb3wLoBhI0iKf6BFOLQuVjPHSnwjQ?e=VdJRwa)
+
+📆 [Project Log](https://github.com/orgs/GroopsWebDev/projects/2)
+
+⌨️ [Tailwind CSS Cheat Sheet](https://nerdcave.com/tailwind-cheat-sheet)
+
+⌨️ [Ultimate Tailwind CSS Tutorial](https://www.youtube.com/watch?v=pfaSUYaSgRo)
+
 🛍️ [最新團購邏輯+說明 April 20th](https://docs.google.com/document/d/1_vmmMtdhGWJg9gy_RMMCRAJhYQAxJYdPyOAUc_hiSMk/edit#heading=h.bypzj6sb1uvj)
 
 🛍️ [团购process](https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EQ3qr8dtnM5EpOtVDzGK1PAB4AUkZp0b62IPptWD2qxhoQ?e=mHfX4p)
@@ -11,11 +21,37 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 
 ⭐️ [Miscellaneous OKI Dev Resources](https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/ERWT4wNFbClPrRtoF49y3eUBeVWG58FtnWjCzUfrirjA8Q?e=JQpzj2)
 
-⏰ [Derick - Groops Task Assignment](https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EZO35ee6dfFGm_zWHaig7Z8B_96hTGguxeEebz7u2C4V0w?e=BhWNVG)
+🧑🏻‍💻 [Groops 技术组文案 Google Doc](https://drive.google.com/drive/folders/1WMX8lih_z8u6f5l4JqASJsooj5A1BmVc)
 
-⏰ [Eddy - Groops Task Assignment](https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EWTa7gVQt5BNtwNAt9fMI0oBsqjrpnbra-zi0x8voYpU1Q?e=0c2yei)
+📑 [Groops 网页文案素材 Google Doc](https://drive.google.com/drive/folders/1P12ub1fNfw6AiWATmXrmP9MWOvJXKDdl)
 
-⏰ [Harvey - Groops Task Assignment](https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/EakdoHZGzZpFvKwNZ98AobABv7enXlpdPRYVVmxPB3Xatw?e=UoibP1)
+🧰 [Groops 董事会 Google Doc](https://drive.google.com/drive/folders/1xEKxPaBMwIzt-sqtS7GUNSB6pYQxiqd2)
+
+<div align="center">
+  <h3>Version Control Flow</h3>
+  <img alt= "Git Version Control Flow.png" src="https://github.com/HenryCZhang/OKI-T3JS/blob/dev/README_Img/Git Version Control Flow.png" width="70%"/>
+</div>
+<p align="center"><i>Before changing your code:</i></p>
+<p align="center">Git pull dev (make sure your branch is consistent with the main branch)</p>
+<p align="center">Coding…</p>
+<p align="center"><i>After changing your code:</i></p>
+<p align="center">Git push dev (push your code to your branch - > merge request to the Derick branch)</p>
+<p align="center">Derick resolves any merge conflicts / bugs -> PR Dev branch</p>
+
+<div align="center">
+  <h3>Folder Structure + File Naming Convention</h3>
+  <img alt= "Git Version Control Flow.png" src="https://github.com/HenryCZhang/OKI-T3JS/blob/dev/README_Img/naming convention.png" width="100%"/>
+</div>
+
+<div align="center">
+  <h3>Agile Devops</h3>
+  <img alt= "Git Version Control Flow.png" src="https://github.com/HenryCZhang/OKI-T3JS/blob/dev/README_Img/agile_devops.png" width="100%"/>
+</div>
+
+<div align="center">
+  <h3>Scrum Framework</h3>
+  <img alt= "Git Version Control Flow.png" src="https://github.com/HenryCZhang/OKI-T3JS/blob/dev/README_Img/scrum_framework.png" width="100%"/>
+</div>
 
 ## Getting Started
 Clone down this repository. You will need `node.js` and `git` installed globally on your machine.
