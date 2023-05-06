@@ -1,7 +1,7 @@
 // import { NextApiHandler } from 'next';
-import { prisma } from "../../../../server/db/client";
+import { prisma } from "../../../server/db/client";
 
-async function UserSetting(req, res) {
+async function updateProfile(req, res) {
   try {
     const newUser = await prisma.user.update({
       where: { id: req.body.userId },
