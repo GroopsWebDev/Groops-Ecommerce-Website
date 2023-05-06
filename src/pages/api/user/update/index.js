@@ -10,6 +10,7 @@ async function UserSetting(req, res) {
         // lastname: req.body.lastname,
         name: req.body.name,
         image: req.body.image,
+        email: req.body.email,
         address: req.body.address,
         postCode: req.body.postCode,
         phone: parseInt(req.body.phoneNumber),
