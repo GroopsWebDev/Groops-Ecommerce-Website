@@ -31,6 +31,9 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 
 🔑 chatGPT Groops account: `team@gr-oops.com` password: `Groops1122`.
 
+🔑 Tailwind UI Dev (Harvey account): `zichengzhao@g.ucla.edu` password: `Zichengzhao+1234`
+
+
 <div align="center">
   <h3>Version Control Flow</h3>
   <img alt= "Git Version Control Flow.png" src="https://github.com/HenryCZhang/OKI-T3JS/blob/dev/README_Img/Git Version Control Flow.png" width="80%"/>
