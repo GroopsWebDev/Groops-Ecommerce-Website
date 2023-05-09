@@ -98,6 +98,13 @@ npm run dev
 https://create.t3.gg/en/usage/first-steps
 ```
 
+## Tips
+1.   Browse your Prisma data
+```yaml
+npx prisma studio
+```
+
+
 ## Front End SVG Embedment:
 
 (Adobe XD account is reuqired to use Adobe XD App. ‼️ Only 2 devices are allowed to use one account simultaneously ‼️)
