@@ -23,7 +23,8 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs",
-    "**/*.js" //include js files - Henry testing
+    "**/*.js" 
+    //include js files - Henry testing
     // "src/pages/api/checkout_sessions/index.js",
     // "src/pages/api/cart/index.js",
     // "src/utils/utils.js",

@@ -6,7 +6,7 @@ export default async function GetDataById(req, res) {
     const id = req.query.id;
     const product = await prisma.product.findUnique({
       where: { skuid: id },
-      include: { category: true },
+      // include: { category: true },
     });
     if (product) {
       return res.json({ status: 200, success: true, product });
