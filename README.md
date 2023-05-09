@@ -1,13 +1,15 @@
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
+📆 [Project Log](https://github.com/orgs/GroopsWebDev/projects/2)
+
 🗺️ [UI Design](https://www.figma.com/file/CBk2Ut3511bv54BuOUbmAw/Groops-User-Flow?type=whiteboard&node-id=0-1&t=tHJRPMVvh2iEtrlh-0)
 
 🗺️ [Backend ER disgram](https://lucid.app/lucidchart/a938cde6-3b28-4ff7-8886-640e5ae5233d/edit?shared=true&page=0_0&invitationId=inv_d276e011-6fb4-429e-814f-4be425b53329#)
 
 📝 [Dev Standardization](https://uwoca-my.sharepoint.com/:p:/g/personal/czhan672_uwo_ca/EVUIgLS4TY1AvOaXxFb3wLoBhI0iKf6BFOLQuVjPHSnwjQ?e=VdJRwa)
 
-📆 [Project Log](https://github.com/orgs/GroopsWebDev/projects/2)
+⌨️ [Prisma CLI reference](https://www.prisma.io/docs/reference/api-reference/command-reference#db-pull)
 
 ⌨️ [Tailwind CSS Cheat Sheet](https://nerdcave.com/tailwind-cheat-sheet)
 
@@ -97,13 +99,6 @@ npm run dev
 ```yaml
 https://create.t3.gg/en/usage/first-steps
 ```
-
-## Tips
-1.   Browse your Prisma data
-```yaml
-npx prisma studio
-```
-
 
 ## Front End SVG Embedment:
 
