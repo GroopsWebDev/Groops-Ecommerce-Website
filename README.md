@@ -81,13 +81,11 @@ cp .env.example .env
 npm install
 ```
 
-4. Run `npx prisma db push` from the root directory 
-(This command will sync your Prisma schema with your database and will generate the TypeScript types for the Prisma Client based on your schema.)
-
-🚨 only run this command when 'DATABASE_URL=file:./db.sqlite', otherwise the actual DB would be overwritten‼️
+4. Run `npx prisma db pull` from the root directory 
+(The db pull command connects to your database and adds Prisma models to your Prisma schema that reflect the current database schema.)
 
 ```yaml
-npx prisma db push
+npx prisma db pull
 ```
 
 5. View the app locally
