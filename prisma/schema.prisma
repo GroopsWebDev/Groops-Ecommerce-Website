@@ -55,10 +55,10 @@ model group {
   startDate           DateTime      @default(now())
   endDate             DateTime
   description         String?       @db.VarChar(255)
-  groupDiscountRateId String?
   groupImg            String?       @db.VarChar(100)
   groupCode           String?
   isActive            Int?          @default(1) @db.TinyInt
+  groupDiscountRateId String?
   groupmember         groupmember[]
 
   @@index([groupMasterId], map: "group_FK")
@@ -181,6 +181,12 @@ model verificationtoken {
   expires    DateTime
 
   @@unique([identifier, token], map: "VerificationToken_identifier_token_key")
+}
+
+model love {
+  id     Int    @id @default(autoincrement())
+  userId String @db.VarChar(255)
+  skuid  String
 }
 
 enum user_role {
