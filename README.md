@@ -1,7 +1,7 @@
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
-🗺️ [Page Routing Map](https://miro.com/welcomeonboard/NXdEcWtrQWFGeUJNQWI3blNFQXpQSW9ySkR0czAzNUV6VWN0bkViY2lBM0hJWkJnc000REhxQ1BIa2VqZE9WdXwzNDU4NzY0NTE3MTM3NjkxNzk1fDI=?share_link_id=249460423803)
+🗺️ [UI Design](https://www.figma.com/file/CBk2Ut3511bv54BuOUbmAw/Groops-User-Flow?type=whiteboard&node-id=0-1&t=tHJRPMVvh2iEtrlh-0)
 
 🗺️ [Backend ER disgram](https://lucid.app/lucidchart/a938cde6-3b28-4ff7-8886-640e5ae5233d/edit?shared=true&page=0_0&invitationId=inv_d276e011-6fb4-429e-814f-4be425b53329#)
 
