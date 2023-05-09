@@ -62,7 +62,7 @@ Clone down this repository. You will need `node.js` and `git` installed globally
 
 1. Clone the repository
 ```yaml
-git clone https://github.com/HenryCZhang/OKI-T3JS.git
+https://github.com/GroopsWebDev/Groops-Ecommerce-Website.git
 ```
 1.1 🚨 Read the First Steps of the T3 Stack setup:
 
@@ -83,7 +83,6 @@ npm install
 
 4. Run `npx prisma db pull` from the root directory 
 (The db pull command connects to your database and adds Prisma models to your Prisma schema that reflect the current database schema.)
-
 ```yaml
 npx prisma db pull
 ```
