@@ -2,7 +2,7 @@ import { prisma } from "../../../../server/db/client";
 
 async function GetOrdersByUser(req, res) {
   try {
-    const orders = await prisma.orders.findMany({
+    const orders = await prisma.order.findMany({
       where: { userId: req.body.userId }
     });
 

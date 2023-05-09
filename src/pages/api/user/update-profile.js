@@ -6,8 +6,8 @@ async function updateProfile(req, res) {
     const newUser = await prisma.user.update({
       where: { id: req.body.userId },
       data: {
-        // firstname: req.body.firstname,
-        // lastname: req.body.lastname,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
         name: req.body.name,
         image: req.body.image,
         email: req.body.email,
