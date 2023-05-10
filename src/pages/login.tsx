@@ -1,7 +1,7 @@
 import { signIn } from "next-auth/react";
 import GoogleButton from "react-google-button";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -24,6 +24,17 @@ const Login = () => {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = useState(false);
   const router = useRouter();
+  const [callbackUrl, setCallbackUrl] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCallbackUrl(`${window.location.origin}`);
+    }
+  }, []);
+
+  const handleGoogleSignIn = async () => {
+    await signIn("google", { callbackUrl: callbackUrl });
+  };
 
   const buttonStyle = {
     padding: "10px",
@@ -193,9 +204,7 @@ const Login = () => {
 
             <div className="relative flex justify-center py-4 text-sm">
               <GoogleButton
-                onClick={() => {
-                  signIn("google", { callbackUrl: "http://localhost:3000/" });
-                }}
+                onClick={handleGoogleSignIn}
               />
             </div>
           </div>
