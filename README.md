@@ -3,6 +3,8 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 
 📆 [Project Log](https://github.com/orgs/GroopsWebDev/projects/2)
 
+📆 [产品部进度报告](https://docs.google.com/document/d/1Pc2bk3EGPR1z4tmkcqf-JRUmAp8r97iaMK5ahye9GRY/edit)
+
 🗺️ [UI Design](https://www.figma.com/file/CBk2Ut3511bv54BuOUbmAw/Groops-User-Flow?type=whiteboard&node-id=0-1&t=tHJRPMVvh2iEtrlh-0)
 
 🗺️ [Backend ER disgram](https://lucid.app/lucidchart/a938cde6-3b28-4ff7-8886-640e5ae5233d/edit?shared=true&page=0_0&invitationId=inv_d276e011-6fb4-429e-814f-4be425b53329#)
