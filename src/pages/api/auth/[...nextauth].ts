@@ -1,5 +1,4 @@
 import NextAuth, { type NextAuthOptions } from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
 import GoogleProvider from "next-auth/providers/google";
 // Prisma adapter for NextAuth, optional and can be removed
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
@@ -59,10 +58,6 @@ export const authOptions: NextAuthOptions = {
         return false;
       },
     }),
-    DiscordProvider({
-      clientId: env.DISCORD_CLIENT_ID,
-      clientSecret: env.DISCORD_CLIENT_SECRET,
-    }),
     GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
@@ -81,20 +76,3 @@ export const authOptions: NextAuthOptions = {
 };
 
 export default NextAuth(authOptions);
-
-// import NextAuth, { NextAuthOptions } from "next-auth";
-// import { PrismaAdapter } from "@next-auth/prisma-adapter";
-// import { PrismaClient } from "@prisma/client";
-// import { NextApiRequest, NextApiResponse } from "next";
-
-// const prisma = new PrismaClient();
-
-// const options: NextAuthOptions = {
-//   providers: [],
-//   adapter: PrismaAdapter(prisma),
-//   pages: {
-//     signIn: "/login",
-//   },
-// };
-
-// export default (req: NextApiRequest, res: NextApiResponse<any>) => NextAuth(req, res, options);
