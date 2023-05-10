@@ -3,7 +3,7 @@ import Divider from "../shoppingCart/divider";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 
-const myProfile = () => {
+const MyProfile = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const { data: sessionData } = useSession();
@@ -26,7 +26,7 @@ const myProfile = () => {
   }
 
   const changeProfile = async ({ name, image, address, postCode, phone }: {
-    name: String, image: String, address: String, postCode: String, phone: String
+    name: string, image: string, address: string, postCode: string, phone: string
   }) => {
     setIsLoading(true);
     const response = await axios.post("/api/user/update",
@@ -782,4 +782,4 @@ const myProfile = () => {
   );
 };
 
-export default myProfile;
+export default MyProfile;
