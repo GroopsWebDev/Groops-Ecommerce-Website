@@ -65,14 +65,11 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 ## Getting Started
 Clone down this repository. You will need `node.js` and `git` installed globally on your machine.
 
+🚨 Read the First Steps of the [T3 Stack setup](https://create.t3.gg/en/usage/first-steps)
+
 1. Clone the repository
 ```yaml
 https://github.com/GroopsWebDev/Groops-Ecommerce-Website.git
-```
-1.1 🚨 Read the First Steps of the T3 Stack setup:
-
-```yaml
-https://create.t3.gg/en/usage/first-steps
 ```
 
 2. Add `.env` file to the root directory and configure the credentials in that file
