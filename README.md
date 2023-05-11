@@ -31,6 +31,8 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 
 🧰 [Groops 董事会 Google Doc](https://drive.google.com/drive/folders/1xEKxPaBMwIzt-sqtS7GUNSB6pYQxiqd2)
 
+❓[Web-dev Q+A](https://docs.google.com/document/d/1xbTEm59amO6YChKOCzaQmR2yuxGz1lV-g4aclH5apiY/edit?usp=sharing)
+
 🔑 chatGPT Groops account: `team@gr-oops.com` password: `Groops1122`.
 
 🔑 Tailwind UI Dev (Harvey account): `zichengzhao@g.ucla.edu` password: `Zichengzhao+1234`
