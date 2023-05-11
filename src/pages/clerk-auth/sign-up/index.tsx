@@ -7,7 +7,10 @@ const SignUpPage = () => {
   <>
     <SignUp path="/sign-up" routing="path" signInUrl="/sign-in"/>
     <h1>SignUpPage</h1>
-    <SignUpButton />
+    <SignUpButton mode="modal">
+    <button className="bg-black text-white p-2">Sign up</button>
+    </SignUpButton>
+
   </>
   )
 };
