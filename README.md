@@ -38,7 +38,7 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 
 <div align="center">
   <h3>Version Control Flow</h3>
-  <img alt= "Git Version Control Flow.png" src="https://github.com/HenryCZhang/OKI-T3JS/blob/dev/README_Img/Git Version Control Flow.png" width="80%"/>
+  <img alt= "Git Version Control Flow.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/old-dev/README_Img/Git%20Version%20Control%20Flow.png" width="80%"/>
 </div>
 <p align="center"><i>~Before changing your code:</i></p>
 <p align="center">Git pull <b>Derick</b> (make sure your branch is consistent with the <b>Derick</b> branch)</p>
@@ -49,17 +49,17 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 
 <div align="center">
   <h3>Folder Structure + File Naming Convention</h3>
-  <img alt= "Git Version Control Flow.png" src="https://github.com/HenryCZhang/OKI-T3JS/blob/dev/README_Img/naming convention.png" width="100%"/>
+  <img alt= "Git Version Control Flow.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/old-dev/README_Img/naming%20convention.png" width="100%"/>
 </div>
 
 <div align="center">
   <h3>Agile Devops</h3>
-  <img alt= "Git Version Control Flow.png" src="https://github.com/HenryCZhang/OKI-T3JS/blob/dev/README_Img/agile_devops.png" width="100%"/>
+  <img alt= "Git Version Control Flow.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/old-dev/README_Img/agile_devops.png" width="100%"/>
 </div>
 
 <div align="center">
   <h3>Scrum Framework</h3>
-  <img alt= "Git Version Control Flow.png" src="https://github.com/HenryCZhang/OKI-T3JS/blob/dev/README_Img/scrum_framework.png" width="100%"/>
+  <img alt= "Git Version Control Flow.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/old-dev/README_Img/scrum_framework.png" width="100%"/>
 </div>
 
 ## Getting Started
@@ -117,17 +117,6 @@ Lkh123456
 ```yaml
 https://js.design/f/tG6OLu?p=Ug3WOcDXLK
 ```
-
-1. Open XD file in Adobe XD app, select the section and right click on it. Click 'copy svg code'.
-<div align="center">
-  <img alt= "export svg" src="https://github.com/HenryCZhang/OKI-T3JS/blob/dev/README_Img/export_svg.png" width="70%"/>
-</div>
-
-2. In your code editor, create a SVG file in public/assets directory, paste the SVG code there and delete Width and Height properties!
-<div align="center">
-  <img alt="edit svg" src="https://github.com/HenryCZhang/OKI-T3JS/blob/dev/README_Img/edit_svg.png" width="70%"/>
-</div>
-
 
 ## What's next? How do I make an app with this?
 
