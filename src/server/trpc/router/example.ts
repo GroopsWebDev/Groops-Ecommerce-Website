@@ -13,4 +13,8 @@ export const exampleRouter = router({
   getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.example.findMany();
   }),
+  getAllAccount: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.account.findMany();
+  }),
 });
+ 
