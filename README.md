@@ -1,6 +1,12 @@
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
+* Frontend - Tailwind UI
+* Auth: Clerk Next.js
+* API - tRPC
+* DOM - Prisma
+* DB - MYSQL
+
 📆 [Project Log](https://github.com/orgs/GroopsWebDev/projects/2)
 
 📆 [产品部进度报告](https://docs.google.com/document/d/1Pc2bk3EGPR1z4tmkcqf-JRUmAp8r97iaMK5ahye9GRY/edit)
