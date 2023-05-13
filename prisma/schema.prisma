@@ -1,0 +1,196 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["jsonProtocol"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model account {
+  id                String  @id @default("0") @db.VarChar(50)
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              user    @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Account_userId_fkey")
+
+  @@unique([provider, providerAccountId], map: "Account_provider_providerAccountId_key")
+  @@index([userId], map: "Account_userId_fkey")
+}
+
+model cart {
+  id        Int     @id @default(autoincrement())
+  productId String? @db.VarChar(100)
+  qty       String? @db.VarChar(100)
+  userId    String? @db.VarChar(100)
+}
+
+model category {
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(255)
+  description String?   @db.VarChar(255)
+  url         String?   @db.VarChar(255)
+  createdAt   DateTime? @default(now()) @db.DateTime(0)
+  updatedAt   DateTime? @default(now()) @db.DateTime(0)
+}
+
+model discountrate {
+  groupId      String   @id
+  discountRate Decimal? @db.Decimal(10, 0)
+  memberCount  Int?     @default(0)
+}
+
+model group {
+  groupId             String        @id
+  groupMasterId       String
+  groupName           String
+  startDate           DateTime      @default(now())
+  endDate             DateTime
+  description         String?       @db.VarChar(255)
+  groupImg            String?       @db.VarChar(100)
+  groupCode           String?
+  isActive            Int?          @default(1) @db.TinyInt
+  groupDiscountRateId String?
+  groupmember         groupmember[]
+
+  @@index([groupMasterId], map: "group_FK")
+}
+
+model groupmember {
+  groupMemberId String @id
+  userId        String
+  groupId       String
+  group         group  @relation(fields: [groupId], references: [groupId], map: "GroupMember_groupId_fkey")
+
+  @@index([groupId], map: "GroupMember_groupId_fkey")
+  @@index([userId], map: "groupmember_FK")
+}
+
+model help_center {
+  phone       Int     @id
+  email       String  @db.VarChar(45)
+  description String? @db.VarChar(45)
+  files       String? @db.VarChar(45)
+}
+
+model love {
+  id     Int    @id @default(autoincrement())
+  userId String @db.VarChar(255)
+  skuid  String
+}
+
+model order {
+  orderId         String    @id
+  orderDate       DateTime? @default(now())
+  userId          String
+  groupId         String?
+  subTotal        Int?      @default(0)
+  total           Int?      @default(0)
+  salesTax        Float?    @db.Float
+  delivery        Float?    @db.Float
+  greenFee        Float?    @db.Float
+  tipDelivery     Float?    @db.Float
+  paymentIntent   String?
+  shippingAddress String?   @db.Text
+  refund_amount   Decimal?  @db.Decimal(10, 2)
+  user            user      @relation(fields: [userId], references: [id], map: "Order_userId_fkey")
+
+  @@index([userId], map: "userId")
+}
+
+model product {
+  skuid               String  @id
+  englishProductName  String
+  chineseProductNName String?
+  frenchProductNName  String?
+  placeOfOrigin       String?
+  productWeight       String
+  description         String?
+  alcohol             Boolean @default(false)
+  price               Int     @default(0)
+  image               String
+  retailPrice         Int     @default(0)
+  costPrice           Int     @default(0)
+  stock               Int     @default(0)
+  categoryId          Int?
+
+  @@index([categoryId], map: "product_FK")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model purchaseditem {
+  orderId   String
+  qty       String? @db.VarChar(100)
+  productId String
+  id        String?
+
+  @@index([productId], map: "purchaseditem_FK")
+  @@index([orderId], map: "purchaseditem_FK_1")
+  @@ignore
+}
+
+model session {
+  id           String   @id
+  sessionToken String   @unique(map: "Session_sessionToken_key")
+  userId       String
+  expires      DateTime
+  user         user     @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Session_userId_fkey")
+
+  @@index([userId], map: "Session_userId_fkey")
+}
+
+model shippingaddress {
+  id               Int     @id @default(autoincrement())
+  userId           String? @db.VarChar(255)
+  firstName        String? @db.VarChar(255)
+  lastName         String? @db.VarChar(255)
+  address1         String? @db.Text
+  address2         String? @db.Text
+  postalCode       String? @db.VarChar(50)
+  city             String? @db.VarChar(50)
+  isPrimaryAddress Int?    @default(0) @db.TinyInt
+
+  @@index([userId], map: "userIdfxxxaddress")
+}
+
+model user {
+  id            String     @id @db.VarChar(255)
+  firstname     String?
+  lastname      String?
+  email         String?    @unique(map: "User_email_key")
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  role          user_role?
+  address       String?
+  phone         BigInt?
+  birthday      DateTime?
+  username      String?    @db.VarChar(100)
+  postCode      String?
+  name          String?    @db.VarChar(255)
+  account       account[]
+  order         order[]
+  session       session[]
+}
+
+model verificationtoken {
+  identifier String
+  token      String   @unique(map: "VerificationToken_token_key")
+  expires    DateTime
+
+  @@unique([identifier, token], map: "VerificationToken_identifier_token_key")
+}
+
+enum user_role {
+  GROUPMASTER
+  GROUPMEMBER
+}
