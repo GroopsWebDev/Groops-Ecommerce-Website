@@ -5,13 +5,11 @@ import { trpc } from "../utils/trpc";
 import { UserButton, useAuth, UserProfile } from "@clerk/nextjs";
 import SignUpPage from "./clerk-auth/sign-up";
 import SignInPage from "./clerk-auth/sign-in";
-import accounts from "./api/accounts";
 
 const Home: NextPage = () => {
   const { isLoaded, userId, sessionId, getToken } = useAuth();
   const hello = trpc.example.hello.useQuery({ text: "from TRPC client" }); // this is a hook that sends a query to the server (server/src/rpc/example.ts)
-  // const accounts = trpc.accounts 
-  // console.log("accounts", accounts)
+  const users = trpc.example.getAllUser.useQuery();
 
   return (
     <>
@@ -29,6 +27,10 @@ const Home: NextPage = () => {
         </>
       )}
       <h2>{hello.data?.greeting ?? "Loading trpc query..."}</h2>
+
+      {users.data?.map((user) => (
+        <div key={user.id}>{user.email}</div>
+      ))}
     </>
   );
 };
