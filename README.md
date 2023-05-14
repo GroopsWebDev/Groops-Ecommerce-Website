@@ -100,6 +100,11 @@ npx prisma db pull
   <img alt= "Prisma DB pull.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/Derick/README_Img/prisma%20db%20pull.png" width="80%"/>
 </div>
 
+Run `npx prisma studio` to access the GUI to view and edit data in your database
+```yaml
+npx prisma studio
+```
+
 5. View the app locally
 ```yaml
 npm run dev
