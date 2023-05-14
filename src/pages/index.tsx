@@ -9,7 +9,7 @@ const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
   const { isLoaded, userId, sessionId, getToken } = useAuth();
   const db_users = api.example.getAllUser.useQuery();
-
+  
   return (
     <>
       <SignedIn>
