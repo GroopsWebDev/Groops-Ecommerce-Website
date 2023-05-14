@@ -96,6 +96,9 @@ npm install
 ```yaml
 npx prisma db pull
 ```
+<div align="center">
+  <img alt= "Prisma DB pull.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/Derick/README_Img/prisma%20db%20pull.png" width="80%"/>
+</div>
 
 5. View the app locally
 ```yaml
