@@ -17,6 +17,8 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 
 📝 [Dev Standardization](https://uwoca-my.sharepoint.com/:p:/g/personal/czhan672_uwo_ca/EVUIgLS4TY1AvOaXxFb3wLoBhI0iKf6BFOLQuVjPHSnwjQ?e=VdJRwa)
 
+⌨️ [Add Prisma to existing project steps](https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project/relational-databases-typescript-postgresql)
+
 ⌨️ [Prisma CLI reference](https://www.prisma.io/docs/reference/api-reference/command-reference#db-pull)
 
 ⌨️ [Tailwind CSS Cheat Sheet](https://nerdcave.com/tailwind-cheat-sheet)
