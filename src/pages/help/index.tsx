@@ -12,8 +12,9 @@ import SelectFilesButton from "../../components/tailwind-buttons/help-center-sel
 import UploadFilesButton from "../../components/tailwind-buttons/help-center-send-files-btn";
 import ToggleFilesButton from "../../components/tailwind-buttons/help-center-toggle-files-btn";
 import { ToastContainer, toast } from "react-toastify";
-
+import Swal from "sweetalert2";
 import "react-toastify/dist/ReactToastify.css";
+import { ImageUploader } from "../../utils/imageUpload";
 
 const PhoneIcon = () => {
   return (
@@ -93,8 +94,22 @@ export default function Help() {
   const [topic, setTopic] = useState(num ? Number(num) : 1);
   const [fileList, setFileList] = useState<File[]>([]);
   const [showFiles, setShowFiles] = useState(false);
+  const [validationError, setValidationError] = useState("");
 
-  const notify = () => toast.success("Files Sent !"); // react-toastify
+  const notify = async () => {
+    if (validationError) {
+      Swal.fire({
+        title: "warning",
+        text: validationError,
+        icon: "warning",
+      });
+    } else {
+      for (const file of fileList) {
+        await ImageUploader(file);
+      }
+      toast.success("Files Sent !");
+    }
+  }; // react-toastify
 
   const topicTable: { [key: number]: string } = {
     1: "Question about order",
@@ -109,7 +124,32 @@ export default function Help() {
     const handle = (e: React.ChangeEvent<HTMLInputElement>) => {
       const files = e.target.files;
       if (files) {
-        setFileList([...fileList, ...files]);
+        const allowedFormats = ["image/png", "image/jpeg"];
+        const maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
+        let errorMessage = "";
+
+        for (let i = 0; i < files.length; i++) {
+          const file: any = files[i];
+
+          // Validate file format
+          if (!allowedFormats.includes(file.type)) {
+            errorMessage =
+              "File format not supported. You must use .png or .jpg.";
+            break;
+          }
+
+          // Validate file size
+          if (file.size > maxFileSize) {
+            errorMessage = "File size must be less than 5MB.";
+            break;
+          }
+
+          // Add file to list if it passes validation
+          setFileList([...fileList, file]);
+        }
+
+        // Display error message if there is one
+        setValidationError(errorMessage);
       }
     };
 
@@ -144,6 +184,7 @@ export default function Help() {
               type="file"
               multiple
               onChange={handle}
+              accept=".png,.jpg,.jpeg"
             />
 
             <UploadButton></UploadButton>
