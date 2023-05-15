@@ -8,7 +8,11 @@ import { api } from "~/utils/api";
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
   const { isLoaded, userId, sessionId, getToken } = useAuth();
-  const db_users = api.example.getAllUser.useQuery();
+  const {data, isLoading} = api.example.getAllUser.useQuery();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -30,7 +34,7 @@ const Home: NextPage = () => {
         <RedirectToSignIn />
       </SignedOut>
 
-      {db_users.data?.map((db_user) => (
+      {data?.map((db_user) => (
         <div key={db_user.id}>{db_user.email}</div>
       ))}
     </>
