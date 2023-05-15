@@ -1,10 +1,10 @@
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
-* Frontend - Tailwind UI
-* Auth: Clerk Next.js
-* API - tRPC
-* DOM - Prisma
+* Frontend - [Tailwind UI](https://tailwindui.com/components)
+* Auth - [Clerk Next.js](https://clerk.com/docs/nextjs/get-started-with-nextjs)
+* API Routing - [tRPC](https://trpc.io/docs/)
+* DOM - [Prisma](https://www.prisma.io/docs)
 * DB - MYSQL
 
 📆 [Project Log](https://github.com/orgs/GroopsWebDev/projects/2)
@@ -16,6 +16,8 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 🗺️ [Backend ER disgram](https://lucid.app/lucidchart/a938cde6-3b28-4ff7-8886-640e5ae5233d/edit?shared=true&page=0_0&invitationId=inv_d276e011-6fb4-429e-814f-4be425b53329#)
 
 📝 [Dev Standardization](https://uwoca-my.sharepoint.com/:p:/g/personal/czhan672_uwo_ca/EVUIgLS4TY1AvOaXxFb3wLoBhI0iKf6BFOLQuVjPHSnwjQ?e=VdJRwa)
+
+⌨️ [Add Prisma to existing project steps](https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project/relational-databases-typescript-postgresql)
 
 ⌨️ [Prisma CLI reference](https://www.prisma.io/docs/reference/api-reference/command-reference#db-pull)
 
@@ -95,6 +97,18 @@ npm install
 (The db pull command connects to your database and adds Prisma models to your Prisma schema that reflect the current database schema.)
 ```yaml
 npx prisma db pull
+```
+<div align="center">
+  <img alt= "Prisma DB pull.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/Derick/README_Img/prisma%20db%20pull.png" width="80%"/>
+</div>
+<div align="center">
+  <img alt= "Prisma DB pull.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/Derick/README_Img/Change%20the%20database%20schema.png" width="80%"/>
+</div>
+
+
+Run `npx prisma studio` to access the GUI to view and edit data in your database
+```yaml
+npx prisma studio
 ```
 
 5. View the app locally
