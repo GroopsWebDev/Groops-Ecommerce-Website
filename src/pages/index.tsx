@@ -1,18 +1,26 @@
 import { type NextPage } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
-import { UserButton, useAuth } from "@clerk/nextjs";
+import { UserButton, useAuth, useUser } from "@clerk/nextjs";
 
 import { api } from "~/utils/api";
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
   const { isLoaded, userId, sessionId, getToken } = useAuth();
-  const {data, isLoading} = api.example.getAllUser.useQuery();
+  const { data, isLoading } = api.example.getAllUser.useQuery();
+  const { user } = useUser();
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
+
+  const checkUserImage = () => {
+    if (!user?.profileImageUrl) {
+      return user?.experimental_imageUrl;
+    }
+  };
 
   return (
     <>
@@ -21,6 +29,17 @@ const Home: NextPage = () => {
         {isLoaded && userId && (
           <>
             <h2>Logged in as {userId}</h2>
+            {user && (
+              <>
+              <Image
+                src={user?.profileImageUrl}
+                alt="User Profile"
+                width={200}
+                height={200}
+              ></Image>
+              <span>user.profileImageUrl</span>
+              </>
+            )}
             <UserButton afterSignOutUrl="http://localhost:3000" />
           </>
         )}
