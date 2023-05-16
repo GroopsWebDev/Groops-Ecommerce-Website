@@ -17,6 +17,7 @@ import Container from "react-bootstrap/Container";
 
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+
 //react icons
 import JoinNowButton from "../components/tailwind-buttons/join-now-btn";
 import HomeSignInButton from "../components/tailwind-buttons/home-signin-btn";
