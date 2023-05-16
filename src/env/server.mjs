@@ -10,8 +10,10 @@ const _serverEnv = serverSchema.safeParse(process.env);
 
 if (!_serverEnv.success) {
   console.error(
+    console.log(`DATABASE_URL: ${process.env.DATABASE_URL}`),
     "❌ Invalid environment variables:\n",
     ...formatErrors(_serverEnv.error.format()),
+    // log the env vars to make it easier to debug
   );
   throw new Error("Invalid environment variables");
 }
