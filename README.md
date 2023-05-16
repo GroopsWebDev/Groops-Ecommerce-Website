@@ -2,8 +2,8 @@
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
 * Frontend - [Tailwind UI](https://tailwindui.com/components)
-* Auth: [Clerk Next.js](https://clerk.com/docs/nextjs/get-started-with-nextjs)
-* API - [tRPC](https://trpc.io/docs/)
+* Auth - [Clerk Next.js](https://clerk.com/docs/nextjs/get-started-with-nextjs)
+* API Routing - [tRPC](https://trpc.io/docs/)
 * DOM - [Prisma](https://www.prisma.io/docs)
 * DB - MYSQL
 
@@ -11,11 +11,15 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 
 📆 [产品部进度报告](https://docs.google.com/document/d/1Pc2bk3EGPR1z4tmkcqf-JRUmAp8r97iaMK5ahye9GRY/edit)
 
-🗺️ [UI Design](https://www.figma.com/file/CBk2Ut3511bv54BuOUbmAw/Groops-User-Flow?type=whiteboard&node-id=0-1&t=tHJRPMVvh2iEtrlh-0)
+🗺️ [UI Figma Design](https://www.figma.com/file/7HXhy23kgizbej6cWZh3qA/Groops?type=design&node-id=4-62&t=G1G6K5PVtK4Gwtno-0)
+
+🗺️ [UI Figma Design Page Routing](https://www.figma.com/file/CBk2Ut3511bv54BuOUbmAw/Groops-User-Flow?type=whiteboard&node-id=0-1&t=tHJRPMVvh2iEtrlh-0)
 
 🗺️ [Backend ER disgram](https://lucid.app/lucidchart/a938cde6-3b28-4ff7-8886-640e5ae5233d/edit?shared=true&page=0_0&invitationId=inv_d276e011-6fb4-429e-814f-4be425b53329#)
 
 📝 [Dev Standardization](https://uwoca-my.sharepoint.com/:p:/g/personal/czhan672_uwo_ca/EVUIgLS4TY1AvOaXxFb3wLoBhI0iKf6BFOLQuVjPHSnwjQ?e=VdJRwa)
+
+⌨️ [Add Prisma to existing project steps](https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project/relational-databases-typescript-postgresql)
 
 ⌨️ [Prisma CLI reference](https://www.prisma.io/docs/reference/api-reference/command-reference#db-pull)
 
@@ -96,9 +100,20 @@ npm install
 ```yaml
 npx prisma db pull
 ```
+
+⌨️ [Add Prisma to existing project steps](https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project/relational-databases-typescript-postgresql)
+
 <div align="center">
   <img alt= "Prisma DB pull.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/Derick/README_Img/prisma%20db%20pull.png" width="80%"/>
 </div>
+<div align="center">
+  <img alt= "Prisma DB pull.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/Derick/README_Img/Change%20the%20database%20schema.png" width="80%"/>
+</div>
+
+Run `npx prisma studio` to access the GUI to view and edit data in your database
+```yaml
+npx prisma studio
+```
 
 5. View the app locally
 ```yaml
