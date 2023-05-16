@@ -50,17 +50,18 @@ model discountrate {
 }
 
 model group {
-  groupId             String        @id
-  groupMasterId       String
-  groupName           String
-  startDate           DateTime      @default(now())
-  endDate             DateTime
-  description         String?       @db.VarChar(255)
-  groupImg            String?       @db.VarChar(100)
-  groupCode           String?
-  isActive            Int?          @default(1) @db.TinyInt
-  groupDiscountRateId String?
-  groupmember         groupmember[]
+  groupId          String        @id
+  groupMasterId    String
+  groupName        String
+  startDate        DateTime      @default(now())
+  endDate          DateTime
+  description      String?       @db.VarChar(255)
+  groupImg         String?       @db.VarChar(100)
+  groupCode        String?
+  isActive         Int?          @default(1) @db.TinyInt
+  finalDiscount    Float?
+  owner_commission Float?        @default(0)
+  groupmember      groupmember[]
 
   @@index([groupMasterId], map: "group_FK")
 }
@@ -126,18 +127,6 @@ model product {
   @@index([categoryId], map: "product_FK")
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model purchaseditem {
-  orderId   String
-  qty       String? @db.VarChar(100)
-  productId String
-  id        String?
-
-  @@index([productId], map: "purchaseditem_FK")
-  @@index([orderId], map: "purchaseditem_FK_1")
-  @@ignore
-}
-
 model session {
   id           String   @id
   sessionToken String   @unique(map: "Session_sessionToken_key")
@@ -188,6 +177,12 @@ model verificationtoken {
   expires    DateTime
 
   @@unique([identifier, token], map: "VerificationToken_identifier_token_key")
+}
+
+model wallet {
+  id     Int    @id @default(autoincrement())
+  userId String @db.VarChar(255)
+  amount Float
 }
 
 enum user_role {
