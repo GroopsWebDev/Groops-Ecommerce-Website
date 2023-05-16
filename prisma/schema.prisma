@@ -49,23 +49,24 @@ model discountrate {
 }
 
 model group {
-  groupId             String        @id
+  groupId             String        @id @default(cuid())
   groupMasterId       String
   groupName           String
   startDate           DateTime      @default(now())
   endDate             DateTime
   description         String?       @db.VarChar(255)
-  groupDiscountRateId String?
   groupImg            String?       @db.VarChar(100)
   groupCode           String?
   isActive            Int?          @default(1) @db.TinyInt
+  finalDiscount       Float?
   groupmember         groupmember[]
+  owner_commission    Float?        @default(0)
 
   @@index([groupMasterId], map: "group_FK")
 }
 
 model groupmember {
-  groupMemberId String @id
+  groupMemberId String @id @default(cuid())
   userId        String
   groupId       String
   group         group  @relation(fields: [groupId], references: [groupId], map: "GroupMember_groupId_fkey")
@@ -181,6 +182,12 @@ model verificationtoken {
   expires    DateTime
 
   @@unique([identifier, token], map: "VerificationToken_identifier_token_key")
+}
+
+model love {
+  id     Int    @id @default(autoincrement())
+  userId String @db.VarChar(255)
+  skuid  String
 }
 
 enum user_role {

@@ -34,6 +34,7 @@
         "bcryptjs": "^2.4.3",
         "bootstrap": "^5.2.3",
         "canvas-confetti": "^1.6.0",
+        "cron": "^2.3.0",
         "formik": "^2.2.9",
         "framer-motion": "^6.5.1",
         "heroicons": "^2.0.13",
