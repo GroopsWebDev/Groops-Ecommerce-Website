@@ -49,7 +49,7 @@ model discountrate {
 }
 
 model group {
-  groupId             String        @id
+  groupId             String        @id @default(cuid())
   groupMasterId       String
   groupName           String
   startDate           DateTime      @default(now())
@@ -58,14 +58,15 @@ model group {
   groupImg            String?       @db.VarChar(100)
   groupCode           String?
   isActive            Int?          @default(1) @db.TinyInt
-  groupDiscountRateId String?
+  finalDiscount       Float?
   groupmember         groupmember[]
+  owner_commission    Float?        @default(0)
 
   @@index([groupMasterId], map: "group_FK")
 }
 
 model groupmember {
-  groupMemberId String @id
+  groupMemberId String @id @default(cuid())
   userId        String
   groupId       String
   group         group  @relation(fields: [groupId], references: [groupId], map: "GroupMember_groupId_fkey")
