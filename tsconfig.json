@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "checkJs": false,
     "allowJs": true,
     "skipLibCheck": true,
@@ -20,11 +16,7 @@
     "jsx": "preserve",
     "incremental": true,
     "noUncheckedIndexedAccess": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    "types": ["node"]
   },
   "include": [
     "next-env.d.ts",
@@ -32,17 +24,14 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs",
-    "**/*.js"
+    "**/*.js",
     //include js files - Henry testing
     // "src/pages/api/checkout_sessions/index.js",
     // "src/pages/api/cart/index.js",
     // "src/utils/utils.js",
     // "src/pages/api/checkout_sessions/[id].js",
     // "src/utils/get-stripe.js"
-    ,
     ".next/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
