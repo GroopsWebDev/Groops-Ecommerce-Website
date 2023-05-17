@@ -95,7 +95,6 @@ npm install
 ```yaml
 npx prisma db pull
 ```
-
 ⌨️ [Add Prisma to existing project steps](https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project/relational-databases-typescript-postgresql)
 
 <div align="center">
