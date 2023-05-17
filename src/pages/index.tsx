@@ -5,6 +5,7 @@ import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 import { UserButton, useAuth, useUser } from "@clerk/nextjs";
 
 import { api } from "~/utils/api";
+import { LoadingSpinner } from "~/components/loading";
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -13,14 +14,8 @@ const Home: NextPage = () => {
   const { user } = useUser();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
-
-  const checkUserImage = () => {
-    if (!user?.profileImageUrl) {
-      return user?.experimental_imageUrl;
-    }
-  };
 
   return (
     <>
