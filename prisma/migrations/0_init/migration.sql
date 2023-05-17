@@ -41,15 +41,6 @@ CREATE TABLE `category` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `discountrate` (
-    `groupId` VARCHAR(191) NOT NULL,
-    `discountRate` DECIMAL(10, 0) NULL,
-    `memberCount` INTEGER NULL DEFAULT 0,
-
-    PRIMARY KEY (`groupId`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
 CREATE TABLE `group` (
     `groupId` VARCHAR(191) NOT NULL,
     `groupMasterId` VARCHAR(191) NOT NULL,
@@ -60,21 +51,11 @@ CREATE TABLE `group` (
     `groupImg` VARCHAR(100) NULL,
     `groupCode` VARCHAR(191) NULL,
     `isActive` TINYINT NULL DEFAULT 1,
-    `groupDiscountRateId` VARCHAR(191) NULL,
+    `finalDiscount` DOUBLE NULL,
+    `owner_commission` DOUBLE NULL DEFAULT 0,
 
     INDEX `group_FK`(`groupMasterId`),
     PRIMARY KEY (`groupId`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `groupmember` (
-    `groupMemberId` VARCHAR(191) NOT NULL,
-    `userId` VARCHAR(191) NOT NULL,
-    `groupId` VARCHAR(191) NOT NULL,
-
-    INDEX `GroupMember_groupId_fkey`(`groupId`),
-    INDEX `groupmember_FK`(`userId`),
-    PRIMARY KEY (`groupMemberId`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -85,15 +66,6 @@ CREATE TABLE `help_center` (
     `files` VARCHAR(45) NULL,
 
     PRIMARY KEY (`phone`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `love` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `userId` VARCHAR(255) NOT NULL,
-    `skuid` VARCHAR(191) NOT NULL,
-
-    PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -138,45 +110,6 @@ CREATE TABLE `product` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `purchaseditem` (
-    `orderId` VARCHAR(191) NOT NULL,
-    `qty` VARCHAR(100) NULL,
-    `productId` VARCHAR(191) NOT NULL,
-    `id` VARCHAR(191) NULL,
-
-    INDEX `purchaseditem_FK`(`productId`),
-    INDEX `purchaseditem_FK_1`(`orderId`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `session` (
-    `id` VARCHAR(191) NOT NULL,
-    `sessionToken` VARCHAR(191) NOT NULL,
-    `userId` VARCHAR(191) NOT NULL,
-    `expires` DATETIME(3) NOT NULL,
-
-    UNIQUE INDEX `Session_sessionToken_key`(`sessionToken`),
-    INDEX `Session_userId_fkey`(`userId`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `shippingaddress` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `userId` VARCHAR(255) NULL,
-    `firstName` VARCHAR(255) NULL,
-    `lastName` VARCHAR(255) NULL,
-    `address1` TEXT NULL,
-    `address2` TEXT NULL,
-    `postalCode` VARCHAR(50) NULL,
-    `city` VARCHAR(50) NULL,
-    `isPrimaryAddress` TINYINT NULL DEFAULT 0,
-
-    INDEX `userIdfxxxaddress`(`userId`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
 CREATE TABLE `user` (
     `id` VARCHAR(255) NOT NULL,
     `firstname` VARCHAR(191) NULL,
@@ -198,24 +131,65 @@ CREATE TABLE `user` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `verificationtoken` (
-    `identifier` VARCHAR(191) NOT NULL,
-    `token` VARCHAR(191) NOT NULL,
-    `expires` DATETIME(3) NOT NULL,
+CREATE TABLE `wallet` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `userId` VARCHAR(255) NOT NULL,
+    `amount` DOUBLE NOT NULL,
 
-    UNIQUE INDEX `VerificationToken_token_key`(`token`),
-    UNIQUE INDEX `VerificationToken_identifier_token_key`(`identifier`, `token`)
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `discount_rate` (
+    `groupId` VARCHAR(191) NOT NULL,
+    `discountRate` DECIMAL(10, 0) NULL,
+    `memberCount` INTEGER NULL DEFAULT 0,
+
+    PRIMARY KEY (`groupId`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `group_member` (
+    `groupMemberId` VARCHAR(191) NOT NULL,
+    `userId` VARCHAR(191) NOT NULL,
+    `groupId` VARCHAR(191) NOT NULL,
+
+    INDEX `GroupMember_groupId_fkey`(`groupId`),
+    INDEX `groupmember_FK`(`userId`),
+    PRIMARY KEY (`groupMemberId`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `love_list` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `userId` VARCHAR(255) NOT NULL,
+    `skuid` VARCHAR(191) NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `shipping_address` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `userId` VARCHAR(255) NULL,
+    `firstName` VARCHAR(255) NULL,
+    `lastName` VARCHAR(255) NULL,
+    `address1` TEXT NULL,
+    `address2` TEXT NULL,
+    `postalCode` VARCHAR(50) NULL,
+    `city` VARCHAR(50) NULL,
+    `isPrimaryAddress` TINYINT NULL DEFAULT 0,
+
+    INDEX `userIdfxxxaddress`(`userId`),
+    PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
 ALTER TABLE `account` ADD CONSTRAINT `Account_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `groupmember` ADD CONSTRAINT `GroupMember_groupId_fkey` FOREIGN KEY (`groupId`) REFERENCES `group`(`groupId`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE `order` ADD CONSTRAINT `Order_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `session` ADD CONSTRAINT `Session_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `group_member` ADD CONSTRAINT `GroupMember_groupId_fkey` FOREIGN KEY (`groupId`) REFERENCES `group`(`groupId`) ON DELETE RESTRICT ON UPDATE CASCADE;
 

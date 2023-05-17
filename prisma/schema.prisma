@@ -43,36 +43,21 @@ model category {
   updatedAt   DateTime? @default(now()) @db.DateTime(0)
 }
 
-model discountrate {
-  groupId      String   @id
-  discountRate Decimal? @db.Decimal(10, 0)
-  memberCount  Int?     @default(0)
-}
-
 model group {
-  groupId             String        @id
-  groupMasterId       String
-  groupName           String
-  startDate           DateTime      @default(now())
-  endDate             DateTime
-  description         String?       @db.VarChar(255)
-  groupImg            String?       @db.VarChar(100)
-  groupCode           String?
-  isActive            Int?          @default(1) @db.TinyInt
-  groupDiscountRateId String?
-  groupmember         groupmember[]
+  groupId          String         @id
+  groupMasterId    String
+  groupName        String
+  startDate        DateTime       @default(now())
+  endDate          DateTime
+  description      String?        @db.VarChar(255)
+  groupImg         String?        @db.VarChar(100)
+  groupCode        String?
+  isActive         Int?           @default(1) @db.TinyInt
+  finalDiscount    Float?
+  owner_commission Float?         @default(0)
+  group_member     group_member[]
 
   @@index([groupMasterId], map: "group_FK")
-}
-
-model groupmember {
-  groupMemberId String @id
-  userId        String
-  groupId       String
-  group         group  @relation(fields: [groupId], references: [groupId], map: "GroupMember_groupId_fkey")
-
-  @@index([groupId], map: "GroupMember_groupId_fkey")
-  @@index([userId], map: "groupmember_FK")
 }
 
 model help_center {
@@ -80,12 +65,6 @@ model help_center {
   email       String  @db.VarChar(45)
   description String? @db.VarChar(45)
   files       String? @db.VarChar(45)
-}
-
-model love {
-  id     Int    @id @default(autoincrement())
-  userId String @db.VarChar(255)
-  skuid  String
 }
 
 model order {
@@ -126,42 +105,6 @@ model product {
   @@index([categoryId], map: "product_FK")
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model purchaseditem {
-  orderId   String
-  qty       String? @db.VarChar(100)
-  productId String
-  id        String?
-
-  @@index([productId], map: "purchaseditem_FK")
-  @@index([orderId], map: "purchaseditem_FK_1")
-  @@ignore
-}
-
-model session {
-  id           String   @id
-  sessionToken String   @unique(map: "Session_sessionToken_key")
-  userId       String
-  expires      DateTime
-  user         user     @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Session_userId_fkey")
-
-  @@index([userId], map: "Session_userId_fkey")
-}
-
-model shippingaddress {
-  id               Int     @id @default(autoincrement())
-  userId           String? @db.VarChar(255)
-  firstName        String? @db.VarChar(255)
-  lastName         String? @db.VarChar(255)
-  address1         String? @db.Text
-  address2         String? @db.Text
-  postalCode       String? @db.VarChar(50)
-  city             String? @db.VarChar(50)
-  isPrimaryAddress Int?    @default(0) @db.TinyInt
-
-  @@index([userId], map: "userIdfxxxaddress")
-}
-
 model user {
   id            String     @id @db.VarChar(255)
   firstname     String?
@@ -179,15 +122,48 @@ model user {
   name          String?    @db.VarChar(255)
   account       account[]
   order         order[]
-  session       session[]
 }
 
-model verificationtoken {
-  identifier String
-  token      String   @unique(map: "VerificationToken_token_key")
-  expires    DateTime
+model wallet {
+  id     Int    @id @default(autoincrement())
+  userId String @db.VarChar(255)
+  amount Float
+}
 
-  @@unique([identifier, token], map: "VerificationToken_identifier_token_key")
+model discount_rate {
+  groupId      String   @id
+  discountRate Decimal? @db.Decimal(10, 0)
+  memberCount  Int?     @default(0)
+}
+
+model group_member {
+  groupMemberId String @id
+  userId        String
+  groupId       String
+  group         group  @relation(fields: [groupId], references: [groupId], map: "GroupMember_groupId_fkey")
+
+  @@index([groupId], map: "GroupMember_groupId_fkey")
+  @@index([userId], map: "groupmember_FK")
+}
+
+model love_list {
+  id     Int    @id @default(autoincrement())
+  userId String @db.VarChar(255)
+  skuid  String
+}
+
+model shipping_address {
+  id               Int     @id @default(autoincrement())
+  userId           String? @db.VarChar(255)
+  firstName        String? @db.VarChar(255)
+  lastName         String? @db.VarChar(255)
+  address1         String? @db.Text
+  address2         String? @db.Text
+  postalCode       String? @db.VarChar(50)
+  city             String? @db.VarChar(50)
+  isPrimaryAddress Int?    @default(0) @db.TinyInt
+
+  @@index([userId], map: "userIdfxxxaddress")
 }
 
 enum user_role {

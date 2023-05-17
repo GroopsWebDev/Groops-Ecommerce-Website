@@ -48,6 +48,8 @@ const Home: NextPage = () => {
         <RedirectToSignIn />
       </SignedOut>
 
+      <Link href="/test" className="bg-black text-white p-1">Link to lovelist page</Link>
+
       {data?.map((db_user) => (
         <div key={db_user.id}>{db_user.email}</div>
       ))}
