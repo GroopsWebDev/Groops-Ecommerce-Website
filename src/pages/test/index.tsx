@@ -7,7 +7,7 @@ export default function Test() {
   const { data, isLoading, refetch } = api.lovelist.getUserLoveList.useQuery({
     userId: userId ? userId : "1",
   });
-  const [items, setItems] = useState<any>([]);
+  // const [items, setItems] = useState<any>([]);
 
   const mutation = api.lovelist.addLoveListItem.useMutation();
 
@@ -19,11 +19,11 @@ export default function Test() {
     await refetch();
   };
 
-  useEffect(() => {
-    if (!isLoading && data) {
-      setItems(data);
-    }
-  }, [isLoading, data]);
+  // useEffect(() => {
+  //   if (!isLoading && data) {
+  //     setItems(data);
+  //   }
+  // }, [isLoading, data]);
 
   return (
     <>
@@ -39,9 +39,13 @@ export default function Test() {
       </div>
 
       <div className="flex flex-col place-items-center">
-        {items?.map((item: any, index: number) => {
+        {/* {items?.map((item: any, index: number) => {
           return <p key={index}>love list item id : {item.skuid} </p>;
-        })}
+        })} */}
+
+        {data?.map((loved_item) => (
+          <div key={loved_item.id}>love list item id :{loved_item.skuid}</div>
+        ))}
       </div>
     </>
   );
