@@ -43,7 +43,7 @@ model category {
 }
 
 model group {
-  groupId          String         @id @default(cuid())
+  groupId          String         @id
   groupMasterId    String
   groupName        String
   startDate        DateTime       @default(now())
