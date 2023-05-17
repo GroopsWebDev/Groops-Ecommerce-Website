@@ -9,7 +9,7 @@ import { LoadingSpinner } from "~/components/loading";
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
-  const { isLoaded: userLoaded, userId, sessionId, getToken } = useAuth();
+  const { isSignedIn, userId, sessionId, getToken } = useAuth();
   const { data: userData, isLoading: loadingData } = api.example.getAllUser.useQuery();
   const { user } = useUser();
 
@@ -25,7 +25,7 @@ const Home: NextPage = () => {
     <>
       <SignedIn>
         <div>This content is visible only to signed in users.</div>
-        {userLoaded && userId && (
+        {isSignedIn && userId && (
           <>
             <h2>Logged in as {userId}</h2>
             {user && (
