@@ -106,6 +106,7 @@ npx prisma generate
 <div align="center">
   <img alt= "Prisma DB pull.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/derick-clark-auth/README_Img/prisma%20db%20pull.png" width="80%"/>
 </div>
+
 <div align="center">
   <img alt= "Prisma DB pull.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/Derick/README_Img/Change%20the%20database%20schema.png" width="80%"/>
 </div>
