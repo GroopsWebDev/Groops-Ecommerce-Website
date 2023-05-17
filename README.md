@@ -95,6 +95,12 @@ npm install
 ```yaml
 npx prisma db pull
 ```
+
+5. Install/Update Prisma Client 
+```yaml
+npx prisma generate
+```
+
 ⌨️ [Add Prisma to existing project steps](https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project/relational-databases-typescript-postgresql)
 
 <div align="center">
@@ -109,12 +115,12 @@ Run `npx prisma studio` to access the GUI to view and edit data in your database
 npx prisma studio
 ```
 
-5. View the app locally
+6. View the app locally
 ```yaml
 npm run dev
 ```
 
-6. Follow T3 Frist Steps for further configurations
+7. Follow T3 Frist Steps for further configurations
 ```yaml
 https://create.t3.gg/en/usage/first-steps
 ```
