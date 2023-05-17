@@ -2,6 +2,7 @@ import { api } from "~/utils/api";
 import { UserButton, useAuth } from "@clerk/nextjs";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { LoadingSpinner } from "~/components/loading";
 
 export default function Test() {
   const { isLoaded, userId, sessionId, getToken } = useAuth();
@@ -18,8 +19,12 @@ export default function Test() {
   };
 
   const deleteAllLovedItems = async () => {
-    await delete_all_mutation.mutateAsync();
+    await delete_all_mutation.mutateAsync({ userId: userId ? userId : "1"});
     await refetch(); // Trigger a refetch of the user's love list
+  }
+
+  if (isLoading) {
+    return <LoadingSpinner />;
   }
 
   return (
