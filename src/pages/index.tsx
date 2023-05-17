@@ -9,30 +9,34 @@ import { LoadingSpinner } from "~/components/loading";
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
-  const { isLoaded, userId, sessionId, getToken } = useAuth();
-  const { data, isLoading } = api.example.getAllUser.useQuery();
+  const { isLoaded: userLoaded, userId, sessionId, getToken } = useAuth();
+  const { data: userData, isLoading: loadingData } = api.example.getAllUser.useQuery();
   const { user } = useUser();
 
-  if (isLoading) {
-    return <LoadingSpinner />;
+  if (loadingData) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   return (
     <>
       <SignedIn>
         <div>This content is visible only to signed in users.</div>
-        {isLoaded && userId && (
+        {userLoaded && userId && (
           <>
             <h2>Logged in as {userId}</h2>
             {user && (
               <>
-              <Image
-                src={user?.profileImageUrl}
-                alt="User Profile"
-                width={200}
-                height={200}
-              ></Image>
-              <span>user.profileImageUrl</span>
+                <Image
+                  src={user?.profileImageUrl}
+                  alt="User Profile"
+                  width={200}
+                  height={200}
+                ></Image>
+                <span>user.profileImageUrl</span>
               </>
             )}
             <UserButton afterSignOutUrl="http://localhost:3000" />
@@ -48,9 +52,11 @@ const Home: NextPage = () => {
         <RedirectToSignIn />
       </SignedOut>
 
-      <Link href="/test" className="bg-black text-white p-1">Link to lovelist page</Link>
+      <Link href="/test" className="bg-black p-1 text-white">
+        Link to lovelist page
+      </Link>
 
-      {data?.map((db_user) => (
+      {userData?.map((db_user) => (
         <div key={db_user.id}>{db_user.email}</div>
       ))}
     </>
