@@ -34,40 +34,46 @@ import Loader from "../components/loader/loader";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Carousel from "react-bootstrap/Carousel";
 import { getRemainingTime } from "../utils/utils";
+import { api } from "../utils/api";
 
 const Home = () => {
   const { data: sessionData } = useSession();
-  const [category, setCategory] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // const [category, setCategory] = useState([]);
+  // const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const { data: groups } = api.group.topGroup.useQuery();
+  const { data: category, isLoading } = api.category.getAll.useQuery();
+  // if (category) {
+  //   dispatch(setCategoryList(category));
+  // }
   const featuredProductsStyle =
     "scale-100 ml-10 mr-10 mb-20 transform transition duration-300 hover:scale-110";
 
-  useEffect(() => {
-    async function fetchCategory() {
-      setLoading(true);
-      const res = await axios.get("/api/category/pagination?page=1&perPage=10");
-      if (res.status == 200) {
-        setCategory(res.data.data);
-        dispatch(setCategoryList(res.data.data));
-        setLoading(false);
-      } else {
-        setLoading(false);
-      }
-    }
-    fetchCategory();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchCategory() {
+  //     setLoading(true);
+  //     const res = await axios.get("/api/category/pagination?page=1&perPage=10");
+  //     if (res.status == 200) {
+  //       setCategory(res.data.data);
+  //       dispatch(setCategoryList(res.data.data));
+  //       setLoading(false);
+  //     } else {
+  //       setLoading(false);
+  //     }
+  //   }
+  //   fetchCategory();
+  // }, []);
 
-  const [groups, setGroups] = useState([]);
-  useEffect(() => {
-    const fetch = async () => {
-      const groups = await axios.get("/api/top/group");
-      if (groups.data.status == 200) {
-        setGroups(groups.data.group);
-      }
-    };
-    fetch();
-  }, []);
+  // const [groups, setGroups] = useState([]);
+  // useEffect(() => {
+  //   const fetch = async () => {
+  //     const groups = await axios.get("/api/top/group");
+  //     if (groups.data.status == 200) {
+  //       setGroups(groups.data.group);
+  //     }
+  //   };
+  //   fetch();
+  // }, []);
 
   return (
     <>
@@ -78,30 +84,31 @@ const Home = () => {
       {/** Section 2 */}
       <OurFeaturedProducts className="ml-auto mr-auto mt-32 mb-20 w-[466px]" />
       <Container>
-        {loading ? (
+        {isLoading ? (
           <Loader />
         ) : (
           <Row>
-            {category.map((category: any, index) => {
-              const url = "https://api.gr-oops.com/" + category.url;
-              return (
-                <Col sm={6} md={4} key={index}>
-                  <Link href={`/product/${category.name}`}>
-                    <img
-                      src={url}
-                      alt={category.name}
-                      className={featuredProductsStyle}
-                    />
-                  </Link>
-                </Col>
-              );
-            })}
+            {category &&
+              category.map((category: any, index) => {
+                const url = "https://api.gr-oops.com/" + category.url;
+                return (
+                  <Col sm={6} md={4} key={index}>
+                    <Link href={`/product/${category.name}`}>
+                      <img
+                        src={url}
+                        alt={category.name}
+                        className={featuredProductsStyle}
+                      />
+                    </Link>
+                  </Col>
+                );
+              })}
           </Row>
         )}
       </Container>
 
       {/** Section 3 Card Carousel*/}
-      {groups.length > 0 && (
+      {groups && groups.length > 0 && (
         <TopGroupsTile className="ml-auto mr-auto mt-10 mb-20 w-60" />
       )}
       {/* <TopGroups className="ml-auto mr-auto w-9/12" /> */}
@@ -111,20 +118,21 @@ const Home = () => {
           <div className="row">
             <div className="col-12">
               <Carousel>
-                {groups.map((group: any, index) => (
-                  <Carousel.Item key={index}>
-                    <img
-                      style={{ maxWidth: "800px", maxHeight: "450px" }}
-                      className="d-block w-100"
-                      src={`https://api.gr-oops.com/` + group?.groupImg}
-                      alt={group.groupName}
-                    />
-                    <Carousel.Caption>
-                      <h3>{group.groupName}</h3>
-                      <CountdownTimer endDate={group?.endDate} />
-                    </Carousel.Caption>
-                  </Carousel.Item>
-                ))}
+                {groups &&
+                  groups.map((group: any, index) => (
+                    <Carousel.Item key={index}>
+                      <img
+                        style={{ maxWidth: "800px", maxHeight: "450px" }}
+                        className="d-block w-100"
+                        src={`https://api.gr-oops.com/` + group?.groupImg}
+                        alt={group.groupName}
+                      />
+                      <Carousel.Caption>
+                        <h3>{group.groupName}</h3>
+                        <CountdownTimer endDate={group?.endDate} />
+                      </Carousel.Caption>
+                    </Carousel.Item>
+                  ))}
               </Carousel>
             </div>
           </div>

@@ -16,15 +16,15 @@
     "jsx": "preserve",
     "incremental": true,
     "noUncheckedIndexedAccess": true,
-    "types": ["node"]
+    "types": ["node", "@trpc/client"]
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.cjs",
-    "**/*.mjs",
-    "**/*.js",
+    "**/**/.ts",
+    "**/**/.tsx",
+    "**/**/.cjs",
+    "**/**/.mjs",
+    "**/**/.js",
     //include js files - Henry testing
     // "src/pages/api/checkout_sessions/index.js",
     // "src/pages/api/cart/index.js",

@@ -11,33 +11,28 @@ export default async function handler(req, res) {
   try {
     const page = parseInt(req.body.page) || 1;
     const perPage = parseInt(req.body.perPage) || 10;
-    console.log("--------", page)
-    console.log("--------", perPage)
     const { categoryName, sortBy } = req.body;
     const orderBy = PFilter[sortBy] ? PFilter[sortBy] : "desc";
 
-    
     const where = {};
     if (categoryName) {
-      where['category'] = {
-        name: categoryName
-      }
+      where["category"] = {
+        name: categoryName,
+      };
     }
-
 
     const product = await prisma.product.findMany({
       skip: (page - 1) * perPage,
       take: perPage,
-      where: where,
+      // where: where,
       orderBy: {
         price: orderBy,
       },
     });
 
     const count = await prisma.product.count({
-      where: where
+      // where: where,
     });
-
 
     res.status(200).json({
       status: 200,
