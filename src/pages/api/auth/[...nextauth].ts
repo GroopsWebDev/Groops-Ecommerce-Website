@@ -1,0 +1,78 @@
+import NextAuth, { type NextAuthOptions } from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+// Prisma adapter for NextAuth, optional and can be removed
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { env } from "../../../env/server.mjs";
+import { prisma } from "../../../server/db/client";
+import Providers from "next-auth/providers";
+import bcrypt from "bcryptjs";
+
+export const authOptions: NextAuthOptions = {
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      if (user) {
+        return true;
+      }
+      return false;
+    },
+    async session({ session, token }: { session: any; token: any }) {
+      session.user.id = token?.user?.id;
+      session.user.image = token?.user?.image;
+      session.user.name = token?.user?.name;
+      return session;
+    },
+    async jwt({ token, account, user }) {
+      // Persist the OAuth access_token and or the user id to the token right after signin
+      if (account) {
+        token.accessToken = account.access_token;
+        token.user = user;
+      }
+      return token;
+    },
+  },
+  adapter: PrismaAdapter(prisma),
+  providers: [
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials: any, req) {
+        const user: any = await prisma.user.findUnique({
+          where: { email: credentials.email },
+        });
+        if (user) {
+          const isPassword = bcrypt.compareSync(
+            credentials.password,
+            user.password
+          );
+
+          if (isPassword) {
+            return user;
+          } else {
+            return false;
+          }
+        }
+        return false;
+      },
+    }),
+    GoogleProvider({
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
+    }),
+  ],
+  
+  pages: {
+    signIn: "/login",
+  },
+  session: {
+    strategy: "jwt",
+    // 3600 means 1 hours 
+    maxAge: 3600 * 2  
+  },
+  secret: process.env.NEXTAUTH_SECRET,
+};
+
+export default NextAuth(authOptions);

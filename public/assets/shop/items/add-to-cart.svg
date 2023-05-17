@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="301" height="39" viewBox="0 0 301 39">
+  <g id="Rectangle_74" data-name="Rectangle 74" stroke="#000" stroke-width="3">
+    <rect width="301" height="39" stroke="none" />
+    <rect x="1.5" y="1.5" width="298" height="36" fill="none" />
+  </g>
+  <text id="_" data-name="􀍥" transform="translate(101.001 27)" fill="#f7f7f7" font-size="22"
+    font-family="Monoton-Regular, SF Compact">
+    <tspan x="0" y="0">􀍥</tspan>
+  </text>
+  <text id="Add_to_Cart" data-name="Add to Cart" transform="translate(132.001 23)" fill="#fff" font-size="14"
+    font-family="SFProRounded-Medium, SF Pro Rounded" font-weight="500">
+    <tspan x="0" y="0">Add to Cart</tspan>
+  </text>
+</svg>
