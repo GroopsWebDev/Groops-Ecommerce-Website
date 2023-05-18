@@ -126,7 +126,7 @@ model user {
 
 model wallet {
   id     Int    @id @default(autoincrement())
-  userId String @db.VarChar(255)
+  userId String @db.VarChar(255) @unique
   amount Float
 }
 

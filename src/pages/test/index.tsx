@@ -1,6 +1,5 @@
 import { api } from "~/utils/api";
-import { UserButton, useAuth } from "@clerk/nextjs";
-import { useState, useEffect } from "react";
+import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 import { LoadingSpinner } from "~/components/loading";
 
