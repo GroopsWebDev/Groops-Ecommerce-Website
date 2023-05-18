@@ -19,7 +19,7 @@ export default function Test() {
 
       <div className="flex flex-col place-items-center">
         {data?.map((order) => (
-          <div key={order.orderId}>Love list item id: {order.orderId}</div>
+          <div key={order.orderId}>My order id: {order.orderId}</div>
         ))}
       </div>
     </>

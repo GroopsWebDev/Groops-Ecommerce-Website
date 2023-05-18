@@ -10,7 +10,8 @@ import { LoadingSpinner } from "~/components/loading";
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
   const { isLoaded: userLoaded, userId, sessionId, getToken } = useAuth();
-  const { data: userData, isLoading: loadingData } = api.example.getAllUser.useQuery();
+  const { data: userData, isLoading: loadingData } =
+    api.example.getAllUser.useQuery();
   const { user } = useUser();
 
   if (loadingData) {
@@ -52,10 +53,16 @@ const Home: NextPage = () => {
         <RedirectToSignIn />
       </SignedOut>
 
-      <Link href="/test" className="bg-black p-1 text-white">
-        Link to lovelist page
-      </Link>
-
+      <ul>
+        <Link href="/test" className="bg-black p-1 text-white">
+          Link to lovelist page
+        </Link>
+      </ul>
+      <ul>
+        <Link href="/test/order" className="bg-black p-1 text-white">
+          Link to Order page
+        </Link>
+      </ul>
       {userData?.map((db_user) => (
         <div key={db_user.id}>{db_user.email}</div>
       ))}
