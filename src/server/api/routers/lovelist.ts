@@ -11,12 +11,12 @@ export const LoveListRouter = createTRPCRouter({
     }),
 
   addLoveListItem: publicProcedure
-  .input(z.object({ userId: z.string(), skuid: z.string() })) //what is this skuid?
+    .input(z.object({ userId: z.string(), skuid: z.string() })) //what is this skuid?
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.love_list.create({data : { userId: input.userId, skuid: input.skuid}})
+      return ctx.prisma.love_list.create({ data: { userId: input.userId, skuid: input.skuid } })
     }),
 
-    deleteAllLoveListItems: publicProcedure
+  deleteAllLoveListItems: publicProcedure
     .input(z.object({ userId: z.string() }))
     .mutation(({ ctx, input }) => {
       return ctx.prisma.love_list.deleteMany({

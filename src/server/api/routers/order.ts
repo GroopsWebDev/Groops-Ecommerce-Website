@@ -9,5 +9,5 @@ export const orderRouter = createTRPCRouter({
     .query(({ ctx, input }) => {
       return ctx.prisma.order.findMany({ where: { userId: input.userId } });
     }),
-  
+
 });

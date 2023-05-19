@@ -54,16 +54,16 @@ const Home: NextPage = () => {
       </SignedOut>
 
       <ul>
-        <Link href="/test" className="bg-black p-1 text-white">
+        <Link href="/demo/lovelist" className="bg-black p-1 text-white">
           Link to lovelist page
         </Link>
       </ul>
       <ul>
-        <Link href="/test/order" className="bg-black p-1 text-white">
+        <Link href="/demo/order" className="bg-black p-1 text-white">
           Link to Order page
         </Link>
       </ul>
-      {userData?.map((db_user) => (
+      {userData?.map((db_user: any) => (
         <div key={db_user.id}>{db_user.email}</div>
       ))}
     </>
