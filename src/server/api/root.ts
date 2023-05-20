@@ -4,6 +4,8 @@ import { LoveListRouter } from "./routers/lovelist";
 import { orderRouter } from "./routers/order";
 import { walletRouter } from "./routers/wallet";
 import { addressRouter } from "./routers/address";
+import { membershipRouter } from "./routers/membership";
+import { groupRouter } from "./routers/group";
 
 /**
  * This is the primary router for your server.
@@ -16,6 +18,8 @@ export const appRouter = createTRPCRouter({
   orderapi: orderRouter,
   walletapi: walletRouter,
   addressapi: addressRouter,
+  membershipapi: membershipRouter,
+  groupapi: groupRouter,
 });
 
 // export type definition of API
