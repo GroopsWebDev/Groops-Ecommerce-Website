@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Test() {
   const { isLoaded, userId, sessionId, getToken } = useAuth();
-  const { data, isLoading, refetch } = api.orderapi.getUserOrders.useQuery({
+  const { data, isLoading, refetch } = api.orderApi.getUserOrders.useQuery({
     userId: userId ? userId : "1",
   });
 

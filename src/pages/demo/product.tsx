@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Test() {
   const { isLoaded, userId, sessionId, getToken } = useAuth();
-  const { data, isLoading, refetch } = api.productapi.getAllProducts.useQuery();
+  const { data, isLoading, refetch } = api.productApi.getAllProducts.useQuery();
 
 
   return (

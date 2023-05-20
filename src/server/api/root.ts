@@ -15,13 +15,13 @@ import { productRouter } from "./routers/product";
  */
 export const appRouter = createTRPCRouter({
   example: exampleRouter,
-  lovelist: LoveListRouter,
-  orderapi: orderRouter,
-  walletapi: walletRouter,
-  addressapi: addressRouter,
-  membershipapi: membershipRouter,
-  groupapi: groupRouter,
-  productapi: productRouter,
+  lovelistApi: LoveListRouter,
+  orderApi: orderRouter,
+  walletApi: walletRouter,
+  addressApi: addressRouter,
+  membershipApi: membershipRouter,
+  groupApi: groupRouter,
+  productApi: productRouter,
 });
 
 // export type definition of API
