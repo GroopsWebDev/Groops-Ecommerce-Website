@@ -16,6 +16,14 @@ export const LoveListRouter = createTRPCRouter({
       return ctx.prisma.love_list.create({ data: { userId: input.userId, skuid: input.skuid } })
     }),
 
+  deleteItem: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.love_list.delete({
+        where: { ...input }
+      });
+    }),
+
   deleteAllLoveListItems: publicProcedure
     .input(z.object({ userId: z.string() }))
     .mutation(({ ctx, input }) => {

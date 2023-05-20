@@ -86,6 +86,17 @@ model order {
   @@index([userId], map: "userId")
 }
 
+model address {
+  id Int @id @default(autoincrement())
+  userId String
+  primary Boolean
+  line1 String
+  line2 String
+  city String
+  state String
+  country String
+}
+
 model product {
   skuid               String  @id
   englishProductName  String
@@ -150,6 +161,7 @@ model love_list {
   id     Int    @id @default(autoincrement())
   userId String @db.VarChar(255)
   skuid  String
+  @@unique([userId, skuid])
 }
 
 model shipping_address {
