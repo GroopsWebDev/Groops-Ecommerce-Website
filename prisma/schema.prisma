@@ -87,13 +87,13 @@ model order {
 }
 
 model address {
-  id Int @id @default(autoincrement())
-  userId String
+  id      Int     @id @default(autoincrement())
+  userId  String
   primary Boolean
-  line1 String
-  line2 String
-  city String
-  state String
+  line1   String
+  line2   String
+  city    String
+  state   String
   country String
 }
 
@@ -137,7 +137,7 @@ model user {
 
 model wallet {
   id     Int    @id @default(autoincrement())
-  userId String @db.VarChar(255) @unique
+  userId String @unique @db.VarChar(255)
   amount Float
 }
 
@@ -148,10 +148,10 @@ model discount_rate {
 }
 
 model group_member {
-  groupMemberId String @id
-  userId        String
-  groupId       String
-  group         group  @relation(fields: [groupId], references: [groupId], map: "GroupMember_groupId_fkey")
+  id      Int    @id @default(autoincrement())
+  userId  String
+  groupId String
+  group   group  @relation(fields: [groupId], references: [groupId], map: "GroupMember_groupId_fkey")
 
   @@index([groupId], map: "GroupMember_groupId_fkey")
   @@index([userId], map: "groupmember_FK")
@@ -161,6 +161,7 @@ model love_list {
   id     Int    @id @default(autoincrement())
   userId String @db.VarChar(255)
   skuid  String
+
   @@unique([userId, skuid])
 }
 
