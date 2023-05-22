@@ -148,9 +148,9 @@ model discount_rate {
 }
 
 model group_member {
-  id      Int    @id @default(autoincrement())
   userId  String
   groupId String
+  id      Int    @id @default(autoincrement())
   group   group  @relation(fields: [groupId], references: [groupId], map: "GroupMember_groupId_fkey")
 
   @@index([groupId], map: "GroupMember_groupId_fkey")
