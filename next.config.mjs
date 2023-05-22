@@ -13,6 +13,11 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+
+  images: {
+    domains: ['images.clerk.dev', 'www.gravatar.com'],
+  },
+
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
@@ -21,6 +26,7 @@ const config = {
     });
     return config;
   },
+
   env: {
     MINIO_REGION: process.env.MINIO_REGION || "",
     MINIO_ACCESS_KEY: process.env.MINIO_ACCESS_KEY || "",

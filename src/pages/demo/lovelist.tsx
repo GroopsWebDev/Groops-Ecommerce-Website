@@ -1,17 +1,16 @@
 import { api } from "~/utils/api";
-import { UserButton, useAuth } from "@clerk/nextjs";
-import { useState, useEffect } from "react";
+import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 import { LoadingSpinner } from "~/components/loading";
 
 export default function Test() {
   const { isLoaded, userId, sessionId, getToken } = useAuth();
-  const { data, isLoading, refetch } = api.lovelist.getUserLoveList.useQuery({
+  const { data, isLoading, refetch } = api.lovelistApi.getUserLoveList.useQuery({
     userId: userId ? userId : "1",
   });
 
-  const add_mutation = api.lovelist.addLoveListItem.useMutation();
-  const delete_all_mutation = api.lovelist.deleteAllLoveListItems.useMutation();
+  const add_mutation = api.lovelistApi.addLoveListItem.useMutation();
+  const delete_all_mutation = api.lovelistApi.deleteAllLoveListItems.useMutation();
 
   const create = async () => {
     await add_mutation.mutateAsync({ userId: userId ? userId : "1", skuid: "1" });

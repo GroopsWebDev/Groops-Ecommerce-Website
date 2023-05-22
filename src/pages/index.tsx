@@ -7,6 +7,7 @@ import { useSession, getSession } from "next-auth/react";
 
 import CountdownTimer from "../components/CountdownTimer";
 
+
 import OurFeaturedProducts from "../../public/assets/category/our-featured-products.svg";
 import BecomeMember from "../../public/assets/membership/become-member-img.svg";
 import GroopsMembership from "../../public/assets/membership/groops-membership-text.svg";
@@ -37,6 +38,14 @@ import { getRemainingTime } from "../utils/utils";
 import { api } from "../utils/api";
 
 const Home = () => {
+
+  // const Home: NextPage = () => {
+  //   const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  //   const { isLoaded: userLoaded, userId, sessionId, getToken } = useAuth();
+  //   const { data: userData, isLoading: loadingData } =
+  //     api.example.getAllUser.useQuery();
+  //   const { user } = useUser();
+
   const { data: sessionData } = useSession();
   // const [category, setCategory] = useState([]);
   // const [loading, setLoading] = useState(false);
@@ -162,6 +171,19 @@ const Home = () => {
 
       {/** Section 5 Help Center */}
       <HelpCenter />
+      <ul>
+        <Link href="/demo/lovelist" className="bg-black p-1 text-white">
+          Link to lovelist page
+        </Link>
+      </ul>
+      <ul>
+        <Link href="/demo/order" className="bg-black p-1 text-white">
+          Link to Order page
+        </Link>
+      </ul>
+      {userData?.map((db_user: any) => (
+        <div key={db_user.id}>{db_user.email}</div>
+      ))}
     </>
   );
 };
