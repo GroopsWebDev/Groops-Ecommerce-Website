@@ -44,7 +44,7 @@ const Home = () => {
   const { data: groups } = api.group.topGroup.useQuery();
   const { data: category, isLoading } = api.category.getAll.useQuery();
   // if (category) {
-  //   dispatch(setCategoryList(category));
+  //   dispatch(setCategoryList(category)); 
   // }
   const featuredProductsStyle =
     "scale-100 ml-10 mr-10 mb-20 transform transition duration-300 hover:scale-110";

@@ -1,7 +1,8 @@
 import { getRemainingTime } from "../../utils/utils";
 import Ball from "../../../public/assets/utility/ball.svg";
 import CountdownTimer from "../../components/CountdownTimer";
-export default function List({ groups, title }: any) {
+import React from "react";
+function List({ groups, title }: any) {
   return (
     <>
       {groups.length != 0 ? (
@@ -42,3 +43,5 @@ export default function List({ groups, title }: any) {
     </>
   );
 }
+
+export default List;

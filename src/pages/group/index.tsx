@@ -17,29 +17,16 @@ import Ball from "../../../public/assets/utility/ball.svg";
 import CountdownTimer from "../../components/CountdownTimer";
 import List from "../../components/group/list";
 import { group } from "@prisma/client";
+import { api } from "../../utils/api";
 
 const Group = () => {
-  const [groups, setGroups] = useState<group[]>([]);
+  // const [groups, setGroups] = useState([]);
   const [searchText, setSearchText] = useState("");
   const router = useRouter();
   const { data: sessionData } = useSession();
-
-  useEffect(() => {
-    const fetch = async () => {
-      let res;
-      if (sessionData) {
-        //if use is logged in, call /api/group/getList
-        res = await axios.get("/api/group/getList");
-      } else {
-        //if user is not logged in, call /api/group/getListNoAuth
-        res = await axios.get("/api/group/getListNoAuth");
-      }
-      if (res.data.status == 200) {
-        setGroups(res.data.group);
-      }
-    };
-    fetch();
-  }, []);
+  const { data: groups } = sessionData
+    ? api.group.getAll.useQuery()
+    : api.group.getAllNoAuth.useQuery();
 
   const handleSearch = (e: any) => {
     setSearchText(e.target.value);
@@ -49,9 +36,13 @@ const Group = () => {
     router.push("/group/create");
   };
 
-  const filteredGroups: group[] = groups.filter((group: any) =>
-    group.groupName.toLowerCase().includes(searchText.toLowerCase())
-  );
+  const filteredGroups: group[] = groups
+    ? groups?.filter((group: any) =>
+        searchText
+          ? group.groupName.toLowerCase().includes(searchText.toLowerCase())
+          : true
+      )
+    : [];
 
   const GroupRow = ({ num }: { num: number }) => {
     const numTable: { [key: number]: string } = {
@@ -63,7 +54,7 @@ const Group = () => {
     return (
       <>
         <h1 className="mt-20 text-center text-purple-600">{numTable[num]}</h1>
-        {groups.length === 0 ? (
+        {groups && groups.length === 0 ? (
           <div className="flex flex-col items-center justify-center">
             <div className="mb-5 mt-5 text-[#A0A0A0]">
               <h3>No Group Found</h3>
@@ -74,38 +65,39 @@ const Group = () => {
           </div>
         ) : (
           <div className="mt-10 flex flex-row place-items-center justify-center gap-10">
-            {groups.map((group, index) =>
-              index < 4 ? (
-                <div key={index}>
-                  <Link
-                    href={`/join/` + group.groupId}
-                    className="no-underline"
-                  >
-                    <div className="mb-2 h-48 w-64">
-                      <img
-                        src={`https://api.gr-oops.com/` + group?.groupImg}
-                        alt={group.groupName ? group.groupName : undefined}
-                        width="250"
-                        className="mr-3 h-full w-full rounded-3xl duration-300 hover:scale-105"
-                      />
-                    </div>
-                    <span className="text-blue-500">{group.groupName}</span>
-                    <div>
-                      {/* <span className="text-black">
+            {groups &&
+              groups.map((group, index) =>
+                index < 4 ? (
+                  <div key={index}>
+                    <Link
+                      href={`/group/join/` + group.groupId}
+                      className="no-underline"
+                    >
+                      <div className="mb-2 h-48 w-64">
+                        <img
+                          src={`https://api.gr-oops.com/` + group?.groupImg}
+                          alt={group.groupName ? group.groupName : undefined}
+                          width="250"
+                          className="mr-3 h-full w-full rounded-3xl duration-300 hover:scale-105"
+                        />
+                      </div>
+                      <span className="text-blue-500">{group.groupName}</span>
+                      <div>
+                        {/* <span className="text-black">
                         Ends in{" "}
                         <span className="text-red-500">
                           {getRemainingTime(group?.endDate)}
                         </span>
                       </span> */}
-                      <span className="text-black">
-                        {/* Ends in <span className="text-red-500">{getRemainingTime(group?.endDate)}</span> */}
-                        Ends in <CountdownTimer endDate={group?.endDate} />
-                      </span>
-                    </div>
-                  </Link>
-                </div>
-              ) : null
-            )}
+                        <span className="text-black">
+                          {/* Ends in <span className="text-red-500">{getRemainingTime(group?.endDate)}</span> */}
+                          Ends in <CountdownTimer endDate={group?.endDate} />
+                        </span>
+                      </div>
+                    </Link>
+                  </div>
+                ) : null
+              )}
             <Link
               href={
                 num === 1

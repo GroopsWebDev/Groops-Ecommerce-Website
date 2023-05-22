@@ -11,33 +11,17 @@ import CreateGroupButton from "../../../public/assets/group/create-group-button.
 import GroupCenterIconOn from "../../../public/assets/group/group-center-icon-on.svg";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-
-
+import { api } from "../../utils/api";
 import List from "../../components/group/list";
 import { group } from "@prisma/client";
 
 export default function Popular() {
-  const [groups, setGroups] = useState<any[]>([]);
   const [searchText, setSearchText] = useState("");
   const router = useRouter();
   const { data: sessionData } = useSession();
-
-  useEffect(() => {
-    const fetch = async () => {
-      let res;
-      if (sessionData) {
-        //if use is logged in, call /api/group/getList
-        res = await axios.get("/api/group/getList");
-      } else {
-        //if user is not logged in, call /api/group/getListNoAuth
-        res = await axios.get("/api/group/getListNoAuth");
-      }
-      if (res.data.status == 200) {
-        setGroups(res.data.group);
-      }
-    };
-    fetch();
-  }, []);
+  const { data: groups } = sessionData
+    ? api.group.getAll.useQuery()
+    : api.group.getAllNoAuth.useQuery();
 
   const handleSearch = (e: any) => {
     setSearchText(e.target.value);
@@ -47,9 +31,11 @@ export default function Popular() {
     router.push("/group/create");
   };
 
-  const filteredGroups: group[] = groups.filter((group: any) =>
-    group.groupName.toLowerCase().includes(searchText.toLowerCase())
-  );
+  const filteredGroups: group[] = groups
+    ? groups.filter((group: any) =>
+        group.groupName.toLowerCase().includes(searchText.toLowerCase())
+      )
+    : [];
 
   return (
     <>

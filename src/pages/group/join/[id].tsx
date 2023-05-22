@@ -8,36 +8,16 @@ import { getRemainingTime } from "../../../utils/utils";
 import { CircularProgress } from "@mui/material";
 import Loader from "../../../components/loader/loader";
 import Link from "next/link";
-
+import { api } from "../../../utils/api";
 const CreateGroup = () => {
   const router = useRouter();
-
   const { id }: any = router.query;
-  const [groupData, setGroupData] = useState<any>();
-  const { data: sessionData } = useSession();
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== "undefined" && id) {
-      setLoading(true);
-      const fetch = async () => {
-        const res = await axios.get(`/api/group/${id}`);
-        if (res.data.status == 200) {
-          setGroupData(res.data.group);
-          setLoading(false);
-        } else {
-          Swal.fire({
-            text: "Record Not Found.",
-            icon: "error",
-            confirmButtonText: "OK",
-          });
-          setLoading(false);
-        }
-      };
-      fetch();
-    }
-  }, [id]);
-
+  const { data: sessionData } = useSession();
+  const { data: groupData, isLoading } = api.group.getById.useQuery({ id });
+  if (isLoading) {
+    return <Loader />;
+  }
   const joinGroup = async () => {
     try {
       setLoading(true);
@@ -68,7 +48,7 @@ const CreateGroup = () => {
 
   return (
     <Container className="mb-3">
-      {groupData ? (
+      {groupData && (
         <Row className="mb-3">
           <Col
             xs={12}
@@ -115,7 +95,7 @@ const CreateGroup = () => {
           <Col xs={12} md={6} className="my-4">
             <h6>People who joined.</h6>
             <div className="flex justify-between">
-              {groupData?.groupMember.map((i: any, index: any) => (
+              {groupData?.groupMember?.map((i: any, index: any) => (
                 <div key={index}>
                   <img
                     className="my-2 h-16 w-16 rounded-full ring-2 ring-gray-500"
@@ -129,8 +109,6 @@ const CreateGroup = () => {
             </div>
           </Col>
         </Row>
-      ) : (
-        loading && <Loader />
       )}
     </Container>
   );

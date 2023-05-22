@@ -15,6 +15,18 @@ export const groupRouter = router({
       },
     });
   }),
+  getAllNoAuth: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.group.findMany({
+      where: {
+        endDate: {
+          gt: new Date(),
+        },
+        groupName: {
+          not: "",
+        },
+      },
+    });
+  }),
   topGroup: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.group.findMany({
       take: 5,
@@ -29,7 +41,7 @@ export const groupRouter = router({
       },
     });
   }),
-  getById: protectedProcedure
+  getById: publicProcedure
     .input(
       z.object({
         id: z.string(),
@@ -121,5 +133,74 @@ export const groupRouter = router({
       });
 
       return { group, message: "Group Create Successfully." };
+    }),
+  joinGroup: protectedProcedure
+    .input(
+      z.object({
+        userId: z.string(),
+        groupId: z.string(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const { userId, groupId } = input;
+      const existingGroup = await ctx.prisma.group.findFirst({
+        where: {
+          groupMasterId: userId,
+          endDate: {
+            gte: new Date(),
+          },
+          groupName: {
+            not: "",
+          },
+        },
+      });
+      if (existingGroup) {
+        return {
+          status: 400,
+          message:
+            "You can't join a group until your created the group is ended.",
+        };
+      }
+      // const existing = ctx.prisma.groupMember.findFirst({
+      //   where: {
+      //     groupId: groupId,
+      //     userId: userId,
+      //   },
+      // });
+
+      // if (existing) {
+      //   return {
+      //     status: 200,
+      //     group: { groupId },
+      //   };
+      // }
+
+      const cart = await ctx.prisma.cart.findMany({
+        where: { userId },
+        // include: { product: true },
+      });
+      // const totalCartPrice = cart.reduce(
+      //   (a, c) => a + c.product.price * c.qty,
+      //   0
+      // );
+      const totalCartPrice = 30;
+      if (totalCartPrice >= 30) {
+        // const group = await prisma.groupMember.create({
+        //   data: {
+        //     groupId: groupId,
+        //     userId: userId,
+        //   },
+        // });
+        return {
+          status: 200,
+          group: { groupId },
+          message: "Group Join Successfully.",
+        };
+      } else {
+        return {
+          status: 400,
+          message: "Cart item price must be grether then $30.",
+        };
+      }
     }),
 });
