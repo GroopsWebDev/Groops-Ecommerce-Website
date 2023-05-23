@@ -1,6 +1,7 @@
 import { api } from "~/utils/api";
 import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
+import { LoadingSpinner } from "~/components/loading";
 
 export default function Test() {
   const { isLoaded, userId, sessionId, getToken } = useAuth();
@@ -8,6 +9,9 @@ export default function Test() {
     userId: userId ? userId : "1",
   });
 
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <>

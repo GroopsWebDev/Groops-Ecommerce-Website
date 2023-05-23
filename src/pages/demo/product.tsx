@@ -1,11 +1,15 @@
 import { api } from "~/utils/api";
 import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
+import { LoadingSpinner } from "~/components/loading";
 
 export default function Test() {
   const { isLoaded, userId, sessionId, getToken } = useAuth();
   const { data, isLoading, refetch } = api.productApi.getAllProducts.useQuery();
 
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <>

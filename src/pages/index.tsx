@@ -16,9 +16,7 @@ const Home: NextPage = () => {
 
   if (loadingData) {
     return (
-      <div className="flex h-screen items-center justify-center">
-        <LoadingSpinner />
-      </div>
+      <LoadingSpinner />
     );
   }
 
