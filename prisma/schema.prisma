@@ -164,18 +164,12 @@ model love_list {
   @@unique([userId, skuid])
 }
 
-model shipping_address {
-  id               Int     @id @default(autoincrement())
-  userId           String? @db.VarChar(255)
-  firstName        String? @db.VarChar(255)
-  lastName         String? @db.VarChar(255)
-  address1         String? @db.Text
-  address2         String? @db.Text
-  postalCode       String? @db.VarChar(50)
-  city             String? @db.VarChar(50)
-  isPrimaryAddress Int?    @default(0) @db.TinyInt
-
-  @@index([userId], map: "userIdfxxxaddress")
+model comment {
+  id Int @id @default(autoincrement())
+  userId String
+  productId String
+  rating Int
+  content String
 }
 
 model address {
