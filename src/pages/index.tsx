@@ -58,7 +58,12 @@ const Home: NextPage = () => {
       </ul>
       <ul>
         <Link href="/demo/order" className="bg-black p-1 text-white">
-          Link to Order page
+          Link to order page
+        </Link>
+      </ul>
+      <ul>
+        <Link href="/demo/product" className="bg-black p-1 text-white">
+          Link to product page
         </Link>
       </ul>
       {userData?.map((db_user: any) => (
