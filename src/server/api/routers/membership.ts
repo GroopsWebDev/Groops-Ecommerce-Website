@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { router, publicProcedure } from "~/server/api/trpc";
 
-export const membershipRouter = createTRPCRouter({
+export const membershipRouter = router({
 
   fetchGroupMembership: publicProcedure
     .input(z.object({ groupId: z.string() }))

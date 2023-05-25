@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { router, publicProcedure } from "~/server/api/trpc";
 
-export const addressRouter = createTRPCRouter({
+export const addressRouter = router({
 
   getUserAddress: publicProcedure
     .input(z.object({ userId: z.string() }))

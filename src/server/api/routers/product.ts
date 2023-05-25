@@ -1,12 +1,12 @@
 import { z } from "zod";
+import { prisma } from "../../db";
+import { router, publicProcedure } from "~/server/api/trpc";
 
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
-
-export const productRouter = createTRPCRouter({
+export const productRouter = router({
 
   getAllProducts: publicProcedure
-    .query(({ ctx }) => {
-      return ctx.prisma.product.findMany();
+    .query(() => {
+      return prisma.product.findMany();
     }),
 
   getById: publicProcedure
