@@ -166,11 +166,67 @@ model love_list {
 }
 
 model comment {
-  id Int @id @default(autoincrement())
-  userId String
+  id        Int    @id @default(autoincrement())
+  userId    String
   productId String
-  rating Int
-  content String
+  rating    Int
+  content   String
+}
+
+model fixed_amount_coupon {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  startDate DateTime
+  duration  Int
+  amount    Float
+}
+
+model two_for_one_coupon {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  startDate DateTime
+  duration  Int
+  productId String
+}
+
+model percentage_coupon {
+  id         Int      @id @default(autoincrement())
+  userId     String
+  startDate  DateTime
+  duration   Int
+  percentage Int
+  productId  String?
+  categoryId Int?
+}
+
+model free_shipping_coupon {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  startDate DateTime
+  duration  Int
+  orderId   String
+}
+
+model shipping_address {
+  id               Int     @id @default(autoincrement())
+  userId           String? @db.VarChar(255)
+  firstName        String? @db.VarChar(255)
+  lastName         String? @db.VarChar(255)
+  address1         String? @db.Text
+  address2         String? @db.Text
+  postalCode       String? @db.VarChar(50)
+  city             String? @db.VarChar(50)
+  isPrimaryAddress Int?    @default(0) @db.TinyInt
+
+  @@index([userId], map: "userIdfxxxaddress")
+}
+
+model usertrail {
+  id         Int      @id @default(autoincrement())
+  externalId String   @unique(map: "Usertrail_externalId_key")
+  attributes Json
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime
 }
 
 enum user_role {
