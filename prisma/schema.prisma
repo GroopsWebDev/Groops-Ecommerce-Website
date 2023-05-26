@@ -165,6 +165,40 @@ model love_list {
   @@unique([userId, skuid])
 }
 
+model fixed_amount_coupon {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  startDate DateTime
+  duration  Int
+  amount    Float
+}
+
+model two_for_one_coupon {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  startDate DateTime
+  duration  Int
+  productId String
+}
+
+model percentage_coupon {
+  id         Int      @id @default(autoincrement())
+  userId     String
+  startDate  DateTime
+  duration   Int
+  percentage Int
+  productId  String?
+  categoryId Int?
+}
+
+model free_shipping_coupon {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  startDate DateTime
+  duration  Int
+  orderId   String
+}
+
 model shipping_address {
   id               Int     @id @default(autoincrement())
   userId           String? @db.VarChar(255)
