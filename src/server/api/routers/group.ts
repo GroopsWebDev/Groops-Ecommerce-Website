@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { generateCode } from "../../../utils/utils";
 
 export const groupRouter = createTRPCRouter({
 
@@ -17,38 +18,30 @@ export const groupRouter = createTRPCRouter({
       })
     }),
 
-    createOrChangeAddress: publicProcedure
+    createGroup: publicProcedure
     .input(z.object({
-      id: z.number(),
       userId: z.string(),
-      primary: z.boolean(),
-      line1: z.string(),
-      line2: z.string(),
-      city: z.string(),
-      state: z.string(),
-      country: z.string(),
+      groupName: z.string(), 
+      groupImg: z.string(),
+      endDate: z.date(),
+
     }))
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.address.upsert({
-        where: { id: input.id },
-        update: {...input},
-        create: {
-          userId: input.userId,
-          primary: input.primary,
-          line1: input.line1,
-          line2: input.line2,
-          city: input.city,
-          state: input.state,
-          country: input.country,
-        }
-      })
+      return ctx.prisma.group.create({ data: {
+        
+        groupName: input.groupName,
+        groupImg: input.groupImg,
+        endDate: input.endDate,
+        groupCode: generateCode(),
+        groupMasterId: { connect: { id: input.userId } },  
+      } })
     }),
 
-  deleteAddress: publicProcedure
-    .input(z.object({ id: z.number() }))
+  deleteGroup: publicProcedure
+    .input(z.object({ groupId: z.string() }))
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.love_list.delete({
-        where: { ...input }
+      return ctx.prisma.group.delete({
+        where: { groupId: input.groupId }
       });
     }),
 

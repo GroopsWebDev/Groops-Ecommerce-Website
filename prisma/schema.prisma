@@ -44,7 +44,7 @@ model category {
 }
 
 model group {
-  groupId          String         @id
+  groupId          String         @id @default(cuid())
   groupMasterId    String
   groupName        String
   startDate        DateTime       @default(now())
@@ -163,48 +163,6 @@ model love_list {
   skuid  String
 
   @@unique([userId, skuid])
-}
-
-model comment {
-  id        Int    @id @default(autoincrement())
-  userId    String
-  productId String
-  rating    Int
-  content   String
-}
-
-model fixed_amount_coupon {
-  id        Int      @id @default(autoincrement())
-  userId    String
-  startDate DateTime
-  duration  Int
-  amount    Float
-}
-
-model two_for_one_coupon {
-  id        Int      @id @default(autoincrement())
-  userId    String
-  startDate DateTime
-  duration  Int
-  productId String
-}
-
-model percentage_coupon {
-  id         Int      @id @default(autoincrement())
-  userId     String
-  startDate  DateTime
-  duration   Int
-  percentage Int
-  productId  String?
-  categoryId Int?
-}
-
-model free_shipping_coupon {
-  id        Int      @id @default(autoincrement())
-  userId    String
-  startDate DateTime
-  duration  Int
-  orderId   String
 }
 
 model shipping_address {
