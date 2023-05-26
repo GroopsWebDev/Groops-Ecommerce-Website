@@ -70,7 +70,7 @@ const Home: NextPage = () => {
       </ul>
       <ul>
         <Link href="/demo/product" className="bg-black p-1 text-white">
-          Link to Product All
+          Link to Product
         </Link>
       </ul>
       {userData?.map((db_user: any) => (
