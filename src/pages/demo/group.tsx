@@ -15,6 +15,7 @@ export default function Test() {
   const deleteGroup = async () => {
     await delete_group.mutateAsync({ groupId: groupId ? groupId : "1"});
     await refetch(); // Trigger a refetch of the user's love list
+    
   }
 
   if (isLoading) {

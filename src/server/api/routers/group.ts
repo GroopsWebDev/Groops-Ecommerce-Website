@@ -28,12 +28,12 @@ export const groupRouter = createTRPCRouter({
     }))
     .mutation(({ ctx, input }) => {
       return ctx.prisma.group.create({ data: {
-        
+        groupMasterId: input.userId ,  
         groupName: input.groupName,
         groupImg: input.groupImg,
         endDate: input.endDate,
         groupCode: generateCode(),
-        groupMasterId: { connect: { id: input.userId } },  
+
       } })
     }),
 
