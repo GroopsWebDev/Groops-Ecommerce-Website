@@ -8,30 +8,43 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model account {
-  id                String  @id @default("0") @db.VarChar(50)
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-  user              user    @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Account_userId_fkey")
+// model account {
+//   id                String  @id @default("0") @db.VarChar(50)
+//   userId            String
+//   type              String
+//   provider          String
+//   providerAccountId String
+//   refresh_token     String? @db.Text
+//   access_token      String? @db.Text
+//   expires_at        Int?
+//   token_type        String?
+//   scope             String?
+//   id_token          String? @db.Text
+//   session_state     String?
+//   user              user    @relation(fields: [userId], references: [user_id], onDelete: Cascade, map: "Account_userId_fkey")
 
-  @@unique([provider, providerAccountId], map: "Account_provider_providerAccountId_key")
-  @@index([userId], map: "Account_userId_fkey")
-}
+//   @@unique([provider, providerAccountId], map: "Account_provider_providerAccountId_key")
+//   @@index([userId], map: "Account_userId_fkey")
+// }
 
 model cart {
-  id        Int     @id @default(autoincrement())
-  productId String? @db.VarChar(100)
-  qty       String? @db.VarChar(100)
-  userId    String? @db.VarChar(100)
+  cart_id    Int          @id @unique
+  // productId String? @db.VarChar(100)
+  // qty       String? @db.VarChar(100)
+  cart_items cart_items[]
+  user       user?
+}
+
+model cart_items {
+  cart_items_id Int @id
+
+  qty   String? @db.VarChar(100)
+  price String  @db.VarChar(100)
+
+  cart       cart    @relation(fields: [cart_id], references: [cart_id], map: "CartItems_cartId_fkey")
+  cart_id    Int
+  product    product @relation(fields: [product_id], references: [product_id], map: "Product_productId_fkey")
+  product_id String
 }
 
 model category {
@@ -44,20 +57,42 @@ model category {
 }
 
 model group {
-  groupId          String         @id
-  groupMasterId    String
-  groupName        String
-  startDate        DateTime       @default(now())
+  group_id         Int      @id @unique @default(autoincrement())
+  group_owner_id   String
+  group_name       String
+  description      String?  @db.VarChar(255)
+  group_img        String?  @db.VarChar(100)
+  group_code       String   @unique @default(uuid())
+  group_link       String
+  startDate        DateTime @default(now())
   endDate          DateTime
-  description      String?        @db.VarChar(255)
-  groupImg         String?        @db.VarChar(100)
-  groupCode        String?
-  isActive         Int?           @default(1) @db.TinyInt
-  finalDiscount    Float?
-  owner_commission Float?         @default(0)
-  group_member     group_member[]
+  is_active        Boolean  @default(false)
+  final_discount   Float?
+  owner_commission Float?   @default(0)
 
-  @@index([groupMasterId], map: "group_FK")
+  group_member group_member[]
+  group_owner  group_owner[]
+  order        order[]
+}
+
+model group_member {
+  group_member_id String @id @unique @default(uuid())
+  user            user   @relation(fields: [user_id], references: [user_id], map: "GroupMember_userId_fkey")
+  user_id         String @unique
+  group           group  @relation(fields: [group_id], references: [group_id], map: "GroupMember_groupId_fkey")
+  group_id        Int
+}
+
+model group_owner {
+  group_owner_id  String   @id @unique @default(uuid())
+  start_date      DateTime
+  end_date        DateTime
+  discount_amount Float
+
+  user     user   @relation(fields: [user_id], references: [user_id], map: "GroupOwner_userId_fkey")
+  user_id  String @unique
+  group    group  @relation(fields: [group_id], references: [group_id], map: "GroupOwner_groupId_fkey")
+  group_id Int
 }
 
 model help_center {
@@ -68,22 +103,36 @@ model help_center {
 }
 
 model order {
-  orderId         String    @id
-  orderDate       DateTime? @default(now())
-  userId          String
-  groupId         String?
-  subTotal        Int?      @default(0)
-  total           Int?      @default(0)
-  salesTax        Float?    @db.Float
-  delivery        Float?    @db.Float
-  greenFee        Float?    @db.Float
-  tipDelivery     Float?    @db.Float
+  order_id        String       @id @unique @default(uuid())
+  order_date      DateTime?    @default(now())
+  subTotal        Int?         @default(0)
+  total           Int?         @default(0)
+  salesTax        Float?       @db.Float
+  delivery        Float?       @db.Float
+  greenFee        Float?       @db.Float
+  tipDelivery     Float?       @db.Float
+  is_delivery     Boolean?     @default(false)
   paymentIntent   String?
-  shippingAddress String?   @db.Text
-  refund_amount   Decimal?  @db.Decimal(10, 2)
-  user            user      @relation(fields: [userId], references: [id], map: "Order_userId_fkey")
+  shippingAddress String?      @db.Text
+  refund_amount   Decimal?     @db.Decimal(10, 2)
+  user            user         @relation(fields: [user_id], references: [user_id], map: "Order_userId_fkey")
+  user_id         String
+  group           group        @relation(fields: [group_id], references: [group_id], map: "Order_groupId_fkey")
+  group_id        Int
+  order_item      order_item[]
+}
 
-  @@index([userId], map: "userId")
+model order_item {
+  order_item_id String  @id @unique @default(uuid())
+  order         order   @relation(fields: [order_id], references: [order_id], map: "OrderItem_orderId_fkey")
+  order_id      String
+  product       product @relation(fields: [product_id], references: [product_id], map: "OrderItem_productId_fkey")
+  product_id    String
+}
+
+model delivery {
+  delivery_id     String @id @unique @default(uuid())
+  tracking_number String @unique
 }
 
 model address {
@@ -98,47 +147,57 @@ model address {
 }
 
 model product {
-  skuid               String  @id
-  englishProductName  String
-  chineseProductNName String?
-  frenchProductNName  String?
-  placeOfOrigin       String?
-  productWeight       String
-  description         String?
-  alcohol             Boolean @default(false)
-  price               Int     @default(0)
-  image               String
-  retailPrice         Int     @default(0)
-  costPrice           Int     @default(0)
-  stock               Int     @default(0)
-  categoryId          Int?
+  product_id           String       @id @unique
+  english_product_name String
+  chinese_product_name String?
+  french_product_name  String?
+  place_of_origin      String?
+  produc_weight        String
+  alcohol              Boolean      @default(false)
+  price                Int          @default(0)
+  image                String
+  retail_price         Int          @default(0)
+  cost                 Int          @default(0)
+  stock                Int          @default(0)
+  category             String
+  cart_items           cart_items[]
+  sold_num             Int          @default(0)
+  rating               Float        @default(0)
 
-  @@index([categoryId], map: "product_FK")
+  order_item     order_item[]
+  love_list_item love_list_item[]
+
+  @@index([category], map: "product_FK")
 }
 
 model user {
-  id            String     @id @db.VarChar(255)
-  firstname     String?
-  lastname      String?
-  email         String?    @unique(map: "User_email_key")
-  emailVerified DateTime?
-  image         String?
-  password      String?
-  role          user_role?
-  address       String?
-  phone         BigInt?
-  birthday      DateTime?
-  username      String?    @db.VarChar(100)
-  postCode      String?
-  name          String?    @db.VarChar(255)
-  account       account[]
-  order         order[]
+  user_id  String   @id @unique @default(uuid())
+  username String   @db.VarChar(100)
+  password String   @db.VarChar(30)
+  is_admin Boolean  @default(false)
+  email    String   @unique(map: "User_email_key")
+  birthday DateTime
+  phone    String
+  image    String?
+  address  String?
+  postCode String?
+
+  cart         cart          @relation(fields: [cart_id], references: [cart_id], map: "User_cartId_fkey")
+  cart_id      Int           @unique
+  order        order[]
+  group_member group_member?
+  group_owner  group_owner?
+  love_list_id love_list[]
+  wallet       wallet        @relation(fields: [wallet_id], references: [wallet_id], map: "User_walletId_fkey")
+  wallet_id    String        @unique
+
+  @@index([email], map: "email")
 }
 
 model wallet {
-  id     Int    @id @default(autoincrement())
-  userId String @unique @db.VarChar(255)
-  amount Float
+  wallet_id String @id @unique @default(uuid())
+  user      user? // user can not be created without creating it's wallet   
+  amount    Float
 }
 
 model discount_rate {
@@ -147,30 +206,41 @@ model discount_rate {
   memberCount  Int?     @default(0)
 }
 
-model group_member {
-  userId  String
-  groupId String
-  id      Int    @id @default(autoincrement())
-  group   group  @relation(fields: [groupId], references: [groupId], map: "GroupMember_groupId_fkey")
-
-  @@index([groupId], map: "GroupMember_groupId_fkey")
-  @@index([userId], map: "groupmember_FK")
-}
-
 model love_list {
-  id     Int    @id @default(autoincrement())
-  userId String @db.VarChar(255)
-  skuid  String
-
-  @@unique([userId, skuid])
+  love_list_id   Int              @id @default(autoincrement())
+  user           user             @relation(fields: [user_id], references: [user_id], map: "LoveList_userId_fkey")
+  user_id        String
+  love_list_item love_list_item[]
 }
 
-model comment {
-  id Int @id @default(autoincrement())
-  userId String
-  productId String
-  rating Int
-  content String
+model love_list_item {
+  love_list_item_id Int       @id @unique
+  product           product   @relation(fields: [product_id], references: [product_id])
+  product_id        String
+  love_list         love_list @relation(fields: [love_list_id], references: [love_list_id])
+  love_list_id      Int
+}
+
+model shipping_address {
+  id               Int     @id @default(autoincrement())
+  userId           String? @db.VarChar(255)
+  firstName        String? @db.VarChar(255)
+  lastName         String? @db.VarChar(255)
+  address1         String? @db.Text
+  address2         String? @db.Text
+  postalCode       String? @db.VarChar(50)
+  city             String? @db.VarChar(50)
+  isPrimaryAddress Int?    @default(0) @db.TinyInt
+
+  @@index([userId], map: "userIdfxxxaddress")
+}
+
+model usertrail {
+  id         Int      @id @default(autoincrement())
+  externalId String   @unique(map: "Usertrail_externalId_key")
+  attributes Json
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime
 }
 
 enum user_role {
