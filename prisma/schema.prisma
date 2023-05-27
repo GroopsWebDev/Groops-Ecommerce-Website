@@ -130,21 +130,23 @@ model order_item {
   product_id    String
 }
 
+// use type instead of model
 model delivery {
-  delivery_id     String @id @unique @default(uuid())
-  tracking_number String @unique
+  delivery_id      String             @id @unique @default(uuid())
+  tracking_number  String             @unique
+  shipping_address shipping_address[]
 }
 
-model address {
-  id      Int     @id @default(autoincrement())
-  userId  String
-  primary Boolean
-  line1   String
-  line2   String
-  city    String
-  state   String
-  country String
-}
+// model address { // use type for this data as well
+//   id      Int     @id @default(autoincrement())
+//   userId  String
+//   primary Boolean
+//   line1   String
+//   line2   String
+//   city    String
+//   state   String
+//   country String
+// }
 
 model product {
   product_id           String       @id @unique
@@ -200,11 +202,12 @@ model wallet {
   amount    Float
 }
 
-model discount_rate {
-  groupId      String   @id
-  discountRate Decimal? @db.Decimal(10, 0)
-  memberCount  Int?     @default(0)
-}
+// model discount_rate {
+//   groupId      String   @id
+//   discountRate Decimal? @db.Decimal(10, 0)
+//   memberCount  Int?     @default(0)
+// }
+// dont use model, use enum instead
 
 model love_list {
   love_list_id   Int              @id @default(autoincrement())
@@ -222,15 +225,17 @@ model love_list_item {
 }
 
 model shipping_address {
-  id               Int     @id @default(autoincrement())
-  userId           String? @db.VarChar(255)
-  firstName        String? @db.VarChar(255)
-  lastName         String? @db.VarChar(255)
-  address1         String? @db.Text
-  address2         String? @db.Text
-  postalCode       String? @db.VarChar(50)
-  city             String? @db.VarChar(50)
-  isPrimaryAddress Int?    @default(0) @db.TinyInt
+  id                  Int       @id @default(autoincrement())
+  userId              String?   @db.VarChar(255)
+  firstName           String?   @db.VarChar(255)
+  lastName            String?   @db.VarChar(255)
+  address1            String?   @db.Text
+  address2            String?   @db.Text
+  postalCode          String?   @db.VarChar(50)
+  city                String?   @db.VarChar(50)
+  isPrimaryAddress    Int?      @default(0) @db.TinyInt
+  delivery            delivery? @relation(fields: [deliveryDelivery_id], references: [delivery_id])
+  deliveryDelivery_id String?
 
   @@index([userId], map: "userIdfxxxaddress")
 }
