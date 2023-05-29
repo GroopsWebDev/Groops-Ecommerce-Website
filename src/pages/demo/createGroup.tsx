@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 import { api } from "~/utils/api";
 import { useAuth } from "@clerk/nextjs";
@@ -11,7 +10,6 @@ import { FaImage } from "react-icons/fa";
 import moment from "moment";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
-
 
 const CreateGroup = () => {
   const [groupImage, setGroupImage] = useState("image");
@@ -26,7 +24,7 @@ const CreateGroup = () => {
   const router = useRouter();
 
   const [image, setImage] = useState("image");
-  
+
   // const handleImageChange = (e: any) => {
   //   ImageUploader(e.target.files[0]);
   //   setGroupImage(e.target.files[0].name);
@@ -37,15 +35,25 @@ const CreateGroup = () => {
   const create_group = api.groupApi.createGroup.useMutation();
 
   const createGroup = async () => {
-    await create_group.mutateAsync({ 
+    if (!userId) {
+      alert("Please login first");
+      return;
+    }
+  
+    if (!groupName || !image) {
+      alert("Please provide a group name and image");
+      return;
+    }
+  
+    await create_group.mutateAsync({
       userId: userId,
       groupName: groupName,
       groupImg: image,
       endDate: moment().add(groupHours).toDate(),
-      
     });
+  
     // await refetch(); // Trigger a refetch of the user's love list
-  }
+  };
 
   const handleNameChange = (e: any) => {
     setGroupName(e.target.value);
@@ -100,15 +108,14 @@ const CreateGroup = () => {
 
     try {
       setLoading(true);
-      
+
       // const res = await axios.post("/api/group/create", {
       //   groupName: groupName,
       //   groupImg: `img/${groupImage}`,
       //   endDate: moment().add(groupHours, "hours"),
       //   userId: userId,
       // });
-      createGroup()
-
+      createGroup();
 
       if (!create_group.error) {
         Swal.fire({
@@ -116,7 +123,7 @@ const CreateGroup = () => {
           icon: "success",
           confirmButtonText: "OK",
         });
-        
+
         setLoading(false);
 
         router.push("/demo/group");
@@ -146,13 +153,12 @@ const CreateGroup = () => {
   };
 
   return (
-  
     <Container className="mb-3">
       <h1 className="mb-10 mt-10 text-center">My user Id: {userId}</h1>
       <h1 className="mb-10 mt-10 text-center">Image: {image}</h1>
       <h1 className="mb-10 mt-10 text-center">GroupName: {groupName}</h1>
       <h1 className="mb-10 mt-10 text-center">End Time: {groupHours}</h1>
-      
+
       {!success ? (
         <Form onSubmit={handleSubmit}>
           <Row className="mb-3">
@@ -179,7 +185,7 @@ const CreateGroup = () => {
                   type="file"
                   accept="image/*"
                   className="position-absolute w-100 h-100 start-0 top-0 opacity-0"
-                  onChange={(e) => setImage(e.target.value)} 
+                  onChange={(e) => setImage(e.target.value)}
                 />
               </div>
             </Col>
@@ -195,7 +201,7 @@ const CreateGroup = () => {
               </Form.Group>
               <Form.Group controlId="formHours">
                 <label
-                  for="waitingTimeSlider"
+                  htmlFor="waitingTimeSlider"
                   className="mt-3 inline-block text-black dark:text-white"
                 >
                   Waiting Time: {groupHours} hours
