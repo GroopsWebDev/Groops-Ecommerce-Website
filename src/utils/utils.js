@@ -20,3 +20,5 @@ export function generateCode() {
     const hoursLeft = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
     return `${daysLeft} days ${hoursLeft} hours`;
   }
+
+  

@@ -98,20 +98,24 @@ model address {
 }
 
 model product {
-  skuid               String  @id
+  skuid               String    @id
   englishProductName  String
   chineseProductNName String?
   frenchProductNName  String?
   placeOfOrigin       String?
   productWeight       String
   description         String?
-  alcohol             Boolean @default(false)
-  price               Int     @default(0)
+  alcohol             Boolean   @default(false)
+  price               Int       @default(0)
   image               String
-  retailPrice         Int     @default(0)
-  costPrice           Int     @default(0)
-  stock               Int     @default(0)
+  retailPrice         Int       @default(0)
+  costPrice           Int       @default(0)
+  stock               Int       @default(0)
   categoryId          Int?
+  alcoholPercentage   Int       @default(0)
+  specification       String?
+  nutritionFact       String?
+  picture             picture[]
 
   @@index([categoryId], map: "product_FK")
 }
@@ -219,6 +223,17 @@ model usertrail {
   attributes Json
   createdAt  DateTime @default(now())
   updatedAt  DateTime
+}
+
+model picture {
+  id           Int      @id @default(autoincrement())
+  height       Int?
+  width        Int?
+  url          String
+  productSkuid String?
+  product      product? @relation(fields: [productSkuid], references: [skuid], map: "Picture_productSkuid_fkey")
+
+  @@index([productSkuid], map: "Picture_productSkuid_fkey")
 }
 
 enum user_role {
