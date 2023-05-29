@@ -15,11 +15,7 @@ const Home: NextPage = () => {
   const { user } = useUser();
 
   if (loadingData) {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <LoadingSpinner />
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   return (
@@ -60,19 +56,20 @@ const Home: NextPage = () => {
       </ul>
       <ul>
         <Link href="/demo/order" className="bg-black p-1 text-white">
-          Link to Order page
-        </Link>
-      </ul>
-      <ul>
-        <Link href="/demo/group" className="bg-black p-1 text-white">
-          Link to Group All
+          Link to order page
         </Link>
       </ul>
       <ul>
         <Link href="/demo/product" className="bg-black p-1 text-white">
-          Link to Product
+          Link to product page
         </Link>
       </ul>
+      <ul>
+        <Link href="/demo/group" className="bg-black p-1 text-white">
+          Link to group page
+        </Link>
+      </ul>
+
       {userData?.map((db_user: any) => (
         <div key={db_user.id}>{db_user.email}</div>
       ))}

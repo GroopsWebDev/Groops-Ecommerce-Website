@@ -1,7 +1,7 @@
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
 export const ImageUploader = async (file) => {
-    console.log(file)
+  console.log(file);
   const s3 = new S3Client({
     region: process.env.MINIO_REGION, // Replace with your Minio server's region
     endpoint: process.env.MINIO_ENDPOINT, // Replace with your Minio server's URL
