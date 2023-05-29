@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { cuid } from 'prisma';
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import { generateCode } from "../../../utils/utils";
@@ -27,7 +26,6 @@ export const groupRouter = createTRPCRouter({
       })
     )
     .mutation(({ ctx, input }) => {
-      // const groupId = cuid(); // Generate groupId using cuid()
       return ctx.prisma.group.create({
         data: {
           
