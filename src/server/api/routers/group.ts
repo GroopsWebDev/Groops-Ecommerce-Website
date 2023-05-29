@@ -27,10 +27,10 @@ export const groupRouter = createTRPCRouter({
       })
     )
     .mutation(({ ctx, input }) => {
-      const groupId = cuid(); // Generate groupId using cuid()
+      // const groupId = cuid(); // Generate groupId using cuid()
       return ctx.prisma.group.create({
         data: {
-          groupId,
+          
           groupMasterId: input.userId,
           groupName: input.groupName,
           groupImg: input.groupImg,
