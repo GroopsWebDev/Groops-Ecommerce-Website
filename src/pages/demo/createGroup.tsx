@@ -6,11 +6,14 @@ import { LoadingSpinner } from "~/components/loading";
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { FaImage } from "react-icons/fa";
+import { getRemainingTime } from "../../utils/utils";
+
 
 // import { ImageUploader } from "../../utils/imageUpload";
 import moment from "moment";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
+import { CircularProgress } from "@mui/material";
 
 
 const CreateGroup = () => {
@@ -195,7 +198,7 @@ const CreateGroup = () => {
               </Form.Group>
               <Form.Group controlId="formHours">
                 <label
-                  for="waitingTimeSlider"
+                  htmlFor="waitingTimeSlider"
                   className="mt-3 inline-block text-black dark:text-white"
                 >
                   Waiting Time: {groupHours} hours
