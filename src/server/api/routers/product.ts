@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { TRPCError, initTRPC } from '@trpc/server';
-
+import { cuid } from 'prisma';
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const productRouter = createTRPCRouter({
@@ -20,8 +20,6 @@ export const productRouter = createTRPCRouter({
 
     createProduct: publicProcedure
     .input(z.object({
-
-      skuid: z.string(),
       englishProductName: z.string(),
       chineseProductNName: z.string(),
       frenchProductNName: z.string(),
@@ -40,8 +38,8 @@ export const productRouter = createTRPCRouter({
       nutritionFact:  z.string()
 
     })).mutation(({ ctx, input }) => {
-
-      if (!input.skuid || !input.englishProductName || !input.productWeight || !input.image) {
+      
+      if ( !input.englishProductName || !input.productWeight || !input.image) {
 
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
@@ -50,7 +48,6 @@ export const productRouter = createTRPCRouter({
       }
 
       return ctx.prisma.product.create({ data: {
-        skuid: input.skuid,
         englishProductName: input.englishProductName,
         chineseProductNName: input.chineseProductNName,
         frenchProductNName: input.frenchProductNName,

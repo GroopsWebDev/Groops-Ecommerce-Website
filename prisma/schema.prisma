@@ -98,7 +98,7 @@ model address {
 }
 
 model product {
-  skuid               String    @id
+  skuid               String    @id @default(cuid())
   englishProductName  String
   chineseProductNName String?
   frenchProductNName  String?

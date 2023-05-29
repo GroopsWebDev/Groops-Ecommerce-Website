@@ -6,8 +6,9 @@ import { ImageUploader } from "../../utils/imageUpload";
 import Swal from "sweetalert2";
 import { CircularProgress } from "@mui/material";
 import { useAuth } from "@clerk/nextjs";
-import { v4 as uuidv4 } from 'uuid';
+import Link from "next/link";
 import { api } from "~/utils/api";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 
 type IProps = {
@@ -65,13 +66,9 @@ const ProductUploadPage = (props: IProps) => {
   };
 
   async function onSubmit(data: any) {
-    alert(data)
-
     setLoading(true);
-    alert(JSON.stringify(data))
     if (productId == undefined || productId == "") {
       try {
-        data.skuid = uuidv4();
         data.alcohol = data.alcohol == "true";
         data.price = parseInt(data.price);
         data.retailPrice = parseInt(data.retailPrice);
@@ -673,11 +670,19 @@ const ProductUploadPage = (props: IProps) => {
                   </button>
 
                 </div>
+
+                <ul>
+        <Link href="/" className="bg-black p-1 text-white">
+          Link to Home page
+        </Link>
+      </ul>
               </div>
             </form>
           </div>
         </div>
       </div>
+      
+
       {/* <main>
                 <form>
                     <input type="text" className='bg-violet-100' name="title" placeholder="Title" />

@@ -21,9 +21,7 @@ const CreateGroup = () => {
   const [imagePreview, setImagePreview] = useState(null || "");
   const [success, setSuccess] = useState(false);
   const [groupData, setGroupData] = useState<any>();
-  // const { data: sessionData } = useSession();
   const [loading, setLoading] = useState(false);
-  // const userId = sessionData?.user?.id;
   const router = useRouter();
 
   const [image, setImage] = useState("image");
@@ -277,6 +275,7 @@ const CreateGroup = () => {
         </Row>
       )}
     </Container>
+    
   );
 };
 
