@@ -11,8 +11,6 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 
 📆 [产品部进度报告](https://docs.google.com/document/d/1Pc2bk3EGPR1z4tmkcqf-JRUmAp8r97iaMK5ahye9GRY/edit)
 
-🗺️ [UI Figma Design Low fidelity](https://www.figma.com/file/7HXhy23kgizbej6cWZh3qA/Groops?type=design&node-id=4-62&t=G1G6K5PVtK4Gwtno-0)
-
 🗺️⭐️ [UI Figma Design High fidelity](https://www.figma.com/file/7HXhy23kgizbej6cWZh3qA/Groops?type=design&node-id=363-4163&t=XCdgI5OjwkC8W3V5-0)
 
 🗺️ [UI Figma Design Page Routing](https://www.figma.com/file/CBk2Ut3511bv54BuOUbmAw/Groops-User-Flow?type=whiteboard&node-id=0-1&t=tHJRPMVvh2iEtrlh-0)
