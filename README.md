@@ -9,9 +9,7 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 
 📆 [Project Log](https://github.com/orgs/GroopsWebDev/projects/2)
 
-📆 [产品部进度报告](https://docs.google.com/document/d/1Pc2bk3EGPR1z4tmkcqf-JRUmAp8r97iaMK5ahye9GRY/edit)
-
-🗺️ [UI Figma Design Low fidelity](https://www.figma.com/file/7HXhy23kgizbej6cWZh3qA/Groops?type=design&node-id=4-62&t=G1G6K5PVtK4Gwtno-0)
+⭐️ [Old Backend API](https://docs.google.com/document/d/1zgcdkEQzLEyuTI9KCrQLMYMc40TMqAafL1m6j7mcan4/edit#heading=h.7202i2lbl1p3)
 
 🗺️⭐️ [UI Figma Design High fidelity](https://www.figma.com/file/7HXhy23kgizbej6cWZh3qA/Groops?type=design&node-id=363-4163&t=XCdgI5OjwkC8W3V5-0)
 
@@ -31,11 +29,9 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 
 🛍️ [最新團購邏輯+說明 April 20th](https://docs.google.com/document/d/1_vmmMtdhGWJg9gy_RMMCRAJhYQAxJYdPyOAUc_hiSMk/edit#heading=h.bypzj6sb1uvj)
 
-⭐️ [Backend API Doc](https://docs.google.com/document/d/1o7Gv-NRj29BsmfoKJ8SqpvkHme7VCQwIIcMiVAp1nW4/edit?usp=sharing)
-
 ⭐️ [Backend Commodities List](https://uwoca-my.sharepoint.com/:x:/g/personal/czhan672_uwo_ca/EbgkCuTfktNItYqdIJKolooBwYDQbcUHkj8rqhmVrJK8vw?e=x0cUj4): (Add these products to DB + Display on the frontend)
 
-⭐️ [Miscellaneous OKI Dev Resources](https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/ERWT4wNFbClPrRtoF49y3eUBeVWG58FtnWjCzUfrirjA8Q?e=JQpzj2)
+⭐️ [Miscellaneous Dev Resources](https://uwoca-my.sharepoint.com/:w:/g/personal/czhan672_uwo_ca/ERWT4wNFbClPrRtoF49y3eUBeVWG58FtnWjCzUfrirjA8Q?e=JQpzj2)
 
 🧑🏻‍💻 [Groops 技术组文案 Google Doc](https://drive.google.com/drive/folders/1WMX8lih_z8u6f5l4JqASJsooj5A1BmVc)
 

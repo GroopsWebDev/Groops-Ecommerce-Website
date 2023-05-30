@@ -7,7 +7,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { FaImage } from "react-icons/fa";
 import { useDropzone } from "react-dropzone";
 
- import { ImageUploader } from "../../utils/imageUpload";
+import { ImageUploader } from "../../utils/imageUpload";
 import moment from "moment";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
@@ -40,19 +40,19 @@ const CreateGroup = () => {
       alert("Please login first");
       return;
     }
-  
+
     if (!groupName || !image) {
       alert("Please provide a group name and image");
       return;
     }
-  
+
     await create_group.mutateAsync({
       userId: userId,
       groupName: groupName,
       groupImg: image,
       endDate: moment().add(groupHours).toDate(),
     });
-  
+
     // await refetch(); // Trigger a refetch of the user's love list
   };
 
@@ -155,14 +155,14 @@ const CreateGroup = () => {
 
 
 
-  const onDrop = (acceptedFiles:any) => {
+  const onDrop = (acceptedFiles: any) => {
     const allowedFormats = [
       'image/png',
       'image/jpeg',
       'image/jpg'
-        ];
-      
-    
+    ];
+
+
     const file = acceptedFiles[0]; // Assuming only one file is dropped, you can modify this logic if needed
     if (file.size > 5e6) {
       alert(`File size exceeds the limit for ${file.name}`);
@@ -175,15 +175,15 @@ const CreateGroup = () => {
     }
     const fileUrl = URL.createObjectURL(file); // Generate a temporary URL for the dropped file
 
-  
+
     setGroupImage(fileUrl); // Update the state with the dropped image URL
     setImage(file.type); // Set the group name to the uploaded file's name
-    
-    
+
+
   };
-  
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
- 
+
 
 
 
@@ -196,46 +196,46 @@ const CreateGroup = () => {
 
       {!success ? (
         <Form onSubmit={handleSubmit}>
-          
-          
-          <Row className="mb-3">
-          <Col
-  xs={12}
-  md={6}
-  className="d-flex align-items-center justify-content-center border border-dashed border-black"
-  {...getRootProps()}
->
-  <div className="position-relative">
-  {groupImage ? (
-    
-  <img
-    src={groupImage}
-    alt="image"
-    width="250"
-    height="250"
-    className="object-fit-cover rounded-circle"
-  />
-    ) : (
-      <div className="d-flex align-items-center justify-content-center w-100 h-100 rounded-circle bg-light">
-        {isDragActive ? (
-          <p>Drop the image here</p>
-        ) : (
-          <FaImage size={32} />
-        )}
-      </div>
-    )}
-    
-    <input
-      {...getInputProps()}
-      accept="image/*"
-      className="position-absolute w-100 h-100 start-0 top-0 opacity-0"
-    />
 
- 
-        
-   
-  </div>
-</Col>
+
+          <Row className="mb-3">
+            <Col
+              xs={12}
+              md={6}
+              className="d-flex align-items-center justify-content-center border border-dashed border-black"
+              {...getRootProps()}
+            >
+              <div className="position-relative">
+                {groupImage ? (
+
+                  <img
+                    src={groupImage}
+                    alt="image"
+                    width="250"
+                    height="250"
+                    className="object-fit-cover rounded-circle"
+                  />
+                ) : (
+                  <div className="d-flex align-items-center justify-content-center w-100 h-100 rounded-circle bg-light">
+                    {isDragActive ? (
+                      <p>Drop the image here</p>
+                    ) : (
+                      <FaImage size={32} />
+                    )}
+                  </div>
+                )}
+
+                <input
+                  {...getInputProps()}
+                  accept="image/*"
+                  className="position-absolute w-100 h-100 start-0 top-0 opacity-0"
+                />
+
+
+
+
+              </div>
+            </Col>
 
             <Col xs={12} md={6}>
               <Form.Group controlId="groupName">

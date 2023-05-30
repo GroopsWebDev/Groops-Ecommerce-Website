@@ -248,6 +248,17 @@ model usertrail {
   updatedAt  DateTime
 }
 
+model picture {
+  id           Int      @id @default(autoincrement())
+  height       Int?
+  width        Int?
+  url          String
+  productSkuid String?
+  product      product? @relation(fields: [productSkuid], references: [skuid], map: "Picture_productSkuid_fkey")
+
+  @@index([productSkuid], map: "Picture_productSkuid_fkey")
+}
+
 enum user_role {
   GROUPMASTER
   GROUPMEMBER
