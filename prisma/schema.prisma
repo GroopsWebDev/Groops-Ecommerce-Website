@@ -47,32 +47,24 @@ model cart_items {
   product_id String
 }
 
-model category {
-  id          Int       @id @default(autoincrement())
-  name        String    @db.VarChar(255)
-  description String?   @db.VarChar(255)
-  url         String?   @db.VarChar(255)
-  createdAt   DateTime? @default(now()) @db.DateTime(0)
-  updatedAt   DateTime? @default(now()) @db.DateTime(0)
-}
-
 model group {
-  group_id         Int      @id @unique @default(autoincrement())
+  group_id         Int          @id @unique @default(autoincrement())
   group_owner_id   String
   group_name       String
-  description      String?  @db.VarChar(255)
-  group_img        String?  @db.VarChar(100)
-  group_code       String   @unique @default(uuid())
+  description      String?      @db.VarChar(255)
+  group_img        String?      @db.VarChar(100)
+  group_code       String       @unique @default(uuid())
   group_link       String
-  startDate        DateTime @default(now())
+  startDate        DateTime     @default(now())
   endDate          DateTime
-  is_active        Boolean  @default(false)
+  is_active        group_status @default(CLOSED)
   final_discount   Float?
-  owner_commission Float?   @default(0)
+  owner_commission Float?       @default(0)
 
   group_member group_member[]
   group_owner  group_owner[]
   order        order[]
+  group_image  group_image[]
 }
 
 model group_member {
@@ -93,6 +85,13 @@ model group_owner {
   user_id  String @unique
   group    group  @relation(fields: [group_id], references: [group_id], map: "GroupOwner_groupId_fkey")
   group_id Int
+}
+
+model group_image {
+  id       Int    @id @unique @default(autoincrement())
+  url      String
+  group_id Int
+  group    group  @relation(fields: [group_id], references: [group_id], map: "GroupPicture_groupId_fkey")
 }
 
 model help_center {
@@ -130,46 +129,92 @@ model order_item {
   product_id    String
 }
 
-// use type instead of model
+// model payment {
+//   payment_id String @id @unique @default(uuid())
+//   amount     Int
+//   currency   String
+//   status     String
+//   order      order  @relation(fields: [order_id], references: [order_id], map: "Payment_orderId_fkey")
+//   order_id   String
+// }
 model delivery {
   delivery_id      String             @id @unique @default(uuid())
   tracking_number  String             @unique
   shipping_address shipping_address[]
 }
 
-// model address { // use type for this data as well
-//   id      Int     @id @default(autoincrement())
-//   userId  String
-//   primary Boolean
-//   line1   String
-//   line2   String
-//   city    String
-//   state   String
-//   country String
-// }
+model address {
+  id      Int     @id @default(autoincrement())
+  userId  String
+  primary Boolean
+  line1   String
+  line2   String
+  city    String
+  state   String
+  country String
+}
 
 model product {
-  product_id           String       @id @unique
+  product_id           String  @id @unique
   english_product_name String
   chinese_product_name String?
   french_product_name  String?
   place_of_origin      String?
-  produc_weight        String
-  alcohol              Boolean      @default(false)
-  price                Int          @default(0)
-  image                String
-  retail_price         Int          @default(0)
-  cost                 Int          @default(0)
-  stock                Int          @default(0)
-  category             String
-  cart_items           cart_items[]
-  sold_num             Int          @default(0)
-  rating               Float        @default(0)
+  product_weight       String
+  alcohol              Boolean @default(false)
+  alcohol_percentage   String?
+  specification        String?
+  diatary_preference   String?
+  price                Int     @default(0)
+  retail_price         Int     @default(0)
+  cost                 Int     @default(0)
+  stock                Int     @default(0)
+  sold_num             Int     @default(0)
+  rating               Float   @default(0)
 
-  order_item     order_item[]
-  love_list_item love_list_item[]
+  category               category               @relation(fields: [category_id], references: [category], map: "product_FK")
+  category_id            String
+  cart_items             cart_items[]
+  order_item             order_item[]
+  love_list_item         love_list_item[]
+  productImage           productImage[]
+  nuetritionFact         nuetritionFact         @relation(fields: [nuetritionFactId], references: [id])
+  nuetritionFactId       Int                    @unique
+  subcategory            subcategory?           @relation(fields: [subcategorySubcategory], references: [subcategory])
+  subcategorySubcategory String?
+  subcategoried_product  subcategoried_product?
+}
 
-  @@index([category], map: "product_FK")
+model productImage {
+  id         Int     @id @unique @default(autoincrement())
+  height     Int?
+  width      Int?
+  url        String
+  product_id String
+  product    product @relation(fields: [product_id], references: [product_id], map: "Picture_productSkuid_fkey")
+
+  @@index([product_id], map: "Picture_productSkuid_fkey")
+}
+
+model category {
+  category    String        @id
+  subcategory subcategory[]
+  product     product[]
+}
+
+model subcategory {
+  subcategory           String                  @id
+  category              category                @relation(fields: [category_id], references: [category], map: "Subcategory_category_fkey")
+  category_id           String
+  product               product[]
+  subcategoried_Product subcategoried_product[]
+}
+
+model subcategoried_product {
+  subcategory    subcategory @relation(fields: [subcategory_id], references: [subcategory])
+  subcategory_id String      @unique
+  product        product     @relation(fields: [product_id], references: [product_id])
+  product_id     String      @unique
 }
 
 model user {
@@ -248,18 +293,63 @@ model usertrail {
   updatedAt  DateTime
 }
 
-model picture {
-  id           Int      @id @default(autoincrement())
-  height       Int?
-  width        Int?
-  url          String
-  productSkuid String?
-  product      product? @relation(fields: [productSkuid], references: [skuid], map: "Picture_productSkuid_fkey")
-
-  @@index([productSkuid], map: "Picture_productSkuid_fkey")
+model nuetritionFact {
+  id      Int      @id @default(autoincrement())
+  url     String
+  product product?
 }
 
 enum user_role {
   GROUPMASTER
   GROUPMEMBER
 }
+
+enum group_status {
+  OPEN
+  CLOSED
+}
+
+// enum snacks {
+//   Chips
+//   Cookies
+//   Cake
+//   Pre_Packaged
+//   Sea_Sedge
+// }
+
+// enum Candies {
+//   Jelly_Gum
+//   Sweets
+//   Chocolate
+// }
+
+// enum Instant_Food {
+//   Canned_Food
+//   InstantCoffee_Tea
+//   Instant_Noodles
+//   Self_Heated
+//   Pre_Pacakged_Hot_Pot_Base
+// }
+
+// enum Personal_Care {
+//   Bath_Body
+//   Body_Care
+//   Oral_Care
+//   Hand_Care
+//   Healthcare
+//   Femenine_Care
+//   Hair_Care
+//   Facial_Care
+// }
+
+// enum Beauty {
+//   Skin_Care
+//   Sun_Care
+//   Eye_Makeup
+//   Cheek
+// }
+
+// enum Home_Life {
+//   Office_Supplies
+//   Home_Decoration
+// }
