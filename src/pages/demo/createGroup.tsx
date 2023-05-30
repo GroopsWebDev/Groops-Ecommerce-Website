@@ -5,8 +5,9 @@ import { LoadingSpinner } from "~/components/loading";
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { FaImage } from "react-icons/fa";
+import { useDropzone } from "react-dropzone";
 
-// import { ImageUploader } from "../../utils/imageUpload";
+ import { ImageUploader } from "../../utils/imageUpload";
 import moment from "moment";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
@@ -23,7 +24,7 @@ const CreateGroup = () => {
   // const userId = sessionData?.user?.id;
   const router = useRouter();
 
-  const [image, setImage] = useState("image");
+  const [image, setImage] = useState("");
 
   // const handleImageChange = (e: any) => {
   //   ImageUploader(e.target.files[0]);
@@ -152,6 +153,40 @@ const CreateGroup = () => {
     setImagePreview("");
   };
 
+
+
+  const onDrop = (acceptedFiles:any) => {
+    const allowedFormats = [
+      'image/png',
+      'image/jpeg',
+      'image/jpg'
+        ];
+      
+    
+    const file = acceptedFiles[0]; // Assuming only one file is dropped, you can modify this logic if needed
+    if (file.size > 5e6) {
+      alert(`File size exceeds the limit for ${file.name}`);
+      return false;
+    }
+
+    if (!allowedFormats.includes(file.type)) {
+      alert(`File format not supported for ${file.name}. You must use .png, .jpg, .jpeg`);
+      return false;
+    }
+    const fileUrl = URL.createObjectURL(file); // Generate a temporary URL for the dropped file
+
+  
+    setGroupImage(fileUrl); // Update the state with the dropped image URL
+    setImage(file.type); // Set the group name to the uploaded file's name
+    
+    
+  };
+  
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+ 
+
+
+
   return (
     <Container className="mb-3">
       <h1 className="mb-10 mt-10 text-center">My user Id: {userId}</h1>
@@ -161,34 +196,47 @@ const CreateGroup = () => {
 
       {!success ? (
         <Form onSubmit={handleSubmit}>
+          
+          
           <Row className="mb-3">
-            <Col
-              xs={12}
-              md={6}
-              className="d-flex align-items-center justify-content-center border border-dashed border-black"
-            >
-              <div className="position-relative">
-                {imagePreview ? (
-                  <img
-                    src={imagePreview}
-                    alt="Group"
-                    width="250"
-                    height="250"
-                    className="object-fit-cover rounded-circle"
-                  />
-                ) : (
-                  <div className="d-flex align-items-center justify-content-center w-100 h-100 rounded-circle bg-light">
-                    <FaImage size={32} />
-                  </div>
-                )}
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="position-absolute w-100 h-100 start-0 top-0 opacity-0"
-                  onChange={(e) => setImage(e.target.value)}
-                />
-              </div>
-            </Col>
+          <Col
+  xs={12}
+  md={6}
+  className="d-flex align-items-center justify-content-center border border-dashed border-black"
+  {...getRootProps()}
+>
+  <div className="position-relative">
+  {groupImage ? (
+    
+  <img
+    src={groupImage}
+    alt="image"
+    width="250"
+    height="250"
+    className="object-fit-cover rounded-circle"
+  />
+    ) : (
+      <div className="d-flex align-items-center justify-content-center w-100 h-100 rounded-circle bg-light">
+        {isDragActive ? (
+          <p>Drop the image here</p>
+        ) : (
+          <FaImage size={32} />
+        )}
+      </div>
+    )}
+    
+    <input
+      {...getInputProps()}
+      accept="image/*"
+      className="position-absolute w-100 h-100 start-0 top-0 opacity-0"
+    />
+
+ 
+        
+   
+  </div>
+</Col>
+
             <Col xs={12} md={6}>
               <Form.Group controlId="groupName">
                 <Form.Label>Group Name: </Form.Label>
