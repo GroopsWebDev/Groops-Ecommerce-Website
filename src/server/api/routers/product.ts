@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { TRPCError, initTRPC } from '@trpc/server';
-import { cuid } from 'prisma';
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const productRouter = createTRPCRouter({
@@ -56,7 +55,7 @@ export const productRouter = createTRPCRouter({
         description: input.description,
         alcohol: input.alcohol,
         price: input.price,
-        image: input.image,
+        image_url: input.image,
         categoryId: input.categoryId,
         retailPrice: input.retailPrice,
         costPrice: input.costPrice,
