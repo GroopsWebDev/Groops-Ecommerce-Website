@@ -11,12 +11,12 @@ export const ShoppingCartRouter = createTRPCRouter({
     }),
 
   addCartItem: publicProcedure
-    .input(z.object({ userId: z.string(), skuid: z.string(), quantity: z.number() }))
+    .input(z.object({ userId: z.string(), skuid: z.string(), }))
     .mutation(({ ctx, input }) => {
       return ctx.prisma.cart.upsert({
         where: { userId_skuid: { userId: input.userId, skuid: input.skuid } },
-        create: { ...input },
-        update: { quantity: { increment: input.quantity } }
+        create: { ...input, quantity: 1 },
+        update: { quantity: { increment: 1 } }
       })
     }),
 
@@ -28,7 +28,7 @@ export const ShoppingCartRouter = createTRPCRouter({
       });
     }),
 
-  deleteAllLoveListItems: publicProcedure
+  deleteAllInCart: publicProcedure
     .input(z.object({ userId: z.string() }))
     .mutation(({ ctx, input }) => {
       return ctx.prisma.cart.deleteMany({
