@@ -91,14 +91,17 @@ model order {
 }
 
 model address {
-  id      Int     @id @default(autoincrement())
-  userId  String
-  primary Boolean
-  line1   String
-  line2   String
-  city    String
-  state   String
-  country String
+  id         Int     @id @default(autoincrement())
+  userId     String
+  primary    Boolean
+  line1      String
+  line2      String?
+  city       String
+  state      String
+  country    String
+  firstName  String
+  lastName   String
+  postalCode String
 }
 
 model product {

@@ -20,11 +20,14 @@ export const addressRouter = createTRPCRouter({
       city: z.string(),
       state: z.string(),
       country: z.string(),
+      first: z.string(),
+      last: z.string(),
+      code: z.string(),
     }))
     .mutation(({ ctx, input }) => {
       return ctx.prisma.address.upsert({
         where: { id: input.id },
-        update: {...input},
+        update: { ...input },
         create: {
           userId: input.userId,
           primary: input.primary,
@@ -33,6 +36,9 @@ export const addressRouter = createTRPCRouter({
           city: input.city,
           state: input.state,
           country: input.country,
+          firstName: input.first,
+          lastName: input.first,
+          postalCode: input.code,
         }
       })
     }),

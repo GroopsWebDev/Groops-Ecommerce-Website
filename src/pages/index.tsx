@@ -83,7 +83,13 @@ const Home: NextPage = () => {
           Link to Cart
         </Link>
       </ul>
-      
+
+      <ul>
+        <Link href="/demo/address" className="bg-black p-1 text-white">
+          Link to Address
+        </Link>
+      </ul>
+
       {userData?.map((db_user: any) => (
         <div key={db_user.id}>{db_user.email}</div>
       ))}
