@@ -87,6 +87,14 @@ model group_owner {
   group_id Int
 }
 
+model coOwner {
+  id           Int       @id @unique @default(autoincrement())
+  groupCoName         String
+  groupCoEmail        String  @db.VarChar(45)
+  group_id            Int     
+ 
+}
+
 model group_image {
   id       Int    @id @unique @default(autoincrement())
   url      String

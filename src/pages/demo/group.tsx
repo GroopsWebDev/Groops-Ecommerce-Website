@@ -48,7 +48,7 @@ export default function Test() {
             </tr>
           </thead>
           <tbody>
-            {groupData?.map((groupData) => {
+            {groupData?.map((groupData:any) => {
               const startDate = new Date();
               const endDate = new Date(groupData.endDate);
               const difference = endDate - startDate;

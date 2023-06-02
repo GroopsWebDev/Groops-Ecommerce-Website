@@ -1,17 +1,18 @@
 import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { ImageUploader } from "../../utils/imageUpload";
-import Swal from "sweetalert2";
-import { any } from 'zod';
+import Swal from 'sweetalert2'
 
 
 const FileUploader = () => {
+  
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const allowedFormats = [
       'image/png',
       'image/jpeg',
+  
       'video/mp4',
       'video/x-ms-wmv',
       'video/wmv',
@@ -40,24 +41,43 @@ const FileUploader = () => {
     setUploadedFiles((prevFiles) => [...prevFiles, ...newFiles]);
   }, []);
 
+  
+
   const handleUpload = async () => {
     for (const file of uploadedFiles) {
       await ImageUploader(file);
-      
-      
+      alert ( " file uploaded")
     }
-    if (handleUpload) {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'File Submit',
-        showConfirmButton: false,
-        timer: 1500
+   
+    // if (handleUpload) {
+    //   Swal.fire({
+    //     position: 'top-end',
+    //     icon: 'success',
+    //     title: 'File Submit',
+    //     showConfirmButton: false,
+    //     timer: 1500
       
-      });
-      return;
-    }
+    //   });
+    //   return;
+    // }
   };
+
+
+
+  
+
+
+  const handleDelete = (index: number, event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+  
+    setUploadedFiles((prevFiles) => {
+      const updatedFiles = [...prevFiles];
+      updatedFiles.splice(index, 1);
+      return updatedFiles;
+    });
+  };
+  
+  
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -67,28 +87,40 @@ const FileUploader = () => {
  
 
   const renderMedia = () => {
-    return uploadedFiles.map((file, index) => {
-      if (file.type.startsWith('image/')) {
-        return (
+    return uploadedFiles.map((file, index) => (
+      <div key={index} style={{ position: 'relative', display: 'inline-block', marginRight: '10px' }}>
+        {file.type.startsWith('image/') ? (
           <img
-            key={index}
             src={URL.createObjectURL(file)}
             alt="Uploaded File"
             style={{ maxWidth: '100%', maxHeight: '300px' }}
           />
-        );
-      } else if (file.type.startsWith('video/')) {
-        return (
-          <video key={index} controls style={{ maxWidth: '100%', maxHeight: '300px' }}>
+        ) : (
+          <video controls style={{ maxWidth: '100%', maxHeight: '300px' }}>
             <source src={URL.createObjectURL(file)} type={file.type} />
             Your browser does not support the video tag.
           </video>
-        );
-
-      }
-      return null;
-    
-    });
+        )}
+         <button
+                        
+                        onClick={(event) => handleDelete(index, event)}
+                        style={{
+                          position: "absolute",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: "white",
+                          backgroundColor: "rgba(0, 0, 0, 0.5)",
+                          borderRadius: "50%",
+                          width: "30px",
+                          height: "30px",
+                          fontSize: "20px",
+                         
+                        }}
+                      >
+                        &times;
+                      </button>
+      </div>
+    ));
   };
 
   return (
@@ -111,8 +143,8 @@ const FileUploader = () => {
           <p>Drag 'n' drop image or video files here, or click to select files</p>
         )}
       </div>
-      <div style={{textAlign:"center"}} >
-        <button onClick={handleUpload} style={{ padding: '7px', color: 'white', backgroundColor: 'blue',marginTop:"30px",border:"nonr",borderRadius:"12%" }}>
+      <div>
+        <button onClick={handleUpload} style={{ padding: '7px', color: 'white', backgroundColor: 'black',marginTop:"30px",border:"none",borderRadius:"12%" ,marginLeft : "50%" }}>
           Submit
         </button>
       </div>

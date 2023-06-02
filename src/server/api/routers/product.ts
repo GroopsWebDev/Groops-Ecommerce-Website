@@ -1,9 +1,8 @@
 import { z } from "zod";
-import { TRPCError, initTRPC } from '@trpc/server';
-import { cuid } from 'prisma';
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { prisma } from "../../db";
+import { router, publicProcedure } from "~/server/api/trpc";
 
-export const productRouter = createTRPCRouter({
+export const productRouter = router({
 
   getAllProducts: publicProcedure
     .query(() => {
@@ -18,56 +17,29 @@ export const productRouter = createTRPCRouter({
       })
     }),
 
-  createProduct: publicProcedure
-    .input(z.object({
-      englishProductName: z.string(),
-      chineseProductNName: z.string(),
-      frenchProductNName: z.string(),
-      placeOfOrigin: z.string(),
-      productWeight: z.string(),
-      description: z.string(),
-      alcohol: z.boolean(),
-      price: z.number(),
-      image: z.string(),
-      categoryId: z.number(),
-      retailPrice: z.number(),
-      costPrice: z.number(),
-      stock: z.number(),
-      alcoholPercentage: z.number(),
-      specification: z.string(),
-      nutritionFact: z.string()
-
-    })).mutation(({ ctx, input }) => {
-
-      if (!input.englishProductName || !input.productWeight || !input.image) {
-
-        throw new TRPCError({
-          code: 'INTERNAL_SERVER_ERROR',
-          message: "SKU ID, English Product Name, Product Weight, and Image are required",
-        });
-      }
-
-      return ctx.prisma.product.create({
-        data: {
-          englishProductName: input.englishProductName,
-          chineseProductNName: input.chineseProductNName,
-          frenchProductNName: input.frenchProductNName,
-          placeOfOrigin: input.placeOfOrigin,
-          productWeight: input.productWeight,
-          description: input.description,
-          alcohol: input.alcohol,
-          price: input.price,
-          image: input.image,
-          categoryId: input.categoryId,
-          retailPrice: input.retailPrice,
-          costPrice: input.costPrice,
-          stock: input.stock,
-          alcoholPercentage: input.alcoholPercentage,
-          specification: input.specification,
-          nutritionFact: input.nutritionFact,
-
-        }
-      })
-    }),
+    addProduct: publicProcedure
+      .input(z.object({
+        skuid: z.number(),
+        englishProductName:z.string(),
+        chineseProductNName:z.string(),
+        frenchProductNName:z.string(),
+        placeOfOrigin:z.string(),
+        productWeight:z.string(),
+        alcohol: z.string(),
+        price: z.number(),
+        retailPrice: z.number(),
+        costPrice: z.number(),
+        stock: z.number(),
+        categoryId: z.number(),
+        image: z.string(),
+        description:z.string()
+      }))
+        .mutation(({ input }) => {
+          return prisma.product.create({
+            data: {
+              ...input,
+            }
+          })
+        }),
 
 });
