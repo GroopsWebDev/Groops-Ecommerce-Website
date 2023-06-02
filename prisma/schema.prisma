@@ -9,21 +9,21 @@ datasource db {
 }
 
 model account {
-  id                String  @id @default("0") @db.VarChar(50)
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-  user              user    @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Account_userId_fkey")
+  id                  String  @id @default("0") @db.VarChar(50)
+  userId              String
+  type                String
+  provider            String
+  provider_account_id String
+  refresh_token       String? @db.Text
+  access_token        String? @db.Text
+  expires_at          Int?
+  token_type          String?
+  scope               String?
+  id_token            String? @db.Text
+  session_state       String?
+  user                user    @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Account_userId_fkey")
 
-  @@unique([provider, providerAccountId], map: "Account_provider_providerAccountId_key")
+  @@unique([provider, provider_account_id], map: "Account_provider_providerAccountId_key")
   @@index([userId], map: "Account_userId_fkey")
 }
 
@@ -107,7 +107,7 @@ model product {
   description         String?
   alcohol             Boolean   @default(false)
   price               Int       @default(0)
-  image               String
+  image_url           String
   retailPrice         Int       @default(0)
   costPrice           Int       @default(0)
   stock               Int       @default(0)
