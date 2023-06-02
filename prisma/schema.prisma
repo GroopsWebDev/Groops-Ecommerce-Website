@@ -28,10 +28,10 @@ model account {
 }
 
 model cart {
-  id       Int     @id @default(autoincrement())
+  id       Int    @id @default(autoincrement())
+  userId   String
   skuid    String
   quantity Int
-  userId   String
 
   @@unique([userId, skuid])
 }
@@ -47,7 +47,7 @@ model category {
 
 model group {
   groupId          String         @id @default(cuid())
-  groupMasterId    String
+  group_master_id  String         @map("_group_master_id")
   groupName        String
   startDate        DateTime       @default(now())
   endDate          DateTime
@@ -57,9 +57,11 @@ model group {
   isActive         Int?           @default(1) @db.TinyInt
   finalDiscount    Float?
   owner_commission Float?         @default(0)
+  group_cohost1_id Int?           @map("_group_cohost1_id")
+  group_cohost2_id Int?           @map("_group_cohost2_id")
   group_member     group_member[]
 
-  @@index([groupMasterId], map: "group_FK")
+  @@index([group_master_id], map: "group_FK")
 }
 
 model help_center {
