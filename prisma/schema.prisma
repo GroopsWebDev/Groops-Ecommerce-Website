@@ -9,29 +9,31 @@ datasource db {
 }
 
 model account {
-  id                String  @id @default("0") @db.VarChar(50)
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-  user              user    @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Account_userId_fkey")
+  id                  String  @id @default("0") @db.VarChar(50)
+  userId              String
+  type                String
+  provider            String
+  provider_account_id String
+  refresh_token       String? @db.Text
+  access_token        String? @db.Text
+  expires_at          Int?
+  token_type          String?
+  scope               String?
+  id_token            String? @db.Text
+  session_state       String?
+  user                user    @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Account_userId_fkey")
 
-  @@unique([provider, providerAccountId], map: "Account_provider_providerAccountId_key")
+  @@unique([provider, provider_account_id], map: "Account_provider_providerAccountId_key")
   @@index([userId], map: "Account_userId_fkey")
 }
 
 model cart {
-  id        Int     @id @default(autoincrement())
-  productId String? @db.VarChar(100)
-  qty       String? @db.VarChar(100)
-  userId    String? @db.VarChar(100)
+  id       Int    @id @default(autoincrement())
+  userId   String
+  skuid    String
+  quantity Int
+
+  @@unique([userId, skuid])
 }
 
 model category {
@@ -44,8 +46,8 @@ model category {
 }
 
 model group {
-  groupId          String         @id
-  groupMasterId    String
+  groupId          String         @id @default(cuid())
+  group_master_id  String         @map("_group_master_id")
   groupName        String
   startDate        DateTime       @default(now())
   endDate          DateTime
@@ -55,9 +57,11 @@ model group {
   isActive         Int?           @default(1) @db.TinyInt
   finalDiscount    Float?
   owner_commission Float?         @default(0)
+  group_cohost1_id Int?           @map("_group_cohost1_id")
+  group_cohost2_id Int?           @map("_group_cohost2_id")
   group_member     group_member[]
 
-  @@index([groupMasterId], map: "group_FK")
+  @@index([group_master_id], map: "group_FK")
 }
 
 model help_center {
@@ -86,21 +90,39 @@ model order {
   @@index([userId], map: "userId")
 }
 
+model address {
+  id         Int     @id @default(autoincrement())
+  userId     String
+  primary    Boolean
+  line1      String
+  line2      String?
+  city       String
+  state      String
+  country    String
+  firstName  String
+  lastName   String
+  postalCode String
+}
+
 model product {
-  skuid               String  @id
+  skuid               String    @id @default(cuid())
   englishProductName  String
   chineseProductNName String?
   frenchProductNName  String?
   placeOfOrigin       String?
   productWeight       String
   description         String?
-  alcohol             Boolean @default(false)
-  price               Int     @default(0)
-  image               String
-  retailPrice         Int     @default(0)
-  costPrice           Int     @default(0)
-  stock               Int     @default(0)
+  alcohol             Boolean   @default(false)
+  price               Int       @default(0)
+  image_url           String
+  retailPrice         Int       @default(0)
+  costPrice           Int       @default(0)
+  stock               Int       @default(0)
   categoryId          Int?
+  alcoholPercentage   Int       @default(0)
+  specification       String?
+  nutritionFact       String?
+  picture             picture[]
 
   @@index([categoryId], map: "product_FK")
 }
@@ -126,7 +148,7 @@ model user {
 
 model wallet {
   id     Int    @id @default(autoincrement())
-  userId String @db.VarChar(255)
+  userId String @unique @db.VarChar(255)
   amount Float
 }
 
@@ -137,10 +159,10 @@ model discount_rate {
 }
 
 model group_member {
-  groupMemberId String @id
-  userId        String
-  groupId       String
-  group         group  @relation(fields: [groupId], references: [groupId], map: "GroupMember_groupId_fkey")
+  userId  String
+  groupId String
+  id      Int    @id @default(autoincrement())
+  group   group  @relation(fields: [groupId], references: [groupId], map: "GroupMember_groupId_fkey")
 
   @@index([groupId], map: "GroupMember_groupId_fkey")
   @@index([userId], map: "groupmember_FK")
@@ -150,6 +172,8 @@ model love_list {
   id     Int    @id @default(autoincrement())
   userId String @db.VarChar(255)
   skuid  String
+
+  @@unique([userId, skuid])
 }
 
 model shipping_address {
@@ -164,6 +188,25 @@ model shipping_address {
   isPrimaryAddress Int?    @default(0) @db.TinyInt
 
   @@index([userId], map: "userIdfxxxaddress")
+}
+
+model usertrail {
+  id         Int      @id @default(autoincrement())
+  externalId String   @unique(map: "Usertrail_externalId_key")
+  attributes Json
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime
+}
+
+model picture {
+  id           Int      @id @default(autoincrement())
+  height       Int?
+  width        Int?
+  url          String
+  productSkuid String?
+  product      product? @relation(fields: [productSkuid], references: [skuid], map: "Picture_productSkuid_fkey")
+
+  @@index([productSkuid], map: "Picture_productSkuid_fkey")
 }
 
 enum user_role {

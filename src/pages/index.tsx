@@ -9,15 +9,14 @@ import { LoadingSpinner } from "~/components/loading";
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
-  const { isSignedIn, userId, sessionId, getToken } = useAuth();
-  const { data: userData, isLoading: loadingData } = api.example.getAllUser.useQuery();
+  const { isLoaded: userLoaded, userId, sessionId, getToken } = useAuth();
+  const { data: userData, isLoading: loadingData } =
+    api.example.getAllUser.useQuery();
   const { user } = useUser();
 
   if (loadingData) {
     return (
-      <div className="flex h-screen items-center justify-center">
-        <LoadingSpinner />
-      </div>
+      <LoadingSpinner />
     );
   }
 
@@ -25,7 +24,7 @@ const Home: NextPage = () => {
     <>
       <SignedIn>
         <div>This content is visible only to signed in users.</div>
-        {isSignedIn && userId && (
+        {userLoaded && userId && (
           <>
             <h2>Logged in as {userId}</h2>
             {user && (
@@ -52,11 +51,46 @@ const Home: NextPage = () => {
         <RedirectToSignIn />
       </SignedOut>
 
-      <Link href="/test" className="bg-black p-1 text-white">
-        Link to lovelist page
-      </Link>
+      <ul>
+        <Link href="/demo/lovelist" className="bg-black p-1 text-white">
+          Link to lovelist page
+        </Link>
+      </ul>
+      <ul>
+        <Link href="/demo/order" className="bg-black p-1 text-white">
+          Link to order page
+        </Link>
+      </ul>
+      <ul>
+        <Link href="/demo/product" className="bg-black p-1 text-white">
+          Link to product page
+        </Link>
+      </ul>
+      <ul>
+        <Link href="/demo/group" className="bg-black p-1 text-white">
+          Link to group page
+        </Link>
+      </ul>
 
-      {userData?.map((db_user) => (
+      <ul>
+        <Link href="/demo/createProduct" className="bg-black p-1 text-white">
+          Link to Create Product page
+        </Link>
+      </ul>
+
+      <ul>
+        <Link href="/demo/cart" className="bg-black p-1 text-white">
+          Link to Cart
+        </Link>
+      </ul>
+
+      <ul>
+        <Link href="/demo/address" className="bg-black p-1 text-white">
+          Link to Address
+        </Link>
+      </ul>
+
+      {userData?.map((db_user: any) => (
         <div key={db_user.id}>{db_user.email}</div>
       ))}
     </>
