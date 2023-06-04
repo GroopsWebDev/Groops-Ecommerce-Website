@@ -88,11 +88,10 @@ model group_owner {
 }
 
 model coOwner {
-  id           Int       @id @unique @default(autoincrement())
-  groupCoName         String
-  groupCoEmail        String  @db.VarChar(45)
-  group_id            Int     
- 
+  id           Int    @id @unique @default(autoincrement())
+  groupCoName  String
+  groupCoEmail String @db.VarChar(45)
+  group_id     Int
 }
 
 model group_image {
@@ -152,14 +151,17 @@ model delivery {
 }
 
 model address {
-  id      Int     @id @default(autoincrement())
-  userId  String
-  primary Boolean
-  line1   String
-  line2   String
-  city    String
-  state   String
-  country String
+  id         Int     @id @default(autoincrement())
+  userId     String
+  primary    Boolean
+  line1      String
+  line2      String?
+  city       String
+  state      String
+  country    String
+  firstName  String
+  lastName   String
+  postalCode String
 }
 
 model product {
@@ -250,31 +252,33 @@ model user {
 }
 
 model wallet {
-  wallet_id String @id @unique @default(uuid())
-  user      user? // user can not be created without creating it's wallet   
-  amount    Float
+  id     Int    @id @default(autoincrement())
+  userId String @unique @db.VarChar(255)
+  amount Float
 }
 
-// model discount_rate {
-//   groupId      String   @id
-//   discountRate Decimal? @db.Decimal(10, 0)
-//   memberCount  Int?     @default(0)
-// }
-// dont use model, use enum instead
+model discount_rate {
+  groupId      String   @id
+  discountRate Decimal? @db.Decimal(10, 0)
+  memberCount  Int?     @default(0)
+}
+
+model group_member {
+  userId  String
+  groupId String
+  id      Int    @id @default(autoincrement())
+  group   group  @relation(fields: [groupId], references: [groupId], map: "GroupMember_groupId_fkey")
+
+  @@index([groupId], map: "GroupMember_groupId_fkey")
+  @@index([userId], map: "groupmember_FK")
+}
 
 model love_list {
-  love_list_id   Int              @id @default(autoincrement())
-  user           user             @relation(fields: [user_id], references: [user_id], map: "LoveList_userId_fkey")
-  user_id        String
-  love_list_item love_list_item[]
-}
+  id     Int    @id @default(autoincrement())
+  userId String @db.VarChar(255)
+  skuid  String
 
-model love_list_item {
-  love_list_item_id Int       @id @unique
-  product           product   @relation(fields: [product_id], references: [product_id])
-  product_id        String
-  love_list         love_list @relation(fields: [love_list_id], references: [love_list_id])
-  love_list_id      Int
+  @@unique([userId, skuid])
 }
 
 model shipping_address {

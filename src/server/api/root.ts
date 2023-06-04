@@ -8,6 +8,7 @@ import { membershipRouter } from "./routers/membership";
 import { groupRouter } from "./routers/group";
 import { productRouter } from "./routers/product";
 import { categoryRouter } from "./routers/category";
+import { ShoppingCartRouter } from "./routers/cart";
 
 /**
  * This is the primary router for your server.
@@ -24,6 +25,7 @@ export const appRouter = router({
   groupApi: groupRouter,
   productApi: productRouter,
   categoryApi: categoryRouter,
+  cartApi: ShoppingCartRouter,
 });
 
 // export type definition of API
