@@ -1,13 +1,14 @@
 import { z } from "zod";
+import { prisma } from "../../db";
 
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { router, publicProcedure } from "~/server/api/trpc";
 
-export const LoveListRouter = createTRPCRouter({
+export const LoveListRouter = router({
 
   getUserLoveList: publicProcedure
     .input(z.object({ userId: z.string() }))
-    .query(({ ctx, input }) => {
-      return ctx.prisma.love_list.findMany({ where: { userId: input.userId } });
+    .query(({ input }) => {
+      return prisma.love_list.findMany({ where: { userId: input.userId } });
     }),
 
   addLoveListItem: publicProcedure

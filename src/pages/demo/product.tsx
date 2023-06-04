@@ -37,7 +37,7 @@ export default function Test() {
                 className="w-20"
               />
               <button onClick={add(product.skuid ? product.skuid : "dummy")}
-              className="mt-3 border border-blue-300">
+                className="mt-3 border border-blue-300">
                 add to cart
               </button>
             </div>

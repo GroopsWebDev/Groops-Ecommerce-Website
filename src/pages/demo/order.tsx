@@ -22,7 +22,7 @@ export default function Test() {
       <h1 className="mb-10 mt-10 text-center">My user Id: {userId}</h1>
 
       <div className="flex flex-col place-items-center">
-        {data?.map((order) => (
+        {data?.map((order:any) => (
           <div key={order.orderId}>My order id: {order.orderId}</div>
         ))}
       </div>

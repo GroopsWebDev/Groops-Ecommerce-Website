@@ -2,22 +2,22 @@ import { z } from "zod";
 import { TRPCError, initTRPC } from '@trpc/server';
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
-export const productRouter = createTRPCRouter({
+export const productRouter = router({
 
   getAllProducts: publicProcedure
-    .query(({ ctx }) => {
-      return ctx.prisma.product.findMany();
+    .query(() => {
+      return prisma.product.findMany();
     }),
 
   getById: publicProcedure
     .input(z.object({ skuid: z.string() }))
-    .query(({ ctx, input }) => {
-      return ctx.prisma.product.findUnique({
+    .query(({ input }) => {
+      return prisma.product.findUnique({
         where: { ...input }
       })
     }),
 
-    createProduct: publicProcedure
+  createProduct: publicProcedure
     .input(z.object({
       englishProductName: z.string(),
       chineseProductNName: z.string(),
@@ -34,11 +34,11 @@ export const productRouter = createTRPCRouter({
       stock: z.number(),
       alcoholPercentage: z.number(),
       specification: z.string(),
-      nutritionFact:  z.string()
+      nutritionFact: z.string()
 
     })).mutation(({ ctx, input }) => {
-      
-      if ( !input.englishProductName || !input.productWeight || !input.image) {
+
+      if (!input.englishProductName || !input.productWeight || !input.image) {
 
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
@@ -46,25 +46,27 @@ export const productRouter = createTRPCRouter({
         });
       }
 
-      return ctx.prisma.product.create({ data: {
-        englishProductName: input.englishProductName,
-        chineseProductNName: input.chineseProductNName,
-        frenchProductNName: input.frenchProductNName,
-        placeOfOrigin: input.placeOfOrigin,
-        productWeight: input.productWeight,
-        description: input.description,
-        alcohol: input.alcohol,
-        price: input.price,
-        image_url: input.image,
-        categoryId: input.categoryId,
-        retailPrice: input.retailPrice,
-        costPrice: input.costPrice,
-        stock: input.stock,
-        alcoholPercentage: input.alcoholPercentage,
-        specification: input.specification,
-        nutritionFact:  input.nutritionFact,
+      return ctx.prisma.product.create({
+        data: {
+          englishProductName: input.englishProductName,
+          chineseProductNName: input.chineseProductNName,
+          frenchProductNName: input.frenchProductNName,
+          placeOfOrigin: input.placeOfOrigin,
+          productWeight: input.productWeight,
+          description: input.description,
+          alcohol: input.alcohol,
+          price: input.price,
+          image_url: input.image,
+          categoryId: input.categoryId,
+          retailPrice: input.retailPrice,
+          costPrice: input.costPrice,
+          stock: input.stock,
+          alcoholPercentage: input.alcoholPercentage,
+          specification: input.specification,
+          nutritionFact: input.nutritionFact,
 
-      } })
+        }
+      })
     }),
 
 });

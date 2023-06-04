@@ -15,9 +15,7 @@ const Home: NextPage = () => {
   const { user } = useUser();
 
   if (loadingData) {
-    return (
-      <LoadingSpinner />
-    );
+    return <LoadingSpinner />;
   }
 
   return (
@@ -69,24 +67,6 @@ const Home: NextPage = () => {
       <ul>
         <Link href="/demo/group" className="bg-black p-1 text-white">
           Link to group page
-        </Link>
-      </ul>
-
-      <ul>
-        <Link href="/demo/createProduct" className="bg-black p-1 text-white">
-          Link to Create Product page
-        </Link>
-      </ul>
-
-      <ul>
-        <Link href="/demo/cart" className="bg-black p-1 text-white">
-          Link to Cart
-        </Link>
-      </ul>
-
-      <ul>
-        <Link href="/demo/address" className="bg-black p-1 text-white">
-          Link to Address
         </Link>
       </ul>
 

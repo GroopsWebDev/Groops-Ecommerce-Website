@@ -44,7 +44,7 @@ export default function Test() {
       </div>
 
       <div className="flex flex-col place-items-center">
-        {data?.map((loved_item) => (
+        {data?.map((loved_item:any) => (
           <div key={loved_item.id}>Love list item id: {loved_item.skuid}</div>
         ))}
       </div>
