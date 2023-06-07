@@ -5,16 +5,16 @@ import Link from "next/link";
 export default function Navbar() {
   return <header className="sticky top-0 flex flex-row items-center p-3">
 
-    <Menu className="ml-3" />
+    <Menu className="ml-5" />
 
     <Link href="/">
       <Logo className="ml-5" />
     </Link>
 
-    <input placeholder=" Search..."
-      className="ml-10 py-2 w-1/2 border border-gray-300 rounded-lg outline-0" />
+    <input placeholder="Search..."
+      className="ml-10 py-2 px-4 w-1/2 border border-gray-300 rounded-lg outline-0" />
 
-    <button className="ml-3 bg-rose-600 py-2 px-5 rounded-lg">Search</button>
+    <button className="ml-3 bg-rose-600 py-2 px-5 rounded-lg text-white">Search</button>
 
     <div className="ml-10">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -25,7 +25,7 @@ export default function Navbar() {
 
     <p className="ml-2">Groups</p>
 
-    <div className="ml-4">
+    <div className="ml-5">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M1 3H13M7 1V3M8.04819 12.5C6.52083 10.9178 5.28073 9.05645 4.41187 7M10.5 16H17.5M9 19L14 9L19 19M10.7511 3C9.78307 8.77022 6.06969 13.6095 1 16.129" 
         stroke="#111827" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -40,7 +40,7 @@ export default function Navbar() {
       </svg>
     </div>
 
-    <div className="ml-4">
+    <div className="ml-5">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z" stroke="#111111" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         <path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z" stroke="#111111" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
