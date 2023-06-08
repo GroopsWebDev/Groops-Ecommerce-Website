@@ -3,7 +3,7 @@ import Menu from "../../../public/assets/navbar/menu.svg";
 import Link from "next/link";
 
 export default function Navbar() {
-  return <header className="sticky top-0 flex flex-row items-center p-3">
+  return <header className="sticky top-0 flex flex-row justify-between items-center p-3">
 
     <Menu className="ml-5" />
 
@@ -48,7 +48,7 @@ export default function Navbar() {
       </svg>
     </div>
 
-    <p className="ml-2">Cart</p>
+    <p className="ml-2 mr-5">Cart</p>
 
 
   </header>
