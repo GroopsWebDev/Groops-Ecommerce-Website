@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Logo from "@public/assets/navbar/logo.svg";
-import Menu from "@public/assets/navbar/menu.svg";
+// import Menu from "@public/assets/navbar/menu.svg";
 import Link from "next/link";
 import Sidebar from "../../sidebar";
-
+import NavMenu from "./menu";
 
 export default function Navbar() {
 
@@ -13,9 +13,11 @@ export default function Navbar() {
 
     <header className="sticky top-0 flex flex-row justify-between items-center p-3">
 
-      <button className="ml-5" onClick={() => {setShowSide(!showSide); console.log(showSide)}}>
+      {/* <button className="ml-5" onClick={() => {setShowSide(!showSide); console.log(showSide)}}>
         <Menu />
-      </button>
+      </button> */}
+
+      <NavMenu />
 
       <Sidebar showSide={showSide} setShow={setShowSide} />
 
