@@ -1,5 +1,6 @@
-
-
+import { LeftButton, RightButton, Filter } from "./buttons";
+import Link from 'next/link';
+import Arrow from '@public/assets/home/arrow.svg';
 
 const Row = () => {
 
@@ -7,9 +8,34 @@ const Row = () => {
   return <>
 
     <div className="p-10 z-0">
-      <h1 className="mb-10 text-2xl">Groups that help you save</h1>
 
-      <div className='flex flex-row justify-between items-center'>
+      <div className="flex flex-row justify-between items-center">
+
+        <div className="flex flex-col">
+          <h1 className=" text-2xl">Groups that help you save</h1>
+          <div className="flex flex-row pt-2 gap-x-2">
+            <Filter />
+            <Filter />
+          </div>
+        </div>
+
+        <div className="flex flex-row items-center">
+
+          <Link href="" className="text-rose-600 mr-5 flex items-center">
+            <p className="mr-2">see all</p>
+            <Arrow />
+          </Link>
+
+          <LeftButton />
+          <RightButton />
+
+        </div>
+
+      </div>
+
+
+      <div className='flex flex-row justify-between items-center mt-10'>
+
         <div>
 
           <div className="flex flex-col items-center">
@@ -40,7 +66,7 @@ const Row = () => {
         </div>
       </div>
     </div>
-    
+
   </>
 };
 
