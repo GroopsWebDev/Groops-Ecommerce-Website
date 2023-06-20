@@ -1,16 +1,21 @@
-import Logo from "../../../public/assets/navbar/logo.svg";
-import Menu from "../../../public/assets/navbar/menu.svg";
+import { useState } from "react";
+import Logo from "@public/assets/navbar/logo.svg";
+import Menu from "@public/assets/navbar/menu.svg";
 import Link from "next/link";
+import Sidebar from "../../sidebar";
 
-import Snacks from "../../../public/assets/navbar/snacks.svg";
 
 export default function Navbar() {
+
+  const [showSide, setShowSide] = useState(false);
 
   return <>
 
     <header className="sticky top-0 flex flex-row justify-between items-center p-3">
 
-      <Menu className="ml-5" />
+      <button className="ml-5" onClick={() => {setShowSide(!showSide); console.log(showSide)}}>
+        <Menu />
+      </button>
 
       <Link href="/">
         <Logo className="ml-5" />

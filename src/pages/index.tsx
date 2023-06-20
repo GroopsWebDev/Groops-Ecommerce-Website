@@ -1,4 +1,4 @@
-import Row from '../components/group/row';
+import Row from '../components/home/groups';
 
 
 
