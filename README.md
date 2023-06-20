@@ -48,7 +48,7 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 
 <div align="center">
   <h3>Version Control Flow</h3>
-  <img alt= "Git Version Control Flow.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/derick-clark-auth/README_Img/Git%20Version%20Control%20Flow.png" width="80%"/>
+  <img alt= "Git Version Control Flow.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/main/README_Img/Git%20Version%20Control%20Flow.png" width="80%"/>
 </div>
 <p align="center"><i>~Before changing your code:</i></p>
 <p align="center">Git pull <b>Derick</b> (make sure your branch is consistent with the <b>Derick</b> branch)</p>
@@ -59,12 +59,12 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 
 <div align="center">
   <h3>Folder Structure + File Naming Convention</h3>
-  <img alt= "File Naming Convention.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/derick-clark-auth/README_Img/naming%20convention.png" width="100%"/>
+  <img alt= "File Naming Convention.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/main/README_Img/naming%20convention.png" width="100%"/>
 </div>
 
 <div align="center">
   <h3>Dev Timeline</h3>
-  <img alt= "Dev Timeline.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/derick-clark-auth/README_Img/tech%20timeline.png" width="70%"/>
+  <img alt= "Dev Timeline.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/main/README_Img/tech%20timeline.png" width="70%"/>
 </div>
 
 ## Getting Started
@@ -102,11 +102,7 @@ npx prisma generate
 ⌨️ [Add Prisma to existing project steps](https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project/relational-databases-typescript-postgresql)
 
 <div align="center">
-  <img alt= "Prisma DB pull.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/derick-clark-auth/README_Img/prisma%20db%20pull.png" width="80%"/>
-</div>
-
-<div align="center">
-  <img alt= "Prisma DB pull.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/Derick/README_Img/Change%20the%20database%20schema.png" width="80%"/>
+  <img alt= "Prisma DB pull.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/main/README_Img/prisma%20db%20pull.png" width="80%"/>
 </div>
 
 Run `npx prisma studio` to access the GUI to view and edit data in your database
@@ -150,12 +146,12 @@ https://js.design/f/tG6OLu?p=Ug3WOcDXLK
 
 <div align="center">
   <h3>Agile Devops</h3>
-  <img alt= "agile_devops.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/derick-clark-auth/README_Img/agile_devops.png" width="100%"/>
+  <img alt= "agile_devops.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/main/README_Img/agile_devops.png" width="100%"/>
 </div>
 
 <div align="center">
   <h3>Scrum Framework</h3>
-  <img alt= "scrum_framework.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/derick-clark-auth/README_Img/scrum_framework.png" width="100%"/>
+  <img alt= "scrum_framework.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/main/README_Img/scrum_framework.png" width="100%"/>
 </div>
 
 
