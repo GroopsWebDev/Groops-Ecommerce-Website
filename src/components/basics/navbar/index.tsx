@@ -17,6 +17,8 @@ export default function Navbar() {
         <Menu />
       </button>
 
+      <Sidebar showSide={showSide} setShow={setShowSide} />
+
       <Link href="/">
         <Logo className="ml-5" />
       </Link>
