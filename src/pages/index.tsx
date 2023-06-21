@@ -1,11 +1,18 @@
-import Row from '../components/home/groups';
-
+import GroupsRow from '../components/group/row';
+import ProductsRow from '../components/product/row';
 
 
 export default function Home() {
   return (
     <div>
-      <Row />
+
+      <hr />
+
+      <GroupsRow />
+
+      <hr />
+
+      <ProductsRow />
     </div>
   )
 }

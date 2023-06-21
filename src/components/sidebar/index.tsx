@@ -1,9 +1,9 @@
-import Cross from '@public/assets/icons/basics/cross.svg';
-import Account from '@public/assets/icons/side-bar/account.svg';
-import Groups from '@public/assets/icons/side-bar/groups.svg';
-import Orders from '@public/assets/icons/side-bar/orders.svg';
-import Heart from '@public/assets/icons/basics/heart.svg';
-import Logout from '@public/assets/icons/basics/logout.svg';
+import Cross from '@public/assets/icons/cross.svg';
+import Account from '@public/assets/icons/account.svg';
+import Groups from '@public/assets/icons/groups.svg';
+import Orders from '@public/assets/icons/orders.svg';
+import Heart from '@public/assets/icons/heart.svg';
+import Logout from '@public/assets/icons/logout.svg';
 
 import Link from 'next/link';
 

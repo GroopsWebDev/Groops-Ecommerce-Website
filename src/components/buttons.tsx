@@ -1,5 +1,5 @@
-import Right from '@public/assets/home/buttons/right.svg';
-import Left from '@public/assets/home/buttons/left.svg';
+import Right from '@public/assets/icons/right.svg';
+import Left from '@public/assets/icons/left.svg';
 
 export const RightButton = () => (
 

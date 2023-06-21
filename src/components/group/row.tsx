@@ -1,6 +1,6 @@
-import { LeftButton, RightButton, Filter } from "./buttons";
+import { LeftButton, RightButton, Filter } from "../buttons";
 import Link from 'next/link';
-import Arrow from '@public/assets/home/arrow.svg';
+import Arrow from '@public/assets/icons/arrow.svg';
 
 const Row = () => {
 

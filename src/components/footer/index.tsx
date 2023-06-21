@@ -1,4 +1,4 @@
-import Logo from "../../../public/assets/navbar/logo.svg";
+import Logo from "@public/assets/navbar/logo.svg";
 import Link from "next/link";
 
 const Phone = () => (
