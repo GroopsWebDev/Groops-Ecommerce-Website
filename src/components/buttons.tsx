@@ -3,14 +3,14 @@ import Left from '@public/assets/icons/left.svg';
 
 export const RightButton = () => (
 
-  <button >
+  <button className="">
     <Right />
   </button>
 
 )
 
 export const LeftButton = () => (
-  <button >
+  <button className="">
     <Left />
   </button>
 )

@@ -2,6 +2,7 @@ import { LeftButton, RightButton, Filter } from "../buttons";
 import Link from 'next/link';
 import Arrow from '@public/assets/icons/arrow.svg';
 import Heart from '@public/assets/icons/heart.svg';
+import Card from './card';
 
 const Row = () => {
 
@@ -38,24 +39,7 @@ const Row = () => {
 
         <div>
 
-          <div className="flex flex-col flex-wrap justify-start">
-
-            <div className="w-32 h-32 overflow-hidden">
-              <img src="/assets/dummy/product.png" alt="Image Description" className="w-full h-full object-cover" />
-            </div>
-
-            <div className="flex justify-between mt-5 gap-x-5">
-              <p>company name</p>
-              <button>
-                <Heart className="w-5" />
-              </button>
-            </div>
-
-            <p className="mt-5 text-lg">Product name</p>
-
-            <p className="text-xl font-bold text-rose-600 pt-5">$ 20</p>
-
-          </div>
+          <Card />
 
         </div>
       </div>
