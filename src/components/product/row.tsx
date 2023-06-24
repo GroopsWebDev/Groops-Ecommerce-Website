@@ -5,16 +5,16 @@ import Heart from "@public/assets/icons/heart.svg";
 import { ProductCard } from "./product_card";
 
 interface Props {
-  category: string;
+  section_category: string;
 }
 
-const Row: React.FC<Props> = ({ category }) => {
+const Row: React.FC<Props> = ({ section_category }) => {
   return (
     <>
       <div className="z-0 p-10">
         <div className="flex flex-row items-center justify-between">
           <div className="flex flex-col">
-            <h1 className=" text-2xl">{category}</h1>
+            <h1 className=" text-2xl">{section_category}</h1>
             <div className="flex flex-row gap-x-2 pt-2">
               <Filter category="snack" />
               <Filter category="Instant Food" />
