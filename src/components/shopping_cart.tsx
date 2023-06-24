@@ -27,10 +27,10 @@ const products = [
 
 export default function ShoppingCart() {
   return (
-    <div className="flex flex-1 items-center justify-end">
+    <div className="flex flex-1 items-center justify-center">
       {/* Cart */}
-      <Popover className="ml-4 flow-root text-sm lg:relative lg:ml-8">
-        <Popover.Button className="group -m-2 flex items-center p-2">
+      <Popover className="flow-root text-sm">
+        <Popover.Button className="group flex items-center">
           <div className="inline-flex items-center">
             <svg
               width="24"
