@@ -3,7 +3,7 @@ import Left from '@public/assets/icons/left.svg';
 import { PlusIcon } from '@heroicons/react/20/solid'
 
 interface PlusButton {
-  className: string,
+  size: number,
   onClick: () => void,
 }
 
@@ -31,14 +31,14 @@ export const Filter: React.FC<FilterProps> = ({ category }) => (
   </button>
 )
 
-export const PlusButton: React.FC<PlusButton> = ({ className, onClick }) => (
-  <div className={className}>
+export const PlusButton: React.FC<PlusButton> = ({ size, onClick }) => (
+  <div>
   <button
   type="button"
-  className="rounded-full bg-red-600 p-3 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+  className="rounded-full bg-red-600 p-3 text-white shadow-sm hover:bg-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
   onClick={onClick}
 >
-  <PlusIcon className="h-4 w-4" aria-hidden="true" />
+  <PlusIcon className={`w-${size} h-${size}`} aria-hidden="true" />
 </button>
 </div>
 )

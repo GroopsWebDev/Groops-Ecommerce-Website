@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { PlusButton } from "../buttons";
 import { FiExternalLink } from "react-icons/fi";
 import Link from "next/link";
 import Image from "next/image";
 interface GroupCardPlusProps {
-  _has_plus: boolean;
+  _plus_button: boolean;
 }
 
 export const GroupCard = () => {
@@ -52,9 +52,18 @@ export const GroupCard = () => {
 
 // export default GroupCard;
 
-export const GroupCardPlus: React.FC<GroupCardPlusProps> = ({ _has_plus }) => {
+export const GroupCardPlus: React.FC<GroupCardPlusProps> = ({
+  _plus_button,
+}) => {
+
+  const [mouseEnter, setMouseEnter] = useState(false);
+
   return (
-    <div className="mt-10 w-56">
+    <div
+      className="mt-10 w-56"
+      onMouseEnter={() => setMouseEnter(true)}
+      onMouseLeave={() => setMouseEnter(false)}
+    >
       {/* group img */}
       <div className="ml-12 flex flex-row">
         <div className="h-32 w-32 overflow-hidden rounded-full">
@@ -66,10 +75,8 @@ export const GroupCardPlus: React.FC<GroupCardPlusProps> = ({ _has_plus }) => {
             height={300}
           />
         </div>
-                    {/* <PlusButton className="-mt-32 ml-32" /> */}
-        {_has_plus && (
-            <PlusButton className="" onClick={()=>{}}/>
-        )}
+        {/* <PlusButton className="-mt-32 ml-32" /> */}
+        {_plus_button && mouseEnter && <PlusButton size={4} onClick={() => {}} />}
       </div>
       {/* group details */}
       <div className="mt-0">
