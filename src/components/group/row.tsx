@@ -1,8 +1,7 @@
 import { LeftButton, RightButton, Filter, PlusButton } from "../buttons";
 import Link from "next/link";
 import Arrow from "@public/assets/icons/arrow.svg";
-import GroupCard from "./group_card";
-import GroupCardPlus from "./group_card_plus";
+import {GroupCard, GroupCardPlus} from "./group_card";
 
 const Row = () => {
   return (
@@ -12,8 +11,10 @@ const Row = () => {
           <div className="flex flex-col">
             <h1 className=" text-2xl">Groups that help you save</h1>
             <div className="flex flex-row gap-x-2 pt-2">
-              <Filter />
-              <Filter />
+              <Filter category='snack'/>
+              <Filter category='Instant Food'/>
+              <Filter category='Personal Care'/>
+              <Filter category='Beauty'/>
             </div>
           </div>
 
@@ -27,10 +28,13 @@ const Row = () => {
             <RightButton />
           </div>
         </div>
-        <div className="flex flex-row items-center">
+        {/* Group Cards */}
+        <div className="flex flex-row items-center justify-between">
+        <GroupCardPlus _has_plus={false}/>
         <GroupCard />
-        <GroupCardPlus />
-        <GroupCardPlus />
+        <GroupCardPlus _has_plus={true}/>
+        <GroupCardPlus _has_plus={true}/>
+        <GroupCardPlus _has_plus={true}/>
         </div>
 
       </div>

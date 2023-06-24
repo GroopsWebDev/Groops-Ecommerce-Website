@@ -12,7 +12,8 @@ export default function Home() {
 
       <hr />
 
-      <ProductsRow />
+      <ProductsRow category='Selling Fast'/>
+      <ProductsRow category='Limited Edition'/>
     </div>
   )
 }
