@@ -20,27 +20,35 @@ const Product = () => {
         />
       </div>
 
-      <div className="w-2/3 bg-yellow-100 flex justify-center items-center">
-        <div className="w-2/3 bg-green-200">
+      <div className="w-2/3 bg-yellow-500 flex justify-center items-center">
+        <div className="w-3/5 bg-green-200">
           <p>company</p>
 
           <h2 className="text-3xl font-bold">product name</h2>
 
           <h2 className="text-rose-600 text-3xl font-bold pt-5">$ 20</h2>
 
-          <button className="mt-5 py-3 px-24 text-white bg-rose-600 rounded-lg">
+          <button className="mt-5 py-3 px-24 text-white bg-rose-600 w-full rounded-lg">
             Add to Cart
           </button>
 
-          <div className="flex mt-5 gap-x-10">
-            <button>
-              <Heart className="w-5" />
-            </button>
+          <div className="flex mt-5 gap-x-10 text-gray-700">
 
-            <button>
-              <Share className="w-5" />
-            </button>
-          </div>
+            <div className="flex flex-row gap-x-2">
+              <button>
+                <Heart className="w-5" />
+              </button>
+              <p> add to lovelist </p>
+            </div>
+
+            <div className="flex flex-row gap-x-2">
+              <button>
+                <Share className="w-5" />
+              </button>
+              <p> share </p>
+            </div>
+
+            </div>
 
         </div>
       </div>
@@ -49,7 +57,7 @@ const Product = () => {
 
     <hr />
 
-    <Row />
+    <Row section_category="Similar Items" />
 
   </>
 };
