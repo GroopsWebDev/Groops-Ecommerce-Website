@@ -31,7 +31,7 @@ const Row = () => {
         {/* Group Cards */}
         <div className="flex flex-row items-center justify-between">
         <GroupCardPlus _has_plus={false}/>
-        <GroupCard />
+        <GroupCardPlus _has_plus={false}/>
         <GroupCardPlus _has_plus={true}/>
         <GroupCardPlus _has_plus={true}/>
         <GroupCardPlus _has_plus={true}/>

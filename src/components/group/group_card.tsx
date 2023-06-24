@@ -101,7 +101,7 @@ export const GroupCardPlus: React.FC<GroupCardPlusProps> = ({ _has_plus }) => {
             />
           </svg>
           <p className="pl-2 text-sm">21/50</p>
-          <p className="ml-2 inline-block rounded-md bg-red-500 pl-2 pl-3 pr-3 text-sm text-white">
+          <p className="ml-2 inline-block rounded-md bg-red-500 pl-3 pr-3 text-sm text-white">
             20% off
           </p>
         </div>
