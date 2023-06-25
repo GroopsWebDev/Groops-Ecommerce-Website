@@ -20,13 +20,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   const [mouseEnter, setMouseEnter] = useState(false);
 
   return (
-    <div
-      className="w-52"
-      onMouseEnter={() => setMouseEnter(true)}
-      onMouseLeave={() => setMouseEnter(false)}
-    >
+    <div className="w-52">
       {/* group img */}
-      <div className="flew-row relative flex">
+      <div
+        className="flew-row flex"
+        onMouseEnter={() => setMouseEnter(true)}
+        onMouseLeave={() => setMouseEnter(false)}
+      >
         <Image
           src="/assets/products/lays.svg"
           alt="Lays"
@@ -34,18 +34,22 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           height={150}
           className="ml-8"
         />
+
         {_one_plus && mouseEnter && (
-          <div className="absolute right-0 flex w-28 items-center justify-between rounded-full bg-red-600">
-            <button className="ml-0 rounded-full pb-2.5 pl-3.5 pr-3.5 pt-2.5 text-sm text-white hover:bg-red-700">
-              <FontAwesomeIcon icon={faTrashCan} />
-            </button>
-            <p className="font-lg ml-3 font-medium text-white">1</p>
-            <div className="ml-auto">
-              <PlusButton size={4} onClick={() => {}} />
+          <div className="relative">
+            <div className="absolute right-0 flex w-28 items-center justify-between rounded-full bg-red-600 ">
+              <button className="ml-0 rounded-full pb-2.5 pl-3.5 pr-3.5 pt-2.5 text-sm text-white hover:bg-red-700">
+                <FontAwesomeIcon icon={faTrashCan} />
+              </button>
+              <p className="font-lg ml-3 font-medium text-white">1</p>
+              <div className="ml-auto">
+                <PlusButton onClick={() => {}} />
+              </div>
             </div>
           </div>
         )}
-        {!_one_plus && mouseEnter && <PlusButton size={4} onClick={() => {}} />}
+
+        {!_one_plus && mouseEnter && <PlusButton onClick={() => {}} />}
       </div>
 
       {/* group details */}
@@ -73,7 +77,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <p className="pt-5 text-xl font-bold text-rose-600">$ 2.49</p>
           {_on_discount && (
             <>
-              <p className="pt-5 text-xl font-bold font-light text-gray-400 text-rose-600 line-through ml-1">
+              <p className="ml-1 pt-5 text-xl font-bold font-light text-gray-400 text-rose-600 line-through">
                 $ 2.99
               </p>
               <p className="ml-2 mt-5 inline-block rounded-md bg-red-500 pl-2 pl-3 pr-3 text-sm text-white">

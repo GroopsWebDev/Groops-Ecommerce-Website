@@ -41,10 +41,12 @@ export default function Navbar() {
       <p className="ml-2">Groups</p>
 
       <div className="ml-5">
+        <Link href="/demo/about">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M1 3H13M7 1V3M8.04819 12.5C6.52083 10.9178 5.28073 9.05645 4.41187 7M10.5 16H17.5M9 19L14 9L19 19M10.7511 3C9.78307 8.77022 6.06969 13.6095 1 16.129"
             stroke="#111827" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
+        </Link>
       </div>
 
       <p className="ml-2">English</p>

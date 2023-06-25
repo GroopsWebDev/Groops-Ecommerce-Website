@@ -12,7 +12,7 @@ export const GroupCard = () => {
     <div className="mt-10">
       <div className="flex flex-col items-center">
         <div className="h-32 w-32 overflow-hidden rounded-full">
-          <img
+          <Image
             src="/assets/dummy/product.png"
             alt="Image Description"
             className="h-full w-full object-cover"
@@ -75,8 +75,7 @@ export const GroupCardPlus: React.FC<GroupCardPlusProps> = ({
             height={300}
           />
         </div>
-        {/* <PlusButton className="-mt-32 ml-32" /> */}
-        {_plus_button && mouseEnter && <PlusButton size={4} onClick={() => {}} />}
+        {_plus_button && mouseEnter && <PlusButton onClick={() => {}} />}
       </div>
       {/* group details */}
       <div className="mt-0">
