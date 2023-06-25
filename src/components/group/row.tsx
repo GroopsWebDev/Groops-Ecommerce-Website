@@ -1,7 +1,7 @@
 import { LeftButton, RightButton, Filter, PlusButton } from "../buttons";
 import Link from "next/link";
 import Arrow from "@public/assets/icons/arrow.svg";
-import {GroupCard, GroupCardPlus} from "./group_card";
+import GroupCard from "./group_card";
 
 const Row = () => {
   return (
@@ -30,11 +30,11 @@ const Row = () => {
         </div>
         {/* Group Cards */}
         <div className="flex flex-row items-center justify-between">
-        <GroupCardPlus _plus_button={true}/>
-        <GroupCardPlus _plus_button={false}/>
-        <GroupCardPlus _plus_button={true}/>
-        <GroupCardPlus _plus_button={true}/>
-        <GroupCardPlus _plus_button={true}/>
+        <GroupCard _plus_button={true}/>
+        <GroupCard _plus_button={false}/>
+        <GroupCard _plus_button={true}/>
+        <GroupCard _plus_button={true}/>
+        <GroupCard _plus_button={true}/>
         </div>
 
       </div>

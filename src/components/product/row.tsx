@@ -2,7 +2,7 @@ import { LeftButton, RightButton, Filter } from "../buttons";
 import Link from "next/link";
 import Arrow from "@public/assets/icons/arrow.svg";
 import Heart from "@public/assets/icons/heart.svg";
-import { ProductCard } from "./product_card";
+import ProductCard from "./product_card";
 
 interface Props {
   section_category: string;
@@ -35,11 +35,11 @@ const Row: React.FC<Props> = ({ section_category }) => {
         </div>
 
         <div className="mt-10 flex flex-row items-center justify-between">
-          <ProductCard _on_discount={false} _one_plus={false} _mouse_enter={false}/>
-          <ProductCard _on_discount={false} _one_plus={false} _mouse_enter={true}/>
-          <ProductCard _on_discount={true} _one_plus={true} _mouse_enter={false}/>
-          <ProductCard _on_discount={false} _one_plus={false} _mouse_enter={false}/>
-          <ProductCard _on_discount={false} _one_plus={false} _mouse_enter={false}/>
+          <ProductCard _on_discount={false} _one_plus={false} _mouse_enter={false} />
+          <ProductCard _on_discount={false} _one_plus={false} _mouse_enter={true} />
+          <ProductCard _on_discount={true} _one_plus={true} _mouse_enter={false} />
+          <ProductCard _on_discount={false} _one_plus={false} _mouse_enter={false} />
+          <ProductCard _on_discount={false} _one_plus={false} _mouse_enter={false} />
         </div>
       </div>
     </>

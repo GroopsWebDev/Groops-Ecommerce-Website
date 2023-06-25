@@ -12,7 +12,7 @@ interface ProductCardProps {
   _mouse_enter: boolean;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({
+const ProductCard: React.FC<ProductCardProps> = ({
   _on_discount,
   _one_plus,
   _mouse_enter,
@@ -90,3 +90,5 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     </div>
   );
 };
+
+export default ProductCard;
