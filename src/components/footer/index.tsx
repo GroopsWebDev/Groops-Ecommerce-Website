@@ -20,7 +20,7 @@ const Location = () => (
 );
 
 export default function Footer() {
-  return <div className="flex flex-row p-10 bg-gray-100 mt-20">
+  return <div className="flex flex-row p-10 bg-gray-100">
 
     <div className="w-1/2">
       <Link href="/">

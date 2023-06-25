@@ -1,7 +1,7 @@
 import { LeftButton, RightButton, Filter, PlusButton } from "../buttons";
 import Link from "next/link";
 import Arrow from "@public/assets/icons/arrow.svg";
-import GroupCard from "./group_card";
+import GroupCard from "./card";
 
 const Row = () => {
   return (

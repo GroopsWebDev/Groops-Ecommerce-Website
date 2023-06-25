@@ -70,7 +70,7 @@ export default function Navbar() {
 
     </header>
 
-    <div className="flex flex-row justify-between items-center p-3 pl-20 pr-20">
+    <div className="flex flex-row justify-between items-center p-3 pl-20 pr-20 shadow-md">
 
       <Link href="/">
         <p className="text-gray-600">Snacks</p>
