@@ -43,13 +43,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               </button>
               <p className="font-lg ml-3 font-medium text-white">1</p>
               <div className="ml-auto">
-                <PlusButton onClick={() => {}} />
+                <PlusButton onClick={() => { }} />
               </div>
             </div>
           </div>
         )}
 
-        {!_one_plus && mouseEnter && <PlusButton onClick={() => {}} />}
+        {!_one_plus && mouseEnter && <PlusButton onClick={() => { }} />}
       </div>
 
       {/* group details */}
@@ -77,10 +77,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <p className="pt-5 text-xl font-bold text-rose-600">$ 2.49</p>
           {_on_discount && (
             <>
-              <p className="ml-1 pt-5 text-xl font-bold font-light text-gray-400 text-rose-600 line-through">
+              <p className="ml-1 pt-5 text-xl font-bold  text-rose-600 line-through">
                 $ 2.99
               </p>
-              <p className="ml-2 mt-5 inline-block rounded-md bg-red-500 pl-2 pl-3 pr-3 text-sm text-white">
+              <p className="ml-2 mt-5 inline-block rounded-md bg-red-500 pl-2 pr-3 text-sm text-white">
                 20% off
               </p>
             </>
