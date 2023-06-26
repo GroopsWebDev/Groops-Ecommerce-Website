@@ -19,7 +19,7 @@ const About = () => {
     </div>
     <h1 className="text-center">Locale: {locale}</h1>
     <h2 className="text-center">{translate("hello Groops")}</h2>
-    <button onClick={()=>{alert(translate("hello Groops"))}}>Console log translate("hello Groops")</button>
+    <h2 className="text-center">{translate("test")}</h2>
   </div>
   );
 };
