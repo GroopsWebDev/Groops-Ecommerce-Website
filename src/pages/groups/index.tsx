@@ -1,29 +1,33 @@
-import ProductCard from "~/components/product/card";
+import GroupCard from "~/components/group/card";
 
 
 const Products = () => {
 
   const Row = () => (
     <div className="flex flex-row items-center justify-between">
-      <ProductCard
-        _on_discount={false}
-        _one_plus={false}
-        _mouse_enter={false}
+      <GroupCard
+        _group_joined={false}
+        _end_soon={false}
+        _join_waitlist_joined={false}
+        _join_waitlist={false}
       />
-      <ProductCard
-        _on_discount={false}
-        _one_plus={false}
-        _mouse_enter={false}
+      <GroupCard
+        _group_joined={false}
+        _end_soon={false}
+        _join_waitlist_joined={false}
+        _join_waitlist={false}
       />
-      <ProductCard
-        _on_discount={false}
-        _one_plus={false}
-        _mouse_enter={false}
+      <GroupCard
+        _group_joined={false}
+        _end_soon={false}
+        _join_waitlist_joined={false}
+        _join_waitlist={false}
       />
-      <ProductCard
-        _on_discount={false}
-        _one_plus={false}
-        _mouse_enter={false}
+      <GroupCard
+        _group_joined={false}
+        _end_soon={false}
+        _join_waitlist_joined={false}
+        _join_waitlist={false}
       />
     </div>
   );
@@ -36,7 +40,7 @@ const Products = () => {
       </p>
 
       <select id="small" className="p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50">
-        <option defaultValue={label} value={label}>On Sale</option>
+        <option defaultValue={label} value={label}>{label}</option>
       </select>
     </div>
 
@@ -84,12 +88,10 @@ const Products = () => {
       <div className="w-[80%] p-5">
 
         <div className="flex flex-row flex-wrap mt-10 gap-x-3">
-          <Selector label="Sale" />
-          <Selector label="Status" />
-          <Selector label="Vegan" />
-          <Selector label="Origin" />
-
-          <Selector label="Sort by" />
+          <Selector label="Time Left" />
+          <Selector label="Size" />
+          <Selector label="Category" />
+          <Selector label="Group Type" />
         </div>
 
         <div className="flex flex-col gap-y-10 mt-10">
