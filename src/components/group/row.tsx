@@ -30,11 +30,11 @@ const Row = () => {
         </div>
         {/* Group Cards */}
         <div className="flex flex-row items-center justify-between">
-        <GroupCard _plus_button={true}/>
-        <GroupCard _plus_button={false}/>
-        <GroupCard _plus_button={true}/>
-        <GroupCard _plus_button={true}/>
-        <GroupCard _plus_button={true}/>
+        <GroupCard _group_joined={false} _end_soon={false} _join_waitlist={false} _join_waitlist_joined={false}/>
+        <GroupCard _group_joined={false} _end_soon={true} _join_waitlist={false} _join_waitlist_joined={false}/>
+        <GroupCard _group_joined={true} _end_soon={false} _join_waitlist={false} _join_waitlist_joined={false}/>
+        <GroupCard _group_joined={false} _end_soon={false} _join_waitlist={true} _join_waitlist_joined={false}/>
+        <GroupCard _group_joined={false} _end_soon={false} _join_waitlist={true} _join_waitlist_joined={true}/>
         </div>
 
       </div>

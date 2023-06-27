@@ -35,7 +35,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           className="ml-8"
         />
 
-        {_one_plus && mouseEnter && (
+        {_one_plus && (
           <div className="relative">
             <div className="absolute right-0 flex w-28 items-center justify-between rounded-full bg-red-600 ">
               <button className="ml-0 rounded-full pb-2.5 pl-3.5 pr-3.5 pt-2.5 text-sm text-white hover:bg-red-700">

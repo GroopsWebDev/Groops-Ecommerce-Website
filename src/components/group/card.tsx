@@ -5,13 +5,18 @@ import Link from "next/link";
 import Image from "next/image";
 
 interface GroupCardPlusProps {
-  _plus_button: boolean;
+  _group_joined: boolean;
+  _end_soon: boolean;
+  _join_waitlist: boolean;
+  _join_waitlist_joined: boolean;
 }
 
 export const GroupCard: React.FC<GroupCardPlusProps> = ({
-  _plus_button,
+  _group_joined,
+  _end_soon,
+  _join_waitlist,
+  _join_waitlist_joined,
 }) => {
-
   const [mouseEnter, setMouseEnter] = useState(false);
 
   return (
@@ -22,7 +27,7 @@ export const GroupCard: React.FC<GroupCardPlusProps> = ({
     >
       {/* group img */}
       <div className="ml-12 flex flex-row">
-        <div className="h-32 w-32 overflow-hidden rounded-full">
+        <div className="relative h-32 w-32 overflow-hidden rounded-full">
           <Image
             src="/assets/dummy/product.png"
             alt="Image Description"
@@ -30,8 +35,53 @@ export const GroupCard: React.FC<GroupCardPlusProps> = ({
             width={300}
             height={300}
           />
+          {/* ENDING SOON */}
+          {_end_soon && (
+            <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-80">
+              <div className="flex items-center">
+                <div className="h-0.5 w-2.5 bg-red-500"></div>
+                <p className="mx-1 text-sm font-bold text-red-600">
+                  ENDING SOON
+                </p>
+                <div className="h-0.5 w-2.5 bg-red-500"></div>
+              </div>
+            </div>
+          )}
+          {/* JOIN WAITLIST */}
+          {_join_waitlist && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+              <div className="flex items-center">
+                <div className="h-0.5 w-2.5 bg-white"></div>
+                <p className="mx-1 text-sm text-white">JOIN WAITLIST </p>
+                <div className="h-0.5 w-2.5 bg-white"></div>
+              </div>
+            </div>
+          )}
         </div>
-        {_plus_button && mouseEnter && <PlusButton onClick={() => {}} />}
+        {/* NOT JOINED */}
+        {!_group_joined && !_join_waitlist_joined && mouseEnter && (
+          <PlusButton onClick={() => {}} />
+        )}
+        {/* GROUP JOINED */}
+        {_group_joined && (
+          <div className="relative">
+            <div className="absolute -right-8  w-28 rounded-full bg-red-600 ">
+              <p className="pb-2 pt-2 text-center font-light text-white">
+                Group Joined
+              </p>
+            </div>
+          </div>
+        )}
+        {/* WAITLIST JOINED */}
+        {_join_waitlist_joined && (
+          <div className="relative">
+            <div className="absolute -right-8  w-28 rounded-full bg-red-600 ">
+              <p className="pb-2 pt-2 text-center font-light text-white">
+                Waitlist Joined
+              </p>
+            </div>
+          </div>
+        )}
       </div>
       {/* group details */}
       <div className="mt-0">

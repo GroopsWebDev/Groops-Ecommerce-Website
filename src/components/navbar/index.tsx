@@ -12,7 +12,7 @@ export default function Navbar() {
 
   return <>
 
-    <header className="sticky top-0 flex flex-row bg-white justify-between items-center p-3">
+    <header className="sticky z-10 top-0 flex flex-row bg-white justify-between items-center p-3">
 
       {/* <button className="ml-5" onClick={() => {setShowSide(!showSide); console.log(showSide)}}>
         <Menu />
