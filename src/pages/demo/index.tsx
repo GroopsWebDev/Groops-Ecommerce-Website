@@ -15,9 +15,7 @@ const Demo: NextPage = () => {
   const { user } = useUser();
 
   if (loadingData) {
-    return (
-      <LoadingSpinner />
-    );
+    return <LoadingSpinner />;
   }
 
   return (

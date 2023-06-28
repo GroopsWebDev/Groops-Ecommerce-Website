@@ -1,12 +1,10 @@
 import Link from "next/link";
 import { api } from "~/utils/api";
 import { useAuth } from "@clerk/nextjs";
-import { LoadingSpinner } from "~/components/loading";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { FaImage } from "react-icons/fa";
 import { getRemainingTime } from "../../utils/utils";
-
 
 // import { ImageUploader } from "../../utils/imageUpload";
 import moment from "moment";
@@ -39,19 +37,19 @@ const CreateGroup = () => {
       alert("Please login first");
       return;
     }
-  
+
     if (!groupName || !image) {
       alert("Please provide a group name and image");
       return;
     }
-  
+
     await create_group.mutateAsync({
       userId: userId,
       groupName: groupName,
       groupImg: image,
       endDate: moment().add(groupHours).toDate(),
     });
-  
+
     // await refetch(); // Trigger a refetch of the user's love list
   };
 
@@ -274,7 +272,6 @@ const CreateGroup = () => {
         </Row>
       )}
     </Container>
-    
   );
 };
 

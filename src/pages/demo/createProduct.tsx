@@ -7,7 +7,6 @@ import Swal from "sweetalert2";
 import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 import { api } from "~/utils/api";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 
 type IProps = {

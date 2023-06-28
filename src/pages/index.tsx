@@ -1,7 +1,5 @@
-import { useRouter } from "next/router";
 import GroupsRow from "../components/group/row";
 import ProductsRow from "../components/product/row";
-import Link from "next/link";
 
 export default function Home() {
   return (
