@@ -10,7 +10,7 @@ const About = () => {
     <div className="flex flex-col items-center justify-center">
     <div className="flex flex-row">
       {locales?.map((l) => (
-        <h4 key={l} className="mr-2 mt-2 bg-gray-500 p-2">
+        <h4 key={l} className="mr-2 mt-2 bg-gray-500 p-2 text-white">
           <Link href="" locale={l}>
             {l}
           </Link>

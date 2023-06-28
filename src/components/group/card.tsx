@@ -84,18 +84,17 @@ export const GroupCard: React.FC<GroupCardPlusProps> = ({
         )}
       </div>
       {/* group details */}
-      <div className="mt-0">
-        <div className="flex">
-          <p className="text-sm text-gray-500">Yiran's</p>
-          <div className="ml-auto">
-            <Link href="#">
-              <FiExternalLink className="text-xl" />
-            </Link>
+      <div className="">
+        <p className="mt-1 text-lg text-center">Yum Yum Squad</p>
+        <div className=" flex flex-row items-center justify-center">
+        <p className="ml-2 mt-1 inline-block rounded-full bg-pink-100 pl-3 pr-3 text-red-700">
+            Snacks
+          </p>
+          <p className="ml-2 mt-1 inline-block rounded-full bg-pink-100 pl-3 pr-3 text-red-700">
+            Candy
+          </p>
           </div>
-        </div>
-
-        <p className="mt-1 text-xl">Yum Yum Squad</p>
-        <div className="mt-1 flex flex-row">
+        <div className="mt-2 flex flex-row items-center justify-center">
           <svg
             width="15"
             height="15"
@@ -117,10 +116,7 @@ export const GroupCard: React.FC<GroupCardPlusProps> = ({
             20% off
           </p>
         </div>
-        <p className="mt-1 text-gray-500">Max discount possible: 30%</p>
-        <p className="mt-1 inline-block bg-gray-100 pl-3 pr-3 text-gray-600">
-          Pre-listed Group
-        </p>
+        <p className="mt-1 text-gray-500 text-center">Max discount possible: 30%</p>
       </div>
     </div>
   );
