@@ -1,65 +1,61 @@
 import { useRouter } from "next/router";
-import Heart from '@public/assets/icons/heart.svg';
-import Share from '@public/assets/icons/share.svg';
+import Heart from "@public/assets/icons/heart.svg";
+import Share from "@public/assets/icons/share.svg";
 import Row from "~/components/product/row";
 
-
 const Product = () => {
-
   const router = useRouter();
   const id = router.query.id;
   console.log(id);
 
-  return <>
-    <div className="flex flex-row pt-24 mb-10 px-10">
+  return (
+    <>
+      <div className="mb-10 flex flex-row px-10 pt-24">
+        <div className="flex w-1/3 justify-center ">
+          <img src="/assets/dummy/product.png" className="w-full" />
+        </div>
 
-      <div className="w-1/3 bg-red-500 flex justify-center">
-        <img
-          src="/assets/dummy/product.png"
-          className="w-full"
-        />
-      </div>
+        <div className="flex w-2/3 items-center justify-center">
+          <div className="w-3/5 ">
+            <p>company</p>
 
-      <div className="w-2/3 bg-yellow-500 flex justify-center items-center">
-        <div className="w-3/5 bg-green-200">
-          <p>company</p>
+            <h2 className="text-3xl font-bold">product name</h2>
 
-          <h2 className="text-3xl font-bold">product name</h2>
+            <h2 className="pt-5 text-3xl font-bold text-rose-600">$ 20</h2>
 
-          <h2 className="text-rose-600 text-3xl font-bold pt-5">$ 20</h2>
-
-          <button className="mt-5 py-3 px-24 text-white bg-rose-600 w-full rounded-lg">
-            Add to Cart
-          </button>
-
-          <div className="flex mt-5 gap-x-10 text-gray-700">
-
-            <div className="flex flex-row gap-x-2">
-              <button>
-                <Heart className="w-5" />
-              </button>
-              <p> add to lovelist </p>
+            <div className="flex items-center gap-x-2 mt-5 text-xs">
+              <p className="rounded bg-gray-200 text-gray-500 p-1">700+ Sold</p>
+              <p className="rounded bg-rose-200 text-rose-600 p-1">51 Left</p>
             </div>
 
-            <div className="flex flex-row gap-x-2">
-              <button>
-                <Share className="w-5" />
-              </button>
-              <p> share </p>
-            </div>
+            <button className="mt-5 w-full rounded-lg bg-rose-600 px-24 py-3 text-white">
+              Add to Cart
+            </button>
 
-            </div>
+            <div className="mt-5 flex gap-x-10 text-gray-700">
+              <div className="flex flex-row gap-x-2">
+                <button>
+                  <Heart className="w-5" />
+                </button>
+                <p> add to lovelist </p>
+              </div>
 
+              <div className="flex flex-row gap-x-2">
+                <button>
+                  <Share className="w-5" />
+                </button>
+                <p> share </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-    </div>
+      <hr />
 
-    <hr />
-
-    <Row section_category="Similar Items" />
-
-  </>
+      <Row section_category="Similar Items" />
+    </>
+  );
 };
 
 export default Product;
