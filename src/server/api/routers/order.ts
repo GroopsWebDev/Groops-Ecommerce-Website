@@ -5,9 +5,9 @@ import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 export const orderRouter = createTRPCRouter({
 
   getUserOrders: publicProcedure
-    .input(z.object({ userId: z.string() }))
+    .input(z.object({ userEmail: z.string() }))
     .query(({ ctx, input }) => {
-      return ctx.prisma.order.findMany({ where: { userId: input.userId } });
+      return ctx.prisma.order.findMany({ where: { user_email: input.userEmail } });
     }),
 
 });

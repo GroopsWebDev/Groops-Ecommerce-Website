@@ -46,6 +46,7 @@ export const productRouter = createTRPCRouter({
       }
 
       return ctx.prisma.product.create({ data: {
+        //skuid String @id @default(cuid())
         english_product_name: input.englishProductName,
         chinese_product_name: input.chineseProductNName,
         french_product_name: input.frenchProductNName,

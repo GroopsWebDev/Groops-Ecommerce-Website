@@ -1,209 +1,208 @@
 generator client {
-    provider        = "prisma-client-js"
-    previewFeatures = ["jsonProtocol"]
+  provider        = "prisma-client-js"
+  previewFeatures = ["jsonProtocol"]
 }
 
 datasource db {
-    provider = "mysql"
-    url      = env("DATABASE_URL")
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
-model User {
-    // id            String     @id @db.VarChar(255) 
-    email                String           @id @unique(map: "User_email_key")
-    first_name           String?
-    last_name            String?
-    username             String?          @db.VarChar(100)
-    //email_verified       DateTime? //is this from Clerk? why do we need this info?
-    profile_image        String?
-    password             String?
-    // role          user_role? //this info is in group_member table
-    phone                BigInt?
-    birthday             DateTime?
-    //FKs
-    wallet_id            Wallet?
-    owned_groups         Group[]          @relation("GroupOwner")
-    cohosted_groups      Group[]          @relation("GroupCohosts")
-    member_groups        Group[]          @relation("GroupMembers")
-    group_commissions    GroupComission[] @relation("UserGroupCommissions")
-    cart                 Cart[]
-    order                Order[]
-    addresses            Address[]
-    help_center_requests HelpCenter[]
-    group_owner_member   GroupHostMember? @relation("GroupOwnerMember")
-    group_cohost_member  GroupHostMember? @relation("GroupCohostMember")
-    group_member         GroupHostMember? @relation("GroupMember")
+model address {
+  id          Int     @id @default(autoincrement())
+  line1       String
+  line2       String?
+  city        String
+  state       String
+  country     String
+  first_name  String
+  is_primary_ Boolean
+  last_name   String
+  postal_code String
+  user_email  String
+  user        user    @relation(fields: [user_email], references: [email], map: "Address_user_email_fkey")
+
+  @@index([user_email], map: "Address_user_email_fkey")
 }
 
-model GroupHostMember {
-    id                  Int     @id @default(autoincrement())
-    //FKs
-    group_code          String  @unique
-    group               Group   @relation(name: "GroupHostMember", fields: [group_code], references: [group_code])
-    owner_email         String? @unique
-    group_owner_member  User?   @relation(name: "GroupOwnerMember", fields: [owner_email], references: [email])
-    cohost_email        String? @unique
-    group_cohost_member User?   @relation(name: "GroupCohostMember", fields: [cohost_email], references: [email])
-    member_email        String? @unique
-    group_member        User?   @relation(name: "GroupMember", fields: [member_email], references: [email])
+model cart {
+  id         Int       @id @default(autoincrement())
+  quantity   Int
+  user_email String   @unique
+  user       user      @relation(fields: [user_email], references: [email], map: "Cart_user_email_fkey")
+  product    product[] @relation("carttoproduct")
+
+  @@index([user_email], map: "Cart_user_email_fkey")
 }
 
-model Group {
-    group_code      String           @id @default(cuid())
-    group_name      String
-    description     String?          @db.VarChar(1000)
-    start_date      DateTime         @default(now())
-    duration        Int?             @default(0)
-    is_active_      Boolean?         @default(true) @db.TinyInt
-    group_img       String?          @db.VarChar(100)
-    tag_1           String?          @db.VarChar(100) //Snack
-    tag_2           String?          @db.VarChar(100) //Drink
-    final_discount  Float? // final_discount = discount of tag_1 + tag_2 + group size
-    //FKs
-    owner_email     String
-    owner           User             @relation("GroupOwner", fields: [owner_email], references: [email])
-    cohosts         User[]           @relation("GroupCohosts")
-    members         User[]           @relation("GroupMembers")
-    groupHostMember GroupHostMember? @relation("GroupHostMember")
-    orders          Order[]          @relation("GroupOrders")
-    groupComissions GroupComission[] @relation("GroupGroupComissions")
-    pictures        Picture[]
+model category {
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(255)
+  description String?   @db.VarChar(255)
+  product     product[]
 }
 
-model GroupComission {
-    id                Int    @id @default(autoincrement())
-    commission_amount Float
-    //FKs
-    user_email        String
-    user              User   @relation("UserGroupCommissions", fields: [user_email], references: [email])
-    group_code        String
-    group             Group  @relation("GroupGroupComissions", fields: [group_code], references: [group_code])
+model files {
+  id             Int        @id @default(autoincrement())
+  file_url       String
+  file_name      String
+  help_center_id Int
+  helpcenter     helpcenter @relation(fields: [help_center_id], references: [phone], map: "Files_help_center_id_fkey")
+
+  @@index([help_center_id], map: "Files_help_center_id_fkey")
 }
 
-model Cart {
-    id         Int       @id @default(autoincrement())
-    quantity   Int
-    //FKs
-    user       User      @relation(fields: [user_email], references: [email]) //user email
-    user_email String
-    products   Product[]
+model group {
+  description                  String?          @db.VarChar(1000)
+  duration                     Int?             @default(0)
+  final_discount               Float?
+  group_code                   String           @id
+  group_img                    String?          @db.VarChar(100)
+  group_name                   String
+  is_active_                   Boolean?         @default(true)
+  owner_email                  String
+  start_date                   DateTime         @default(now())
+  tag_1                        String?          @db.VarChar(100)
+  tag_2                        String?          @db.VarChar(100)
+  user_group_owner_emailTouser user             @relation("group_owner_emailTouser", fields: [owner_email], references: [email], map: "Group_owner_email_fkey")
+  groupcomission               groupcomission[]
+  grouphostmember              groupmember?
+  order                        order[]
+  picture                      picture[]
+  user_groupcohosts            user[]           @relation("groupcohosts")
+  user_groupmembers            user[]           @relation("groupmembers")
+
+  @@index([owner_email], map: "Group_owner_email_fkey")
 }
 
-model Order {
-    id               Int       @id @default(autoincrement())
-    order_date       DateTime? @default(now())
-    total            Int?      @default(0)
-    sub_total        Int?      @default(0)
-    sales_tax        Float?    @db.Float
-    delivery         Float?    @db.Float
-    green_fee        Float?    @db.Float
-    delivery_tip     Float?    @db.Float
-    payment_intent   String?   @db.VarChar(255) //what is this? Paypal, Apple Pay? 
-    shipping_address String?   @db.Text //API feth this address from Address table using user_email
-    refund_amount    Decimal?  @db.Decimal(10, 2)
-    //FKs
-    group_code       String
-    group            Group     @relation("GroupOrders", fields: [group_code], references: [group_code])
-    user_email       String
-    user             User      @relation(fields: [user_email], references: [email])
-    products         Product[]
+model groupcomission {
+  id                Int    @id @default(autoincrement())
+  commission_amount Float
+  user_email        String
+  group_code        String
+  group             group  @relation(fields: [group_code], references: [group_code], map: "GroupComission_group_code_fkey")
+  user              user   @relation(fields: [user_email], references: [email], map: "GroupComission_user_email_fkey")
+
+  @@index([group_code], map: "GroupComission_group_code_fkey")
+  @@index([user_email], map: "GroupComission_user_email_fkey")
 }
 
-model HelpCenter {
-    phone       Int     @id
-    description String? @db.VarChar(45)
-    //FKs
-    user_email  String
-    user        User    @relation(fields: [user_email], references: [email]) //user email
-    files       Files[]
+model groupmember { //many - many table
+  group_id                                Int     @id @default(autoincrement())
+  group_code                              String  @unique(map: "GroupHostMember_group_code_key")
+  owner_email                             String? @unique(map: "GroupHostMember_owner_email_key")
+  cohost_email                            String? @unique(map: "GroupHostMember_cohost_email_key")
+  member_email                            String? @unique(map: "GroupHostMember_member_email_key")
+  user_owner  user?   @relation("grouphostmember_owner_emailTouser", fields: [owner_email], references: [email], map: "GroupHostMember_owner_email_fkey")
+  user_cohost user?   @relation("grouphostmember_cohost_emailTouser", fields: [cohost_email], references: [email], map: "GroupMember_cohost_email_fkey")
+  user_member user?   @relation("grouphostmember_member_emailTouser", fields: [member_email], references: [email], map: "GroupMember_member_email_fkey")
+  group                                   group   @relation(fields: [group_code], references: [group_code], map: "GroupHostMember_group_code_fkey")
 }
 
-model Files {
-    id             Int        @id @default(autoincrement())
-    file_url       String
-    file_name      String
-    //FKs
-    help_center_id Int
-    help_center    HelpCenter @relation(fields: [help_center_id], references: [phone])
+model helpcenter {
+  phone       Int     @id
+  description String? @db.VarChar(45)
+  user_email  String
+  files       files[]
+  user        user    @relation(fields: [user_email], references: [email], map: "HelpCenter_user_email_fkey")
+
+  @@index([user_email], map: "HelpCenter_user_email_fkey")
 }
 
-model Address {
-    id          Int     @id @default(autoincrement())
-    is_primary_ Boolean //default shipping address
-    email       String
-    line1       String
-    line2       String?
-    city        String
-    state       String
-    country     String
-    first_name  String
-    last_name   String
-    postal_code String
-    //FKs
-    user_email  String
-    user        User    @relation(fields: [user_email], references: [email])
+model lovelistentry {
+  id      Int    @id @default(autoincrement())
+  user_id String @db.VarChar(255)
+  sku_id  String
+
+  @@unique([user_id, sku_id], map: "LoveListEntry_user_id_sku_id_key")
 }
 
-model Product {
-    skuid                String    @id @default(cuid())
-    english_product_name String
-    chinese_product_name String?
-    french_product_name  String?
-    place_of_origin      String?
-    product_weight       String
-    description          String?
-    alcohol              Boolean   @default(false)
-    price                Int       @default(0)
-    image_url            String
-    retail_price         Int       @default(0)
-    cost_price           Int       @default(0)
-    stock                Int       @default(0)
-    alcohol_percentage   Int?       @default(0)
-    specification        String?
-    nutrition_fact       String?
-    //FKS
-    category_id          Int?
-    category             Category? @relation(fields: [category_id], references: [id])
-    carts                Cart[]
-    orders               Order[]
-    pictures             Picture[]
+model order {
+  total            Int?      @default(0)
+  delivery         Float?    @db.Float
+  refund_amount    Decimal?  @db.Decimal(10, 2)
+  delivery_tip     Float?    @db.Float
+  green_fee        Float?    @db.Float
+  group_code       String
+  id               Int       @id @default(autoincrement())
+  order_date       DateTime? @default(now())
+  payment_intent   String?   @db.VarChar(255)
+  sales_tax        Float?    @db.Float
+  shipping_address String?   @db.Text
+  sub_total        Int?      @default(0)
+  user_email       String
+  group            group     @relation(fields: [group_code], references: [group_code], map: "Order_group_code_fkey")
+  user             user      @relation(fields: [user_email], references: [email], map: "Order_user_email_fkey")
+  product          product[] @relation("ordertoproduct")
+
+  @@index([group_code], map: "Order_group_code_fkey")
+  @@index([user_email], map: "Order_user_email_fkey")
 }
 
-model Category {
-    id          Int       @id @default(autoincrement())
-    name        String    @db.VarChar(255)
-    description String?   @db.VarChar(255)
-    //FK
-    products    Product[]
+model picture {
+  id            Int      @id @default(autoincrement())
+  url           String
+  product_skuid String?
+  group_id      String?
+  group         group?   @relation(fields: [group_id], references: [group_code], map: "Picture_groupId_fkey")
+  product       product? @relation(fields: [product_skuid], references: [skuid], map: "Picture_productSkuid_fkey")
+
+  @@index([group_id], map: "Picture_groupId_fkey")
+  @@index([product_skuid], map: "Picture_productSkuid_fkey")
 }
 
-model Wallet {
-    id         Int    @id @default(autoincrement())
-    amount     Float? @default(0)
-    //FKs
-    user_email String @unique
-    user       User   @relation(fields: [user_email], references: [email])
+model product {
+  skuid                String    @id @default(cuid())
+  description          String?
+  alcohol              Boolean   @default(false)
+  price                Int       @default(0)
+  stock                Int       @default(0)
+  alcohol_percentage   Int?      @default(0)
+  category_id          Int?
+  chinese_product_name String?
+  cost_price           Int       @default(0)
+  english_product_name String
+  french_product_name  String?
+  nutrition_fact       String?
+  place_of_origin      String?
+  product_weight       String
+  retail_price         Int       @default(0)
+  specification        String?
+  image_url            String
+  picture              picture[]
+  category             category? @relation(fields: [category_id], references: [id], map: "Product_category_id_fkey")
+  cart                 cart[]    @relation("carttoproduct")
+  order                order[]   @relation("ordertoproduct")
+
+  @@index([category_id], map: "Product_category_id_fkey")
 }
 
-// model discount_rate {
-//   group_id      String   @id
-//   discount_rate Decimal? @db.Decimal(10, 0)
-//   member_count  Int?     @default(0)
-// }
-
-model LoveListEntry {
-    id      Int    @id @default(autoincrement())
-    user_id String @db.VarChar(255)
-    sku_id  String
-
-    @@unique([user_id, sku_id])
+model user {
+  email                                              String           @id @unique(map: "User_email_key")
+  password                                           String?
+  phone                                              BigInt?
+  birthday                                           DateTime?
+  username                                           String?          @db.VarChar(100)
+  first_name                                         String?
+  last_name                                          String?
+  profile_image                                      String?
+  address                                            address[]
+  cart                                               cart[]
+  group_group_owner_emailTouser                      group[]          @relation("group_owner_emailTouser")
+  groupcomission                                     groupcomission[]
+  grouphostmember_grouphostmember_cohost_emailTouser groupmember? @relation("grouphostmember_cohost_emailTouser")
+  grouphostmember_grouphostmember_member_emailTouser groupmember? @relation("grouphostmember_member_emailTouser")
+  grouphostmember_grouphostmember_owner_emailTouser  groupmember? @relation("grouphostmember_owner_emailTouser")
+  helpcenter                                         helpcenter[]
+  order                                              order[]
+  wallet                                             wallet?
+  group_groupcohosts                                 group[]          @relation("groupcohosts")
+  group_groupmembers                                 group[]          @relation("groupmembers")
 }
 
-model Picture {
-    id            Int      @id @default(autoincrement())
-    url           String
-    product_skuid String?
-    product       Product? @relation(fields: [product_skuid], references: [skuid], map: "Picture_productSkuid_fkey")
-    group_id      String?
-    group         Group?   @relation(fields: [group_id], references: [group_code], map: "Picture_groupId_fkey")
+model wallet {
+  id         Int    @id @default(autoincrement())
+  amount     Float? @default(0)
+  user_email String @unique(map: "Wallet_user_email_key")
+  user       user   @relation(fields: [user_email], references: [email], map: "Wallet_user_email_fkey")
 }

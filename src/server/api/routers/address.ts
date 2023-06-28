@@ -5,15 +5,15 @@ import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 export const addressRouter = createTRPCRouter({
 
   getUserAddress: publicProcedure
-    .input(z.object({ userId: z.string() }))
+    .input(z.object({ userEmail: z.string() }))
     .query(({ ctx, input }) => {
-      return ctx.prisma.address.findMany({ where: { userId: input.userId } });
+      return ctx.prisma.address.findMany({ where: { user_email: input.userEmail } });
     }),
 
   createOrChangeAddress: publicProcedure
     .input(z.object({
       id: z.number(),
-      userId: z.string(),
+      userEmail: z.string(),
       primary: z.boolean(),
       line1: z.string(),
       line2: z.string(),
@@ -29,16 +29,16 @@ export const addressRouter = createTRPCRouter({
         where: { id: input.id },
         update: { ...input },
         create: {
-          userId: input.userId,
-          primary: input.primary,
+          user_email: input.userEmail,
+          is_primary_: input.primary,
           line1: input.line1,
           line2: input.line2,
           city: input.city,
           state: input.state,
           country: input.country,
-          firstName: input.first,
-          lastName: input.first,
-          postalCode: input.code,
+          first_name: input.first,
+          last_name: input.first,
+          postal_code: input.code,
         }
       })
     }),
@@ -46,7 +46,7 @@ export const addressRouter = createTRPCRouter({
   deleteAddress: publicProcedure
     .input(z.object({ id: z.number() }))
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.love_list.delete({
+      return ctx.prisma.address.delete({
         where: { ...input }
       });
     }),
