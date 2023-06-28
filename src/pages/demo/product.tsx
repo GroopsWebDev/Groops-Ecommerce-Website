@@ -31,7 +31,7 @@ export default function Test() {
           const url = "https://api.gr-oops.com/" + product.image_url;
           if (index < 5) {
             return <div key={index} className="mt-10">
-              <p>product name: {product.englishProductName}</p>
+              <p>product name: {product.english_product_name}</p>
               <img
                 src={url}
                 className="w-20"

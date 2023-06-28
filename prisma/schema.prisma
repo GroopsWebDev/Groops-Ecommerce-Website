@@ -154,10 +154,11 @@ model Product {
     description          String?
     alcohol              Boolean   @default(false)
     price                Int       @default(0)
+    image_url            String
     retail_price         Int       @default(0)
     cost_price           Int       @default(0)
     stock                Int       @default(0)
-    alcohol_percentage   Int       @default(0)
+    alcohol_percentage   Int?       @default(0)
     specification        String?
     nutrition_fact       String?
     //FKS

@@ -38,32 +38,30 @@ export const productRouter = createTRPCRouter({
 
     })).mutation(({ ctx, input }) => {
       
-      if ( !input.englishProductName || !input.productWeight || !input.image) {
-
+      if (!input.englishProductName || !input.productWeight || !input.image || !input.price || !input.categoryId) {
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
-          message: "SKU ID, English Product Name, Product Weight, and Image are required",
+          message: "English Product Name, Product Weight, Image, Price, and Category ID are required",
         });
       }
 
       return ctx.prisma.product.create({ data: {
-        englishProductName: input.englishProductName,
-        chineseProductNName: input.chineseProductNName,
-        frenchProductNName: input.frenchProductNName,
-        placeOfOrigin: input.placeOfOrigin,
-        productWeight: input.productWeight,
+        english_product_name: input.englishProductName,
+        chinese_product_name: input.chineseProductNName,
+        french_product_name: input.frenchProductNName,
+        place_of_origin: input.placeOfOrigin,
+        product_weight: input.productWeight,
         description: input.description,
         alcohol: input.alcohol,
         price: input.price,
         image_url: input.image,
-        categoryId: input.categoryId,
-        retailPrice: input.retailPrice,
-        costPrice: input.costPrice,
+        retail_price: input.retailPrice,
+        cost_price: input.costPrice,
         stock: input.stock,
-        alcoholPercentage: input.alcoholPercentage,
+        alcohol_percentage: input.alcoholPercentage,
         specification: input.specification,
-        nutritionFact:  input.nutritionFact,
-
+        nutrition_fact:  input.nutritionFact,
+        category_id: input.categoryId,
       } })
     }),
 
