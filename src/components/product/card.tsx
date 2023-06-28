@@ -20,7 +20,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const [mouseEnter, setMouseEnter] = useState(false);
 
   return (
-    <div className="w-52">
+    <div className="w-56 bg-white">
       {/* group img */}
       <div
         className="flew-row flex"
@@ -43,13 +43,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
               </button>
               <p className="font-lg ml-3 font-medium text-white">1</p>
               <div className="ml-auto">
-                <PlusButton onClick={() => { }} />
+                <PlusButton onClick={() => {}} />
               </div>
             </div>
           </div>
         )}
 
-        {!_one_plus && mouseEnter && <PlusButton onClick={() => { }} />}
+        {!_one_plus && mouseEnter && <PlusButton onClick={() => {}} />}
       </div>
 
       {/* group details */}

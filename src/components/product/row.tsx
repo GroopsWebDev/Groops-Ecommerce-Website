@@ -11,7 +11,7 @@ interface Props {
 const Row: React.FC<Props> = ({ section_category }) => {
   return (
     <>
-      <div className="z-0 p-10">
+      <div className="z-0 p-10 bg-white">
         <div className="flex flex-row items-center justify-between">
           <div className="flex flex-col">
             <h1 className=" text-2xl">{section_category}</h1>
