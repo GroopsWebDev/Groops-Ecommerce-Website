@@ -4,7 +4,6 @@ import ProductsRow from "../components/product/row";
 import Link from "next/link";
 
 export default function Home() {
-
   return (
     <div>
       <hr />

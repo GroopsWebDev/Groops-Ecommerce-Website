@@ -6,8 +6,6 @@ import { UserButton, useAuth, useUser } from "@clerk/nextjs";
 
 import { api } from "~/utils/api";
 import { LoadingSpinner } from "~/components/loading";
-import ProgressBar from "~/components/circular_progress_bar";
-import CircularProgressBar from "~/components/circular_progress_bar";
 
 const Demo: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -52,8 +50,6 @@ const Demo: NextPage = () => {
 
         <RedirectToSignIn />
       </SignedOut>
-
-      <CircularProgressBar percentage={40} />
 
       <ul>
         <Link href="/demo/lovelist" className="bg-black p-1 text-white">

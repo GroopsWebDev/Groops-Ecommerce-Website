@@ -12,7 +12,6 @@ import { getRemainingTime } from "../../utils/utils";
 import moment from "moment";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
-import { CircularProgress } from "@mui/material";
 
 const CreateGroup = () => {
   const [groupImage, setGroupImage] = useState("image");
@@ -226,7 +225,7 @@ const CreateGroup = () => {
               className="mx-2"
               style={{ backgroundColor: "#F67280", borderColor: "#F67280" }}
             >
-              {loading ? <CircularProgress /> : "Create Group"}
+              Create Group
             </Button>
             <Button
               onClick={resetForm}
