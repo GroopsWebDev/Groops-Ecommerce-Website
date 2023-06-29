@@ -20,7 +20,7 @@ const Filter = ({ label }: { label: string }) => (
 
 const LoveList: React.FC = () => {
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-200">
 
       <div className="ml-5 pt-10">
         <h2 className="text-xl">Your Love List</h2>
