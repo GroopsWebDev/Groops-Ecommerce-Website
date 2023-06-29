@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const Orders = () => {
   const Selector = () => (
     <div className="flex flex-row items-center justify-center gap-x-2 ">
@@ -46,7 +48,39 @@ const Orders = () => {
           </div>
         </div>
       </div>
-      <hr className="mt-3"/>
+      <hr className="mt-3" />
+
+      <div className="flex w-full gap-x-10">
+        <div className="grid w-1/2 grid-cols-5 gap-3 p-3">
+          <img src="assets/dummy/product.png" className="" />
+          <img src="assets/dummy/product.png" className="" />
+          <img src="assets/dummy/product.png" className="" />
+          <img src="assets/dummy/product.png" className="" />
+          <img src="assets/dummy/product.png" className="" />
+          <img src="assets/dummy/product.png" className="" />
+          <img src="assets/dummy/product.png" className="" />
+        </div>
+
+        <div className="flex w-1/2 items-center justify-end gap-x-10">
+          <div className="flex flex-col ">
+            <span className="text-gray-400">Total</span>
+            <span className="">20 items</span>
+            <span className="">$ 50</span>
+          </div>
+
+          <div className="flex flex-col ">
+            <span className="text-gray-400">status</span>
+            <span className="">in progress</span>
+          </div>
+
+          <div className="flex flex-col ">
+            <Link href="/order/1" className="text-rose-600 underline">
+              Order details
+            </Link>
+            <span className="underline">Contact</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 
