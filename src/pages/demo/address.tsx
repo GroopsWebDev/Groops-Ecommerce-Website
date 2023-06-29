@@ -6,7 +6,7 @@ import { LoadingSpinner } from "~/components/loading";
 export default function Test() {
   const { isLoaded, userId, sessionId, getToken } = useAuth();
   const { data, isLoading, refetch } = api.addressApi.getUserAddress.useQuery({
-    userId: userId ? userId : "1",
+    user_id_Clerk: userId ? userId : 1,
   });
 
   if (isLoading) {

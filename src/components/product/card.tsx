@@ -9,12 +9,14 @@ import { useState } from "react";
 interface ProductCardProps {
   _on_discount: boolean;
   _one_plus: boolean;
+  _sold_out: boolean;
   _mouse_enter: boolean;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
   _on_discount,
   _one_plus,
+  _sold_out,
   _mouse_enter,
 }) => {
   const [mouseEnter, setMouseEnter] = useState(false);
@@ -23,7 +25,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     <div className="w-56 bg-white">
       {/* group img */}
       <div
-        className="flew-row flex"
+        className="relative flew-row flex"
         onMouseEnter={() => setMouseEnter(true)}
         onMouseLeave={() => setMouseEnter(false)}
       >
@@ -34,8 +36,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           height={150}
           className="ml-8"
         />
-
-        {_one_plus && (
+        {!_sold_out && _one_plus && (
           <div className="relative">
             <div className="absolute right-0 flex w-28 items-center justify-between rounded-full bg-red-600 ">
               <button className="ml-0 rounded-full pb-2.5 pl-3.5 pr-3.5 pt-2.5 text-sm text-white hover:bg-red-700">
@@ -49,7 +50,19 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </div>
         )}
 
-        {!_one_plus && mouseEnter && <PlusButton onClick={() => {}} />}
+        {!_sold_out && !_one_plus && mouseEnter && <PlusButton onClick={() => {}} />}
+
+        {_sold_out && (
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-60">
+          <div className="flex items-center">
+            <div className="h-0.5 w-3 bg-white"></div>
+            <p className="mx-1 text-sm font-bold text-white">
+              SOLD OUT
+            </p>
+            <div className="h-0.5 w-3 bg-white"></div>
+          </div>
+        </div>
+        )}
       </div>
 
       {/* group details */}

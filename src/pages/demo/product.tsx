@@ -15,7 +15,7 @@ export default function Test() {
 
   const add = (skuid: string) => (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    add_mutation.mutateAsync({ userId: userId ? userId : "dummy", skuid: skuid });
+    add_mutation.mutateAsync({ user_id: userId ? userId : "dummy", skuid: skuid });
   }
 
   return (

@@ -54,9 +54,9 @@ export default function Test() {
           </div>
         ))} */}
         {data?.map((group) => (
-          <div key={group.groupName}>
-            group name: {group.groupName}, || group id: {group.groupId}
-            <MinusButton onClick={() => deleteGroup(group.groupId)} />
+          <div key={group.group_name}>
+            group name: {group.group_name}, || group id: {group.group_code}
+            <MinusButton onClick={() => deleteGroup(group.group_code)} />
           </div>
         ))}
       </div>
