@@ -10,8 +10,8 @@ export default function Navbar() {
   const [showSide, setShowSide] = useState(false);
 
   return (
-    <>
-      <header className="sticky top-0 z-10 flex flex-row items-center justify-between bg-white p-3">
+    <div className="sticky top-0 z-10 bg-white">
+      <header className="flex flex-row items-center justify-between p-3">
         {/* <button className="ml-5" onClick={() => {setShowSide(!showSide); console.log(showSide)}}>
         <Menu />
       </button> */}
@@ -128,6 +128,6 @@ export default function Navbar() {
           <p className="text-gray-600">Home & Life</p>
         </Link>
       </div>
-    </>
+    </div>
   );
 }
