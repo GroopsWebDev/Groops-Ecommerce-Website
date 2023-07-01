@@ -32,7 +32,7 @@ model cart {
   user_Clerk_id String
   // user_id       String
   // user          user      @relation(fields: [user_id], references: [id], map: "Cart_user_id_fkey")
-  product       product[] @relation("carttoproduct")
+  product       product[] @relation("carttoproduct") //product skuid
 
   // @@index([user_id], map: "Cart_user_id_fkey")
 }
@@ -41,25 +41,25 @@ model category {
   id          Int       @id @default(autoincrement())
   name        String    @db.VarChar(255)
   description String?   @db.VarChar(255)
-  product     product[]
+  product     product[] //product skuid
 }
 
 model files {
   id             Int        @id @default(autoincrement())
   file_url       String
   file_name      String
-  help_center_id Int
-  helpcenter     helpcenter @relation(fields: [help_center_id], references: [phone], map: "Files_help_center_id_fkey")
+  help_center_id String
+  helpcenter     helpcenterrequest @relation(fields: [help_center_id], references: [user_Clerk_id], map: "Files_help_center_id_fkey")
 
   @@index([help_center_id], map: "Files_help_center_id_fkey")
 }
 
 model group {
+    group_code        String           @id
   description       String?          @db.VarChar(1000)
   duration          Int?             @default(0)
   final_discount    Float?
-  group_code        String           @id
-  group_img         String?          @db.VarChar(100)
+  primary_image_url         String?          @db.VarChar(100)
   group_name        String
   is_active_        Boolean?         @default(true)
   owner_Clerk_id    String
@@ -69,21 +69,21 @@ model group {
   group_comission   groupcomission[]
   cohosts           groupcohost[] //2 cohosts max
   members          groupmember[]
-  order             order[]
+  order             order[] //order id
   picture           picture[]
 }
 
 model groupcohost{
+    cohost_Clerk_id   String @id
   group_code        String
-  cohost_Clerk_id   String @id
   group             group   @relation(fields: [group_code], references: [group_code], map: "GroupCohost_group_code_fkey")
 
   @@index([group_code], map: "GroupCohost_group_code_fkey")
 }
 
 model groupmember{
+    member_Clerk_id   String @id
   group_code        String
-  member_Clerk_id   String @id
   group             group   @relation(fields: [group_code], references: [group_code], map: "GroupMember_group_code_fkey")
 
   @@index([group_code], map: "GroupMember_group_code_fkey")
@@ -102,12 +102,12 @@ model groupcomission {
   @@index([group_code], map: "GroupComission_group_code_fkey")
 }
 
-model helpcenter {
-  phone       Int     @id
+model helpcenterrequest {
+  user_Clerk_id  String @id
+  phone       Int     
   description String? @db.VarChar(45)
-  user_Clerk_id  String
   // user_email  String?
-  files       files[]
+  files       files[] //files id 
   // user        user    @relation(fields: [user_email], references: [email], map: "HelpCenter_user_email_fkey")
 
   // @@index([user_email], map: "HelpCenter_user_email_fkey")
@@ -117,19 +117,32 @@ model lovelistentry {
   id      Int    @id @default(autoincrement())
   user_Clerk_id String
   // user_id String @db.VarChar(255)
-  sku_id  String
+  products lovelistitems[]
 
   // @@unique([user_id, sku_id], map: "LoveListEntry_user_id_sku_id_key")
 }
 
+//lovelistentry - product: many to many
+model lovelistitems {
+   // relation scalar field (used in the `@relation` attribute below)
+  product   product @relation(fields: [productId], references: [skuid])
+  productId String
+
+  // relation scalar field (used in the `@relation` attribute above)
+  lovelistentry    lovelistentry @relation(fields: [lovelistentryId], references: [id])
+  lovelistentryId  Int
+
+  @@id([productId, lovelistentryId])
+}
+
 model order {
+  id               Int       @id @default(autoincrement())
   total            Int?      @default(0)
   delivery         Float?    @db.Float
   refund_amount    Decimal?  @db.Decimal(10, 2)
   delivery_tip     Float?    @db.Float
   green_fee        Float?    @db.Float
   group_code       String
-  id               Int       @id @default(autoincrement())
   order_date       DateTime? @default(now())
   payment_intent   String?   @db.VarChar(255)
   sales_tax        Float?    @db.Float
@@ -139,10 +152,22 @@ model order {
   // user_email       String
   group            group     @relation(fields: [group_code], references: [group_code], map: "Order_group_code_fkey")
   // user             user      @relation(fields: [user_email], references: [email], map: "Order_user_email_fkey")
-  product          product[] @relation("ordertoproduct")
+  product          orderproduct[] //order_id
 
   @@index([group_code], map: "Order_group_code_fkey")
   // @@index([user_email], map: "Order_user_email_fkey")
+}
+
+//order - product: many to many
+model orderproduct {
+  id         Int    @id @default(autoincrement())
+  order_id   Int
+  product_id String
+  order      order  @relation(fields: [order_id], references: [id], map: "OrderProduct_order_id_fkey")
+  product    product @relation(fields: [product_id], references: [skuid], map: "OrderProduct_product_id_fkey")
+
+  @@index([order_id], map: "OrderProduct_order_id_fkey")
+  @@index([product_id], map: "OrderProduct_product_id_fkey")
 }
 
 model picture {
@@ -174,11 +199,13 @@ model product {
   product_weight       String
   retail_price         Int       @default(0)
   specification        String?
-  image_url            String
+  primary_image_url            String
   picture              picture[]
   category             category? @relation(fields: [category_id], references: [id], map: "Product_category_id_fkey")
   cart                 cart[]    @relation("carttoproduct")
-  order                order[]   @relation("ordertoproduct")
+  order                orderproduct[] //order_id
+
+  lovelistentries      lovelistitems[]
 
   @@index([category_id], map: "Product_category_id_fkey")
 }
@@ -207,7 +234,7 @@ model product {
 model wallet {
   id         Int    @id @default(autoincrement())
   amount     Float? @default(0)
-  user_Clerk_id String
+  user_Clerk_id String @unique
   // user_email String @unique(map: "Wallet_user_email_key")
   // user       user   @relation(fields: [user_email], references: [email], map: "Wallet_user_email_fkey")
 }
