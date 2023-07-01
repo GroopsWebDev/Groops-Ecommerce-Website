@@ -3,7 +3,6 @@ import Logo from "@public/assets/navbar/logo.svg";
 import Menu from "@public/assets/navbar/menu.svg";
 import Link from "next/link";
 import Sidebar from "../sidebar";
-import NavMenu from "./menu";
 import ShoppingCart from "../cart";
 
 export default function Navbar() {
