@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Logo from "@public/assets/navbar/logo.svg";
-// import Menu from "@public/assets/navbar/menu.svg";
+import Menu from "@public/assets/navbar/menu.svg";
 import Link from "next/link";
 import Sidebar from "../sidebar";
 import NavMenu from "./menu";
@@ -12,11 +12,15 @@ export default function Navbar() {
   return (
     <div className="sticky top-0 z-10 bg-white">
       <header className="flex flex-row items-center justify-between p-3">
-        {/* <button className="ml-5" onClick={() => {setShowSide(!showSide); console.log(showSide)}}>
-        <Menu />
-      </button> */}
-
-        <NavMenu />
+        <button
+          className="ml-5"
+          onClick={() => {
+            setShowSide(!showSide);
+            console.log(showSide);
+          }}
+        >
+          <Menu />
+        </button>
 
         <Sidebar showSide={showSide} setShow={setShowSide} />
 
