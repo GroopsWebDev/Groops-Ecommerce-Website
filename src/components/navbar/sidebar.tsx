@@ -16,7 +16,6 @@ const Sidebar = ({
   showSide: boolean;
   setShow: (show: boolean) => void;
 }) => {
-
   const CrossButton = () => (
     <button className="absolute right-5 top-5" onClick={() => setShow(false)}>
       <Cross />
@@ -27,20 +26,26 @@ const Sidebar = ({
 
   const sidebarRef = useRef<HTMLDivElement | null>(null);
 
-useEffect(() => {
-  let handler = (e: any) => {
-    if (sidebarRef.current && !sidebarRef.current.contains(e.target as Node)) {
-      setShow(false);
-      console.log(sidebarRef.current)
-    }
-  }
-  document.addEventListener("mousedown",handler);
-});
+  useEffect(() => {
+    let handler = (e: any) => {
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(e.target as Node)
+      ) {
+        setShow(false);
+        console.log(sidebarRef.current);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+  });
 
   return (
     <>
       <Slide in={showSide} direction="right" timeout={{ enter: 500 }}>
-        <div className="fixed bottom-0 left-0 top-0 z-50 w-1/5" ref={sidebarRef}>
+        <div
+          className="fixed bottom-0 left-0 top-0 z-50 w-1/5"
+          ref={sidebarRef}
+        >
           <div className="h-full bg-white text-gray-700 shadow-2xl">
             <CrossButton />
 

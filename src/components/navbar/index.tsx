@@ -3,6 +3,7 @@ import Logo from "@public/assets/navbar/logo.svg";
 import Menu from "@public/assets/navbar/menu.svg";
 import Link from "next/link";
 import Sidebar from "./sidebar";
+import Cart from "./cart";
 
 const GroupsIcon = () => (
   <svg
@@ -74,10 +75,11 @@ const CartIcon = () => (
 
 export default function Navbar() {
   const [showSide, setShowSide] = useState(false);
+  const [showCart, setShowCart] = useState(false);
 
   return (
     <div className="sticky top-0 z-10 bg-white">
-      <header className="flex flex-row items-center justify-between p-3 px-5">
+      <header className="flex flex-row items-center justify-between px-5 pt-3">
         <button
           className=""
           onClick={() => {
@@ -106,23 +108,25 @@ export default function Navbar() {
           </button>
         </div>
 
-        <Link href="/group" className="flex">
+        <Link href="/group" className="flex gap-x-2">
           <GroupsIcon />
           <p className="">Groups</p>
         </Link>
 
-        <Link href="/demo/about" className="flex">
+        <Link href="/demo/about" className="flex gap-x-2">
           <LanguageIcon />
           <p className="">English</p>
         </Link>
 
-        <button className="flex">
+        <button className="flex gap-x-2" onClick={() => setShowCart(true)}>
           <CartIcon />
           <p className="">Cart</p>
         </button>
+
+        <Cart showCart={showCart} setShow={setShowCart} />
       </header>
 
-      <div className="flex flex-row items-center justify-between p-3 pl-20 pr-20 shadow-md">
+      <div className="flex flex-row items-center justify-between p-3 px-20 shadow-md">
         <Link href="/">
           <p className="text-gray-600">Snacks</p>
         </Link>
