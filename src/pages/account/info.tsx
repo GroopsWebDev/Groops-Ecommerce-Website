@@ -17,6 +17,7 @@ const PersonalInfo: React.FC = () => {
           className="mt-1 w-1/2 rounded-lg border border-gray-300 p-2"
           placeholder="Username"
           id="username"
+          type="name"
           required
         />
 
@@ -48,6 +49,7 @@ const PersonalInfo: React.FC = () => {
               className="mt-1 w-full rounded-lg border border-gray-300 p-2"
               placeholder="Email address"
               id="email"
+              type="email"
               required
             />
           </div>
@@ -55,8 +57,9 @@ const PersonalInfo: React.FC = () => {
             <p>Phone number</p>
             <input
               className="mt-1 w-full rounded-lg border border-gray-300 p-2"
-              placeholder="phone_number"
+              placeholder="Phone number"
               id="phone"
+              type="tel"
               required
             />
           </div>

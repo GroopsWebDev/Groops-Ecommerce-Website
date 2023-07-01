@@ -38,6 +38,7 @@ const DeliveryAddress: React.FC = () => {
               <input
                 className="mt-1 w-full rounded-lg border border-gray-300 p-2 "
                 placeholder="Email"
+                type = "email"
                 id={"address" + index + "email"}
                 required
               />

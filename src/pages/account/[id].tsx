@@ -1,6 +1,8 @@
 import { useState } from "react";
 import PersonalInfo from "./info";
 import DeliveryAddress from "./address";
+import PaymentMethods from "./payment";
+import ChangePassword from "./password";
 
 const Account: React.FC = () => {
   return (
@@ -31,6 +33,10 @@ const Account: React.FC = () => {
         <PersonalInfo />
         <h1 className="mb-3 mt-10 text-2xl">Delivery Addresses</h1>
         <DeliveryAddress />
+        <h1 className="mb-3 mt-10 text-2xl">Payment Methods</h1>
+        <PaymentMethods />
+        <h1 className="mb-3 mt-10 text-2xl">Change Password</h1>
+        <ChangePassword />
       </div>
     </div>
   );
