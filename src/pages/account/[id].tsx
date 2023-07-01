@@ -1,25 +1,10 @@
-const PersonalInfo: React.FC = () => {
-  return (
-    <div className="rounded-xl bg-white p-5 text-gray-800">
-      <div className="flex items-center gap-x-3">
-        <img className="w-[10%] rounded-full" src="/assets/dummy/product.png" />
-        <button className="rounded-xl border border-gray-300 p-2">
-          Change
-        </button>
-      </div>
-
-      <p className="ml-1 mt-10">Username</p>
-      <input
-        className="w-1/2 rounded-lg border border-gray-300 p-2 text-lg mt-1"
-        placeholder="Username"
-      />
-    </div>
-  );
-};
+import { useState } from "react";
+import PersonalInfo from "./info";
+import DeliveryAddress from "./address";
 
 const Account: React.FC = () => {
   return (
-    <div className="flex h-screen bg-gray-200 py-5">
+    <div className="flex bg-gray-200 py-5">
       <div className="flex w-[20%] flex-col items-center">
         <h1 className="text-2xl font-bold">Your Account</h1>
 
@@ -39,10 +24,13 @@ const Account: React.FC = () => {
         <p className="mt-3 text-gray-600">Change Password</p>
       </div>
 
-      <div className=" h-full w-[1px] bg-gray-300"></div>
+      <div className=" w-[1px] bg-gray-300"></div>
 
-      <div className="w-[80%] overflow-auto p-36">
+      <div className="w-[80%] px-36 py-16">
+        <h1 className="mb-3 text-2xl">Personal information</h1>
         <PersonalInfo />
+        <h1 className="mb-3 mt-10 text-2xl">Delivery Addresses</h1>
+        <DeliveryAddress />
       </div>
     </div>
   );

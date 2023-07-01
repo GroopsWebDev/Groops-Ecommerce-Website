@@ -27,6 +27,7 @@ export default function Navbar() {
         <input
           placeholder="Search..."
           className="ml-10 w-1/2 rounded-lg border border-gray-300 px-4 py-2 outline-0"
+          id="search"
         />
 
         <button className="ml-3 rounded-lg bg-rose-600 px-5 py-2 text-white">
