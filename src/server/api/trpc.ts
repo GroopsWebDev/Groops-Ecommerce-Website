@@ -31,8 +31,16 @@ type CreateContextOptions = Record<string, never>;
  * @see https://create.t3.gg/en/usage/trpc#-serverapitrpcts
  */
 const createInnerTRPCContext = (_opts: CreateContextOptions) => {
+  const { req } = _opts;
+  // Check if req is defined
+  if (!req) {
+    throw new Error('Invalid request object');
+  }
+  const sesh = getAuth(req);
+  const userId = sesh.userId;
   return {
     prisma,
+    userId,
   };
 };
 
@@ -54,6 +62,7 @@ export const createTRPCContext = (_opts: CreateNextContextOptions) => {
  * errors on the backend.
  */
 import { initTRPC } from "@trpc/server";
+import { getAuth } from "@clerk/nextjs/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
