@@ -31,8 +31,6 @@ const Cart = ({
     </>
   );
 
-  if (!showCart) return null;
-
   return (
     <>
       <div className="fixed right-0 top-0 z-50 h-screen w-1/3 bg-white text-gray-800 shadow-xl">
@@ -92,7 +90,7 @@ const Cart = ({
           <Row />
         </div>
 
-        <div className="flex justify-center p-5 mt-5">
+        <div className="mt-5 flex justify-center p-5">
           <button className="w-[90%] rounded-lg bg-rose-600 p-3 text-white">
             Go to Cart
           </button>

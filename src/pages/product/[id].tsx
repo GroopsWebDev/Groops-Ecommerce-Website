@@ -6,7 +6,6 @@ import Row from "~/components/product/row";
 const Product = () => {
   const router = useRouter();
   const id = router.query.id;
-  console.log(id);
 
   return (
     <>
@@ -23,9 +22,9 @@ const Product = () => {
 
             <h2 className="pt-5 text-3xl font-bold text-rose-600">$ 20</h2>
 
-            <div className="flex items-center gap-x-2 mt-5 text-xs">
-              <p className="rounded bg-gray-200 text-gray-500 p-1">700+ Sold</p>
-              <p className="rounded bg-rose-200 text-rose-600 p-1">51 Left</p>
+            <div className="mt-5 flex items-center gap-x-2 text-xs">
+              <p className="rounded bg-gray-200 p-1 text-gray-500">700+ Sold</p>
+              <p className="rounded bg-rose-200 p-1 text-rose-600">51 Left</p>
             </div>
 
             <button className="mt-5 w-full rounded-lg bg-rose-600 px-24 py-3 text-white">
