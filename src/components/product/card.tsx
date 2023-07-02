@@ -5,6 +5,7 @@ import { PlusButton } from "../buttons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { log } from "console";
 
 interface ProductCardProps {
   _on_discount: boolean;
@@ -44,13 +45,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
               </button>
               <p className="font-lg ml-3 font-medium text-white">1</p>
               <div className="ml-auto">
-                <PlusButton onClick={() => {}} />
+                <PlusButton onClick={() => {console.log(" ")}} />
               </div>
             </div>
           </div>
         )}
 
-        {!_sold_out && !_one_plus && mouseEnter && <PlusButton onClick={() => {}} />}
+        {!_sold_out && !_one_plus && mouseEnter && <PlusButton onClick={() =>  {console.log(" ")}} />}
 
         {_sold_out && (
           <div className="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-60">
@@ -68,7 +69,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       {/* group details */}
       <div className="mt-1">
         <div className="flex">
-          <p className="text-sm text-gray-500">Lay's</p>
+          <p className="text-sm text-gray-500">Lay&apos;s</p>
           <div className="ml-auto">
             <button>
               <Heart className="w-5" />

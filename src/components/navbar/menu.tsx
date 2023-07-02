@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { slide as Menu } from "react-burger-menu";
 import Hamburger from "hamburger-react";
+import Link from "next/link";
 
 const NavMenu = () => {
   const [isOpen, setOpen] = useState(false);
 
-  var styles = {
+  const styles = {
     bmBurgerButton: {
       position: "sticky",
       width: "18px",
@@ -52,15 +53,15 @@ const NavMenu = () => {
     <div>
       <Hamburger toggled={isOpen} toggle={setOpen} size={20} />
       <Menu styles={styles} isOpen={isOpen}>
-        <a id="home" className="menu-item" href="/">
+        <Link id="home" className="menu-item" href="/">
           Home
-        </a>
-        <a id="about" className="menu-item" href="/about">
+        </Link>
+        <Link id="about" className="menu-item" href="/about">
           About
-        </a>
-        <a id="contact" className="menu-item" href="/contact">
+        </Link>
+        <Link id="contact" className="menu-item" href="/contact">
           Contact
-        </a>
+        </Link>
       </Menu>
     </div>
   );

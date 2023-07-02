@@ -17,7 +17,7 @@ const DeliveryAddress: React.FC = () => {
               <input
                 className="mt-1 w-full rounded-lg border border-gray-300 p-2 "
                 placeholder="First Name"
-                id={"address" + index + "first_name"}
+                id={"address" + String(index) + "first_name"}
                 required
               />
             </div>
@@ -27,7 +27,7 @@ const DeliveryAddress: React.FC = () => {
                 className="mt-1 w-full rounded-lg border border-gray-300 p-2"
                 placeholder="Last Name"
                 required
-                id={"address" + index + "last_name"}
+                id={"address" +  String(index) + "last_name"}
               />
             </div>
           </div>
@@ -39,7 +39,7 @@ const DeliveryAddress: React.FC = () => {
                 className="mt-1 w-full rounded-lg border border-gray-300 p-2 "
                 placeholder="Email"
                 type = "email"
-                id={"address" + index + "email"}
+                id={"address" +  String(index) + "email"}
                 required
               />
             </div>
@@ -49,7 +49,7 @@ const DeliveryAddress: React.FC = () => {
                 className="mt-1 w-full rounded-lg border border-gray-300 p-2"
                 placeholder="Country"
                 required
-                id={"address" + index + "country"}
+                id={"address" +  String(index) + "country"}
               />
             </div>
           </div>
@@ -59,7 +59,7 @@ const DeliveryAddress: React.FC = () => {
             className=" w-full rounded-lg border border-gray-300 p-2"
             placeholder="Street Address"
             required
-            id={"address" + index + "street"}
+            id={"address" +  String(index) + "street"}
           />
 
           <div className="mt-5 flex gap-x-3">
@@ -68,7 +68,7 @@ const DeliveryAddress: React.FC = () => {
               <input
                 className="mt-1 w-full rounded-lg border border-gray-300 p-2 "
                 placeholder="City"
-                id={"address" + index + "city"}
+                id={"address" +  String(index) + "city"}
                 required
               />
             </div>
@@ -78,7 +78,7 @@ const DeliveryAddress: React.FC = () => {
                 className="mt-1 w-full rounded-lg border border-gray-300 p-2"
                 placeholder="State"
                 required
-                id={"address" + index + "state"}
+                id={"address" +  String(index) + "state"}
               />
             </div>
             <div className="w-1/3">
@@ -87,7 +87,7 @@ const DeliveryAddress: React.FC = () => {
                 className="mt-1 w-full rounded-lg border border-gray-300 p-2"
                 placeholder="Postal"
                 required
-                id={"address" + index + "psotcode"}
+                id={"address" +  String(index) + "psotcode"}
               />
             </div>
           </div>

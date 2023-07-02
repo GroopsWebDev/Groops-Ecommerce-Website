@@ -1,5 +1,7 @@
+import { MouseEventHandler } from "react";
+
 interface MinusButtonProps {
-    onClick: any;
+    onClick: MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
 export default function MinusButton(props: MinusButtonProps) {

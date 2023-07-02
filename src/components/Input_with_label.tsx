@@ -1,3 +1,5 @@
+import { ChangeEventHandler } from "react";
+
 interface InputWithLabelProps {
   label_name: string;
   input_type: string;
@@ -5,7 +7,7 @@ interface InputWithLabelProps {
   input_id: string;
   input_placeholder: string;
   value: string;
-  onChange: any;
+  onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
 export default function InputWithLabel(props: InputWithLabelProps) {

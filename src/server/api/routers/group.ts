@@ -12,37 +12,37 @@ export const groupRouter = createTRPCRouter({
     .input(z.object({ groupId: z.string() }))
     .query(({ ctx, input }) => {
       return ctx.prisma.group.findUnique({
-        where: { groupId: input.groupId },
+        where: { group_code: input.groupId },
       });
     }),
 
-  createGroup: publicProcedure
-    .input(
-      z.object({
-        userId: z.string(),
-        groupName: z.string(),
-        groupImg: z.string(),
-        endDate: z.date(),
-      })
-    )
-    .mutation(({ ctx, input }) => {
-      return ctx.prisma.group.create({
-        data: {
+  // createGroup: publicProcedure
+  //   .input(
+  //     z.object({
+  //       userId: z.string(),
+  //       groupName: z.string(),
+  //       groupImg: z.string(),
+  //       endDate: z.date(),
+  //     })
+  //   )
+  //   .mutation(({ ctx, input }) => {
+  //     return ctx.prisma.group.create({
+  //       data: {
           
-          groupMasterId: input.userId,
-          groupName: input.groupName,
-          groupImg: input.groupImg,
-          endDate: input.endDate,
-          groupCode: generateCode(),
-        },
-      });
-    }),
+         
+  //         groupName: input.groupName,
+  //         groupImg: input.groupImg,
+  //         endDate: input.endDate,
+  //         groupCode: generateCode(),
+  //       },
+  //     });
+  //   }),
 
   deleteGroup: publicProcedure
     .input(z.object({ groupId: z.string() }))
     .mutation(({ ctx, input }) => {
       return ctx.prisma.group.delete({
-        where: { groupId: input.groupId },
+        where: { group_code: input.groupId },
       });
     }),
 });

@@ -7,19 +7,19 @@ export const LoveListRouter = createTRPCRouter({
   getUserLoveList: publicProcedure
     .input(z.object({ userId: z.string() }))
     .query(({ ctx, input }) => {
-      return ctx.prisma.love_list.findMany({ where: { userId: input.userId } });
+      return ctx.prisma.lovelistentry.findMany({ where: { user_Clerk_id: input.userId } });
     }),
 
   addLoveListItem: publicProcedure
     .input(z.object({ userId: z.string(), skuid: z.string() })) //what is this skuid?
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.love_list.create({ data: { userId: input.userId, skuid: input.skuid } })
+      return ctx.prisma.lovelistentry.create({ data: { user_Clerk_id: input.userId, sku_id: input.skuid } })
     }),
 
   deleteItem: publicProcedure
     .input(z.object({ id: z.number() }))
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.love_list.delete({
+      return ctx.prisma.lovelistentry.delete({
         where: { ...input }
       });
     }),
@@ -27,8 +27,8 @@ export const LoveListRouter = createTRPCRouter({
   deleteAllLoveListItems: publicProcedure
     .input(z.object({ userId: z.string() }))
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.love_list.deleteMany({
-        where: { userId: input.userId }
+      return ctx.prisma.lovelistentry.deleteMany({
+        where: { user_Clerk_id: input.userId }
       });
     }),
 });

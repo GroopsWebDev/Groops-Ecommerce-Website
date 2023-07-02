@@ -9,6 +9,9 @@ export function generateCode() {
     return result;
   }
 
+  /**
+ * @param {string | number | Date} endDate
+ */
   export function getRemainingTime(endDate) {
     const end = new Date(endDate);
     const now = new Date();

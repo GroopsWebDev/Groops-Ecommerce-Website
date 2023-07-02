@@ -3,6 +3,7 @@ import { PlusButton } from "../buttons";
 import { FiExternalLink } from "react-icons/fi";
 import Link from "next/link";
 import Image from "next/image";
+import { log } from "console";
 
 interface GroupCardPlusProps {
   _group_joined: boolean;
@@ -60,7 +61,8 @@ export const GroupCard: React.FC<GroupCardPlusProps> = ({
         </div>
         {/* NOT JOINED */}
         {!_group_joined && !_join_waitlist_joined && mouseEnter && (
-          <PlusButton onClick={() => {}} />
+          // <PlusButton onClick={() => {}} />
+          <PlusButton onClick={() => {console.log(" ")}} />
         )}
         {/* GROUP JOINED */}
         {_group_joined && (

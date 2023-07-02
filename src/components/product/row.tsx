@@ -35,11 +35,11 @@ const Row: React.FC<Props> = ({ section_category }) => {
         </div>
 
         <div className="mt-10 flex flex-row items-center justify-between">
-          <ProductCard _on_discount={false} _one_plus={false} _mouse_enter={false} />
-          <ProductCard _on_discount={false} _one_plus={false} _mouse_enter={true} />
-          <ProductCard _on_discount={true} _one_plus={true} _mouse_enter={false} />
-          <ProductCard _on_discount={false} _one_plus={false} _mouse_enter={false} />
-          <ProductCard _on_discount={false} _one_plus={false} _mouse_enter={false} />
+          <ProductCard _on_discount={false} _one_plus={false} _mouse_enter={false} _sold_out={false} />
+          <ProductCard _on_discount={false} _one_plus={false} _mouse_enter={true}  _sold_out={false}/>
+          <ProductCard _on_discount={true} _one_plus={true} _mouse_enter={false}  _sold_out={false}/>
+          <ProductCard _on_discount={false} _one_plus={false} _mouse_enter={false}  _sold_out={false}/>
+          <ProductCard _on_discount={false} _one_plus={false} _mouse_enter={false}  _sold_out={false}/>
         </div>
       </div>
     </>

@@ -6,22 +6,21 @@ const Products = () => {
       <ProductCard
         _on_discount={false}
         _one_plus={false}
-        _mouse_enter={false}
+        _mouse_enter={false} _sold_out={false}      />
+      <ProductCard
+        _on_discount={false}
+        _one_plus={false}
+        _mouse_enter={false} _sold_out={false}
       />
       <ProductCard
         _on_discount={false}
         _one_plus={false}
-        _mouse_enter={false}
+        _mouse_enter={false} _sold_out={false}
       />
       <ProductCard
         _on_discount={false}
         _one_plus={false}
-        _mouse_enter={false}
-      />
-      <ProductCard
-        _on_discount={false}
-        _one_plus={false}
-        _mouse_enter={false}
+        _mouse_enter={false} _sold_out={false}
       />
     </div>
   );
