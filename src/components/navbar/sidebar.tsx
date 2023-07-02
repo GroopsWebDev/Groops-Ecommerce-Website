@@ -27,7 +27,8 @@ const Sidebar = ({
   const sidebarRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    let handler = (e: any) => {
+
+    const handler = (e: Event) => {
       if (
         sidebarRef.current &&
         !sidebarRef.current.contains(e.target as Node)

@@ -35,23 +35,23 @@ const addUserDataToAddresses = async (addresses: address[]) => {
 
 export const addressRouter = createTRPCRouter({
 
-    getAddressesByUserId: publicProcedure
-    .input(
-      z.object({
-        userClerkId: z.string(),
-      })
-    )
-    .query(({ ctx, input }) =>
-      ctx.prisma.address
-        .findMany({
-          where: {
-            user_Clerk_id: input.userClerkId,
-          },
-          take: 3,
-          orderBy: [{ createdAt: "desc" }],
-        })
-        .then(addUserDataToAddresses)
-    ),
+    // getAddressesByUserId: publicProcedure
+    // .input(
+    //   z.object({
+    //     userClerkId: z.string(),
+    //   })
+    // )
+    // .query(({ ctx, input }) =>
+    //   ctx.prisma.address
+    //     .findMany({
+    //       where: {
+    //         user_Clerk_id: input.userClerkId,
+    //       },
+    //       take: 3,
+    //       orderBy: [{ createdAt: "desc" }],
+    //     })
+    //     .then(addUserDataToAddresses)
+    // ),
 
   createOrChangeAddress: publicProcedure
     .input(z.object({
