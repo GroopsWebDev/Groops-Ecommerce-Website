@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { log } from "console";
+import React from "react";
 
 interface ProductCardProps {
   _on_discount: boolean;

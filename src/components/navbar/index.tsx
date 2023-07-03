@@ -4,6 +4,7 @@ import Menu from "@public/assets/navbar/menu.svg";
 import Link from "next/link";
 import Sidebar from "./sidebar";
 import Cart from "./cart";
+import React from "react";
 
 const GroupsIcon = () => (
   <svg
