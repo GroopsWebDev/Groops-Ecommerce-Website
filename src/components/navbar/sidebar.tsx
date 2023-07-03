@@ -22,8 +22,6 @@ const Sidebar = ({
     </button>
   );
 
-  if (!showSide) return null;
-
   const sidebarRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -33,7 +31,6 @@ const Sidebar = ({
         !sidebarRef.current.contains(e.target as Node)
       ) {
         setShow(false);
-        console.log(sidebarRef.current);
       }
     };
     document.addEventListener("mousedown", handler);
