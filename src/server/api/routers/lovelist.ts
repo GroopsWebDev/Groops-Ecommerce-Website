@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const LoveListRouter = createTRPCRouter({
 
@@ -10,11 +10,11 @@ export const LoveListRouter = createTRPCRouter({
       return ctx.prisma.lovelistentry.findMany({ where: { user_Clerk_id: input.userId } });
     }),
 
-  addLoveListItem: publicProcedure
-    .input(z.object({ userId: z.string(), skuid: z.string() })) //what is this skuid?
-    .mutation(({ ctx, input }) => {
-      return ctx.prisma.lovelistentry.create({ data: { user_Clerk_id: input.userId, sku_id: input.skuid } })
-    }),
+  // addLoveListItem: publicProcedure
+  //   .input(z.object({ userId: z.string(), skuid: z.string() })) //what is this skuid?
+  //   .mutation(({ ctx, input }) => {
+  //     return ctx.prisma.lovelistentry.create({ data: { user_Clerk_id: input.userId, sku_id: input.skuid } })
+  //   }),
 
   deleteItem: publicProcedure
     .input(z.object({ id: z.number() }))

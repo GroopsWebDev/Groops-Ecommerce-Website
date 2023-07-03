@@ -4,6 +4,7 @@ import Menu from "@public/assets/navbar/menu.svg";
 import Link from "next/link";
 import Sidebar from "./sidebar";
 import Cart from "./cart";
+import React from "react";
 
 const GroupsIcon = () => (
   <svg
@@ -84,13 +85,14 @@ export default function Navbar() {
           className=""
           onClick={() => {
             setShowSide(!showSide);
-            console.log(showSide);
           }}
         >
           <Menu />
         </button>
 
-        <Sidebar showSide={showSide} setShow={setShowSide} />
+        {showSide ? (
+          <Sidebar showSide={showSide} setShow={setShowSide} />
+        ) : null}
 
         <Link href="/">
           <Logo className="" />
@@ -123,7 +125,7 @@ export default function Navbar() {
           <p className="">Cart</p>
         </button>
 
-        <Cart showCart={showCart} setShow={setShowCart} />
+        {showCart ? <Cart showCart={showCart} setShow={setShowCart} /> : null}
       </header>
 
       <div className="flex flex-row items-center justify-between p-3 px-20 shadow-md">
