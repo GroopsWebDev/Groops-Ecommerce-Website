@@ -1,8 +1,8 @@
 import { useState } from "react";
-import PersonalInfo from "./info";
-import DeliveryAddress from "./address";
-import PaymentMethods from "./payment";
-import ChangePassword from "./password";
+import PersonalInfo from "../../components/account/info";
+import DeliveryAddress from "../../components/account/address";
+import PaymentMethods from "../../components/account/payment";
+import ChangePassword from "../../components/account/password";
 
 const Account: React.FC = () => {
   return (
