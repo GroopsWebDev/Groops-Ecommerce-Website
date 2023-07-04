@@ -85,15 +85,15 @@ export const GroupCard: React.FC<GroupCardPlusProps> = ({
       </div>
       {/* group details */}
       <div className="">
-        <p className="mt-1 text-lg text-center">Yum Yum Squad</p>
+        <p className="mt-1 text-center text-lg">Yum Yum Squad</p>
         <div className=" flex flex-row items-center justify-center">
-        <p className="ml-2 mt-1 inline-block rounded-full bg-pink-100 pl-3 pr-3 text-red-700">
+          <p className="ml-2 mt-1 inline-block rounded-full bg-pink-100 pl-3 pr-3 text-red-700">
             Snacks
           </p>
           <p className="ml-2 mt-1 inline-block rounded-full bg-pink-100 pl-3 pr-3 text-red-700">
             Candy
           </p>
-          </div>
+        </div>
         <div className="mt-2 flex flex-row items-center justify-center">
           <svg
             width="15"
@@ -112,11 +112,13 @@ export const GroupCard: React.FC<GroupCardPlusProps> = ({
             />
           </svg>
           <p className="pl-2 text-sm">21/50</p>
-          <p className="ml-2 inline-block rounded-md bg-red-500 pl-3 pr-3 text-sm text-white">
+          <p className="ml-2 inline-block rounded-md bg-rose-600 pl-3 pr-3 text-sm text-white">
             20% off
           </p>
         </div>
-        <p className="mt-1 text-gray-500 text-center">Max discount possible: 30%</p>
+        <p className="mt-1 text-center text-gray-500">
+          Max discount possible: 30%
+        </p>
       </div>
     </div>
   );
