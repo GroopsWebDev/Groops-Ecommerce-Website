@@ -1,7 +1,7 @@
 import Heart from "@public/assets/icons/heart.svg";
 import Link from "next/link";
 import Image from "next/image";
-import { PlusButton } from "../buttons";
+import { PlusButton } from "../others/buttons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";

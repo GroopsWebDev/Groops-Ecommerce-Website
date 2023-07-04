@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PlusButton } from "../buttons";
+import { PlusButton } from "../others/buttons";
 import { FiExternalLink } from "react-icons/fi";
 import Link from "next/link";
 import Image from "next/image";

@@ -5,7 +5,7 @@ import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 import { UserButton, useAuth, useUser } from "@clerk/nextjs";
 
 import { api } from "~/utils/api";
-import { LoadingSpinner } from "~/components/loading";
+import { LoadingSpinner } from "~/components/others/loading";
 
 const Demo: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
