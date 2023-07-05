@@ -8,6 +8,13 @@ import Slide from "@mui/material/Slide";
 
 import Link from "next/link";
 import React, { useEffect, useRef } from "react";
+import {
+  ClerkProvider,
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+} from "@clerk/nextjs";
 
 const Sidebar = ({
   showSide,
@@ -47,10 +54,21 @@ const Sidebar = ({
             <CrossButton />
 
             <div className="flex flex-col items-center bg-rose-600">
-              <img
+              {/* <img
                 src="/assets/dummy/product.png"
                 className="mt-10 w-1/2 rounded-full"
-              />
+              /> */}
+
+              <SignedIn>
+                <UserButton
+                  appearance={{
+                    elements: {
+                      userButtonBox:"mt-10",
+                      userButtonAvatarBox: "w-36 h-36",
+                    },
+                  }}
+                />
+              </SignedIn>
               <h2 className="mt-5 text-2xl font-bold text-white">
                 First Name . L
               </h2>

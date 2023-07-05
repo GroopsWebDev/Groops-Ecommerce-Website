@@ -3,6 +3,11 @@ import PersonalInfo from "../../components/account/info";
 import DeliveryAddress from "../../components/account/address";
 import PaymentMethods from "../../components/account/payment";
 import ChangePassword from "../../components/account/password";
+import {   ClerkProvider,
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton } from "@clerk/nextjs";
 
 const Account: React.FC = () => {
   return (
@@ -10,10 +15,23 @@ const Account: React.FC = () => {
       <div className="flex w-[20%] flex-col items-center">
         <h1 className="text-2xl font-bold">Your Account</h1>
 
-        <img
+        {/* <img
           className="mt-10 w-1/2 rounded-full"
           src="/assets/dummy/product.png"
-        />
+        /> */}
+
+    <SignedIn>
+      <UserButton appearance={{
+        elements: {
+          userButtonAvatarBox: "w-36 h-36"
+        }
+      }} />
+      </SignedIn>
+      <SignedOut>
+        {/* Signed out users get sign in button */}
+        <SignInButton />
+      </SignedOut>
+
 
         <h2 className="mt-5 text-xl">Name</h2>
 
