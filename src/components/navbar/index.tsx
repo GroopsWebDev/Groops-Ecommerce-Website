@@ -93,6 +93,10 @@ export default function Navbar() {
           <Sidebar showSide={showSide} setShow={setShowSide} />
         ) : null}
 
+        {showCart || showSide ? (
+          <div className="fixed left-0 top-0 z-10 h-screen w-screen bg-black opacity-50"></div>
+        ) : null}
+
         <Link href="/">
           <Logo className="" />
         </Link>
