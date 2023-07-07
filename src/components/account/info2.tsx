@@ -93,7 +93,7 @@ const PersonalInfo: React.FC = () => {
           setIsLoading(true);
           console.log(userName);
           await user?.update({
-            username: "H",
+            username: String(userName),
           });
           console.log("User Name updated successfully!");
           await user?.reload();
@@ -106,7 +106,7 @@ const PersonalInfo: React.FC = () => {
         try {
           setIsLoading(true);
           await user?.update({
-            firstName: 'H',
+            firstName: String(firstName),
           });
           console.log("First Name updated successfully!");
           await user?.reload();
