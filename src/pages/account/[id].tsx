@@ -32,6 +32,7 @@ const Account: React.FC = () => {
         />
 
         <h2 className="mt-5 text-xl">{user!.fullName}</h2>
+        <h2 className="mt-3 text-xl">{user!.username}</h2>
         <p className="mt-5 text-sm text-gray-600">
           {String(user!.primaryEmailAddress)}
         </p>
