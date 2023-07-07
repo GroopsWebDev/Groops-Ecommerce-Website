@@ -14,6 +14,7 @@ import {
   SignedIn,
   SignedOut,
   SignInButton,
+  SignOutButton,
   UserButton,
   useUser,
 } from "@clerk/nextjs";
@@ -56,7 +57,6 @@ const Sidebar = ({
         >
           <div className="h-full bg-white text-gray-700 shadow-2xl">
             <CrossButton />
-
             {user ? (
               <div>
                 <div className="flex flex-col items-center bg-rose-600">
@@ -99,22 +99,23 @@ const Sidebar = ({
 
                   <Link className="flex items-center" href="/">
                     <Logout />
+                    <SignOutButton>
                     <p className="ml-2">Logout</p>
+                    </SignOutButton>
                   </Link>
                 </div>
               </div>
             ) : (
-              <div>
+              <div className="flex flex-col items-center bg-white">
                 <UserCircleIcon
                   className="mt-8 h-32 w-32 text-gray-300"
                   aria-hidden="true"
                 />
-                <button
-                  type="button"
-                  className="rounded-md bg-white  hover:bg-gray-50"
-                >
-                  Log In
-                </button>
+             <SignInButton mode="modal">
+  <button className="btn">
+    Sign in
+  </button>
+</SignInButton>
               </div>
             )}
           </div>
