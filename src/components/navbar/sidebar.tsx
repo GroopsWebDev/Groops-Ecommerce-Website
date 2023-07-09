@@ -55,7 +55,7 @@ const Sidebar = ({
           className="fixed bottom-0 left-0 top-0 z-50 w-1/5"
           ref={sidebarRef}
         >
-          <div className="h-full bg-white text-gray-700 shadow-2xl">
+          <div className="h-full bg-white text-gray-700 shadow-xl">
             <CrossButton />
             {user ? (
               <div>
