@@ -11,7 +11,6 @@ import {
   useUser,
 } from "@clerk/nextjs";
 import Image from "next/image";
-import { Email } from "@clerk/nextjs/dist/types/server";
 
 const Account: React.FC = () => {
   const { isLoaded, isSignedIn, user } = useUser();
