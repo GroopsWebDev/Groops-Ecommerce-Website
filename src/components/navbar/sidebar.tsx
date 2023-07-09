@@ -68,8 +68,9 @@ const Sidebar = ({
                     className="mt-8 h-32 w-32 rounded-full"
                   />
                   <h2 className="mt-5 text-2xl font-bold text-white">
-                    {/* First Name . L */}
-                    {user!.firstName} . {user!.lastName?.charAt(0)}
+                    {user!.firstName
+                      ? user!.firstName + user!.lastName?.charAt(0)
+                      : user!.username}
                   </h2>
                   <div className="mb-5 mt-5 w-[95%] rounded-xl bg-white p-5">
                     <p className="text-2xl font-bold text-rose-600">$ 135</p>
@@ -100,7 +101,7 @@ const Sidebar = ({
                   <Link className="flex items-center" href="/">
                     <Logout />
                     <SignOutButton>
-                    <p className="ml-2">Logout</p>
+                      <p className="ml-2">Logout</p>
                     </SignOutButton>
                   </Link>
                 </div>
@@ -111,11 +112,9 @@ const Sidebar = ({
                   className="mt-8 h-32 w-32 text-gray-300"
                   aria-hidden="true"
                 />
-             <SignInButton mode="modal">
-  <button className="btn">
-    Sign in
-  </button>
-</SignInButton>
+                <SignInButton mode="modal">
+                  <button className="btn">Sign in</button>
+                </SignInButton>
               </div>
             )}
           </div>
