@@ -71,14 +71,15 @@ const PersonalInfo: React.FC = () => {
       !isUserNameValid ||
       !isFirstNameValid ||
       !isLastNameValid ||
-      !isEmailValid
+      !isEmailValid ||
+      !user
     ) {
       return null;
     } else {
       if (selectedImage) {
         try {
           setIsLoading(true);
-          await user?.setProfileImage({
+          await user.setProfileImage({
             file: selectedImage,
           });
           console.log("Profile image updated successfully!");
@@ -91,12 +92,12 @@ const PersonalInfo: React.FC = () => {
       if (userName) {
         try {
           setIsLoading(true);
-          console.log(userName);
-          await user?.update({
-            username: String(userName),
+          console.log(user.id, userName);
+          await user.update({
+            username: "userName",
           });
           console.log("User Name updated successfully!");
-          await user?.reload();
+          await user.reload();
           setIsLoading(false);
         } catch (error) {
           console.error("Error updating User Name:", error);
@@ -105,11 +106,12 @@ const PersonalInfo: React.FC = () => {
       if (firstName) {
         try {
           setIsLoading(true);
-          await user?.update({
-            firstName: String(firstName),
+          console.log(user.id, firstName);
+          await user.update({
+            firstName: firstName,
           });
           console.log("First Name updated successfully!");
-          await user?.reload();
+          await user.reload();
           setIsLoading(false);
         } catch (error) {
           console.error("Error updating First Name:", error);
@@ -118,14 +120,27 @@ const PersonalInfo: React.FC = () => {
       if (lastName) {
         try {
           setIsLoading(true);
-          await user?.update({
+          await user.update({
             lastName: String(lastName),
           });
           console.log("Last Name updated successfully!");
-          await user?.reload();
+          await user.reload();
           setIsLoading(false);
         } catch (error) {
           console.error("Error updating Last Name:", error);
+        }
+      }
+      if (email) {
+        try {
+          setIsLoading(true);
+          await user.update({
+            primaryEmailAddressId: String(email),
+          });
+          console.log("Email updated successfully!");
+          await user.reload();
+          setIsLoading(false);
+        } catch (error) {
+          console.error("Error updating Email:", error);
         }
       }
     }

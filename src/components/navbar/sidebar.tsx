@@ -83,6 +83,10 @@ const Sidebar = ({
                     <p className="ml-2">Your Account</p>
                   </Link>
 
+                  <Link className="flex items-center" href="/account/user-profile">
+                    <p className="ml-2">Your Account (Clerk)</p>
+                  </Link>
+
                   <Link className="flex items-center" href="/order">
                     <Orders />
                     <p className="ml-2">Your Orders</p>
