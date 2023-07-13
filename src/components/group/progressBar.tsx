@@ -1,19 +1,19 @@
 import { CheckIcon } from "@heroicons/react/20/solid";
 
 const steps = [
-  { name: "1", href: "#", status: "complete" },
-  { name: "2", href: "#", status: "complete" },
-  { name: "3", href: "#", status: "current" },
-  { name: "4", href: "#", status: "upcoming" },
-  { name: "5", href: "#", status: "upcoming" },
-  { name: "6", href: "#", status: "upcoming" },
+  { name: "1" },
+  { name: "2" },
+  { name: "3" },
+  { name: "4" },
+  { name: "5" },
+  { name: "6" },
 ];
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Example() {
+export default function Example({ current }: { current: number }) {
   return (
     <nav
       aria-label="Progress"
@@ -28,7 +28,7 @@ export default function Example() {
               "relative w-1/5"
             )}
           >
-            {step.status === "complete" ? (
+            {stepIdx < current ? (
               <>
                 <div
                   className="absolute inset-0 flex items-center"
@@ -47,7 +47,7 @@ export default function Example() {
                   <span className="sr-only">{step.name}</span>
                 </a>
               </>
-            ) : step.status === "current" ? (
+            ) : stepIdx === current ? (
               <>
                 <div
                   className="absolute inset-0 flex items-center"

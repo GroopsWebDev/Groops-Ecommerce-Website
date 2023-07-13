@@ -7,7 +7,7 @@ const CreateGroupPage = () => {
 
   return (
     <div>
-      <ProgressBar />
+      <ProgressBar current={3} />
     </div>
   );
 };
