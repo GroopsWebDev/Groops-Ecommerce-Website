@@ -5,10 +5,11 @@ const PaymentMethods: React.FC = () => {
 
   return (
     <>
+            <h1 className="mb-3 mt-10 text-2xl">Payment Methods</h1>
       {paymentList.map((p, index) => (
         <div
           key={index}
-          className="mt-10 flex justify-between rounded-lg bg-white p-10 text-gray-800 shadow-lg"
+          className="mt-10 flex justify-between rounded-lg bg-white p-10 text-gray-800 shadow-2xl"
         >
           <div className="flex gap-x-10">
             <img
@@ -31,7 +32,7 @@ const PaymentMethods: React.FC = () => {
         onClick={() => setPaymentList([...paymentList, 1])}
         className="mt-10 text-rose-600"
       >
-        Add a new address
+        Add a payment
       </button>
     </>
   );
