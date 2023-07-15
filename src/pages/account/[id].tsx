@@ -29,7 +29,6 @@ const Account: React.FC = () => {
           width={100}
           height={100}
         />
-
         <h2 className="mt-5 text-xl">{user!.fullName}</h2>
         <h2 className="mt-3 text-xl">{user!.username}</h2>
         <p className="mt-5 text-sm text-gray-600">
@@ -38,7 +37,6 @@ const Account: React.FC = () => {
         <p className=" text-sm text-gray-600">
           {String(user!.primaryPhoneNumber)}
         </p>
-
         <p className="mt-10 text-gray-600">Personal Information</p>
         <p className="mt-3 text-gray-600">Delivery Addresses</p>
         <p className="mt-3 text-gray-600">Payment Methods</p>
@@ -50,9 +48,7 @@ const Account: React.FC = () => {
       <div className="w-[80%] px-36 py-16">
         <h1 className="mb-3 text-2xl">Personal information</h1>
         <PersonalInfo />
-        <h1 className="mb-3 mt-10 text-2xl">Delivery Addresses</h1>
         <DeliveryAddress />
-        <h1 className="mb-3 mt-10 text-2xl">Payment Methods</h1>
         <PaymentMethods />
         <h1 className="mb-3 mt-10 text-2xl">Change Password</h1>
         <ChangePassword />

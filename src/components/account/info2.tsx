@@ -83,7 +83,7 @@ const PersonalInfo: React.FC = () => {
             file: selectedImage,
           });
           console.log("Profile image updated successfully!");
-          await user?.reload();
+          await user.reload();
           setIsLoading(false);
         } catch (error) {
           console.error("Error updating profile image:", error);
@@ -94,7 +94,7 @@ const PersonalInfo: React.FC = () => {
           setIsLoading(true);
           console.log(user.id, userName);
           await user.update({
-            username: "userName",
+            username: "test",
           });
           console.log("User Name updated successfully!");
           await user.reload();
@@ -106,7 +106,7 @@ const PersonalInfo: React.FC = () => {
       if (firstName) {
         try {
           setIsLoading(true);
-          console.log(user.id, firstName);
+          console.log(user.id, firstName, typeof(firstName));
           await user.update({
             firstName: firstName,
           });
