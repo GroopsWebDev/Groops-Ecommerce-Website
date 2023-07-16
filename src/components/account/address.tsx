@@ -1,14 +1,20 @@
 import { useState } from "react";
+import { useAuth } from "@clerk/nextjs";
+
 import { LoadingSpinner } from "~/components/others/loading";
+import { api } from "~/utils/api";
 
 const DeliveryAddress: React.FC = () => {
+  const {  userId } = useAuth();
   const [addressList, setAddressList] = useState([1]);
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState(0);
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
+  const [street, setStreet] = useState("");
   const [state, setState] = useState("");
   const [zip, setZip] = useState("");
   const [isFirstNameValid, setIsFirstNameValid] = useState(true);
@@ -18,6 +24,47 @@ const DeliveryAddress: React.FC = () => {
   const [isCityValid, setIsCityValid] = useState(true);
   const [isStateValid, setIsStateValid] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+
+  const ctx = api.useContext();
+
+  // const { data: addressListDB } = api.addressApi.getAddressesByUserId.useQuery({ user_Clerk_id: userId! });
+  // console.log(addressListDB)
+
+  const createAddressMutation = api.addressApi.createAddress.useMutation();
+
+  const createAddress = async (event: any) => {
+    event.preventDefault();
+    if (
+      !userId ||
+      !isFirstNameValid ||
+      !isLastNameValid ||
+      !isEmailValid ||
+      !isCountryValid ||
+      !isCityValid ||
+      !isStateValid
+    ) {
+      return;
+    }
+    setIsLoading(true);
+    try {
+      await createAddressMutation.mutate({
+        is_primary_: false,
+        street: street,
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        phone: phone,
+        country: country,
+        city: city,
+        state: state,
+        postal_code: zip,
+        user_Clerk_id: userId, // Provide the user ID here
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
+  };
 
   const handleFirstNameChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -48,6 +95,19 @@ const DeliveryAddress: React.FC = () => {
     setIsEmailValid(isValid);
   };
 
+  const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    const numericValue = parseInt(value, 10);
+    setPhone(numericValue);
+  };
+
+  const handleStreetAddressChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const value = event.target.value;
+    setStreet(value);
+  };
+
   const handleCountryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setCountry(value);
@@ -75,13 +135,31 @@ const DeliveryAddress: React.FC = () => {
     setIsStateValid(isValid);
   };
 
+  const handleZipCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setZip(value);
+  };
+
   if (isLoading) {
     return <LoadingSpinner />;
   }
 
   return (
     <>
-            <h1 className="mb-3 mt-10 text-2xl">Delivery Addresses</h1>
+    {/* display DB addresses */}
+      {/* <div className="flex justify-between items-center">
+        {addressListDB?.map((address, index) => (
+          <div
+            key={index}
+            className="mt-10 rounded-lg bg-white p-10 text-gray-800 shadow-2xl"
+          >
+            <h2>Address {index + 1}</h2>
+            </div>
+            ))}
+        </div> */}
+
+{/* add new address */}
+      <h1 className="mb-3 mt-10 text-2xl">Delivery Addresses</h1>
       {addressList.map((address, index) => (
         <div
           key={index}
@@ -92,7 +170,7 @@ const DeliveryAddress: React.FC = () => {
             <div className="w-1/2">
               <p>First Name</p>
               <input
-                className="focus:outline-rose-600 mt-1 w-full rounded-lg border border-gray-300 p-2 "
+                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600 "
                 placeholder="First Name"
                 id={"address" + index + "first_name"}
                 required
@@ -100,16 +178,16 @@ const DeliveryAddress: React.FC = () => {
                 value={firstName}
                 onChange={handleFirstNameChange}
               />
-                 {!isFirstNameValid && (
-                  <p className="mt-1 text-sm text-red-600">
-                    Please enter alphabetic characters only.
-                  </p>
-                )}
+              {!isFirstNameValid && (
+                <p className="mt-1 text-sm text-red-600">
+                  Please enter alphabetic characters only.
+                </p>
+              )}
             </div>
             <div className="w-1/2">
               <p>Last Name</p>
               <input
-                className="focus:outline-rose-600 mt-1 w-full rounded-lg border border-gray-300 p-2"
+                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600"
                 placeholder="Last Name"
                 required
                 id={"address" + index + "last_name"}
@@ -117,11 +195,11 @@ const DeliveryAddress: React.FC = () => {
                 value={lastName}
                 onChange={handleLastNameChange}
               />
-                  {!isLastNameValid && (
-                  <p className="focus:outline-rose-600 mt-1 text-sm text-red-600">
-                    Please enter alphabetic characters only.
-                  </p>
-                )}
+              {!isLastNameValid && (
+                <p className="mt-1 text-sm text-red-600 focus:outline-rose-600">
+                  Please enter alphabetic characters only.
+                </p>
+              )}
             </div>
           </div>
 
@@ -129,48 +207,49 @@ const DeliveryAddress: React.FC = () => {
             <div className="w-1/2">
               <p>Email</p>
               <input
-                className="focus:outline-rose-600 mt-1 w-full rounded-lg border border-gray-300 p-2 "
+                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600 "
                 placeholder="Email"
-                type = "email"
+                type="email"
                 id={"address" + index + "email"}
                 required
                 value={email}
                 onChange={handleEmailChange}
               />
-                 {!isEmailValid && (
-                  <p className="focus:outline-rose-600 mt-1 text-sm text-red-600">
-                    Please enter a valid email address.
-                  </p>
-                )}
+              {!isEmailValid && (
+                <p className="mt-1 text-sm text-red-600 focus:outline-rose-600">
+                  Please enter a valid email address.
+                </p>
+              )}
             </div>
 
-<div className="w-1/2">
-            <p>Phone number</p>
-            <input
-              className="focus:outline-rose-600 mt-1 w-full rounded-lg border border-gray-300 p-2"
-              placeholder="Phone number"
-              id="phone"
-              type="tel"
-              required
-            />
+            <div className="w-1/2">
+              <p>Phone number</p>
+              <input
+                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600"
+                placeholder="Phone number"
+                id="phone"
+                type="tel"
+                required
+                onChange={handlePhoneChange}
+              />
+            </div>
           </div>
-          </div>
-
-
 
           <p className="mt-5">Street Address</p>
           <input
-            className="focus:outline-rose-600 w-full rounded-lg border border-gray-300 p-2"
+            className="w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600"
             placeholder="Street Address"
             required
             id={"address" + index + "street"}
+            value={street}
+            onChange={handleStreetAddressChange}
           />
 
           <div className="mt-5 flex gap-x-3">
-          <div className="w-1/4">
+            <div className="w-1/4">
               <p>Country</p>
               <input
-                className="focus:outline-rose-600 mt-1 w-full rounded-lg border border-gray-300 p-2"
+                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600"
                 placeholder="Country"
                 required
                 id={"address" + index + "country"}
@@ -178,16 +257,16 @@ const DeliveryAddress: React.FC = () => {
                 value={country}
                 onChange={handleCountryChange}
               />
-                              {!isCountryValid && (
-                  <p className="focus:outline-rose-600 mt-1 text-sm text-red-600">
-                    Please enter alphabetic characters only.
-                  </p>
-                )}
+              {!isCountryValid && (
+                <p className="mt-1 text-sm text-red-600 focus:outline-rose-600">
+                  Please enter alphabetic characters only.
+                </p>
+              )}
             </div>
             <div className="w-1/4">
               <p>City</p>
               <input
-                className="focus:outline-rose-600 mt-1 w-full rounded-lg border border-gray-300 p-2 "
+                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600 "
                 placeholder="City"
                 id={"address" + index + "city"}
                 required
@@ -195,16 +274,16 @@ const DeliveryAddress: React.FC = () => {
                 value={city}
                 onChange={handleCityChange}
               />
-                   {!isCityValid && (
-                  <p className="mt-1 text-sm text-red-600">
-                    Please enter alphabetic characters only.
-                  </p>
-                )}
+              {!isCityValid && (
+                <p className="mt-1 text-sm text-red-600">
+                  Please enter alphabetic characters only.
+                </p>
+              )}
             </div>
             <div className="w-1/4">
               <p>State/Province</p>
               <input
-                className="focus:outline-rose-600 mt-1 w-full rounded-lg border border-gray-300 p-2"
+                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600"
                 placeholder="State"
                 required
                 id={"address" + index + "state"}
@@ -212,19 +291,20 @@ const DeliveryAddress: React.FC = () => {
                 value={state}
                 onChange={handleStateChange}
               />
-                  {!isStateValid && (
-                  <p className="mt-1 text-sm text-red-600">
-                    Please enter alphabetic characters only.
-                  </p>
-                )}
+              {!isStateValid && (
+                <p className="mt-1 text-sm text-red-600">
+                  Please enter alphabetic characters only.
+                </p>
+              )}
             </div>
             <div className="w-1/4">
               <p>ZIP/Postal</p>
               <input
-                className="focus:outline-rose-600 mt-1 w-full rounded-lg border border-gray-300 p-2"
+                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600"
                 placeholder="Postal"
                 required
                 id={"address" + index + "psotcode"}
+                onChange={handleZipCodeChange}
               />
             </div>
           </div>
@@ -233,7 +313,8 @@ const DeliveryAddress: React.FC = () => {
             <button className="rounded-xl border border-gray-300 bg-white p-3">
               Cancel
             </button>
-            <button className="rounded-xl border bg-rose-600 p-3 text-white">
+            <button className="rounded-xl border bg-rose-600 p-3 text-white"
+            onClick={createAddress}>
               Save
             </button>
           </div>
