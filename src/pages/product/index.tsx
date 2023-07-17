@@ -1,6 +1,7 @@
 import ProductCard from "~/components/product/card";
 
 const Products = () => {
+<<<<<<< HEAD
   const Row = () => (
     <div className="flex flex-row items-center justify-between">
       <ProductCard
@@ -24,15 +25,15 @@ const Products = () => {
       />
     </div>
   );
+=======
+  const products = [1, 2, 3, 4, 5, 6, 7, 8];
+>>>>>>> 53181c4db376a005e2ddda2a5d6421200c21668d
 
   const Selector = ({ label }: { label: string }) => (
     <div className="flex flex-row items-center justify-center gap-x-2 ">
       <p className="font-medium text-gray-900 ">{label}:</p>
 
-      <select
-        id="small"
-        className="rounded-lg border border-gray-300 bg-gray-50 p-2 text-gray-900"
-      >
+      <select className="rounded-lg border border-gray-300 bg-gray-50 p-2 text-gray-900">
         <option defaultValue={label} value={label}>
           On Sale
         </option>
@@ -66,12 +67,20 @@ const Products = () => {
             <p className="rounded bg-rose-600 px-2 text-white">5% off</p>
           </div>
 
-          <div className="mt-10">
+          <div className="mt-10 flex flex-col items-center gap-y-3">
             <button>
               <p>All Results(10)</p>
+            </button>
+            <button>
               <p>Snacks(10)</p>
+            </button>
+            <button>
               <p>Candies(10)</p>
+            </button>
+            <button>
               <p>Instant Food(10)</p>
+            </button>
+            <button>
               <p>Beauty(10)</p>
             </button>
           </div>
@@ -80,7 +89,7 @@ const Products = () => {
         <div className="h-100 border-l border-gray-300"></div>
 
         <div className="w-[80%] p-5">
-          <div className="mt-10 flex flex-row flex-wrap gap-x-3">
+          <div className="mt-10 flex flex-row gap-x-5">
             <Selector label="Sale" />
             <Selector label="Status" />
             <Selector label="Vegan" />
@@ -89,10 +98,16 @@ const Products = () => {
             <Selector label="Sort by" />
           </div>
 
-          <div className="mt-10 flex flex-col gap-y-10">
-            <Row />
-            <Row />
-            <Row />
+          <div className="mb-10 mt-10 grid grid-cols-4 place-items-center gap-x-5 gap-y-10 p-10 pt-5">
+            {products.map((product, index) => (
+              <ProductCard
+                _on_discount={false}
+                _one_plus={false}
+                _mouse_enter={false}
+                _sold_out={false}
+                key={index}
+              />
+            ))}
           </div>
         </div>
       </div>

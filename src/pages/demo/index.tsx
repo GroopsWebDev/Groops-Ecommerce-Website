@@ -70,11 +70,16 @@
 //         </Link>
 //       </ul>
 
+<<<<<<< HEAD
 //       <ul>
 //         <Link href="/demo/createProduct" className="bg-black p-1 text-white">
 //           Link to Create Product page
 //         </Link>
 //       </ul>
+=======
+import { api } from "~/utils/api";
+import { LoadingSpinner } from "~/components/others/loading";
+>>>>>>> 53181c4db376a005e2ddda2a5d6421200c21668d
 
 //       <ul>
 //         <Link href="/demo/cart" className="bg-black p-1 text-white">

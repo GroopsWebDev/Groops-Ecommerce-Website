@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import { api } from "~/utils/api";
 // import { useAuth } from "@clerk/nextjs";
 // import Link from "next/link";
@@ -23,6 +24,12 @@
 //       <Link href="/" className="bg-black p-1 text-white">
 //         Back to home page
 //       </Link>
+=======
+import { api } from "~/utils/api";
+import { useAuth } from "@clerk/nextjs";
+import Link from "next/link";
+import { LoadingSpinner } from "~/components/others/loading";
+>>>>>>> 53181c4db376a005e2ddda2a5d6421200c21668d
 
 //       <h1 className="mb-10 mt-10 text-center">My user Id: {userId}</h1>
 

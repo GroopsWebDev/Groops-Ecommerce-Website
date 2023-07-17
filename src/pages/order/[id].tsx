@@ -77,7 +77,7 @@ const Order: React.FC = () => {
 
       <div className="flex items-center gap-x-10">
         <p className="text-xs text-gray-400">x4</p>
-        <p className="text-2xl text-rose-600">$9.54</p>
+        <p className="text-2xl text-rose-600 font-bold">$9.54</p>
       </div>
     </div>
   );
@@ -127,7 +127,9 @@ const Order: React.FC = () => {
       </div>
 
       <div className="flex gap-x-5">
-        <div className="mt-10 flex w-[70%] gap-x-5">
+        <div className="mt-10 flex w-[70%] flex-col gap-y-5">
+          <Item />
+          <Item />
           <Item />
         </div>
 

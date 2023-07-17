@@ -6,12 +6,10 @@ import { TRPCError } from "@trpc/server";
 
 const addUserDataToAddresses = async (addresses: address[]) => {
   const user_Clerk_id = addresses.map((address) => address.user_Clerk_id);
-  const users = (
-    await clerkClient.users.getUserList({
-      userId: user_Clerk_id,
-      limit: 110,
-    })
-  );
+  const users = await clerkClient.users.getUserList({
+    userId: user_Clerk_id,
+    limit: 110,
+  });
 
   return addresses.map((address) => {
     const user = users.find((user) => user.id === address.user_Clerk_id);
@@ -34,6 +32,7 @@ const addUserDataToAddresses = async (addresses: address[]) => {
 };
 
 export const addressRouter = createTRPCRouter({
+<<<<<<< HEAD
 
     // getAddressesByUserId: publicProcedure
     // .input(
@@ -52,46 +51,103 @@ export const addressRouter = createTRPCRouter({
     //     })
     //     .then(addUserDataToAddresses)
     // ),
+=======
+  getAddressesByUserId: publicProcedure
+    .input(
+      z.object({
+        user_Clerk_id: z.string(),
+      })
+    )
+    .query(({ ctx, input }) =>
+      ctx.prisma.address
+        .findMany({
+          where: {
+            user_Clerk_id: input.user_Clerk_id,
+          },
+          take: 3,
+          orderBy: [{ createdAt: "desc" }],
+        })
+        .then(addUserDataToAddresses)
+    ),
+>>>>>>> 53181c4db376a005e2ddda2a5d6421200c21668d
 
-  createOrChangeAddress: publicProcedure
-    .input(z.object({
-      id: z.number(),
-      is_primary_: z.boolean(),
-      line1: z.string(),
-      line2: z.string(),
-      city: z.string(),
-      state: z.string(),
-      country: z.string(),
-      first_name: z.string(),
-      last_name: z.string(),
-      postal_code: z.string(),
-      user_Clerk_id: z.string(),
-    }))
+  createAddress: publicProcedure
+    .input(
+      z.object({
+        is_primary_: z.boolean(),
+        street: z.string(),
+        city: z.string(),
+        state: z.string(),
+        country: z.string(),
+        first_name: z.string(),
+        last_name: z.string(),
+        email: z.string(),
+        phone: z.number(),
+        postal_code: z.string(),
+        user_Clerk_id: z.string(),
+      })
+    )
     .mutation(({ ctx, input }) => {
-      const user_Clerk_id = ctx.userId;
-      return ctx.prisma.address.upsert({
-        where: { id: input.id },
-        update: { ...input },
-        create: {
+      return ctx.prisma.address.create({
+        data: {
           is_primary_: input.is_primary_,
-          line1: input.line1,
-          line2: input.line2,
+          street: input.street,
           city: input.city,
           state: input.state,
           country: input.country,
           first_name: input.first_name,
-          last_name: input.first_name,
+          last_name: input.last_name,
+          email: input.email,
+          phone: input.phone,
           postal_code: input.postal_code,
-          user_Clerk_id: user_Clerk_id || '',
-        }
+          user_Clerk_id: input.user_Clerk_id,
+        },
+      });
+    }),
+
+  updateAddress: publicProcedure
+    .input(
+      z.object({
+        addressId: z.number(),
+        is_primary: z.boolean().optional(),
+        street: z.string().optional(),
+        city: z.string().optional(),
+        state: z.string().optional(),
+        country: z.string().optional(),
+        first_name: z.string().optional(),
+        last_name: z.string().optional(),
+        email: z.string().optional(),
+        phone: z.number().optional(),
+        postal_code: z.string().optional(),
+        user_Clerk_id: z.string().optional(),
       })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { addressId, ...updateData } = input;
+      // Retrieve the existing address record
+      const existingAddress = await ctx.prisma.address.findUnique({
+        where: {
+          id: addressId,
+        },
+      });
+      if (!existingAddress) {
+        throw new Error(`Address with ID ${addressId} not found`);
+      }
+      // Update the address record
+      const updatedAddress = await ctx.prisma.address.update({
+        where: {
+          id: addressId,
+        },
+        data: updateData,
+      });
+      return updatedAddress;
     }),
 
   deleteAddress: publicProcedure
     .input(z.object({ id: z.number() }))
     .mutation(({ ctx, input }) => {
       return ctx.prisma.address.delete({
-        where: { ...input }
+        where: { ...input },
       });
     }),
 });

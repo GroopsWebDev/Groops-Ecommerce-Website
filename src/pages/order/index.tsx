@@ -17,8 +17,8 @@ const Orders = () => {
   const Filter = ({ label }: { label: string }) => (
     <button>
       <p
-        className="rounded-full border border-gray-300 
-                    bg-white px-5 py-1 text-gray-400"
+        className="rounded-full border border-gray-200 
+                    bg-white px-5 py-1 text-gray-600"
       >
         {label}
       </p>

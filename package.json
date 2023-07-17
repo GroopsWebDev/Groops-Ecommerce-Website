@@ -12,6 +12,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.341.0",
     "@clerk/nextjs": "^4.17.3",
+    "@clerk/themes": "^1.7.5",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
@@ -43,6 +44,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.44.2",
     "react-icons": "^4.10.1",
+    "react-phone-number-input": "^3.3.0",
     "superjson": "1.12.2",
     "sweetalert2": "^11.4.8",
     "tunnel-agent": "^0.6.0",
