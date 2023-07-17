@@ -1,5 +1,8 @@
 import Cross from "@public/assets/icons/cross.svg";
 import Slide from "@mui/material/Slide";
+import Link from "next/link";
+
+import React, { useEffect, useRef } from "react";
 
 const Cart = ({
   showCart,
@@ -14,8 +17,22 @@ const Cart = ({
     </button>
   );
 
+  const sidebarRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    let handler = (e: any) => {
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(e.target as Node)
+      ) {
+        setShow(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+  });
+  
   const Row = () => (
-    <>
+    <Link href="/product/1">
       <div className="flex items-center justify-between p-5">
         <div className="flex items-center gap-x-3">
           <img src="/assets/dummy/product.png" className="w-1/3" />
@@ -29,13 +46,13 @@ const Cart = ({
         <p>x4</p>
       </div>
       <hr />
-    </>
+    </Link>
   );
 
   return (
     <>
       <Slide in={showCart} direction="left" timeout={{ enter: 500 }}>
-        <div className="fixed right-0 top-0 z-50 h-screen w-1/3 bg-white text-gray-800 shadow-xl">
+        <div className="fixed right-0 top-0 z-50 h-screen w-1/3 bg-white text-gray-800 shadow-xl" ref={sidebarRef}>
           <CrossButton />
           <h2 className="mt-3 text-center">Shopping Cart</h2>
 

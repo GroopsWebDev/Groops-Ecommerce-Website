@@ -15,8 +15,8 @@ const Card = () => (
 const Filter = ({ label }: { label: string }) => (
   <button className="w-36">
     <p
-      className="rounded-full border border-gray-300 bg-white 
-                  px-5 py-1 text-gray-500"
+      className="rounded-full border border-gray-200 bg-white 
+                  px-5 py-1 text-gray-600"
     >
       {label}
     </p>

@@ -1,4 +1,4 @@
-import { LeftButton, RightButton, Filter } from "../buttons";
+import { LeftButton, RightButton, Filter } from "../others/buttons";
 import Link from "next/link";
 import Arrow from "@public/assets/icons/arrow.svg";
 import Heart from "@public/assets/icons/heart.svg";

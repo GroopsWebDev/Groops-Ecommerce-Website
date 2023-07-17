@@ -1,7 +1,7 @@
 import Heart from "@public/assets/icons/heart.svg";
 import Link from "next/link";
 import Image from "next/image";
-import { PlusButton } from "../buttons";
+import { PlusButton } from "../others/buttons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
@@ -24,7 +24,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const [mouseEnter, setMouseEnter] = useState(false);
 
   return (
-    <div className="w-56 bg-white">
+    <Link href = "/product/1" className="w-56 bg-white">
       {/* group img */}
       <div
         className="relative flew-row flex"
@@ -102,7 +102,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           )}
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
