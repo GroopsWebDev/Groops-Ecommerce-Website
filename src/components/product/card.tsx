@@ -22,7 +22,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const [mouseEnter, setMouseEnter] = useState(false);
 
   return (
-    <div className="w-56 bg-white">
+    <Link href = "/product/1" className="w-56 bg-white">
       {/* group img */}
       <div
         className="relative flew-row flex"
@@ -100,7 +100,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           )}
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
