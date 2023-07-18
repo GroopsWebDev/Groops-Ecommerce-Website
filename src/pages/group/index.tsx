@@ -1,3 +1,5 @@
+import GroupRow from "@components/group/row";
+
 const Index = () => {
   return (
     <div>
@@ -31,7 +33,7 @@ const Index = () => {
       </div>
 
       <div className="flex justify-between gap-x-10 p-36">
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center w-1/4">
           <img src="/assets/group/hands.png" className="" />
           <p className="mt-3 text-xl font-bold">You can create a group</p>
           <p className="mt-5">
@@ -39,7 +41,7 @@ const Index = () => {
             commission according to the size of your group.
           </p>
         </div>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center w-1/4">
           <img src="/assets/group/logo_small.png" className="" />
           <p className="mt-3 text-xl font-bold">You can join a group</p>
           <p className="mt-5">
@@ -47,7 +49,7 @@ const Index = () => {
             discount off your selected items
           </p>
         </div>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center w-1/4">
           <img src="/assets/group/logo_small.png" className="" />
           <p className="mt-3 text-xl font-bold">Groups</p>
           <p className="mt-5">
@@ -57,6 +59,9 @@ const Index = () => {
           </p>
         </div>
       </div>
+
+      <GroupRow />
+      <GroupRow />
     </div>
   );
 };
