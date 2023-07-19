@@ -1,7 +1,7 @@
-import ProductCard from "~/components/product/card";
+import GroupCard from "~/components/group/card";
 
-const Products = () => {
-  const products = [1, 2, 3, 4, 5, 6, 7, 8];
+const Groups = () => {
+  const groups = [1, 2, 3, 4, 5, 6, 7, 8];
 
   const Selector = ({ label }: { label: string }) => (
     <div className="flex flex-row items-center justify-center gap-x-2 ">
@@ -9,7 +9,7 @@ const Products = () => {
 
       <select className="rounded-lg border border-gray-300 bg-gray-50 p-2 text-gray-900">
         <option defaultValue={label} value={label}>
-          On Sale
+          {label}
         </option>
       </select>
     </div>
@@ -18,7 +18,7 @@ const Products = () => {
   const Side = () => (
     <div className="flex w-[20%] flex-col items-center text-gray-800">
       <div className="mt-20">
-        <img src="assets/dummy/product.png" className="rounded-full" />
+        <img src="/assets/dummy/product.png" className="rounded-full" />
       </div>
 
       <p className="mt-5 text-xl">Group name</p>
@@ -39,19 +39,22 @@ const Products = () => {
 
       <div className="mt-10 flex flex-col items-center gap-y-3">
         <button>
-          <p>All Results(10)</p>
+          <p>Snacks</p>
         </button>
         <button>
-          <p>Snacks(10)</p>
+          <p>Candies</p>
         </button>
         <button>
-          <p>Candies(10)</p>
+          <p>Instant Food</p>
         </button>
         <button>
-          <p>Instant Food(10)</p>
+          <p>Personal Care</p>
         </button>
         <button>
-          <p>Beauty(10)</p>
+          <p>Beauty</p>
+        </button>
+        <button>
+          <p>Home & Life</p>
         </button>
       </div>
     </div>
@@ -65,23 +68,21 @@ const Products = () => {
         <div className="h-100 border-l border-gray-300"></div>
 
         <div className="w-[80%] p-5">
-          <div className="mt-10 flex flex-row gap-x-5">
-            <Selector label="Sale" />
-            <Selector label="Status" />
-            <Selector label="Vegan" />
-            <Selector label="Origin" />
-
-            <Selector label="Sort by" />
+          <div className="mt-10 flex flex-row flex-wrap gap-x-5">
+            <Selector label="Time Left" />
+            <Selector label="Size" />
+            <Selector label="Category" />
+            <Selector label="Group Type" />
           </div>
 
           <div className="mb-10 mt-10 grid grid-cols-4 place-items-center gap-x-5 gap-y-10 p-10 pt-5">
-            {products.map((product, index) => (
-              <ProductCard
-                _on_discount={false}
-                _one_plus={false}
-                _mouse_enter={false}
-                _sold_out={false}
-                key={index}
+            {groups.map((group) => (
+              <GroupCard
+                _group_joined={false}
+                _end_soon={false}
+                _join_waitlist_joined={false}
+                _join_waitlist={false}
+                key={group}
               />
             ))}
           </div>
@@ -91,4 +92,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default Groups;

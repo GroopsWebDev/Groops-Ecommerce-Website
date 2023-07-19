@@ -1,93 +1,69 @@
-import GroupCard from "~/components/group/card";
+import GroupRow from "@components/group/row";
 
-const Groups = () => {
-  const groups = [1, 2, 3, 4, 5, 6, 7, 8];
-
-  const Selector = ({ label }: { label: string }) => (
-    <div className="flex flex-row items-center justify-center gap-x-2 ">
-      <p className="font-medium text-gray-900 ">{label}:</p>
-
-      <select className="rounded-lg border border-gray-300 bg-gray-50 p-2 text-gray-900">
-        <option defaultValue={label} value={label}>
-          {label}
-        </option>
-      </select>
-    </div>
-  );
-
+const Index = () => {
   return (
-    <>
-      <div className="flex h-full flex-row">
-        <div className="flex w-[20%] flex-col items-center text-gray-800">
-          <div className="mt-20">
-            <img src="assets/dummy/product.png" className="rounded-full" />
-          </div>
+    <div>
+      <div className="flex justify-center gap-x-20 bg-gray-200 p-20">
+        <div className="w-[40%] text-center">
+          <h1 className="text-5xl font-bold">Groops E-commerce</h1>
 
-          <p className="mt-5 text-xl">Group name</p>
+          <p className="mt-10 text-2xl text-gray-700">
+            Revolutionize the tranditional way of doing E-commerce, our
+            group-buy model makes everyday items more affordable for you
+          </p>
 
-          <div className="mt-3 flex flex-row gap-x-3">
-            <p className="rounded-full bg-purple-300 px-2 text-purple-800">
-              Candy
-            </p>
-            <p className="rounded-full bg-purple-300 px-2 text-purple-800">
-              Snacks
-            </p>
-          </div>
+          <p className="mt-10 text-gray-400">
+            Our group-buy buisness model can help group leader to monetize their
+            influence and values through initializing a group and congregating
+            consumers. All participating members can purchase items at a lower
+            price.
+          </p>
 
-          <p className="mt-5 text-gray-400">max possible discount : 30%</p>
-
-          <div className="flex flex-row gap-x-3">
-            <p>21/50</p>
-            <p className="rounded bg-rose-600 px-2 text-white">5% off</p>
-          </div>
-
-          <div className="mt-10 flex flex-col items-center gap-y-3">
-            <button>
-              <p>Snacks</p>
+          <div className="mt-5 flex justify-center gap-x-5">
+            <button className="rounded-lg bg-rose-600 px-4 py-3 text-white">
+              create a group
             </button>
-            <button>
-              <p>Candies</p>
-            </button>
-            <button>
-              <p>Instant Food</p>
-            </button>
-            <button>
-              <p>Personal Care</p>
-            </button>
-            <button>
-              <p>Beauty</p>
-            </button>
-            <button>
-              <p>Home & Life</p>
+            <button className="rounded-lg bg-rose-600 px-4 py-3 text-white">
+              Join a group
             </button>
           </div>
         </div>
 
-        <div className=" h-100 border-l border-gray-300"></div>
+        <img className="w-[30%]" src="/assets/group/logo.png" />
+      </div>
 
-        <div className="w-[80%] p-5">
-          <div className="mt-10 flex flex-row flex-wrap gap-x-5">
-            <Selector label="Time Left" />
-            <Selector label="Size" />
-            <Selector label="Category" />
-            <Selector label="Group Type" />
-          </div>
-
-          <div className="mb-10 mt-10 grid grid-cols-4 place-items-center gap-x-5 gap-y-10 p-10 pt-5">
-            {groups.map((group) => (
-              <GroupCard
-                _group_joined={false}
-                _end_soon={false}
-                _join_waitlist_joined={false}
-                _join_waitlist={false}
-                key={group}
-              />
-            ))}
-          </div>
+      <div className="flex justify-between gap-x-10 p-36">
+        <div className="flex flex-col items-center w-1/4">
+          <img src="/assets/group/hands.png" className="" />
+          <p className="mt-3 text-xl font-bold">You can create a group</p>
+          <p className="mt-5">
+            As a group leader, you can start a group and get paid through
+            commission according to the size of your group.
+          </p>
+        </div>
+        <div className="flex flex-col items-center w-1/4">
+          <img src="/assets/group/logo_small.png" className="" />
+          <p className="mt-3 text-xl font-bold">You can join a group</p>
+          <p className="mt-5">
+            As a group member you can participate in a group and enjoy the
+            discount off your selected items
+          </p>
+        </div>
+        <div className="flex flex-col items-center w-1/4">
+          <img src="/assets/group/logo_small.png" className="" />
+          <p className="mt-3 text-xl font-bold">Groups</p>
+          <p className="mt-5">
+            A group will be finialized when it reaches the member limit or when
+            the time runs out whichever comes first. The final discount rate
+            will be calculated automatically.
+          </p>
         </div>
       </div>
-    </>
+
+      <GroupRow />
+      <GroupRow />
+    </div>
   );
 };
 
-export default Groups;
+export default Index;

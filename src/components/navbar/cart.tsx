@@ -1,5 +1,6 @@
 import Cross from "@public/assets/icons/cross.svg";
 import Slide from "@mui/material/Slide";
+import Link from "next/link";
 
 import React, { useEffect, useRef } from "react";
 
@@ -31,7 +32,7 @@ const Cart = ({
   });
   
   const Row = () => (
-    <>
+    <Link href="/product/1">
       <div className="flex items-center justify-between p-5">
         <div className="flex items-center gap-x-3">
           <img src="/assets/dummy/product.png" className="w-1/3" />
@@ -45,7 +46,7 @@ const Cart = ({
         <p>x4</p>
       </div>
       <hr />
-    </>
+    </Link>
   );
 
   return (
