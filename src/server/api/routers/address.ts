@@ -10,7 +10,6 @@ const addUserDataToAddresses = async (addresses: address[]) => {
     userId: user_Clerk_id,
     limit: 110,
   });
-
   return addresses.map((address) => {
     const user = users.find((user) => user.id === address.user_Clerk_id);
 
@@ -32,6 +31,11 @@ const addUserDataToAddresses = async (addresses: address[]) => {
 };
 
 export const addressRouter = createTRPCRouter({
+
+  getAllAddresses: publicProcedure.query( async({ctx}) => {
+    return ctx.prisma.address.findMany();
+  }),
+
   getAddressesByUserId: publicProcedure
     .input(
       z.object({
@@ -39,15 +43,28 @@ export const addressRouter = createTRPCRouter({
       })
     )
     .query(({ ctx, input }) =>
-      ctx.prisma.address
-        .findMany({
-          where: {
-            user_Clerk_id: input.user_Clerk_id,
-          },
-          take: 3,
-          orderBy: [{ createdAt: "desc" }],
-        })
-        .then(addUserDataToAddresses)
+      // ctx.prisma.address
+      //   .findMany({
+      //     where: {
+      //       user_Clerk_id: input.user_Clerk_id,
+      //     },
+      //     take: 3,
+      //     orderBy: [{ createdAt: "desc" }],
+      //   })
+      //   .then(addUserDataToAddresses)
+      {
+        try {
+          return ctx.prisma.address.findMany({
+            where: {
+              user_Clerk_id: input.user_Clerk_id,
+            },
+            take: 3,
+            orderBy: [{ createdAt: "desc" }],
+          })
+        } catch (error) {
+          console.error(error)
+        }
+      }
     ),
 
   createAddress: publicProcedure
