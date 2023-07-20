@@ -77,10 +77,10 @@ export const addressRouter = createTRPCRouter({
         country: z.string(),
         first_name: z.string(),
         last_name: z.string(),
-        email: z.string(),
-        phone: z.number(),
         postal_code: z.string(),
         user_Clerk_id: z.string(),
+        email: z.string(),
+        phone: z.number(),
       })
     )
     .mutation(({ ctx, input }) => {
@@ -93,10 +93,10 @@ export const addressRouter = createTRPCRouter({
           country: input.country,
           first_name: input.first_name,
           last_name: input.last_name,
-          email: input.email,
-          phone: input.phone,
           postal_code: input.postal_code,
           user_Clerk_id: input.user_Clerk_id,
+          email: input.email,
+          phone: input.phone,
         },
       });
     }),
@@ -105,17 +105,17 @@ export const addressRouter = createTRPCRouter({
     .input(
       z.object({
         addressId: z.number(),
-        is_primary: z.boolean().optional(),
-        street: z.string().optional(),
-        city: z.string().optional(),
-        state: z.string().optional(),
-        country: z.string().optional(),
-        first_name: z.string().optional(),
-        last_name: z.string().optional(),
-        email: z.string().optional(),
-        phone: z.number().optional(),
-        postal_code: z.string().optional(),
-        user_Clerk_id: z.string().optional(),
+        is_primary_: z.boolean(),
+        street: z.string(),
+        city: z.string(),
+        state: z.string(),
+        country: z.string(),
+        first_name: z.string(),
+        last_name: z.string(),
+        postal_code: z.string(),
+        user_Clerk_id: z.string(),
+        email: z.string(),
+        phone: z.number(),
       })
     )
     .mutation(async ({ ctx, input }) => {

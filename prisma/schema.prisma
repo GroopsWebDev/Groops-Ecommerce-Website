@@ -10,6 +10,7 @@ datasource db {
 
 model address {
   id            Int       @id @default(autoincrement())
+  street        String
   city          String
   state         String
   country       String
@@ -21,7 +22,6 @@ model address {
   createdAt     DateTime? @default(now())
   email         String
   phone         Int
-  street        String
 }
 
 model cart {
