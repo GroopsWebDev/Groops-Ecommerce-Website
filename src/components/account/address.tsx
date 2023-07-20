@@ -5,7 +5,7 @@ import { LoadingSpinner } from "~/components/others/loading";
 import { api } from "~/utils/api";
 
 const DeliveryAddress: React.FC = () => {
-  const {  userId } = useAuth();
+  const { userId } = useAuth();
   const [addressList, setAddressList] = useState([1]);
 
   const [firstName, setFirstName] = useState("");
@@ -23,12 +23,19 @@ const DeliveryAddress: React.FC = () => {
   const [isCountryValid, setIsCountryValid] = useState(true);
   const [isCityValid, setIsCityValid] = useState(true);
   const [isStateValid, setIsStateValid] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
+  const [submitLoading, setSubmitLoading] = useState(false);
 
-  const ctx = api.useContext();
 
-  // const { data: addressListDB } = api.addressApi.getAddressesByUserId.useQuery({ user_Clerk_id: userId! });
-  // console.log(addressListDB)
+  // const { data, isLoading, refetch } = api.addressApi.getUserAddress.useQuery({
+  //   user_Clerk_id: userId ? userId : "user_2QCeTGBNmUAEuim42OAnU7E3kuZ",
+  // });
+  // console.log(`userId ${userId}`)
+  // console.log(`data ${data}`);
+
+  const { data: addressData, isLoading: loadingData } =
+  api.addressApi.getAllAddresses.useQuery();
+
+  console.log(`addressData ${addressData}`);
 
   const createAddressMutation = api.addressApi.createAddress.useMutation();
 
@@ -45,7 +52,7 @@ const DeliveryAddress: React.FC = () => {
     ) {
       return;
     }
-    setIsLoading(true);
+    setSubmitLoading(true);
     try {
       await createAddressMutation.mutate({
         is_primary_: false,
@@ -63,7 +70,7 @@ const DeliveryAddress: React.FC = () => {
     } catch (error) {
       console.log(error);
     }
-    setIsLoading(false);
+    setSubmitLoading(false);
   };
 
   const handleFirstNameChange = (
@@ -140,7 +147,7 @@ const DeliveryAddress: React.FC = () => {
     setZip(value);
   };
 
-  if (isLoading) {
+  if (submitLoading) {
     return <LoadingSpinner />;
   }
 

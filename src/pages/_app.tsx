@@ -9,7 +9,7 @@ import {
 import { useRouter } from "next/router";
 
 import { api } from "~/utils/api";
-import { appWithTranslation } from "next-i18next";
+// import { appWithTranslation } from "next-i18next";
 
 import "~/styles/globals.css";
 
@@ -46,4 +46,5 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   );
 };
 
-export default api.withTRPC(appWithTranslation(MyApp));
+export default api.withTRPC(MyApp);
+// export default api.withTRPC(appWithTranslation(MyApp));
