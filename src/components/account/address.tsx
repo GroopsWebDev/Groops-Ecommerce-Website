@@ -33,11 +33,11 @@ const DeliveryAddress: React.FC = () => {
   // console.log(`data ${data}`);
 
   const { data: addressData, isLoading: loadingData } =
-  api.addressApi.getAllAddresses.useQuery();
+  api.address.getAllAddresses.useQuery();
 
   console.log(`addressData ${addressData}`);
 
-  const createAddressMutation = api.addressApi.createAddress.useMutation();
+  const createAddressMutation = api.address.createAddress.useMutation();
 
   const createAddress = async (event: any) => {
     event.preventDefault();

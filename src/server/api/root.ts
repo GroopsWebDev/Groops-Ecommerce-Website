@@ -19,7 +19,7 @@ export const appRouter = createTRPCRouter({
   lovelistApi: LoveListRouter,
   orderApi: orderRouter,
   walletApi: walletRouter,
-  addressApi: addressRouter,
+  address: addressRouter,
   membershipApi: membershipRouter,
   groupApi: groupRouter,
   productApi: productRouter,

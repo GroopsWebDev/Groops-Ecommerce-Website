@@ -4,14 +4,8 @@ import Link from "next/link";
 import { LoadingSpinner } from "~/components/others/loading";
 
 export default function Test() {
-  const { isLoaded, userId, sessionId, getToken } = useAuth();
-  const { data, isLoading, refetch } = api.addressApi.getUserAddress.useQuery({
-    user_id_Clerk: userId ? userId : 1,
-  });
-
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
+  const { data: addressData, isLoading } =
+  api.address.getAllAddresses.useQuery();
 
   return (
     <>
@@ -19,15 +13,18 @@ export default function Test() {
         Back to home page
       </Link>
 
-      <h1 className="mb-10 mt-10 text-center">My user Id: {userId}</h1>
-
-      <div className="flex flex-col place-items-center">
-        {data?.map((item) => (
-          <div key={item.id}>
-            <p>first name: {item.firstName}, city: {item.city}</p>
-          </div>
-        ))}
-      </div>
+      {isLoading ? (
+        <LoadingSpinner />
+    ):(
+      addressData?.map((address) => (
+        <div key={address.id}>
+          <h1>address id: {address.id}</h1>
+          <h1>{address.street}</h1>
+         <h1>{address.city}</h1>
+         <h1>{address.state}</h1>
+        </div>
+      ))
+    )}
     </>
   );
 }
