@@ -1,3 +1,5 @@
+import GroupRow from "@components/group/row";
+
 const Group = () => {
   const Countdown = () => (
     <div className="flex gap-x-2">
@@ -67,6 +69,8 @@ const Group = () => {
         <GroupCard />
         <div className="w-[1px] bg-rose-600"></div>
       </div>
+
+      <GroupRow />
     </div>
   );
 };
