@@ -21,7 +21,7 @@ const Group = () => {
   );
 
   const GroupCard = () => (
-    <div className="flex w-[20%] flex-col items-center text-gray-800">
+    <div className="flex w-[40%] flex-col items-center text-gray-800">
       <img src="/assets/dummy/product.png" className="rounded-full" />
 
       <p className="mt-5 text-xl">Group name</p>
@@ -43,6 +43,57 @@ const Group = () => {
       <button className="mt-3 rounded bg-rose-600 px-20 py-2 text-white">
         Join group
       </button>
+    </div>
+  );
+
+  const Info = () => (
+    <div className="flex flex-col justify-start p-5">
+      <div className="flex h-1/3 gap-x-10">
+        <div className="">
+          <p className="text-2xl font-bold">Grooper</p>
+          <p className="text-sm">name</p>
+          <img
+            src="/assets/dummy/product.png"
+            className="mt-3 h-1/2 rounded-full"
+          />
+        </div>
+
+        <div>
+          <p className="text-2xl font-bold">Group members (10)</p>
+          <button className="text-sm text-rose-600">see all</button>
+          <div className="mt-2 flex h-1/2 flex-row gap-x-1">
+            <img
+              src="/assets/dummy/product.png"
+              className="h-full rounded-full"
+            />
+            <img
+              src="/assets/dummy/product.png"
+              className="h-full rounded-full"
+            />
+            <img
+              src="/assets/dummy/product.png"
+              className="h-full rounded-full"
+            />
+          </div>
+        </div>
+      </div>
+
+      <p className="mt-5">
+        group introduction : dummy dummy dummy dummy dummy dummy dummy dummy
+        dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy
+        dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy group
+      </p>
+      <p className="mt-10">
+        choose items from the following categories to recieve discount
+      </p>
+      <div className="mt-3 flex gap-x-3">
+        <p className="rounded-full border border-rose-600 p-1 text-rose-600">
+          Snacks 1% off
+        </p>
+        <p className="rounded-full border border-rose-600 p-1 text-rose-600">
+          Snacks 1% off
+        </p>
+      </div>
     </div>
   );
 
@@ -68,6 +119,7 @@ const Group = () => {
       <div className="flex gap-x-5 p-16">
         <GroupCard />
         <div className="w-[1px] bg-rose-600"></div>
+        <Info />
       </div>
 
       <GroupRow />
