@@ -20,7 +20,7 @@ export const GroupCard: React.FC<GroupCardPlusProps> = ({
   const [mouseEnter, setMouseEnter] = useState(false);
 
   return (
-    <div
+    <Link href="/group/1"
       className="mt-10 w-56"
       onMouseEnter={() => setMouseEnter(true)}
       onMouseLeave={() => setMouseEnter(false)}
@@ -120,7 +120,7 @@ export const GroupCard: React.FC<GroupCardPlusProps> = ({
           Max discount possible: 30%
         </p>
       </div>
-    </div>
+    </Link>
   );
 };
 
