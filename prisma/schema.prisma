@@ -17,9 +17,9 @@ model address {
   last_name     String
   postal_code   String
   user_Clerk_id String
-  createdAt     DateTime? @default(now())
+  created_at     DateTime? @default(now())
   email         String
-  phone         Int
+  phone         String
   street        String
 }
 
@@ -27,8 +27,13 @@ model cart {
   id            Int       @id @default(autoincrement())
   quantity      Int
   user_Clerk_id String
-  product       product[] @relation("carttoproduct")
+  product    product  @relation(fields: [product_id], references: [skuid])
+  product_id  String
+
+  //ensure no duplicate entries for the same user and product
+  @@unique([user_Clerk_id, product_id])
 }
+
 
 model category {
   id          Int       @id @default(autoincrement())
@@ -94,7 +99,7 @@ model groupcomission {
 
 model helpcenterrequest {
   user_Clerk_id String  @id
-  phone         Int
+  phone         String
   description   String? @db.VarChar(45)
   files         files[]
 }
@@ -130,12 +135,12 @@ model order {
   sub_total        Int?           @default(0)
   user_Clerk_id    String
   group            group          @relation(fields: [group_code], references: [group_code], map: "Order_group_code_fkey")
-  product          orderproduct[]
+  product          orderproducts[]
 
   @@index([group_code], map: "Order_group_code_fkey")
 }
 
-model orderproduct {
+model orderproducts {
   id         Int     @id @default(autoincrement())
   order_id   Int
   product_id String
@@ -160,27 +165,26 @@ model picture {
 
 model product {
   skuid                String          @id @default(cuid())
-  description          String?
-  alcohol              Boolean         @default(false)
-  price                Int             @default(0)
-  stock                Int             @default(0)
-  alcohol_percentage   Int?            @default(0)
-  category_id          Int?
   chinese_product_name String?
-  cost_price           Int             @default(0)
   english_product_name String
   french_product_name  String?
+  primary_image_url    String
+  cost_price           Int?             @default(0)
+  retail_price         Int             @default(0)
+  description          String?
+  stock                Int             @default(0)
+  alcohol              Boolean?         @default(false)
+  alcohol_percentage   Int?            @default(0)
+  category_id          Int?
   nutrition_fact       String?
   place_of_origin      String?
-  product_weight       String
-  retail_price         Int             @default(0)
+  product_weight       String?
   specification        String?
-  primary_image_url    String
   lovelistentries      lovelistitems[]
-  order                orderproduct[]
+  order                orderproducts[] //many to many relation   
   picture              picture[]
   category             category?       @relation(fields: [category_id], references: [id], map: "Product_category_id_fkey")
-  cart                 cart[]          @relation("carttoproduct")
+  carts                 cart[] //one to many relation       
 
   @@index([category_id], map: "Product_category_id_fkey")
 }
