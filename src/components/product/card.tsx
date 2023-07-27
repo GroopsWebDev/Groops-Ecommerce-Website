@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
+
 interface ProductCardProps {
   _on_discount: boolean;
   _one_plus: boolean;
@@ -21,21 +22,25 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const [mouseEnter, setMouseEnter] = useState(false);
 
+  
+
   return (
-    <Link href = "/product/1" className="w-56 bg-white">
+    <div>
       {/* group img */}
       <div
-        className="relative flew-row flex"
+        className="flew-row relative flex"
         onMouseEnter={() => setMouseEnter(true)}
         onMouseLeave={() => setMouseEnter(false)}
       >
-        <Image
-          src="/assets/products/lays.svg"
-          alt="Lays"
-          width={150}
-          height={150}
-          className="ml-8"
-        />
+        <Link href="/product/1" className="w-56 bg-white">
+          <Image
+            src="/assets/products/lays.svg"
+            alt="Lays"
+            width={150}
+            height={150}
+            className="ml-8"
+          />
+        </Link>
         {!_sold_out && _one_plus && (
           <div className="relative">
             <div className="absolute right-0 flex w-28 items-center justify-between rounded-full bg-red-600 ">
@@ -50,18 +55,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </div>
         )}
 
-        {!_sold_out && !_one_plus && mouseEnter && <PlusButton onClick={() => {}} />}
+        {!_sold_out && !_one_plus && mouseEnter && (
+          <PlusButton onClick={() => {}} />
+        )}
 
         {_sold_out && (
           <div className="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-60">
-          <div className="flex items-center">
-            <div className="h-0.5 w-3 bg-white"></div>
-            <p className="mx-1 text-sm font-bold text-white">
-              SOLD OUT
-            </p>
-            <div className="h-0.5 w-3 bg-white"></div>
+            <div className="flex items-center">
+              <div className="h-0.5 w-3 bg-white"></div>
+              <p className="mx-1 text-sm font-bold text-white">SOLD OUT</p>
+              <div className="h-0.5 w-3 bg-white"></div>
+            </div>
           </div>
-        </div>
         )}
       </div>
 
@@ -100,7 +105,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           )}
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

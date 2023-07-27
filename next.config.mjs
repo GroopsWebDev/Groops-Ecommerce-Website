@@ -5,16 +5,19 @@
 await import("./src/env.mjs");
 
 import pkg from './next-i18next.config.js';
-const {i18n} = pkg;
+// const {i18n} = pkg;
 
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: true,
   
-  i18n,
+  i18n: {
+    locales: ["en"],
+    defaultLocale: "en",
+  },
  
   images: {
-    domains: ['images.clerk.dev', 'www.gravatar.com'],
+    domains: ['images.clerk.dev', 'www.gravatar.com','api.gr-oops.com'],
   },
   webpack(config) {
     config.module.rules.push({

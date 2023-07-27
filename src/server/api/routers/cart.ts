@@ -4,12 +4,15 @@ import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const ShoppingCartRouter = createTRPCRouter({
   getUserCartItems: publicProcedure
-    .input(z.object({ user_Clerk_id: z.string() }))
-    .query(({ ctx, input }) => {
-      return ctx.prisma.cart.findMany({
-        where: { user_Clerk_id: input.user_Clerk_id },
-      });
-    }),
+  .input(z.object({ user_Clerk_id: z.string() }))
+  .query(({ ctx, input }) => {
+    return ctx.prisma.cart.findMany({
+      where: { user_Clerk_id: input.user_Clerk_id },
+      include: {
+        product: true, // Include the associated product
+      },
+    });
+  }),
 
   addCartItem: publicProcedure
     .input(
@@ -93,4 +96,27 @@ export const ShoppingCartRouter = createTRPCRouter({
         }
       }
     }),
+
+    emptyCart: publicProcedure
+    .input(
+      z.object({
+        user_Clerk_id: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { user_Clerk_id } = input;
+      // Check if a matching cart item already exists
+      const existingCartItems = await ctx.prisma.cart.findMany({
+        where: {
+          user_Clerk_id: user_Clerk_id,
+        },
+      });
+      if (!existingCartItems) {
+        throw new Error("Cart item not found");
+      }
+      await ctx.prisma.cart.deleteMany({ where: { user_Clerk_id: user_Clerk_id } });
+      return null;
+    }
+    ),
+
 });
