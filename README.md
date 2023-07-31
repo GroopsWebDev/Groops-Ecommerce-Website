@@ -11,7 +11,7 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 
 🔑 Tailwind UI Dev (Harvey account): `zichengzhao@g.ucla.edu` password: `Zichengzhao+1234`
 
-🔑 [Minio file management](assets.gr-oops.com): `admin` password: `K27af3K8lBH1lHxB`
+🔑 [Minio file management](https://assets.gr-oops.com/login): `admin` password: `K27af3K8lBH1lHxB`
 
 📆 [Project Log](https://github.com/orgs/GroopsWebDev/projects/2)
 
