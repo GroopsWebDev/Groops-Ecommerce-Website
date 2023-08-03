@@ -34,7 +34,7 @@ const Sidebar = ({
 
   const sidebarRef = useRef<HTMLDivElement | null>(null);
 
-  const { isLoaded, isSignedIn, user } = useUser();
+  const { user } = useUser();
 
   useEffect(() => {
     let handler = (e: any) => {
