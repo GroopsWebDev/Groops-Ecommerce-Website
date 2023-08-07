@@ -17,53 +17,71 @@ export const productRouter = createTRPCRouter({
       })
     }),
 
-    // createProduct: publicProcedure
-    // .input(z.object({
-    //   englishProductName: z.string(),
-    //   chineseProductNName: z.string(),
-    //   frenchProductNName: z.string(),
-    //   placeOfOrigin: z.string(),
-    //   productWeight: z.string(),
-    //   description: z.string(),
-    //   alcohol: z.boolean(),
-    //   price: z.number(),
-    //   image: z.string(),
-    //   categoryId: z.number(),
-    //   retailPrice: z.number(),
-    //   costPrice: z.number(),
-    //   stock: z.number(),
-    //   alcoholPercentage: z.number(),
-    //   specification: z.string(),
-    //   nutritionFact:  z.string()
+    createProduct: publicProcedure
+    .input(z.object({
+      englishProductName: z.string(),
+      chineseProductNName: z.string(),
+      frenchProductNName: z.string(),
+      placeOfOrigin: z.string(),
+      productWeight: z.string(),
+      description: z.string(),
+      alcohol: z.boolean(),
+      price: z.number(),
+      primary_image_url: z.string(),
+      categoryId: z.number(),
+      retailPrice: z.number(),
+      costPrice: z.number(),
+      stock: z.number(),
+      alcoholPercentage: z.number(),
+      specification: z.string(),
+      nutritionFact:  z.string()
 
-    // })).mutation(({ ctx, input }) => {
+    })).mutation(({ ctx, input }) => {
       
-    //   if (!input.englishProductName || !input.productWeight || !input.price || !input.categoryId) {
-    //     throw new TRPCError({
-    //       code: 'INTERNAL_SERVER_ERROR',
-    //       message: "English Product Name, Product Weight, Image, Price, and Category ID are required",
-    //     });
-    //   }
+      if (!input.englishProductName || !input.productWeight || !input.price || !input.categoryId) {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: "English Product Name, Product Weight, Image, Price, and Category ID are required",
+        });
+      }
 
-    //   return ctx.prisma.product.create({ data: {
-    //     //skuid String @id @default(cuid())
-    //     english_product_name: input.englishProductName,
-    //     chinese_product_name: input.chineseProductNName,
-    //     french_product_name: input.frenchProductNName,
-    //     place_of_origin: input.placeOfOrigin,
-    //     product_weight: input.productWeight,
-    //     description: input.description,
-    //     alcohol: input.alcohol,
-    //     price: input.price,
-    //     image_url: input.image,
-    //     retail_price: input.retailPrice,
-    //     cost_price: input.costPrice,
-    //     stock: input.stock,
-    //     alcohol_percentage: input.alcoholPercentage,
-    //     specification: input.specification,
-    //     nutrition_fact:  input.nutritionFact,
-    //     category_id: input.categoryId,
-    //   } })
-    // }),
+      return ctx.prisma.product.create({ data: {
+        //skuid String @id @default(cuid())
+        english_product_name: input.englishProductName,
+        chinese_product_name: input.chineseProductNName,
+        french_product_name: input.frenchProductNName,
+        place_of_origin: input.placeOfOrigin,
+        product_weight: input.productWeight,
+        description: input.description,
+        alcohol: input.alcohol,
+        price: input.price,
+        primary_image_url: input.primary_image_url,
+        retail_price: input.retailPrice,
+        cost_price: input.costPrice,
+        stock: input.stock,
+        alcohol_percentage: input.alcoholPercentage,
+        specification: input.specification,
+        nutrition_fact:  input.nutritionFact,
+        category_id: input.categoryId,
+      } })
+    }),
+
+
+    createProduct_min: publicProcedure
+    .input(z.object({
+      englishProductName: z.string(),
+      product_weight: z.string(),
+      primary_image_url: z.string(),
+  
+    })).mutation(({ ctx, input }) => {
+      
+      return ctx.prisma.product.create({ data: {
+
+        english_product_name: input.englishProductName,
+        product_weight: input.product_weight,
+        primary_image_url: input.primary_image_url,
+
+      } })
+    }),
 
 });

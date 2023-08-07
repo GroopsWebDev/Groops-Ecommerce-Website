@@ -1,7 +1,6 @@
 import ProductCard from "~/components/product/card";
 
 const Products = () => {
-<<<<<<< HEAD
   const Row = () => (
     <div className="flex flex-row items-center justify-between">
       <ProductCard
@@ -25,9 +24,7 @@ const Products = () => {
       />
     </div>
   );
-=======
   const products = [1, 2, 3, 4, 5, 6, 7, 8];
->>>>>>> 53181c4db376a005e2ddda2a5d6421200c21668d
 
   const Selector = ({ label }: { label: string }) => (
     <div className="flex flex-row items-center justify-center gap-x-2 ">
