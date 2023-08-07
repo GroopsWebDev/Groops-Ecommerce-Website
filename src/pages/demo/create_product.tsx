@@ -26,9 +26,9 @@ export default function Test() {
 
   };
 
-  const deleteAllLovedItems = async () => {
+  // const deleteAllLovedItems = async () => {
     
-  }
+  // }
 
 
 
@@ -44,9 +44,9 @@ export default function Test() {
         <button onClick={create} className="m-20 border">
           Create product
         </button>
-        <button onClick={deleteAllLovedItems} className="m-20 border">
+        {/* <button onClick={deleteAllLovedItems} className="m-20 border">
           Empty lovelist
-        </button>
+        </button> */}
       </div>
 
 

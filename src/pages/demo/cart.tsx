@@ -1,39 +1,6 @@
-<<<<<<< HEAD
-// import { api } from "~/utils/api";
-// import { useAuth } from "@clerk/nextjs";
-// import Link from "next/link";
-// import { LoadingSpinner } from "~/components/loading";
-
-// export default function Test() {
-//   const { isLoaded, userId, sessionId, getToken } = useAuth();
-//   const { data, isLoading, refetch } = api.cartApi.getUserCartList.useQuery({
-//     userId: userId ? userId : "1",
-//   });
-
-//   const delete_all_mutation = api.cartApi.deleteAllInCart.useMutation();
-
-//   const deleteAllLovedItems = async () => {
-//     await delete_all_mutation.mutateAsync({ userId: userId ? userId : "1" });
-//     await refetch(); // Trigger a refetch of the user's love list
-//   }
-
-//   if (isLoading) {
-//     return <LoadingSpinner />;
-//   }
-
-//   return (
-//     <>
-//       <Link href="/" className="bg-black p-1 text-white">
-//         Back to home page
-//       </Link>
-
-//       <h1 className="mb-10 mt-10 text-center">My user Id: {userId}</h1>
-=======
 import { api } from "~/utils/api";
 import { useAuth } from "@clerk/nextjs";
-import Link from "next/link";
 import { LoadingSpinner } from "~/components/others/loading";
->>>>>>> 53181c4db376a005e2ddda2a5d6421200c21668d
 
 //       <div className="flex flex-row justify-center">
 //         <button onClick={deleteAllLovedItems} className="m-20 border">

@@ -172,7 +172,7 @@ const DeliveryAddress: React.FC = () => {
               <input
                 className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600 "
                 placeholder="First Name"
-                id={"address" + index + "first_name"}
+                id={"address" + String(index) + "first_name"}
                 required
                 pattern="[A-Za-z]+"
                 value={firstName}
@@ -190,7 +190,7 @@ const DeliveryAddress: React.FC = () => {
                 className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600"
                 placeholder="Last Name"
                 required
-                id={"address" + index + "last_name"}
+                id={"address" + String(index) + "last_name"}
                 pattern="[A-Za-z]+"
                 value={lastName}
                 onChange={handleLastNameChange}
@@ -210,7 +210,7 @@ const DeliveryAddress: React.FC = () => {
                 className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600 "
                 placeholder="Email"
                 type="email"
-                id={"address" + index + "email"}
+                id={"address" + String(index) + "email"}
                 required
                 value={email}
                 onChange={handleEmailChange}
@@ -240,7 +240,7 @@ const DeliveryAddress: React.FC = () => {
             className="w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600"
             placeholder="Street Address"
             required
-            id={"address" + index + "street"}
+            id={"address" + String(index) + "street"}
             value={street}
             onChange={handleStreetAddressChange}
           />
@@ -252,7 +252,7 @@ const DeliveryAddress: React.FC = () => {
                 className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600"
                 placeholder="Country"
                 required
-                id={"address" + index + "country"}
+                id={"address" + String(index) + "country"}
                 pattern="[A-Za-z]+"
                 value={country}
                 onChange={handleCountryChange}
@@ -268,7 +268,7 @@ const DeliveryAddress: React.FC = () => {
               <input
                 className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600 "
                 placeholder="City"
-                id={"address" + index + "city"}
+                id={"address" + String(index) + "city"}
                 required
                 pattern="[A-Za-z]+"
                 value={city}
@@ -286,7 +286,7 @@ const DeliveryAddress: React.FC = () => {
                 className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600"
                 placeholder="State"
                 required
-                id={"address" + index + "state"}
+                id={"address" + String(index) + "state"}
                 pattern="[A-Za-z]+"
                 value={state}
                 onChange={handleStateChange}
@@ -303,7 +303,7 @@ const DeliveryAddress: React.FC = () => {
                 className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600"
                 placeholder="Postal"
                 required
-                id={"address" + index + "psotcode"}
+                id={"address" + String(index) + "psotcode"}
                 onChange={handleZipCodeChange}
               />
             </div>
