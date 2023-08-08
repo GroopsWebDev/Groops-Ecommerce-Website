@@ -1,15 +1,18 @@
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
-export const ImageUploader = async (file) => {
+export const ImageUploader = async (file: File) => {
+  if (!file) {
+    throw new Error('No file provided.');
+  }
   const s3 = new S3Client({
     region: process.env.MINIO_REGION, // Replace with your Minio server's region
     endpoint: process.env.MINIO_ENDPOINT, // Replace with your Minio server's URL
     credentials: {
-      accessKeyId: process.env.MINIO_ACCESS_KEY, // Replace with your Minio server's access key
-      secretAccessKey: process.env.MINIO_SECRET_KEY, // Replace with your Minio server's secret access key
+      accessKeyId: process.env.MINIO_ACCESS_KEY as string, // Replace with your Minio server's access key
+      secretAccessKey: process.env.MINIO_SECRET_KEY as string, // Replace with your Minio server's secret access key
     },
     forcePathStyle: true,
-    sslEnabled: false, // Replace with true if your Minio server uses HTTPS
+    // sslEnabled: false, // Replace with true if your Minio server uses HTTPS
   });
 
   const bucketName = "img"; // Replace with your Minio bucket name
