@@ -10,7 +10,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.341.0",
+    "@aws-sdk/client-s3": "^3.386.0",
     "@clerk/nextjs": "^4.17.3",
     "@clerk/themes": "^1.7.5",
     "@emotion/react": "^11.11.1",
