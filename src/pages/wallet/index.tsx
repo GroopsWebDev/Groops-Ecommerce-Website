@@ -39,7 +39,7 @@ const Index = () => {
 
           <div className="flex flex-col items-center gap-y-5">
             <p>you can withdraw your earned commissions through Paypal</p>
-            <button className="bg-black px-4 py-1 text-white">
+            <button className="bg-rose-600 rounded px-5 py-2 text-white">
               withdraw through paypal
             </button>
           </div>
