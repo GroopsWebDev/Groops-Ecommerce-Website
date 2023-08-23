@@ -1,7 +1,6 @@
-import HeartIcon from "@public/assets/icons/heart.svg";
-import PlusButton from "@public/assets/cart/plus-button.svg";
-import MinusButton from "@public/assets/cart/minus-button.svg";
+
 import ProductRow from "@components/product/row";
+import Link from "next/link";
 
 const Checkout = () => {
   const Right = () => {
@@ -54,50 +53,91 @@ const Checkout = () => {
           <p>Total</p>
           <p>$ 100</p>
         </div>
+
+        <div className="mt-2 flex justify-center">
+          <Link
+            href="/order/1"
+            className="flex w-full justify-center rounded bg-rose-600 p-2 text-white"
+          >
+            Checkout
+          </Link>
+        </div>
       </div>
     );
   };
 
-  const Row = () => (
-    <div className="my-5 flex flex-row justify-between">
-      <div className="flex gap-x-5">
-        <img className="" src="/assets/dummy/product.png" />
-        <div className="flex flex-col justify-center gap-y-2">
-          <p className="text-gray-400">Company name</p>
-          <p>Product name</p>
-          <p>Flavor</p>
-          <button className="flex items-center">
-            <HeartIcon className="h-5 mr-2" />
-            <p>Add to love list</p>
-          </button>
-        </div>
-      </div>
-      <div className="flex items-center justify-between gap-x-10">
-        <div className="flex items-center gap-x-3">
-          <button className="flex items-center">
-            <MinusButton className="h-10" />
-          </button>
-          <p>1</p>
-          <button>
-            <PlusButton className="h-10" />
-          </button>
-        </div>
-        <p className="text-2xl font-bold text-rose-600">$100</p>
-      </div>
-    </div>
+  const CountrySelector = () => (
+    <>
+      <label
+        htmlFor="countries"
+        className="mt-3 block text-gray-800 dark:text-white"
+      >
+        Select an option
+      </label>
+      <select
+        id="countries"
+        className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+      >
+        <option selected>Choose a country</option>
+        <option value="US">United States</option>
+        <option value="CA">Canada</option>
+        <option value="FR">France</option>
+        <option value="DE">Germany</option>
+      </select>
+    </>
   );
 
   return (
     <>
       <div className="bg-gray-200 p-5">
-        <h2 className="text-xl ">Checkout</h2>
+        <h2 className="text-xl ">Cart</h2>
         <p className="text-gray-400">Total 9 items</p>
 
         <div className="mt-10 flex gap-x-5">
           <div className="Left w-[70%] rounded bg-white p-5">
-            <Row />
-            <hr />
-            <Row />
+            <h2 className="text-xl">Personal information</h2>
+            <div className="mt-3 flex w-full gap-x-5">
+              <div className="flex w-full flex-col gap-y-1">
+                <p className="text-gray-800">First Name</p>
+                <input className="rounded-lg border p-2" />
+              </div>
+              <div className="flex w-full flex-col gap-y-1">
+                <p className="text-gray-800">Last Name</p>
+                <input className="rounded-lg border p-2" />
+              </div>
+            </div>
+            <div className="mt-3 flex w-full gap-x-5">
+              <div className="flex w-full flex-col gap-y-1">
+                <p className="text-gray-800">Email Address</p>
+                <input className="rounded-lg border p-2" />
+              </div>
+              <div className="flex w-full flex-col gap-y-1">
+                <p className="text-gray-800">Phone Number</p>
+                <input className="rounded-lg border p-2" />
+              </div>
+            </div>
+
+            <h2 className="mt-5 text-xl">Shipping Address</h2>
+
+            <CountrySelector />
+
+            <p className="mt-3 text-gray-800">Street Address</p>
+            <input className="w-full rounded-lg border p-2" />
+
+            <div className="mt-3 flex gap-x-5">
+              <div className="flex w-full flex-col">
+                <p className=" text-gray-800">City</p>
+                <input className="w-full rounded-lg border p-2" />
+              </div>
+              <div className="flex w-full flex-col">
+                <p className=" text-gray-800">State/Province</p>
+                <input className="w-full rounded-lg border p-2" />
+              </div>
+              <div className="flex w-full flex-col">
+                <p className=" text-gray-800">Zip/Postal</p>
+                <input className="w-full rounded-lg border p-2" />
+              </div>
+            </div>
           </div>
 
           <Right />
