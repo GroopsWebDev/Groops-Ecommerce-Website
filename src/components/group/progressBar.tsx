@@ -4,9 +4,7 @@ const steps = [
   { name: "1" },
   { name: "2" },
   { name: "3" },
-  { name: "4" },
-  { name: "5" },
-  { name: "6" },
+  { name: "4" }
 ];
 
 function classNames(...classes: string[]) {
@@ -24,7 +22,7 @@ export default function Example({ current }: { current: number }) {
           <li
             key={step.name}
             className={classNames(
-              stepIdx !== steps.length - 1 ? "pr-36" : "",
+              stepIdx !== steps.length - 1 ? "pr-36" : " ",
               "relative w-1/5"
             )}
           >
