@@ -58,10 +58,14 @@ const Categories = ({ images }: { images: string[] }) => {
         </style>
         {images.map((image, index) => (
           // eslint-disable-next-line @next/next/no-img-element
-          <Link key={index} href={`/group/category/${index}`}>
+          <Link
+            key={index}
+            href={`/group/category/${index}`}
+            className="flex-none"
+          >
             <img
               src={image}
-              className="flex-none object-contain"
+              className="object-contain"
               style={{ width: 336, height: 336 }}
               alt="groups"
             />
