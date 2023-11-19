@@ -20,10 +20,10 @@ const Index = () => {
           </p>
 
           <div className="mt-5 flex justify-center gap-x-5">
-            <button className="rounded-lg bg-rose-600 px-4 py-3 text-white">
+            <button className="rounded-lg bg-primary-main px-4 py-3 text-white">
               create a group
             </button>
-            <button className="rounded-lg bg-rose-600 px-4 py-3 text-white">
+            <button className="rounded-lg bg-primary-main px-4 py-3 text-white">
               Join a group
             </button>
           </div>
@@ -33,7 +33,7 @@ const Index = () => {
       </div>
 
       <div className="flex justify-between gap-x-10 p-36">
-        <div className="flex flex-col items-center w-1/4">
+        <div className="flex w-1/4 flex-col items-center">
           <img src="/assets/group/hands.png" className="" />
           <p className="mt-3 text-xl font-bold">You can create a group</p>
           <p className="mt-5">
@@ -41,7 +41,7 @@ const Index = () => {
             commission according to the size of your group.
           </p>
         </div>
-        <div className="flex flex-col items-center w-1/4">
+        <div className="flex w-1/4 flex-col items-center">
           <img src="/assets/group/logo_small.png" className="" />
           <p className="mt-3 text-xl font-bold">You can join a group</p>
           <p className="mt-5">
@@ -49,7 +49,7 @@ const Index = () => {
             discount off your selected items
           </p>
         </div>
-        <div className="flex flex-col items-center w-1/4">
+        <div className="flex w-1/4 flex-col items-center">
           <img src="/assets/group/logo_small.png" className="" />
           <p className="mt-3 text-xl font-bold">Groups</p>
           <p className="mt-5">

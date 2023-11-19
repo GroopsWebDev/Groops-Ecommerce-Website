@@ -20,14 +20,16 @@ const Product = () => {
 
             <h2 className="text-3xl font-bold">product name</h2>
 
-            <h2 className="pt-5 text-3xl font-bold text-rose-600">$ 20</h2>
+            <h2 className="pt-5 text-3xl font-bold text-primary-main">$ 20</h2>
 
             <div className="mt-5 flex items-center gap-x-2 text-xs">
               <p className="rounded bg-gray-200 p-1 text-gray-500">700+ Sold</p>
-              <p className="rounded bg-rose-200 p-1 text-rose-600">51 Left</p>
+              <p className="rounded bg-rose-200 p-1 text-primary-main">
+                51 Left
+              </p>
             </div>
 
-            <button className="mt-5 w-full rounded-lg bg-rose-600 px-24 py-3 text-white">
+            <button className="mt-5 w-full rounded-lg bg-primary-main px-24 py-3 text-white">
               Add to Cart
             </button>
 

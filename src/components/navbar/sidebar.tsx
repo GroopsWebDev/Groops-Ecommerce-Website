@@ -73,7 +73,9 @@ const Sidebar = ({
                       : user!.username}
                   </h2>
                   <div className="mb-5 mt-5 w-[95%] rounded-xl bg-white p-5">
-                    <p className="text-2xl font-bold text-rose-600">$ 135</p>
+                    <p className="text-2xl font-bold text-primary-main">
+                      $ 135
+                    </p>
                     <p className="text-gray-400">Savings last 12 months</p>
                   </div>
                 </div>

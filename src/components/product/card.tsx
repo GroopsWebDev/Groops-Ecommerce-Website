@@ -22,10 +22,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const [mouseEnter, setMouseEnter] = useState(false);
 
   return (
-    <Link href = "/product/1" className="w-56 bg-white">
+    <Link href="/product/1" className="w-56 bg-white">
       {/* group img */}
       <div
-        className="relative flew-row flex"
+        className="flew-row relative flex"
         onMouseEnter={() => setMouseEnter(true)}
         onMouseLeave={() => setMouseEnter(false)}
       >
@@ -50,18 +50,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </div>
         )}
 
-        {!_sold_out && !_one_plus && mouseEnter && <PlusButton onClick={() => {}} />}
+        {!_sold_out && !_one_plus && mouseEnter && (
+          <PlusButton onClick={() => {}} />
+        )}
 
         {_sold_out && (
           <div className="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-60">
-          <div className="flex items-center">
-            <div className="h-0.5 w-3 bg-white"></div>
-            <p className="mx-1 text-sm font-bold text-white">
-              SOLD OUT
-            </p>
-            <div className="h-0.5 w-3 bg-white"></div>
+            <div className="flex items-center">
+              <div className="h-0.5 w-3 bg-white"></div>
+              <p className="mx-1 text-sm font-bold text-white">SOLD OUT</p>
+              <div className="h-0.5 w-3 bg-white"></div>
+            </div>
           </div>
-        </div>
         )}
       </div>
 
@@ -87,10 +87,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
         )}
 
         <div className="mt-1 flex flex-row items-center">
-          <p className="pt-5 text-xl font-bold text-rose-600">$ 2.49</p>
+          <p className="pt-5 text-xl font-bold text-primary-main">$ 2.49</p>
           {_on_discount && (
             <>
-              <p className="ml-1 pt-5 text-xl font-bold  text-rose-600 line-through">
+              <p className="ml-1 pt-5 text-xl font-bold  text-primary-main line-through">
                 $ 2.99
               </p>
               <p className="ml-2 mt-5 inline-block rounded-md bg-red-500 pl-2 pr-3 text-sm text-white">

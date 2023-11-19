@@ -35,12 +35,12 @@ const Group = () => {
 
       <div className="mt-3 flex flex-row gap-x-3">
         <p>21/50</p>
-        <p className="rounded bg-rose-600 px-2 text-white">5% off</p>
+        <p className="rounded bg-primary-main px-2 text-white">5% off</p>
       </div>
 
       <p className="mt-5 text-gray-400">max possible discount : 30%</p>
 
-      <button className="mt-3 rounded bg-rose-600 px-20 py-2 text-white">
+      <button className="mt-3 rounded bg-primary-main px-20 py-2 text-white">
         Join group
       </button>
     </div>
@@ -60,7 +60,7 @@ const Group = () => {
 
         <div>
           <p className="text-2xl font-bold">Group members (10)</p>
-          <button className="text-sm text-rose-600">see all</button>
+          <button className="text-sm text-primary-main">see all</button>
           <div className="mt-2 flex h-1/2 flex-row gap-x-1">
             <img
               src="/assets/dummy/product.png"
@@ -87,10 +87,10 @@ const Group = () => {
         choose items from the following categories to recieve discount
       </p>
       <div className="mt-3 flex gap-x-3">
-        <p className="rounded-full border border-rose-600 p-1 text-rose-600">
+        <p className="rounded-full border border-primary-main p-1 text-primary-main">
           Snacks 1% off
         </p>
-        <p className="rounded-full border border-rose-600 p-1 text-rose-600">
+        <p className="rounded-full border border-primary-main p-1 text-primary-main">
           Snacks 1% off
         </p>
       </div>
@@ -102,7 +102,7 @@ const Group = () => {
       <div className="relative">
         <img src="/assets/group/cover.png" className="w-full" />
 
-        <div className="absolute bottom-10 ml-10 flex justify-center gap-x-5 rounded-lg bg-rose-600 p-5 text-white">
+        <div className="absolute bottom-10 ml-10 flex justify-center gap-x-5 rounded-lg bg-primary-main p-5 text-white">
           <div>
             <p>current discount</p>
             <p className="text-3xl font-bold">5 % off</p>
@@ -118,7 +118,7 @@ const Group = () => {
 
       <div className="flex gap-x-5 p-16">
         <GroupCard />
-        <div className="w-[1px] bg-rose-600"></div>
+        <div className="w-[1px] bg-primary-main"></div>
         <Info />
       </div>
 

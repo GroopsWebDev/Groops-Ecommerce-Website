@@ -11,7 +11,7 @@ interface Props {
 const Row: React.FC<Props> = ({ section_category }) => {
   return (
     <>
-      <div className="z-0 p-10 bg-white">
+      <div className="z-0 bg-white p-10">
         <div className="flex flex-row items-center justify-between">
           <div className="flex flex-col">
             <h1 className=" text-2xl">{section_category}</h1>
@@ -24,7 +24,7 @@ const Row: React.FC<Props> = ({ section_category }) => {
           </div>
 
           <div className="flex flex-row items-center">
-            <Link href="" className="mr-5 flex items-center text-rose-600">
+            <Link href="" className="mr-5 flex items-center text-primary-main">
               <p className="mr-2">see all</p>
               <Arrow />
             </Link>
@@ -35,11 +35,31 @@ const Row: React.FC<Props> = ({ section_category }) => {
         </div>
 
         <div className="mt-10 flex flex-row items-center justify-between">
-          <ProductCard _on_discount={false} _one_plus={false} _mouse_enter={false} />
-          <ProductCard _on_discount={false} _one_plus={false} _mouse_enter={true} />
-          <ProductCard _on_discount={true} _one_plus={true} _mouse_enter={false} />
-          <ProductCard _on_discount={false} _one_plus={false} _mouse_enter={false} />
-          <ProductCard _on_discount={false} _one_plus={false} _mouse_enter={false} />
+          <ProductCard
+            _on_discount={false}
+            _one_plus={false}
+            _mouse_enter={false}
+          />
+          <ProductCard
+            _on_discount={false}
+            _one_plus={false}
+            _mouse_enter={true}
+          />
+          <ProductCard
+            _on_discount={true}
+            _one_plus={true}
+            _mouse_enter={false}
+          />
+          <ProductCard
+            _on_discount={false}
+            _one_plus={false}
+            _mouse_enter={false}
+          />
+          <ProductCard
+            _on_discount={false}
+            _one_plus={false}
+            _mouse_enter={false}
+          />
         </div>
       </div>
     </>

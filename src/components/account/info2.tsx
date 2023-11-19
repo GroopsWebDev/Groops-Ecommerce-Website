@@ -106,7 +106,7 @@ const PersonalInfo: React.FC = () => {
       if (firstName) {
         try {
           setIsLoading(true);
-          console.log(user.id, firstName, typeof(firstName));
+          console.log(user.id, firstName, typeof firstName);
           await user.update({
             firstName: firstName,
           });
@@ -212,7 +212,7 @@ const PersonalInfo: React.FC = () => {
                   autoComplete="username"
                   value={userName}
                   onChange={handleUserNameChange}
-                  className="block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-rose-600 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-primary-main focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                 />
                 {!isUserNameValid && (
                   <p className="mt-1 text-sm text-red-600">
@@ -238,7 +238,7 @@ const PersonalInfo: React.FC = () => {
                   autoComplete="given-name"
                   value={firstName}
                   onChange={handleFirstNameChange}
-                  className="block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-rose-600 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-primary-main focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                 />
                 {!isFirstNameValid && (
                   <p className="mt-1 text-sm text-red-600">
@@ -264,7 +264,7 @@ const PersonalInfo: React.FC = () => {
                   pattern="[A-Za-z]+"
                   value={lastName}
                   onChange={handleLastNameChange}
-                  className="block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-rose-600 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-primary-main focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                 />
                 {!isLastNameValid && (
                   <p className="mt-1 text-sm text-red-600">
@@ -290,7 +290,7 @@ const PersonalInfo: React.FC = () => {
                   autoComplete="email"
                   value={email}
                   onChange={handleEmailChange}
-                  className="block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-rose-600 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-primary-main focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                 />
                 {!isEmailValid && (
                   <p className="mt-1 text-sm text-red-600">
@@ -327,7 +327,7 @@ const PersonalInfo: React.FC = () => {
                   type="number"
                   name="phone-number"
                   id="phone-number"
-                  className="block w-full rounded-md border-0 py-1.5 pl-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-rose-600 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 pl-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-primary-main focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                   placeholder="+1 (555) 987-6543"
                 />
               </div>
@@ -360,7 +360,7 @@ const PersonalInfo: React.FC = () => {
         </button>
         <button
           onClick={updateProfile}
-          className="rounded-xl border bg-rose-600 p-3 text-white"
+          className="rounded-xl border bg-primary-main p-3 text-white"
         >
           Save
         </button>

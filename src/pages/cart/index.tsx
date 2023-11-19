@@ -13,10 +13,10 @@ const Cart = () => {
         <div className="mt-3 flex gap-x-5">
           <img className="h-20 rounded-full" src="/assets/dummy/product.png" />
           <div className="flex flex-col gap-y-3">
-            <p className="text-xl text-rose-600">Group name</p>
+            <p className="text-xl text-primary-main">Group name</p>
             <div className="flex gap-x-3">
               <p>21/50</p>
-              <p className="rounded bg-rose-600 px-3 text-white">5% off</p>
+              <p className="rounded bg-primary-main px-3 text-white">5% off</p>
             </div>
           </div>
         </div>
@@ -46,7 +46,7 @@ const Cart = () => {
 
         <div className="mt-2 flex justify-between">
           <p>Discount</p>
-          <p className="text-rose-600">$ 10</p>
+          <p className="text-primary-main">$ 10</p>
         </div>
 
         <hr />
@@ -56,8 +56,13 @@ const Cart = () => {
           <p>$ 100</p>
         </div>
 
-        <div className="flex justify-center mt-2">
-          <Link href ="/checkout" className="flex justify-center w-full p-2 rounded bg-rose-600 text-white">Checkout</Link>
+        <div className="mt-2 flex justify-center">
+          <Link
+            href="/checkout"
+            className="flex w-full justify-center rounded bg-primary-main p-2 text-white"
+          >
+            Checkout
+          </Link>
         </div>
       </div>
     );
@@ -87,7 +92,7 @@ const Cart = () => {
             <PlusButton className="h-10" />
           </button>
         </div>
-        <p className="text-2xl font-bold text-rose-600">$100</p>
+        <p className="text-2xl font-bold text-primary-main">$100</p>
       </div>
     </div>
   );

@@ -74,7 +74,7 @@ const Orders = () => {
           </div>
 
           <div className="flex flex-col ">
-            <Link href="/order/1" className="text-rose-600 underline">
+            <Link href="/order/1" className="text-primary-main underline">
               Order details
             </Link>
             <span className="underline">Contact</span>

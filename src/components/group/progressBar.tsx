@@ -1,11 +1,6 @@
 import { CheckIcon } from "@heroicons/react/20/solid";
 
-const steps = [
-  { name: "1" },
-  { name: "2" },
-  { name: "3" },
-  { name: "4" }
-];
+const steps = [{ name: "1" }, { name: "2" }, { name: "3" }, { name: "4" }];
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -32,11 +27,11 @@ export default function Example({ current }: { current: number }) {
                   className="absolute inset-0 flex items-center"
                   aria-hidden="true"
                 >
-                  <div className="h-0.5 w-full bg-rose-600" />
+                  <div className="h-0.5 w-full bg-primary-main" />
                 </div>
                 <a
                   href="#"
-                  className="relative flex h-8 w-8 items-center justify-center rounded-full bg-rose-600 hover:bg-rose-900"
+                  className="relative flex h-8 w-8 items-center justify-center rounded-full bg-primary-main hover:bg-rose-900"
                 >
                   <CheckIcon
                     className="h-5 w-5 text-white"
@@ -55,11 +50,11 @@ export default function Example({ current }: { current: number }) {
                 </div>
                 <a
                   href="#"
-                  className="relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-rose-600 bg-white"
+                  className="relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-primary-main bg-white"
                   aria-current="step"
                 >
                   <span
-                    className="h-2.5 w-2.5 rounded-full bg-rose-600"
+                    className="h-2.5 w-2.5 rounded-full bg-primary-main"
                     aria-hidden="true"
                   />
                   <span className="sr-only">{step.name}</span>

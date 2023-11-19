@@ -17,7 +17,7 @@ const GroupHistory = () => {
 
       <div className="mt-3 flex flex-row gap-x-3">
         <p>21/50</p>
-        <p className="rounded bg-rose-600 px-2 text-white">5% off</p>
+        <p className="rounded bg-primary-main px-2 text-white">5% off</p>
       </div>
 
       <p className="mt-3 text-gray-400">max possible discount : 30%</p>
@@ -25,14 +25,14 @@ const GroupHistory = () => {
   );
 
   const Row = () => (
-    <div className="flex gap-x-5 bg-white p-5 mt-5">
+    <div className="mt-5 flex gap-x-5 bg-white p-5">
       <GroupCard />
       <div className="w-[1px] bg-gray-200"></div>
       <div className="flex flex-col justify-center">
         <div className="flex flex-row gap-x-5">
           <div className="flex flex-col gap-y-1">
             <p className="text-gray-400">order id</p>
-            <p className="text-rose-600 underline">1234567</p>
+            <p className="text-primary-main underline">1234567</p>
           </div>
           <div className="flex flex-col gap-y-1">
             <p className="text-gray-400">order placed</p>
@@ -48,7 +48,7 @@ const GroupHistory = () => {
           </div>
         </div>
 
-        <div className="flex gap-x-3 mt-10">
+        <div className="mt-10 flex gap-x-3">
           <img src="/assets/dummy/product.png" className="h-1/2" />
           <img src="/assets/dummy/product.png" className="h-1/2" />
           <img src="/assets/dummy/product.png" className="h-1/2" />

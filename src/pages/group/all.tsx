@@ -34,7 +34,7 @@ const Groups = () => {
 
       <div className="flex flex-row gap-x-3">
         <p>21/50</p>
-        <p className="rounded bg-rose-600 px-2 text-white">5% off</p>
+        <p className="rounded bg-primary-main px-2 text-white">5% off</p>
       </div>
 
       <div className="mt-10 flex flex-col items-center gap-y-3">

@@ -5,7 +5,7 @@ const PaymentMethods: React.FC = () => {
 
   return (
     <>
-            <h1 className="mb-3 mt-10 text-2xl">Payment Methods</h1>
+      <h1 className="mb-3 mt-10 text-2xl">Payment Methods</h1>
       {paymentList.map((p, index) => (
         <div
           key={index}
@@ -30,7 +30,7 @@ const PaymentMethods: React.FC = () => {
 
       <button
         onClick={() => setPaymentList([...paymentList, 1])}
-        className="mt-10 text-rose-600"
+        className="mt-10 text-primary-main"
       >
         Add a payment
       </button>

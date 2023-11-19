@@ -70,7 +70,7 @@ const PersonalInfo: React.FC = () => {
         <button className="rounded-xl border border-gray-300 bg-white p-3">
           Cancel
         </button>
-        <button className="rounded-xl border bg-rose-600 p-3 text-white">
+        <button className="rounded-xl border bg-primary-main p-3 text-white">
           Save
         </button>
       </div>

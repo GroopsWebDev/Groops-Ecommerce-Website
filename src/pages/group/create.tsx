@@ -69,19 +69,19 @@ const CreateGroupPage = () => {
             <p>
               Estimated <span className="font-bold">Based</span> Discount
             </p>
-            <p className="font-bold text-rose-600">2%</p>
+            <p className="font-bold text-primary-main">2%</p>
           </div>
           <div className="mt-5 flex justify-between">
             <p>
               Discount on <span className="font-bold">Candies</span>
             </p>
-            <p className="font-bold text-rose-600">2%</p>
+            <p className="font-bold text-primary-main">2%</p>
           </div>
           <div className="mt-5 flex justify-between">
             <p>
               Discount on <span className="font-bold">Pearsonal Care</span>
             </p>
-            <p className="font-bold text-rose-600">2%</p>
+            <p className="font-bold text-primary-main">2%</p>
           </div>
         </div>
       </div>
@@ -219,7 +219,7 @@ const CreateGroupPage = () => {
         <div className="mt-10">
           <Link
             href="/group/1"
-            className="rounded-lg bg-rose-600 p-2 text-white"
+            className="rounded-lg bg-primary-main p-2 text-white"
           >
             Check your group page
           </Link>
@@ -232,14 +232,14 @@ const CreateGroupPage = () => {
               className="mt-10 w-1/5 rounded-full"
             />
 
-            <h1 className="mt-1 text-2xl font-bold text-rose-600">
+            <h1 className="mt-1 text-2xl font-bold text-primary-main">
               Group Name
             </h1>
 
-            <p className="text-sm text-gray-600 mt-10">
+            <p className="mt-10 text-sm text-gray-600">
               invite others to join the excitment
             </p>
-            <p className="py-1 px-5 bg-gray-200 rounded-xl mt-1">/group/id</p>
+            <p className="mt-1 rounded-xl bg-gray-200 px-5 py-1">/group/id</p>
           </div>
         </div>
       </div>
@@ -260,7 +260,7 @@ const CreateGroupPage = () => {
             onClick={() =>
               currentPage > 0 ? setCurrentPage(currentPage - 1) : null
             }
-            className="rounded border border-rose-600 bg-white px-7 py-2 text-rose-600"
+            className="rounded border border-primary-main bg-white px-7 py-2 text-primary-main"
           >
             Back
           </button>
@@ -268,7 +268,7 @@ const CreateGroupPage = () => {
             onClick={() =>
               currentPage < 3 ? setCurrentPage(currentPage + 1) : null
             }
-            className="rounded border border-rose-600 bg-rose-600 px-7 py-2 text-white"
+            className="rounded border border-primary-main bg-primary-main px-7 py-2 text-white"
           >
             Next
           </button>

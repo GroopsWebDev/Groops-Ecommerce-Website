@@ -25,7 +25,6 @@ const DeliveryAddress: React.FC = () => {
   const [isStateValid, setIsStateValid] = useState(true);
   const [submitLoading, setSubmitLoading] = useState(false);
 
-
   // const { data, isLoading, refetch } = api.addressApi.getUserAddress.useQuery({
   //   user_Clerk_id: userId ? userId : "user_2QCeTGBNmUAEuim42OAnU7E3kuZ",
   // });
@@ -33,7 +32,7 @@ const DeliveryAddress: React.FC = () => {
   // console.log(`data ${data}`);
 
   const { data: addressData, isLoading: loadingData } =
-  api.addressApi.getAllAddresses.useQuery();
+    api.addressApi.getAllAddresses.useQuery();
 
   console.log(`addressData ${addressData}`);
 
@@ -153,7 +152,7 @@ const DeliveryAddress: React.FC = () => {
 
   return (
     <>
-    {/* display DB addresses */}
+      {/* display DB addresses */}
       {/* <div className="flex justify-between items-center">
         {addressListDB?.map((address, index) => (
           <div
@@ -165,7 +164,7 @@ const DeliveryAddress: React.FC = () => {
             ))}
         </div> */}
 
-{/* add new address */}
+      {/* add new address */}
       <h1 className="mb-3 mt-10 text-2xl">Delivery Addresses</h1>
       {addressList.map((address, index) => (
         <div
@@ -177,7 +176,7 @@ const DeliveryAddress: React.FC = () => {
             <div className="w-1/2">
               <p>First Name</p>
               <input
-                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600 "
+                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-primary-main "
                 placeholder="First Name"
                 id={"address" + index + "first_name"}
                 required
@@ -194,7 +193,7 @@ const DeliveryAddress: React.FC = () => {
             <div className="w-1/2">
               <p>Last Name</p>
               <input
-                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600"
+                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-primary-main"
                 placeholder="Last Name"
                 required
                 id={"address" + index + "last_name"}
@@ -203,7 +202,7 @@ const DeliveryAddress: React.FC = () => {
                 onChange={handleLastNameChange}
               />
               {!isLastNameValid && (
-                <p className="mt-1 text-sm text-red-600 focus:outline-rose-600">
+                <p className="mt-1 text-sm text-red-600 focus:outline-primary-main">
                   Please enter alphabetic characters only.
                 </p>
               )}
@@ -214,7 +213,7 @@ const DeliveryAddress: React.FC = () => {
             <div className="w-1/2">
               <p>Email</p>
               <input
-                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600 "
+                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-primary-main "
                 placeholder="Email"
                 type="email"
                 id={"address" + index + "email"}
@@ -223,7 +222,7 @@ const DeliveryAddress: React.FC = () => {
                 onChange={handleEmailChange}
               />
               {!isEmailValid && (
-                <p className="mt-1 text-sm text-red-600 focus:outline-rose-600">
+                <p className="mt-1 text-sm text-red-600 focus:outline-primary-main">
                   Please enter a valid email address.
                 </p>
               )}
@@ -232,7 +231,7 @@ const DeliveryAddress: React.FC = () => {
             <div className="w-1/2">
               <p>Phone number</p>
               <input
-                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600"
+                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-primary-main"
                 placeholder="Phone number"
                 id="phone"
                 type="tel"
@@ -244,7 +243,7 @@ const DeliveryAddress: React.FC = () => {
 
           <p className="mt-5">Street Address</p>
           <input
-            className="w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600"
+            className="w-full rounded-lg border border-gray-300 p-2 focus:outline-primary-main"
             placeholder="Street Address"
             required
             id={"address" + index + "street"}
@@ -256,7 +255,7 @@ const DeliveryAddress: React.FC = () => {
             <div className="w-1/4">
               <p>Country</p>
               <input
-                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600"
+                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-primary-main"
                 placeholder="Country"
                 required
                 id={"address" + index + "country"}
@@ -265,7 +264,7 @@ const DeliveryAddress: React.FC = () => {
                 onChange={handleCountryChange}
               />
               {!isCountryValid && (
-                <p className="mt-1 text-sm text-red-600 focus:outline-rose-600">
+                <p className="mt-1 text-sm text-red-600 focus:outline-primary-main">
                   Please enter alphabetic characters only.
                 </p>
               )}
@@ -273,7 +272,7 @@ const DeliveryAddress: React.FC = () => {
             <div className="w-1/4">
               <p>City</p>
               <input
-                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600 "
+                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-primary-main "
                 placeholder="City"
                 id={"address" + index + "city"}
                 required
@@ -290,7 +289,7 @@ const DeliveryAddress: React.FC = () => {
             <div className="w-1/4">
               <p>State/Province</p>
               <input
-                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600"
+                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-primary-main"
                 placeholder="State"
                 required
                 id={"address" + index + "state"}
@@ -307,7 +306,7 @@ const DeliveryAddress: React.FC = () => {
             <div className="w-1/4">
               <p>ZIP/Postal</p>
               <input
-                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-rose-600"
+                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:outline-primary-main"
                 placeholder="Postal"
                 required
                 id={"address" + index + "psotcode"}
@@ -320,8 +319,10 @@ const DeliveryAddress: React.FC = () => {
             <button className="rounded-xl border border-gray-300 bg-white p-3">
               Cancel
             </button>
-            <button className="rounded-xl border bg-rose-600 p-3 text-white"
-            onClick={createAddress}>
+            <button
+              className="rounded-xl border bg-primary-main p-3 text-white"
+              onClick={createAddress}
+            >
               Save
             </button>
           </div>
@@ -331,7 +332,7 @@ const DeliveryAddress: React.FC = () => {
       <div>
         <button
           onClick={() => setAddressList([...addressList, 1])}
-          className="mt-10 text-rose-600"
+          className="mt-10 text-primary-main"
         >
           Add a new address
         </button>
