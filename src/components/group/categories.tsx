@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useEffect } from "react";
 
 const Categories = ({ images }: { images: string[] }) => {
@@ -57,13 +58,14 @@ const Categories = ({ images }: { images: string[] }) => {
         </style>
         {images.map((image, index) => (
           // eslint-disable-next-line @next/next/no-img-element
-          <img
-            key={index}
-            src={image}
-            className="flex-none object-contain"
-            style={{ width: 336, height: 336 }}
-            alt="groups"
-          />
+          <Link key={index} href={`/group/category/${index}`}>
+            <img
+              src={image}
+              className="flex-none object-contain"
+              style={{ width: 336, height: 336 }}
+              alt="groups"
+            />
+          </Link>
         ))}
       </div>
     </div>
