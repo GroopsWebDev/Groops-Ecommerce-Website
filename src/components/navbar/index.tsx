@@ -131,7 +131,7 @@ export default function Navbar() {
         {showCart ? <Cart showCart={showCart} setShow={setShowCart} /> : null}
       </header>
 
-      <div className="flex flex-row items-center justify-between p-3 px-20 shadow-md">
+      <div className="mt-5 flex flex-row items-center justify-between p-3 px-20 shadow-md">
         <Link href="/">
           <p className="text-gray-600">Snacks</p>
         </Link>
