@@ -38,8 +38,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
         />
         {!_sold_out && _one_plus && (
           <div className="relative">
-            <div className="absolute right-0 flex w-28 items-center justify-between rounded-full bg-red-600 ">
-              <button className="ml-0 rounded-full pb-2.5 pl-3.5 pr-3.5 pt-2.5 text-sm text-white hover:bg-red-700">
+            <div className="absolute right-0 flex w-28 items-center justify-between rounded-full bg-primary-main ">
+              <button className="ml-0 rounded-full pb-2.5 pl-3.5 pr-3.5 pt-2.5 text-sm text-white hover:bg-primary-dark">
                 <FontAwesomeIcon icon={faTrashCan} />
               </button>
               <p className="font-lg ml-3 font-medium text-white">1</p>
@@ -81,7 +81,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           700+ sold
         </p>
         {_on_discount && (
-          <p className="ml-2 mt-1 inline-block rounded-md bg-red-100 pl-3 pr-3 text-red-700">
+          <p className="ml-2 mt-1 inline-block rounded-md bg-rose-100 pl-3 pr-3 text-primary-dark">
             51 left
           </p>
         )}
@@ -93,7 +93,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               <p className="ml-1 pt-5 text-xl font-bold  text-primary-main line-through">
                 $ 2.99
               </p>
-              <p className="ml-2 mt-5 inline-block rounded-md bg-red-500 pl-2 pr-3 text-sm text-white">
+              <p className="ml-2 mt-5 inline-block rounded-md bg-primary-main pl-2 pr-3 text-sm text-white">
                 20% off
               </p>
             </>

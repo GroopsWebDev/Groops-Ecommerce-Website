@@ -40,11 +40,11 @@ export const GroupCard: React.FC<GroupCardPlusProps> = ({
           {_end_soon && (
             <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-80">
               <div className="flex items-center">
-                <div className="h-0.5 w-2.5 bg-red-500"></div>
-                <p className="mx-1 text-sm font-bold text-red-600">
+                <div className="h-0.5 w-2.5 bg-primary-main"></div>
+                <p className="mx-1 text-sm font-bold text-primary-main">
                   ENDING SOON
                 </p>
-                <div className="h-0.5 w-2.5 bg-red-500"></div>
+                <div className="h-0.5 w-2.5 bg-primary-main"></div>
               </div>
             </div>
           )}
@@ -66,7 +66,7 @@ export const GroupCard: React.FC<GroupCardPlusProps> = ({
         {/* GROUP JOINED */}
         {_group_joined && (
           <div className="relative">
-            <div className="absolute -right-8  w-28 rounded-full bg-red-600 ">
+            <div className="absolute -right-8  w-28 rounded-full bg-primary-main ">
               <p className="pb-2 pt-2 text-center font-light text-white">
                 Group Joined
               </p>
@@ -76,7 +76,7 @@ export const GroupCard: React.FC<GroupCardPlusProps> = ({
         {/* WAITLIST JOINED */}
         {_join_waitlist_joined && (
           <div className="relative">
-            <div className="absolute -right-8  w-28 rounded-full bg-red-600 ">
+            <div className="absolute -right-8  w-28 rounded-full bg-primary-main ">
               <p className="pb-2 pt-2 text-center font-light text-white">
                 Waitlist Joined
               </p>
@@ -88,10 +88,10 @@ export const GroupCard: React.FC<GroupCardPlusProps> = ({
       <div className="">
         <p className="mt-1 text-center text-lg">Yum Yum Squad</p>
         <div className=" flex flex-row items-center justify-center">
-          <p className="ml-2 mt-1 inline-block rounded-full bg-pink-100 pl-3 pr-3 text-red-700">
+          <p className="ml-2 mt-1 inline-block rounded-full bg-pink-100 pl-3 pr-3 text-primary-dark">
             Snacks
           </p>
-          <p className="ml-2 mt-1 inline-block rounded-full bg-pink-100 pl-3 pr-3 text-red-700">
+          <p className="ml-2 mt-1 inline-block rounded-full bg-pink-100 pl-3 pr-3 text-primary-dark">
             Candy
           </p>
         </div>

@@ -215,7 +215,7 @@ const PersonalInfo: React.FC = () => {
                   className="block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-primary-main focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                 />
                 {!isUserNameValid && (
-                  <p className="mt-1 text-sm text-red-600">
+                  <p className="mt-1 text-sm text-primary-main">
                     Special characters are not allowed.
                   </p>
                 )}
@@ -241,7 +241,7 @@ const PersonalInfo: React.FC = () => {
                   className="block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-primary-main focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                 />
                 {!isFirstNameValid && (
-                  <p className="mt-1 text-sm text-red-600">
+                  <p className="mt-1 text-sm text-primary-main">
                     Please enter alphabetic characters only.
                   </p>
                 )}
@@ -267,7 +267,7 @@ const PersonalInfo: React.FC = () => {
                   className="block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-primary-main focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                 />
                 {!isLastNameValid && (
-                  <p className="mt-1 text-sm text-red-600">
+                  <p className="mt-1 text-sm text-primary-main">
                     Please enter alphabetic characters only.
                   </p>
                 )}
@@ -293,7 +293,7 @@ const PersonalInfo: React.FC = () => {
                   className="block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-primary-main focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                 />
                 {!isEmailValid && (
-                  <p className="mt-1 text-sm text-red-600">
+                  <p className="mt-1 text-sm text-primary-main">
                     Please enter a valid email address.
                   </p>
                 )}

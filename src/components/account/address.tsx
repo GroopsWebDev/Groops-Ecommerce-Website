@@ -185,7 +185,7 @@ const DeliveryAddress: React.FC = () => {
                 onChange={handleFirstNameChange}
               />
               {!isFirstNameValid && (
-                <p className="mt-1 text-sm text-red-600">
+                <p className="mt-1 text-sm text-primary-main">
                   Please enter alphabetic characters only.
                 </p>
               )}
@@ -202,7 +202,7 @@ const DeliveryAddress: React.FC = () => {
                 onChange={handleLastNameChange}
               />
               {!isLastNameValid && (
-                <p className="mt-1 text-sm text-red-600 focus:outline-primary-main">
+                <p className="mt-1 text-sm text-primary-main focus:outline-primary-main">
                   Please enter alphabetic characters only.
                 </p>
               )}
@@ -222,7 +222,7 @@ const DeliveryAddress: React.FC = () => {
                 onChange={handleEmailChange}
               />
               {!isEmailValid && (
-                <p className="mt-1 text-sm text-red-600 focus:outline-primary-main">
+                <p className="mt-1 text-sm text-primary-main focus:outline-primary-main">
                   Please enter a valid email address.
                 </p>
               )}
@@ -264,7 +264,7 @@ const DeliveryAddress: React.FC = () => {
                 onChange={handleCountryChange}
               />
               {!isCountryValid && (
-                <p className="mt-1 text-sm text-red-600 focus:outline-primary-main">
+                <p className="mt-1 text-sm text-primary-main focus:outline-primary-main">
                   Please enter alphabetic characters only.
                 </p>
               )}
@@ -281,7 +281,7 @@ const DeliveryAddress: React.FC = () => {
                 onChange={handleCityChange}
               />
               {!isCityValid && (
-                <p className="mt-1 text-sm text-red-600">
+                <p className="mt-1 text-sm text-primary-main">
                   Please enter alphabetic characters only.
                 </p>
               )}
@@ -298,7 +298,7 @@ const DeliveryAddress: React.FC = () => {
                 onChange={handleStateChange}
               />
               {!isStateValid && (
-                <p className="mt-1 text-sm text-red-600">
+                <p className="mt-1 text-sm text-primary-main">
                   Please enter alphabetic characters only.
                 </p>
               )}

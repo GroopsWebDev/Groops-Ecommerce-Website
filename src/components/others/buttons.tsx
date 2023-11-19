@@ -22,7 +22,7 @@ export const PlusButton = ({ onClick }: { onClick: () => void }) => (
   <div>
     <button
       type="button"
-      className="rounded-full bg-red-600 p-3 text-white shadow-sm hover:bg-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      className="rounded-full bg-primary-main p-3 text-white shadow-sm hover:bg-primary-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
       onClick={onClick}
     >
       <PlusIcon className={`h-4 w-4`} aria-hidden="true" />
@@ -35,7 +35,7 @@ export const MinusButton = ({ onClick }: { onClick: () => void }) => {
     <>
       <button
         type="button"
-        className="rounded-full bg-red-600 p-1 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        className="rounded-full bg-primary-main p-1 text-white shadow-sm hover:bg-primary-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         onClick={onClick}
       >
         <svg
