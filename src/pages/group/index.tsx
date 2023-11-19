@@ -1,5 +1,6 @@
 import GroupRow from "@components/group/row";
 import Image from "next/image";
+import Categories from "~/components/group/categories";
 
 const Index = () => {
   return (
@@ -73,9 +74,18 @@ const Index = () => {
           </p>
         </div>
       </div>
-
-      <GroupRow />
-      <GroupRow />
+      <div className="px-12">
+        <Categories
+          images={[
+            "/assets/group/Group1.png",
+            "/assets/group/Group2.png",
+            "/assets/group/Group3.png",
+            "/assets/group/Group4.png",
+          ]}
+        />
+        <GroupRow />
+        <GroupRow />
+      </div>
     </div>
   );
 };

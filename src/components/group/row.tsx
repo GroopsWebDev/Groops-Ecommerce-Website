@@ -9,7 +9,7 @@ const Row = () => {
       <div className="z-0 p-10">
         <div className="flex flex-row items-center justify-between">
           <div className="flex flex-col">
-            <h1 className=" text-2xl">Groups that help you save</h1>
+            <h1 className=" text-2xl font-bold">Groups that help you save</h1>
             <div className="flex flex-row gap-x-2 pt-2">
               <Filter category="snack" />
               <Filter category="Instant Food" />
