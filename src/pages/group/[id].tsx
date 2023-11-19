@@ -1,4 +1,5 @@
 import GroupRow from "@components/group/row";
+import Row from "~/components/product/row";
 
 const Group = () => {
   const Countdown = () => (
@@ -40,58 +41,78 @@ const Group = () => {
 
       <p className="mt-5 text-gray-400">max possible discount : 30%</p>
 
-      <button className="mt-3 rounded bg-primary-main px-20 py-2 text-white">
+      <div
+        className="mt-5 flex flex-row justify-center gap-x-3 text-gray-400 transition-all hover:text-primary-main"
+        style={{
+          alignItems: "center",
+          cursor: "pointer",
+        }}
+        onClick={() => {
+          alert("Add sharing handler here");
+        }}
+      >
+        <img src="/assets/group/shareIcon.svg" className="h-4 w-4" />
+        <p>Share</p>
+      </div>
+      <button className="mt-3 rounded bg-primary-main px-20 py-2 text-white ">
         Join group
       </button>
     </div>
   );
 
   const Info = () => (
-    <div className="flex flex-col justify-start p-5">
-      <div className="flex h-1/3 gap-x-10">
-        <div className="">
+    <div className="flex flex-col justify-start p-5 ">
+      <div className=" flex h-1/3 gap-x-10">
+        <div>
           <p className="text-2xl font-bold">Grooper</p>
-          <p className="text-sm">name</p>
+          <p className="text-sm">Name</p>
           <img
-            src="/assets/dummy/product.png"
-            className="mt-3 h-1/2 rounded-full"
+            className="mt-3 inline-block h-12 w-12 rounded-full ring-2 ring-white"
+            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            alt=""
           />
         </div>
 
         <div>
           <p className="text-2xl font-bold">Group members (10)</p>
-          <button className="text-sm text-primary-main">see all</button>
-          <div className="mt-2 flex h-1/2 flex-row gap-x-1">
+          <button className="text-sm text-primary-main">See all</button>
+          <div className="mt-3 -space-x-2 overflow-hidden before:flex">
             <img
-              src="/assets/dummy/product.png"
-              className="h-full rounded-full"
+              className="inline-block h-12 w-12 rounded-full ring-2 ring-white"
+              src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+              alt=""
             />
             <img
-              src="/assets/dummy/product.png"
-              className="h-full rounded-full"
+              className="inline-block h-12 w-12 rounded-full ring-2 ring-white"
+              src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+              alt=""
             />
             <img
-              src="/assets/dummy/product.png"
-              className="h-full rounded-full"
+              className="inline-block h-12 w-12 rounded-full ring-2 ring-white"
+              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
+              alt=""
             />
           </div>
         </div>
       </div>
 
-      <p className="mt-5">
-        group introduction : dummy dummy dummy dummy dummy dummy dummy dummy
-        dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy
-        dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy group
-      </p>
       <p className="mt-10">
-        choose items from the following categories to recieve discount
+        <strong>Group Introductions: </strong>
+        {`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque 
+        elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin ege tegestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis
+        dapibus diam vel metus tempus vulputate.
+        
+        `}
       </p>
-      <div className="mt-3 flex gap-x-3">
-        <p className="rounded-full border border-primary-main p-1 text-primary-main">
-          Snacks 1% off
+      <p className="mt-10 font-semibold">
+        Choose items from the following categories to recieve discount
+      </p>
+      <div className="mt-5 flex gap-x-3 ">
+        <p className="rounded-full border border-primary-main px-3 py-1 text-primary-main">
+          Snacks + 1% off
         </p>
-        <p className="rounded-full border border-primary-main p-1 text-primary-main">
-          Snacks 1% off
+        <p className="rounded-full border border-primary-main px-3 py-1 text-primary-main">
+          Candy + 2% off
         </p>
       </div>
     </div>
@@ -122,7 +143,7 @@ const Group = () => {
         <Info />
       </div>
 
-      <GroupRow />
+      <Row section_category="Popular Items" />
     </div>
   );
 };
