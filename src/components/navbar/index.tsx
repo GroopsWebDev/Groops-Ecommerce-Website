@@ -108,7 +108,7 @@ export default function Navbar() {
             id="search"
           />
 
-          <button className="rounded-lg bg-rose-600 px-5 py-2 text-white">
+          <button className="rounded-lg bg-primary px-12 py-2 text-white">
             Search
           </button>
         </div>

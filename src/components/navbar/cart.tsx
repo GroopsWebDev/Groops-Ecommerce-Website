@@ -30,7 +30,7 @@ const Cart = ({
     };
     document.addEventListener("mousedown", handler);
   });
-  
+
   const Row = () => (
     <Link href="/product/1">
       <div className="flex items-center justify-between p-5">
@@ -52,7 +52,10 @@ const Cart = ({
   return (
     <>
       <Slide in={showCart} direction="left" timeout={{ enter: 500 }}>
-        <div className="fixed right-0 top-0 z-50 h-screen w-1/3 bg-white text-gray-800 shadow-xl" ref={sidebarRef}>
+        <div
+          className="fixed right-0 top-0 z-50 h-screen w-1/3 bg-white text-gray-800 shadow-xl"
+          ref={sidebarRef}
+        >
           <CrossButton />
           <h2 className="mt-3 text-center">Shopping Cart</h2>
 
@@ -67,10 +70,10 @@ const Cart = ({
                   className="w-1/3 rounded-full"
                 />
                 <div className="flex flex-col">
-                  <p className="text-lg text-rose-600">Group Name</p>
+                  <p className="text-lg text-primary-main">Group Name</p>
                   <div className="mt-2 flex gap-x-2">
                     <p className=" text-sm text-gray-400">21/50</p>
-                    <p className="rounded bg-rose-600 px-2 text-sm text-white">
+                    <p className="rounded bg-primary-main px-2 text-sm text-white">
                       50 % off
                     </p>
                   </div>
@@ -82,17 +85,17 @@ const Cart = ({
               <p className="text-sm">Ends in :</p>
               <div className="mt-5 flex gap-x-2">
                 <div className="flex flex-col items-center">
-                  <p className="text-3xl font-bold text-rose-600">03</p>
+                  <p className="text-3xl font-bold text-primary-main">03</p>
                   <p className="text-xs text-gray-400">Days</p>
                 </div>
-                <p className="text-3xl font-bold text-rose-600"> : </p>
+                <p className="text-3xl font-bold text-primary-main"> : </p>
                 <div className="flex flex-col items-center">
-                  <p className="text-3xl font-bold text-rose-600">07</p>
+                  <p className="text-3xl font-bold text-primary-main">07</p>
                   <p className="text-xs text-gray-400">Hour</p>
                 </div>
-                <p className="text-3xl font-bold text-rose-600"> : </p>
+                <p className="text-3xl font-bold text-primary-main"> : </p>
                 <div className="flex flex-col items-center">
-                  <p className="text-3xl font-bold text-rose-600">20</p>
+                  <p className="text-3xl font-bold text-primary-main">20</p>
                   <p className="text-xs text-gray-400">Minute</p>
                 </div>
               </div>
@@ -110,7 +113,7 @@ const Cart = ({
           </div>
 
           <div className="mt-5 flex justify-center p-5">
-            <button className="w-[90%] rounded-lg bg-rose-600 p-3 text-white">
+            <button className="w-[90%] rounded-lg bg-primary-main p-3 text-white">
               Go to Cart
             </button>
           </div>

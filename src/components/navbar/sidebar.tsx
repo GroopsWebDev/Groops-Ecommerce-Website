@@ -59,7 +59,7 @@ const Sidebar = ({
             <CrossButton />
             {user ? (
               <div>
-                <div className="flex flex-col items-center bg-rose-600">
+                <div className="flex flex-col items-center bg-gradient-to-r from-primary-main  to-primary-dark">
                   <Image
                     src={user!.profileImageUrl}
                     alt="clerk user.imageUrl"
@@ -83,7 +83,10 @@ const Sidebar = ({
                     <p className="ml-2">Your Account</p>
                   </Link>
 
-                  <Link className="flex items-center" href="/account/user-profile">
+                  <Link
+                    className="flex items-center"
+                    href="/account/user-profile"
+                  >
                     <p className="ml-2">Your Account (Clerk)</p>
                   </Link>
 
