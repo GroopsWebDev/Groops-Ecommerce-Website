@@ -14,7 +14,7 @@ const Row: React.FC<Props> = ({ section_category }) => {
       <div className="z-0 bg-white p-10">
         <div className="flex flex-row items-center justify-between">
           <div className="flex flex-col">
-            <h1 className=" text-2xl">{section_category}</h1>
+            <h1 className=" text-2xl font-bold">{section_category}</h1>
             <div className="flex flex-row gap-x-2 pt-2">
               <Filter category="snack" />
               <Filter category="Instant Food" />

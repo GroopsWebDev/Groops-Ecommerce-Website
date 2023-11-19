@@ -3,13 +3,15 @@ import Link from "next/link";
 import Arrow from "@public/assets/icons/arrow.svg";
 import GroupCard from "./card";
 
-const Row = () => {
+const Row = ({ sectionTitle }: { sectionTitle?: string }) => {
   return (
     <>
       <div className="z-0 p-10">
         <div className="flex flex-row items-center justify-between">
           <div className="flex flex-col">
-            <h1 className=" text-2xl font-bold">Groups that help you save</h1>
+            <h1 className=" text-2xl font-bold">
+              {sectionTitle ? sectionTitle : "Group List"}
+            </h1>
             <div className="flex flex-row gap-x-2 pt-2">
               <Filter category="snack" />
               <Filter category="Instant Food" />

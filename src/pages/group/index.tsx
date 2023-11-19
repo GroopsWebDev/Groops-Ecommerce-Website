@@ -83,8 +83,8 @@ const Index = () => {
             "/assets/group/Group4.png",
           ]}
         />
-        <GroupRow />
-        <GroupRow />
+        <GroupRow sectionTitle="Recommended Groups" />
+        <GroupRow sectionTitle="Ending Soon" />
       </div>
     </div>
   );
