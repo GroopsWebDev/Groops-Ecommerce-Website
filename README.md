@@ -1,3 +1,16 @@
+## 欢迎来到 Groops! – 更聪明的购物方式
+
+Groops! 是一个创新的电商平台，融合了领袖营销与团购模式，让用户通过共同购物解锁专属折扣。我们的目标是扩大客户群，同时确保以最低成本销售产品。Groops! 不仅仅是一个交易平台，更是一个互动式购物社区，用户可以组建团队，邀请朋友加入，一起享受最高可达 number% 折扣的优惠价格。
+
+Groops! 不只是购物，更注重社区、可持续性和创新，帮助用户在省钱的同时建立联系，探索更多可能性。你可以选择加入现有团购或创建自己的团购小组，挑选心仪商品，享受集体购买带来的超值优惠！
+
+## Welcome to Groops! – The Smarter Way to Shop
+
+Groops! is a revolutionary e-commerce platform that combines leader marketing with group buying, allowing customers to unlock exclusive discounts by shopping together. Our goal is to expand our customer base while ensuring products are sold at minimized costs. By creating an interactive shopping experience beyond just transactions, Groops! empowers users to form teams, invite friends, and maximize savings—often up to number% off retail prices.
+
+More than just shopping, Groops! fosters community, sustainability, and innovation, making it easier for customers to save money while building connections and discovering new opportunities. Join a group or create your own, shop your favorite products, and enjoy the benefits of collective purchasing today!
+
+---
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
