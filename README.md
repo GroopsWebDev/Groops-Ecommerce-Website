@@ -10,6 +10,10 @@ Groops! is a revolutionary e-commerce platform that combines leader marketing wi
 
 More than just shopping, Groops! fosters community, sustainability, and innovation, making it easier for customers to save money while building connections and discovering new opportunities. Join a group or create your own, shop your favorite products, and enjoy the benefits of collective purchasing today!
 
+<div align="center">
+  <img alt= "Groops Home Page.png" src="https://github.com/GroopsWebDev/Groops-Ecommerce-Website/blob/main/README_Img/groops.png" width="100%"/>
+</div>
+
 ---
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
@@ -29,6 +33,10 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 📆 [Project Log](https://github.com/orgs/GroopsWebDev/projects/2)
 
 ⭐️ [MYSQL DB](https://docs.google.com/document/d/1zgcdkEQzLEyuTI9KCrQLMYMc40TMqAafL1m6j7mcan4/edit#heading=h.7202i2lbl1p3)
+
+🗺️⭐️ [UI Figma Design High PDF](https://drive.google.com/file/d/1SoB9Nx7pNHW1Xp34DMc8jzJE0FeOgRE5/view?usp=drive_link)
+
+🗺️⭐️ [UI Figma Design High fidelity](https://www.figma.com/file/7HXhy23kgizbej6cWZh3qA/Groops?type=design&node-id=363-4163&t=XCdgI5OjwkC8W3V5-0)
 
 🗺️⭐️ [UI Figma Design High fidelity](https://www.figma.com/file/7HXhy23kgizbej6cWZh3qA/Groops?type=design&node-id=363-4163&t=XCdgI5OjwkC8W3V5-0)
 
